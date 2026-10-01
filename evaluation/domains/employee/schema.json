@@ -1,0 +1,149 @@
+{
+  "dataset": {
+    "row_count": 150
+  },
+  "column_types": {
+    "text": [
+      "Name",
+      "Manager ID"
+    ],
+    "categorical": [
+      "Department",
+      "Role",
+      "Status",
+      "Location"
+    ],
+    "numeric": [
+      "Annual Salary",
+      "Bonus Target",
+      "Tenure (Years)",
+      "Performance Score",
+      "Market Rate",
+      "Equity Grant Value",
+      "Time in Current Role (Years)"
+    ],
+    "id": [
+      "Employee ID"
+    ]
+  },
+  "business_terms": {
+    "separated_statuses": [
+      "Terminated"
+    ],
+    "current_employee_definition": "Status not in separated_statuses"
+  },
+  "rules": [
+    "Name should use contains matching.",
+    "Status uses exact matching unless the user says current employees, in which case use Status not in separated_statuses.",
+    "Numeric comparisons valid for Annual Salary, Bonus Target, Tenure (Years)."
+  ],
+  "columns": {
+    "Employee ID": {
+      "type": "id",
+      "match_strategy": "exact"
+    },
+    "Name": {
+      "type": "text",
+      "match_strategy": "contains"
+    },
+    "Department": {
+      "type": "categorical",
+      "unique_count": 5,
+      "categories": [
+        "Engineering",
+        "Sales",
+        "Marketing",
+        "Finance",
+        "Operations"
+      ],
+      "match_strategy": "exact"
+    },
+    "Role": {
+      "type": "categorical",
+      "unique_count": 4,
+      "categories": [
+        "IC",
+        "Manager",
+        "Director",
+        "VP"
+      ],
+      "match_strategy": "exact"
+    },
+    "Status": {
+      "type": "categorical",
+      "unique_count": 4,
+      "categories": [
+        "Active",
+        "On Leave",
+        "Terminated",
+        "Sabbatical"
+      ],
+      "match_strategy": "exact"
+    },
+    "Location": {
+      "type": "categorical",
+      "unique_count": 5,
+      "categories": [
+        "NYC",
+        "SF",
+        "London",
+        "Berlin",
+        "Remote"
+      ],
+      "match_strategy": "exact"
+    },
+    "Annual Salary": {
+      "type": "numeric"
+    },
+    "Bonus Target": {
+      "type": "numeric"
+    },
+    "Tenure (Years)": {
+      "type": "numeric"
+    },
+    "Performance Score": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "Market Rate": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "Equity Grant Value": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "Time in Current Role (Years)": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "Manager ID": {
+      "type": "text",
+      "match_strategy": "exact"
+    }
+  },
+  "business_rules": {
+    "current": {
+      "column": "Status",
+      "aliases": ["active employees"],
+      "exclude": [
+        "Terminated"
+      ]
+    }
+  },
+  "domain": {
+    "description": "An employee directory. Each row is an employee, with their department, role, employment status, work location, compensation, and tenure.",
+    "column_descriptions": {
+      "Annual Salary": "Gross annual base salary.",
+      "Bonus Target": "Target annual bonus amount for the employee.",
+      "Tenure (Years)": "Number of years the employee has been with the organisation.",
+      "Manager ID": "The Employee ID of this employee's line manager.",
+      "Status": "Employment status (e.g. Active, On Leave, Terminated, Sabbatical).",
+      "Role": "The employee's role band (e.g. IC, Manager, Director, VP).",
+      "Performance Score": "Most recent performance review rating, 1.0 (lowest) to 5.0 (highest).",
+      "Market Rate": "External market benchmark salary for the employee's role.",
+      "Equity Grant Value": "Current value of the employee's equity grant.",
+      "Time in Current Role (Years)": "Number of years the employee has held their current role (always <= Tenure (Years))."
+    }
+  }
+}

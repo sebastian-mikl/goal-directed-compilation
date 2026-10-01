@@ -1,0 +1,10 @@
+{
+  "rescored_from": "results_spider_smoke_bike_1.jsonl",
+  "rescored_to": "results_spider_smoke_bike_1.rescored.jsonl",
+  "old_gold_sha256": "81f1803c522113852d5e9e76ecd8221bc1e2942d361bde915ad798614b7cf100",
+  "new_gold_sha256": "81f1803c522113852d5e9e76ecd8221bc1e2942d361bde915ad798614b7cf100",
+  "n_records": 2,
+  "n_outcome_changed": 0,
+  "n_needs_rerun": 0,
+  "flips_per_system": {}
+}

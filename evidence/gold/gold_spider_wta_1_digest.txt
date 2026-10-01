@@ -1,0 +1,124 @@
+GOLD DIGEST -- wta_1 (Spider third-party gold, executed verbatim against the real .sqlite)
+
+[wta_01] (out_of_scope_register)  Find the total number of players.
+    SQL: SELECT count(*) FROM players
+    GOLD: REFUSE -- targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[wta_02] (aggregate)  Find the total number of matches.
+    SQL: SELECT count(*) FROM matches
+    GOLD (scalar, ordered=False, rows=1): 278
+
+[wta_03] (out_of_scope_register)  List the first name and birth date of all players from the country with code USA.
+    SQL: SELECT first_name ,  birth_date FROM players WHERE country_code  =  'USA'
+    GOLD: REFUSE -- targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[wta_04] (out_of_contract_aggregate)  Find the average age of losers and winners of all matches.
+    SQL: SELECT avg(loser_age) ,  avg(winner_age) FROM matches
+    GOLD (table, ordered=False, rows=1): [{"avg(loser_age)": 27.311214, "avg(winner_age)": 27.062178}]
+
+[wta_05] (aggregate)  Find the average rank of winners in all matches.
+    SQL: SELECT avg(winner_rank) FROM matches
+    GOLD (scalar, ordered=False, rows=1): 13.715827
+
+[wta_06] (aggregate)  Find the highest rank of losers in all matches.
+    SQL: SELECT min(loser_rank) FROM matches
+    GOLD (scalar, ordered=False, rows=1): 1
+
+[wta_07] (out_of_scope_register)  find the number of distinct country codes of all players.
+    SQL: SELECT count(DISTINCT country_code) FROM players
+    GOLD: REFUSE -- targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[wta_08] (aggregate)  Find the number of distinct name of losers.
+    SQL: SELECT count(DISTINCT loser_name) FROM matches
+    GOLD (scalar, ordered=False, rows=1): 49
+
+[wta_09] (out_of_contract_aggregate)  Find the name of tourney that has more than 10 matches.
+    SQL: SELECT tourney_name FROM matches GROUP BY tourney_name HAVING count(*)  >  10
+    GOLD (table, ordered=False, rows=9): [{"tourney_name": "Australian Open"}, {"tourney_name": "Cincinnati"}, {"tourney_name": "French Open"}, {"tourney_name": "Indian Wells"}, {"tourney_name": "Miami"}, {"tourney_name": "Singapore"}] … (+3 more)
+
+[wta_10] (aggregate)  List the number of all matches who played in years of 2013 or 2016.
+    SQL: SELECT count(*) FROM matches WHERE YEAR  =  2013 OR YEAR  =  2016
+    GOLD (scalar, ordered=False, rows=1): 170
+
+[wta_11] (out_of_scope_register)  Find the first name and country code of the oldest player.
+    SQL: SELECT first_name ,  country_code FROM players ORDER BY birth_date LIMIT 1
+    GOLD: REFUSE -- targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[wta_12] (out_of_scope_register)  List the first and last name of all players in the order of birth date.
+    SQL: SELECT first_name ,  last_name FROM players ORDER BY birth_date
+    GOLD: REFUSE -- targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[wta_13] (out_of_scope_register)  List the first and last name of all players who are left / L hand in the order of birth date.
+    SQL: SELECT first_name ,  last_name FROM players WHERE hand  =  'L' ORDER BY birth_date
+    GOLD: REFUSE -- targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[wta_14] (group_by)  Find the year that has the most number of matches.
+    SQL: SELECT YEAR FROM matches GROUP BY YEAR ORDER BY count(*) DESC LIMIT 1
+    GOLD (scalar, ordered=False, rows=1): 2016
+
+[wta_15] (group_by)  Find the name and rank points of the winner who won the most times.
+    SQL: SELECT winner_name ,  winner_rank_points FROM matches GROUP BY winner_name ORDER BY count(*) DESC LIMIT 1
+    GOLD (ordered_list, ordered=True, rows=1): [{"winner_name": "Angelique Kerber", "winner_rank_points": 3715}]
+
+[wta_16] (order_by)  Find the name of the winner who has the highest rank points and participated in the Australian Open tourney.
+    SQL: SELECT winner_name FROM matches WHERE tourney_name  =  'Australian Open' ORDER BY winner_rank_points DESC LIMIT 1
+    GOLD (scalar, ordered=False, rows=1): "Serena Williams"
+
+[wta_17] (order_by)  find the names of loser and winner who played in the match with greatest number of minutes.
+    SQL: SELECT winner_name ,  loser_name FROM matches ORDER BY minutes DESC LIMIT 1
+    GOLD (ordered_list, ordered=True, rows=1): [{"winner_name": "Petra Kvitova", "loser_name": "Angelique Kerber"}]
+
+[wta_18] (out_of_scope_register)  find the number of players for each country.
+    SQL: SELECT count(*) ,  country_code FROM players GROUP BY country_code
+    GOLD: REFUSE -- targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[wta_19] (out_of_scope_register)  find the code of the country where has the greatest number of players.
+    SQL: SELECT country_code FROM players GROUP BY country_code ORDER BY count(*) DESC LIMIT 1
+    GOLD: REFUSE -- targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[wta_20] (out_of_scope_register)  Find the codes of countries that have more than 50 players.
+    SQL: SELECT country_code FROM players GROUP BY country_code HAVING count(*)  >  50
+    GOLD: REFUSE -- targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[wta_21] (out_of_scope_register)  Find the total number of tours for each ranking date.
+    SQL: SELECT sum(tours) ,  ranking_date FROM rankings GROUP BY ranking_date
+    GOLD: REFUSE -- targets table(s) ['rankings'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[wta_22] (group_by)  Find the number of matches happened in each year.
+    SQL: SELECT count(*) ,  YEAR FROM matches GROUP BY YEAR
+    GOLD (table, ordered=False, rows=3): [{"count(*)": 12, "year": 2013}, {"count(*)": 108, "year": 2017}, {"count(*)": 158, "year": 2016}]
+
+[wta_23] (order_by)  Find the name and rank of the 3 youngest winners across all matches.
+    SQL: SELECT DISTINCT winner_name ,  winner_rank FROM matches ORDER BY winner_age LIMIT 3
+    GOLD (ordered_list, ordered=True, rows=3): [{"winner_name": "Madison Keys", "winner_rank": 17}, {"winner_name": "Madison Keys", "winner_rank": 24}, {"winner_name": "Madison Keys", "winner_rank": 16}]
+
+[wta_24] (aggregate)  How many different winners both participated in the WTA Championships and were left handed?
+    SQL: SELECT count(DISTINCT winner_name) FROM matches WHERE tourney_name  =  'WTA Championships' AND winner_hand  =  'L'
+    GOLD (scalar, ordered=False, rows=1): 2
+
+[wta_25] (out_of_scope_register)  Find the number of players for each hand type.
+    SQL: SELECT count(*) ,  hand FROM players GROUP BY hand
+    GOLD: REFUSE -- targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[wta_26] (out_of_scope_register)  List the names of all winners who played in both 2013 and 2016.
+    SQL: SELECT winner_name FROM matches WHERE YEAR  =  2013 INTERSECT SELECT winner_name FROM matches WHERE YEAR  =  2016
+    GOLD: REFUSE -- requires a multi-table join or set operation (INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.
+
+[wta_27] (out_of_scope_register)  What are the country code and first name of the players who won in both tourney WTA Championships and Australian Open?
+    SQL: SELECT T1.country_code ,  T1.first_name FROM players AS T1 JOIN matches AS T2 ON T1.player_id  =  T2.winner_id WHERE T2.tourney_name  =  'WTA Championships' INTERSECT SELECT T1.country_code ,  T1.first_name FROM players AS T1 JOIN matches AS T2 ON T1.player_id  =  T2.winner_id WHERE T2.tourney_name  =  'Australian Open'
+    GOLD: REFUSE -- requires a multi-table join or set operation (INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.
+
+[wta_28] (out_of_scope_register)  Find the first name and country code of the player who did the most number of tours.
+    SQL: SELECT T1.country_code ,  T1.first_name FROM players AS T1 JOIN rankings AS T2 ON T1.player_id  =  T2.player_id ORDER BY T2.tours DESC LIMIT 1
+    GOLD: REFUSE -- requires a multi-table join or set operation (INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.
+
+[wta_29] (out_of_scope_register)  Find the average ranking for each player and their first name.
+    SQL: SELECT avg(ranking) ,  T1.first_name FROM players AS T1 JOIN rankings AS T2 ON T1.player_id  =  T2.player_id GROUP BY T1.first_name
+    GOLD: REFUSE -- requires a multi-table join or set operation (INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.
+
+[wta_30] (out_of_scope_register)  Find the first name, country code and birth date of the winner who has the highest rank points in all matches.
+    SQL: SELECT T1.first_name ,  T1.country_code ,  T1.birth_date FROM players AS T1 JOIN matches AS T2 ON T1.player_id  =  T2.winner_id ORDER BY T2.winner_rank_points DESC LIMIT 1
+    GOLD: REFUSE -- requires a multi-table join or set operation (INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.
+
+
+FLAGS: none

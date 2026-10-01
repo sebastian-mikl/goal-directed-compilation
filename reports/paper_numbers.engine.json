@@ -1,0 +1,36 @@
+{
+ "csv": "paper_numbers.csv",
+ "csv_sha256": "c2ea273167ca9332b7a0c99bbbad0a2cc3e963fad129a59d0d3d54ded3df06f9",
+ "replayed_systems": [
+  "network",
+  "planner"
+ ],
+ "engine_sha256": "2ef059df8ff443236150be214c18f10eb36c6bfd1862f8ebb5f34e3a2bab7bf6",
+ "contract_version": "s49",
+ "comparator_version": "s48",
+ "engine_files": {
+  "evidence/eval_run/adapters/__init__.py": "bee6bd0657183d148956da890071a9fc569b044ededb91aaed4b9d609a2090b6",
+  "evidence/eval_run/adapters/base.py": "5e3405fb84884abe11ded24763d184d207b53f5a6604e92824f988ecd42f7472",
+  "evidence/eval_run/adapters/code_agent.py": "121afebffe585a080fc696299e7a5f3b78114a7537e3444d723e08c3dd7e742c",
+  "evidence/eval_run/adapters/network.py": "33bf990b44eba25adefc2951ca49b0c5c12d75088b3caff43508dbf5e21ba489",
+  "evidence/eval_run/adapters/planner_upfront.py": "df95bb1c4887a1b3ba1d707d4148f02d9e460c7c3ffca8db0bbf39a53a8853bd",
+  "evidence/eval_run/adapters/react.py": "49f7e8b9595238844cb8d1f5efc392f5601311b72e3faa070e4071a87211f5a1",
+  "evidence/eval_run/adapters/text_to_sql.py": "7dfd0431754554e2f2225df59142af87a17ae8b6711385350aa56b932cf49aae",
+  "evidence/eval_run/harness.py": "5dfddc7771e59fec6f2ad6f60668f671166b35fb31cce0e8e65541596a32a682",
+  "evidence/eval_run/tools_code.py": "9814a30fc737267b72838475e78d9a090cd740ed65dafdbabb26aa62d51b0304",
+  "evidence/eval_run/tools_decl.py": "1a358fb546603a85d1638a54336e747054dbc24aa3d7c2260641c4ec397bc2da",
+  "evidence/eval_run/tools_sql.py": "842fc61fdb6c280c123502ca5e8e39c665a8068cf9d43eeddcdc3b6fa2009d08",
+  "gdc/__init__.py": "3a98e3615a0b376a7a5721b27ae375568498e00db77f6884ba78e00dc1344b2f",
+  "gdc/config.py": "8ec2311c38e2d2839bba5be4b560f208dc102f20a0d26de7b1fb6b2ed8de5c25",
+  "gdc/contract.py": "988406820a84bd4ec95cd4dd77e5702d70ef9215c5227b2af622997fe1fba82e",
+  "gdc/integrate.py": "79d1e34b5fc6e20ca1c24b2b8d09c93fae7ec8fff291838a3b072c5374f3b257",
+  "gdc/llm.py": "4098ec47604c136b2da528d31ff8233609d8dda2a8a80a2e434350dd847dd4dc",
+  "gdc/operators.py": "b69fe46663e4a08b49f82613c09f43bea55071f6fb5e7117b3ac58ff3dd4b374",
+  "gdc/order.py": "f57d869e24d62904ab27d1cd391e2b56e720456e6978de813d3a57727b1279a2",
+  "gdc/primitives.py": "236a71ee8c7a0a74c3310a5e500aed926c51a5fd33e06c1ff97163c1927b25ab",
+  "gdc/probe.py": "5f5e935d088a56cf416b39641c64bce6ef9c8087e07c9dd073ec81ae53f7efa6",
+  "gdc/schema_bridge.py": "2e90ab7077de1a4823e35ec5d775fbe7080ca4884180d600037abe0c392d6fbc",
+  "gdc/search.py": "6abdde4cef65d6f33828d5a309d9923eddc07b80561efaf36dd4e3e1566c56fd",
+  "gdc/state.py": "e5b03aa0d4091075f461d99f43557d30d8d30b50fc0a96e9e5635b8baa78dad2"
+ }
+}

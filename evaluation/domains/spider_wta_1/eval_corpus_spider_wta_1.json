@@ -1,0 +1,373 @@
+{
+  "meta": {
+    "domain": "wta_1",
+    "source": "Spider (Yu et al., 2018) dev-set questions + official gold SQL, xlangai/spider HuggingFace mirror -- verbatim, third-party authored, not hand-written for this project.",
+    "purpose": "Third evaluation domain (tennis), selected via scripts/rank_all_spider_databases.py for join-free-friendliness against planner/'s 4-operator vocabulary.",
+    "selection_note": "62 real dev-set questions covering 31 distinct gold queries (2.00x paraphrase density -- exactly 2 phrasings per underlying query). Deduplicated to 31 by gold SQL text (first-occurrence phrasing kept). All 25 single-table queries kept; 5 of 6 multi-table/compound queries kept as deliberate refusal cases (1 dropped for being a shape-duplicate: two near-identical players+rankings JOIN GROUP BY first_name queries differing only in aggregate function -- kept the more commonly-asked 'average' form, dropped 'total'). No questions authored, reworded, or padded.",
+    "tiers": "SQL-structural (filter/aggregate/group_by/order_by/multi_or_compound), not this project's T1-T5 op-count scheme -- Spider's SQL wasn't authored against planner/'s operator vocabulary, so re-deriving an op-count tier would require subjective reinterpretation of third-party content.",
+    "register_table": "matches",
+    "single_table_register_note": "Originally selected against the domain's full multi-table schema; converted to a single-table register ('matches') to match register.pkl/employees.pkl's convention (zero engine changes needed). 11 previously-answerable queries that touched a different table were converted to refusal cases -- the underlying gold SQL is kept for documentation, but is not executed (expected_behavior=refuse).",
+    "tier_convention_note": "'tier' distinguishes answer vs refuse queries for reporting (mirrors eval_corpus.json/eval_corpus_employee.json's out_of_range convention -- never pooled into one blended accuracy number). Deliberately NOT labeled 'out_of_range': that tier means unanswerable IN PRINCIPLE (undefined terms, no such column/data at all); these refuse-cases are answerable in principle but need a table outside this domain's single-table register -- a different mechanism, kept a different label. 'sql_structure' preserves the original filter/aggregate/group_by/order_by/multi_or_compound classification for every query (answer and refuse alike)."
+  },
+  "queries": [
+    {
+      "id": "wta_01",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "players"
+      ],
+      "question": "Find the total number of players.",
+      "gold_sql": "SELECT count(*) FROM players",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "wta_02",
+      "tier": "aggregate",
+      "tables": [
+        "matches"
+      ],
+      "question": "Find the total number of matches.",
+      "gold_sql": "SELECT count(*) FROM matches",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "wta_03",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "players"
+      ],
+      "question": "List the first name and birth date of all players from the country with code USA.",
+      "gold_sql": "SELECT first_name ,  birth_date FROM players WHERE country_code  =  'USA'",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "filter"
+    },
+    {
+      "id": "wta_04",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "multi_aggregate"
+      ],
+      "tables": [
+        "matches"
+      ],
+      "question": "Find the average age of losers and winners of all matches.",
+      "gold_sql": "SELECT avg(loser_age) ,  avg(winner_age) FROM matches",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "wta_05",
+      "tier": "aggregate",
+      "tables": [
+        "matches"
+      ],
+      "question": "Find the average rank of winners in all matches.",
+      "gold_sql": "SELECT avg(winner_rank) FROM matches",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "wta_06",
+      "tier": "aggregate",
+      "tables": [
+        "matches"
+      ],
+      "question": "Find the highest rank of losers in all matches.",
+      "gold_sql": "SELECT min(loser_rank) FROM matches",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "wta_07",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "players"
+      ],
+      "question": "find the number of distinct country codes of all players.",
+      "gold_sql": "SELECT count(DISTINCT country_code) FROM players",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "wta_08",
+      "tier": "aggregate",
+      "tables": [
+        "matches"
+      ],
+      "question": "Find the number of distinct name of losers.",
+      "gold_sql": "SELECT count(DISTINCT loser_name) FROM matches",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "wta_09",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "having_filter"
+      ],
+      "tables": [
+        "matches"
+      ],
+      "question": "Find the name of tourney that has more than 10 matches.",
+      "gold_sql": "SELECT tourney_name FROM matches GROUP BY tourney_name HAVING count(*)  >  10",
+      "expected_behavior": "answer",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "wta_10",
+      "tier": "aggregate",
+      "tables": [
+        "matches"
+      ],
+      "question": "List the number of all matches who played in years of 2013 or 2016.",
+      "gold_sql": "SELECT count(*) FROM matches WHERE YEAR  =  2013 OR YEAR  =  2016",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "wta_11",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "players"
+      ],
+      "question": "Find the first name and country code of the oldest player.",
+      "gold_sql": "SELECT first_name ,  country_code FROM players ORDER BY birth_date LIMIT 1",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "order_by"
+    },
+    {
+      "id": "wta_12",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "players"
+      ],
+      "question": "List the first and last name of all players in the order of birth date.",
+      "gold_sql": "SELECT first_name ,  last_name FROM players ORDER BY birth_date",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "order_by"
+    },
+    {
+      "id": "wta_13",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "players"
+      ],
+      "question": "List the first and last name of all players who are left / L hand in the order of birth date.",
+      "gold_sql": "SELECT first_name ,  last_name FROM players WHERE hand  =  'L' ORDER BY birth_date",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "order_by"
+    },
+    {
+      "id": "wta_14",
+      "tier": "group_by",
+      "tables": [
+        "matches"
+      ],
+      "question": "Find the year that has the most number of matches.",
+      "gold_sql": "SELECT YEAR FROM matches GROUP BY YEAR ORDER BY count(*) DESC LIMIT 1",
+      "expected_behavior": "answer",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "wta_15",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "group_attribute_projection"
+      ],
+      "tables": [
+        "matches"
+      ],
+      "question": "Find the name and rank points of the winner who won the most times.",
+      "gold_sql": "SELECT winner_name ,  winner_rank_points FROM matches GROUP BY winner_name ORDER BY count(*) DESC LIMIT 1",
+      "expected_behavior": "answer",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "wta_16",
+      "tier": "order_by",
+      "tables": [
+        "matches"
+      ],
+      "question": "Find the name of the winner who has the highest rank points and participated in the Australian Open tourney.",
+      "gold_sql": "SELECT winner_name FROM matches WHERE tourney_name  =  'Australian Open' ORDER BY winner_rank_points DESC LIMIT 1",
+      "expected_behavior": "answer",
+      "sql_structure": "order_by"
+    },
+    {
+      "id": "wta_17",
+      "tier": "order_by",
+      "tables": [
+        "matches"
+      ],
+      "question": "find the names of loser and winner who played in the match with greatest number of minutes.",
+      "gold_sql": "SELECT winner_name ,  loser_name FROM matches ORDER BY minutes DESC LIMIT 1",
+      "expected_behavior": "answer",
+      "sql_structure": "order_by"
+    },
+    {
+      "id": "wta_18",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "players"
+      ],
+      "question": "find the number of players for each country.",
+      "gold_sql": "SELECT count(*) ,  country_code FROM players GROUP BY country_code",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "wta_19",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "players"
+      ],
+      "question": "find the code of the country where has the greatest number of players.",
+      "gold_sql": "SELECT country_code FROM players GROUP BY country_code ORDER BY count(*) DESC LIMIT 1",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "wta_20",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "players"
+      ],
+      "question": "Find the codes of countries that have more than 50 players.",
+      "gold_sql": "SELECT country_code FROM players GROUP BY country_code HAVING count(*)  >  50",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "wta_21",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "rankings"
+      ],
+      "question": "Find the total number of tours for each ranking date.",
+      "gold_sql": "SELECT sum(tours) ,  ranking_date FROM rankings GROUP BY ranking_date",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['rankings'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "wta_22",
+      "tier": "group_by",
+      "tables": [
+        "matches"
+      ],
+      "question": "Find the number of matches happened in each year.",
+      "gold_sql": "SELECT count(*) ,  YEAR FROM matches GROUP BY YEAR",
+      "expected_behavior": "answer",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "wta_23",
+      "tier": "order_by",
+      "tables": [
+        "matches"
+      ],
+      "question": "Find the name and rank of the 3 youngest winners across all matches.",
+      "gold_sql": "SELECT DISTINCT winner_name ,  winner_rank FROM matches ORDER BY winner_age LIMIT 3",
+      "expected_behavior": "answer",
+      "sql_structure": "order_by"
+    },
+    {
+      "id": "wta_24",
+      "tier": "aggregate",
+      "tables": [
+        "matches"
+      ],
+      "question": "How many different winners both participated in the WTA Championships and were left handed?",
+      "gold_sql": "SELECT count(DISTINCT winner_name) FROM matches WHERE tourney_name  =  'WTA Championships' AND winner_hand  =  'L'",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "wta_25",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "players"
+      ],
+      "question": "Find the number of players for each hand type.",
+      "gold_sql": "SELECT count(*) ,  hand FROM players GROUP BY hand",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "wta_26",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "matches"
+      ],
+      "question": "List the names of all winners who played in both 2013 and 2016.",
+      "gold_sql": "SELECT winner_name FROM matches WHERE YEAR  =  2013 INTERSECT SELECT winner_name FROM matches WHERE YEAR  =  2016",
+      "expected_behavior": "refuse",
+      "reason": "requires a multi-table join or set operation (INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.",
+      "sql_structure": "multi_or_compound"
+    },
+    {
+      "id": "wta_27",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "matches",
+        "players"
+      ],
+      "question": "What are the country code and first name of the players who won in both tourney WTA Championships and Australian Open?",
+      "gold_sql": "SELECT T1.country_code ,  T1.first_name FROM players AS T1 JOIN matches AS T2 ON T1.player_id  =  T2.winner_id WHERE T2.tourney_name  =  'WTA Championships' INTERSECT SELECT T1.country_code ,  T1.first_name FROM players AS T1 JOIN matches AS T2 ON T1.player_id  =  T2.winner_id WHERE T2.tourney_name  =  'Australian Open'",
+      "expected_behavior": "refuse",
+      "reason": "requires a multi-table join or set operation (INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.",
+      "sql_structure": "multi_or_compound"
+    },
+    {
+      "id": "wta_28",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "players",
+        "rankings"
+      ],
+      "question": "Find the first name and country code of the player who did the most number of tours.",
+      "gold_sql": "SELECT T1.country_code ,  T1.first_name FROM players AS T1 JOIN rankings AS T2 ON T1.player_id  =  T2.player_id ORDER BY T2.tours DESC LIMIT 1",
+      "expected_behavior": "refuse",
+      "reason": "requires a multi-table join or set operation (INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.",
+      "sql_structure": "multi_or_compound"
+    },
+    {
+      "id": "wta_29",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "players",
+        "rankings"
+      ],
+      "question": "Find the average ranking for each player and their first name.",
+      "gold_sql": "SELECT avg(ranking) ,  T1.first_name FROM players AS T1 JOIN rankings AS T2 ON T1.player_id  =  T2.player_id GROUP BY T1.first_name",
+      "expected_behavior": "refuse",
+      "reason": "requires a multi-table join or set operation (INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.",
+      "sql_structure": "multi_or_compound"
+    },
+    {
+      "id": "wta_30",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "matches",
+        "players"
+      ],
+      "question": "Find the first name, country code and birth date of the winner who has the highest rank points in all matches.",
+      "gold_sql": "SELECT T1.first_name ,  T1.country_code ,  T1.birth_date FROM players AS T1 JOIN matches AS T2 ON T1.player_id  =  T2.winner_id ORDER BY T2.winner_rank_points DESC LIMIT 1",
+      "expected_behavior": "refuse",
+      "reason": "requires a multi-table join or set operation (INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.",
+      "sql_structure": "multi_or_compound"
+    }
+  ]
+}

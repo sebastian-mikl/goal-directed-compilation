@@ -1,0 +1,10 @@
+{
+  "rescored_from": "results_spider_smoke_wta_1.jsonl",
+  "rescored_to": "results_spider_smoke_wta_1.rescored.jsonl",
+  "old_gold_sha256": "7460d0a81d376d3a1255105456a475e15b29fcda995ba2b23aec18d72ef049a7",
+  "new_gold_sha256": "7460d0a81d376d3a1255105456a475e15b29fcda995ba2b23aec18d72ef049a7",
+  "n_records": 2,
+  "n_outcome_changed": 0,
+  "n_needs_rerun": 0,
+  "flips_per_system": {}
+}

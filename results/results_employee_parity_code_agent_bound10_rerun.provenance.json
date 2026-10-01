@@ -1,0 +1,57 @@
+{
+  "timestamp_utc": "2026-08-22T12:21:35.436552Z",
+  "model": "claude-sonnet-4-5",
+  "emission_model": "claude-sonnet-4-5",
+  "contract_version": "n/a",
+  "temperature": 0,
+  "repetitions": [
+    0,
+    1,
+    2
+  ],
+  "bounds": {
+    "react_max_iters": 15,
+    "code_max_retries": 10,
+    "per_query_timeout_s": 60
+  },
+  "pricing": {
+    "claude-sonnet-4-5": {
+      "input": 3.0,
+      "output": 15.0
+    },
+    "claude-haiku-4-5": {
+      "input": 1.0,
+      "output": 5.0
+    }
+  },
+  "cache": {
+    "enabled": true,
+    "control": "ephemeral on last system block (caches tools+system)",
+    "multipliers": {
+      "cache_write": 1.25,
+      "cache_read": 0.1
+    },
+    "min_cacheable_tokens": 1024,
+    "note": "targeted re-run of the 17 code_agent employee T5 cells that hit the 4-call bound in results_temp0_parity_employee.jsonl (C-1, final piece -- this is the file that actually feeds the paper's cited 62.2%/0.0% employee-T5 figure, Table 1b/App A.2). temperature=0, matching scripts/rerun_temp0_parity.py's PARITY_TEMP -- these are temperature-0 samples, consistent with (but not a literal replay of) the original parity cells. Bound=10, chosen from react's observed employee-T5 max of 9 calls in this same file (+1 margin), not risk's 12 -- diagnostic found no still-working/error-thrash pattern needing more room, though t5_13 s1 was flagged as a likely genuine silent_wrong (dropped grouping-key column), not a near-miss. Employee domain shows ZERO caching savings for code_agent, same as Spider."
+  },
+  "corpus_path": "eval_corpus_employee.json",
+  "corpus_sha256": "29f53df7d356d279b6a109e5dfd3eed6f048b5885b0c435cd2d2c5fbf8ad7a06",
+  "gold_path": "evidence/gold/gold_employee.json",
+  "gold_sha256": "ec792226110c258cc82fe68c0dc746a547e4b04c59404f2b56d180be244ce297",
+  "comparator_version": "targeted-rerun-c1-employee-parity",
+  "network_prompt_version": "n/a",
+  "refuse_unsupported": false,
+  "git_commit": "7f7b26880b250399f2e8bb2a7c746dbaebca203c",
+  "lib_versions": {
+    "anthropic": "0.120.2",
+    "pandas": "3.0.5",
+    "numpy": "2.5.1",
+    "python": "3.14.6"
+  },
+  "prompts": {
+    "code_agent": "You answer an analytical query over a pandas DataFrame `df` (150-row register).\nUse run_python to compute. ALWAYS store your answer in `result = ...` (a DataFrame,\nSeries, or scalar) \u2014 do NOT use print(). A compact summary of `result` is returned to you.\nOnce you have verified the answer is correct, call final_answer with code that sets `result`.\nBe efficient \u2014 at most a few attempts.\n\nIf the query genuinely cannot be answered from this data, STOP with a plain-text reply\nexplaining you cannot, instead of fabricating a result.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: An employee directory. Each row is an employee, with their department, role, employment status, work location, compensation, and tenure.\n\nCOLUMN MEANINGS (advisory):\n  - 'Role': The employee's role band (e.g. IC, Manager, Director, VP).\n  - 'Status': Employment status (e.g. Active, On Leave, Terminated, Sabbatical).\n  - 'Annual Salary': Gross annual base salary.\n  - 'Bonus Target': Target annual bonus amount for the employee.\n  - 'Tenure (Years)': Number of years the employee has been with the organisation.\n  - 'Performance Score': Most recent performance review rating, 1.0 (lowest) to 5.0 (highest).\n  - 'Market Rate': External market benchmark salary for the employee's role.\n  - 'Equity Grant Value': Current value of the employee's equity grant.\n  - 'Time in Current Role (Years)': Number of years the employee has held their current role (always <= Tenure (Years)).\n  - 'Manager ID': The Employee ID of this employee's line manager.\n\nBUSINESS RULES (authoritative \u2014 these terms have a fixed meaning):\n  - 'current': 'Status' in ['Active', 'On Leave', 'Sabbatical']\n\nREGISTER COLUMNS (verbatim):\n'Employee ID', 'Name', 'Department', 'Role', 'Status', 'Location', 'Annual Salary', 'Bonus Target', 'Tenure (Years)', 'Manager ID', 'Performance Score', 'Market Rate', 'Equity Grant Value', 'Time in Current Role (Years)'\n"
+  },
+  "env": {
+    "ANTHROPIC_API_KEY_present": true
+  }
+}

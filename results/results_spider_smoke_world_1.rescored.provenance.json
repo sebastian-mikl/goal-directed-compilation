@@ -1,0 +1,21 @@
+{
+  "rescored_from": "results_spider_smoke_world_1.jsonl",
+  "rescored_to": "results_spider_smoke_world_1.rescored.jsonl",
+  "old_gold_sha256": "c561766f0f8db180f76b336ad3613996758f117bff23431b97f408a3a03cfeef",
+  "new_gold_sha256": "c561766f0f8db180f76b336ad3613996758f117bff23431b97f408a3a03cfeef",
+  "n_records": 2,
+  "n_outcome_changed": 1,
+  "n_needs_rerun": 0,
+  "flips_per_system": {
+    "network": {
+      "correct_to_wrong": [],
+      "wrong_to_correct": [
+        {
+          "qid": "world_01",
+          "seed": 0,
+          "old": "silent_wrong"
+        }
+      ]
+    }
+  }
+}

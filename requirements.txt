@@ -1,0 +1,10 @@
+# Offline pipeline (rescore / replay / build_paper_numbers / make_paper_figures / tests)
+pandas>=2.0
+numpy>=1.24
+matplotlib>=3.7
+pytest>=7.0
+
+# Live step only (producing new emissions via evidence.eval_run.run) —
+# not required to reproduce any published number or figure.
+anthropic>=0.40
+python-dotenv>=1.0

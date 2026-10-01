@@ -1,0 +1,59 @@
+{
+  "timestamp_utc": "2026-08-22T11:37:52.484899Z",
+  "model": "claude-sonnet-4-5",
+  "emission_model": "claude-sonnet-4-5",
+  "contract_version": "n/a",
+  "temperature": null,
+  "repetitions": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "bounds": {
+    "react_max_iters": 15,
+    "code_max_retries": 12,
+    "per_query_timeout_s": 60
+  },
+  "pricing": {
+    "claude-sonnet-4-5": {
+      "input": 3.0,
+      "output": 15.0
+    },
+    "claude-haiku-4-5": {
+      "input": 1.0,
+      "output": 5.0
+    }
+  },
+  "cache": {
+    "enabled": true,
+    "control": "ephemeral on last system block (caches tools+system)",
+    "multipliers": {
+      "cache_write": 1.25,
+      "cache_read": 0.1
+    },
+    "min_cacheable_tokens": 1024,
+    "note": "targeted re-run of the 12 code_agent Spider cells that hit the 4-call bound (C-1), across wta_1/world_1/bike_1. code_agent runs at the API default temperature -- these are independent samples, not controlled replays. Spider domains historically show ZERO caching savings for code_agent (cache_savings_ratio=1.000 per scripts/run_full_spider_eval.py) -- unlike risk."
+  },
+  "corpus_path": "eval_corpus_spider_wta_1.json",
+  "corpus_sha256": "fd7dfd389bba4ec8b5b48ff3a72cb9da00e180d2de3023b14c67fd5a8263f74a",
+  "gold_path": "evidence/gold/gold_spider_wta_1.json",
+  "gold_sha256": "c1228120320a1f5a6c0db26fc3e1a4129431a1983a8fd38b36fb6a03f90b21ba",
+  "comparator_version": "targeted-rerun-c1-spider",
+  "network_prompt_version": "n/a",
+  "refuse_unsupported": false,
+  "git_commit": "7f7b26880b250399f2e8bb2a7c746dbaebca203c",
+  "lib_versions": {
+    "anthropic": "0.120.2",
+    "pandas": "3.0.5",
+    "numpy": "2.5.1",
+    "python": "3.14.6"
+  },
+  "prompts": {
+    "code_agent_wta_1": "You answer an analytical query over a pandas DataFrame `df` (278-row register).\nUse run_python to compute. ALWAYS store your answer in `result = ...` (a DataFrame,\nSeries, or scalar) \u2014 do NOT use print(). A compact summary of `result` is returned to you.\nOnce you have verified the answer is correct, call final_answer with code that sets `result`.\nBe efficient \u2014 at most a few attempts.\n\nIf the query genuinely cannot be answered from this data, STOP with a plain-text reply\nexplaining you cannot, instead of fabricating a result.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: A women's tennis (WTA) database. players lists individual athletes; matches logs individual tournament matches (winner/loser detail per match); rankings is a historical weekly ranking snapshot per player.\n\nREGISTER COLUMNS (verbatim):\n'best_of', 'draw_size', 'loser_age', 'loser_entry', 'loser_hand', 'loser_ht', 'loser_id', 'loser_ioc', 'loser_name', 'loser_rank', 'loser_rank_points', 'loser_seed', 'match_num', 'minutes', 'round', 'score', 'surface', 'tourney_date', 'tourney_id', 'tourney_level', 'tourney_name', 'winner_age', 'winner_entry', 'winner_hand', 'winner_ht', 'winner_id', 'winner_ioc', 'winner_name', 'winner_rank', 'winner_rank_points', 'winner_seed', 'year'\n"
+  },
+  "env": {
+    "ANTHROPIC_API_KEY_present": true
+  }
+}

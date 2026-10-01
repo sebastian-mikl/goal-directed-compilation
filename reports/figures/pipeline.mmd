@@ -1,0 +1,58 @@
+%% Figure 1 — System control-flow for the goal-directed compiler (GDC).
+%% Source of record for reports/figures/pipeline.png.
+%% Render: mmdc -i reports/figures/pipeline.mmd -o reports/figures/pipeline.png -s 3 -b white
+%% (mmdc = @mermaid-js/mermaid-cli; -s 3 gives a high-resolution raster.)
+flowchart TD
+    NL([Natural-language query])
+    CALL1["Call-1: single LLM call<br/>emit declarative JSON Goal + OrderSpec"]
+
+    DECLINED{"Model declined?<br/>out-of-scope / unanswerable"}
+    PARSE{"JSON parses into<br/>well-formed Goal?"}
+    CONTRACT{"Goal passes contract?<br/>at most one aggregate;<br/>grouped grain iff exactly one"}
+    ORDER{"Order valid?<br/>every order-by column in Goal<br/>or derived columns"}
+    LINT{"Goal lint passes?<br/>no dead derived column"}
+    PLAN["A* planner: search over 4 primitives<br/>filter, select, aggregate, compute<br/>find operator sequence satisfying Goal"]
+    REACH{"Reachable plan found?"}
+    EXEC["Execute plan over data table<br/>apply operators, then sort/limit"]
+    EXECERR{"Execution error?"}
+
+    R_EXPLICIT["Refuse: explicit"]
+    R_PARSE["Refuse: ParseError"]
+    R_CONTRACT1["Refuse: ContractError"]
+    R_CONTRACT2["Refuse: ContractError"]
+    R_LINT["Refuse: GoalLint"]
+    R_UNREACH["Refuse: Unreachable"]
+    R_FILTER["Refuse: FilterTypeError"]
+    R_ORDERAPP["Refuse: OrderApplicationError"]
+    CRASH["Crash"]
+    ANSWER([Answer: result])
+
+    NL --> CALL1 --> DECLINED
+    DECLINED -- YES --> R_EXPLICIT
+    DECLINED -- NO --> PARSE
+    PARSE -- NO --> R_PARSE
+    PARSE -- YES --> CONTRACT
+    CONTRACT -- NO --> R_CONTRACT1
+    CONTRACT -- YES --> ORDER
+    ORDER -- NO --> R_CONTRACT2
+    ORDER -- YES --> LINT
+    LINT -- NO --> R_LINT
+    LINT -- YES --> PLAN --> REACH
+    REACH -- NO --> R_UNREACH
+    REACH -- YES --> EXEC --> EXECERR
+    EXECERR -- "Type-mismatched filter" --> R_FILTER
+    EXECERR -- "Unorderable output" --> R_ORDERAPP
+    EXECERR -- "Other exception" --> CRASH
+    EXECERR -- "No error" --> ANSWER
+
+    classDef llm fill:#ede7ff,stroke:#7c4dff,color:#1a1a1a;
+    classDef core fill:#d6f0ff,stroke:#00a2e8,color:#1a1a1a;
+    classDef refuse fill:#fff3d6,stroke:#e8a000,color:#1a1a1a;
+    classDef crash fill:#ffd6dc,stroke:#e8003c,color:#1a1a1a;
+    classDef done fill:#d6ffe0,stroke:#00c853,color:#1a1a1a;
+
+    class CALL1 llm;
+    class PLAN,EXEC core;
+    class R_EXPLICIT,R_PARSE,R_CONTRACT1,R_CONTRACT2,R_LINT,R_UNREACH,R_FILTER,R_ORDERAPP refuse;
+    class CRASH crash;
+    class NL,ANSWER done;

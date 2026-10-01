@@ -1,0 +1,377 @@
+{
+  "wta_01": {
+    "id": "wta_01",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "wta_02": {
+    "id": "wta_02",
+    "tier": "aggregate",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 278,
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "wta_03": {
+    "id": "wta_03",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "wta_04": {
+    "id": "wta_04",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "multi_aggregate"
+    ],
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "avg(loser_age)": 27.311214,
+        "avg(winner_age)": 27.062178
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "wta_05": {
+    "id": "wta_05",
+    "tier": "aggregate",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 13.715827,
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "wta_06": {
+    "id": "wta_06",
+    "tier": "aggregate",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 1,
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "wta_07": {
+    "id": "wta_07",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "wta_08": {
+    "id": "wta_08",
+    "tier": "aggregate",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 49,
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "wta_09": {
+    "id": "wta_09",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "having_filter"
+    ],
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "tourney_name": "Australian Open"
+      },
+      {
+        "tourney_name": "Cincinnati"
+      },
+      {
+        "tourney_name": "French Open"
+      },
+      {
+        "tourney_name": "Indian Wells"
+      },
+      {
+        "tourney_name": "Miami"
+      },
+      {
+        "tourney_name": "Singapore"
+      },
+      {
+        "tourney_name": "Us Open"
+      },
+      {
+        "tourney_name": "WTA Championships"
+      },
+      {
+        "tourney_name": "Wimbledon"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 9
+  },
+  "wta_10": {
+    "id": "wta_10",
+    "tier": "aggregate",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 170,
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "wta_11": {
+    "id": "wta_11",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "wta_12": {
+    "id": "wta_12",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "wta_13": {
+    "id": "wta_13",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "wta_14": {
+    "id": "wta_14",
+    "tier": "group_by",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 2016,
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "wta_15": {
+    "id": "wta_15",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "group_attribute_projection"
+    ],
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "winner_name": "Angelique Kerber",
+        "winner_rank_points": 3715
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "wta_16": {
+    "id": "wta_16",
+    "tier": "order_by",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": "Serena Williams",
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "wta_17": {
+    "id": "wta_17",
+    "tier": "order_by",
+    "architectural_gap": null,
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "winner_name": "Petra Kvitova",
+        "loser_name": "Angelique Kerber"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "wta_18": {
+    "id": "wta_18",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "wta_19": {
+    "id": "wta_19",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "wta_20": {
+    "id": "wta_20",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "wta_21": {
+    "id": "wta_21",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "wta_22": {
+    "id": "wta_22",
+    "tier": "group_by",
+    "architectural_gap": null,
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "count(*)": 12,
+        "year": 2013
+      },
+      {
+        "count(*)": 108,
+        "year": 2017
+      },
+      {
+        "count(*)": 158,
+        "year": 2016
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3
+  },
+  "wta_23": {
+    "id": "wta_23",
+    "tier": "order_by",
+    "architectural_gap": null,
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "winner_name": "Madison Keys",
+        "winner_rank": 17
+      },
+      {
+        "winner_name": "Madison Keys",
+        "winner_rank": 24
+      },
+      {
+        "winner_name": "Madison Keys",
+        "winner_rank": 16
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3
+  },
+  "wta_24": {
+    "id": "wta_24",
+    "tier": "aggregate",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 2,
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "wta_25": {
+    "id": "wta_25",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "wta_26": {
+    "id": "wta_26",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "wta_27": {
+    "id": "wta_27",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "wta_28": {
+    "id": "wta_28",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "wta_29": {
+    "id": "wta_29",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "wta_30": {
+    "id": "wta_30",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  }
+}

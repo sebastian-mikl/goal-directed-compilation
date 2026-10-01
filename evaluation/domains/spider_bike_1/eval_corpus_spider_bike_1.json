@@ -1,0 +1,320 @@
+{
+  "meta": {
+    "domain": "bike_1",
+    "source": "Spider (Yu et al., 2018) dev+train-set questions + official gold SQL, xlangai/spider HuggingFace mirror -- verbatim, third-party authored, not hand-written for this project.",
+    "purpose": "Third evaluation domain (bike-sharing), selected via scripts/rank_all_spider_databases.py for join-free-friendliness against planner/'s 4-operator vocabulary. All 104 real questions come from Spider's TRAIN split (bike_1 has zero dev/validation coverage -- see scripts/combine_spider_train_dev.py); combined_data.parquet was needed to unblock this domain, dev_data.parquet alone has 0 bike_1 rows.",
+    "register_table": "trip",
+    "register_table_note": "The real bike_1 database has 4 tables (station, status, trip, weather). weather scored highest by raw column-richness (22 numeric columns) AND has slightly more real single-table questions (14 vs trip's 10) -- but weather is a temperature/humidity/wind/pressure log, not bike-sharing data; a domain literally named 'bike_1' whose answerable content was mostly about weather would be a confusing choice. 'trip' was chosen instead: genuinely about bike rides (duration, stations, subscriptions), a robust row count (9,959), and real categorical variety (subscription_type: Subscriber/Customer) -- at the cost of only 10 real single-table answer-queries, below the ~12-15 floor flagged for the other 2 domains. There was no real content available to pad this up with (same no-fabrication constraint as wta_1/world_1); flagged here for review, not silently accepted.",
+    "selection_note": "104 real train-set questions covering 53 distinct gold queries (1.96x paraphrase density). Of 34 single-table candidates (weather=14, trip=10, station=9, status=1) and 19 multi-table/compound candidates, selected all 10 real trip-only questions as answer cases, plus a diverse sample of 15 refuse cases (5 weather, 4 station, 1 status -- all of it, small pool -- and 5 multi-table/compound chosen for diversity of table-pair and join/compound shape, including one trip+weather cross-theme join). No questions authored, reworded, or padded.",
+    "tiers": "SQL-structural (filter/aggregate/group_by/order_by/multi_or_compound), not this project's T1-T5 op-count scheme -- see eval_corpus_spider_wta_1.json's meta for the full rationale.",
+    "tier_convention_note": "'tier' distinguishes answer vs refuse queries for reporting (mirrors eval_corpus.json/eval_corpus_employee.json's out_of_range convention -- never pooled into one blended accuracy number). Deliberately NOT labeled 'out_of_range': that tier means unanswerable IN PRINCIPLE (undefined terms, no such column/data at all); these refuse-cases are answerable in principle but need a table outside this domain's single-table register -- a different mechanism, kept a different label. 'sql_structure' preserves the original filter/aggregate/group_by/order_by/multi_or_compound classification for every query (answer and refuse alike)."
+  },
+  "queries": [
+    {
+      "id": "bike_01",
+      "tier": "order_by",
+      "tables": [
+        "trip"
+      ],
+      "question": "Give me the start station and end station for the trips with the three oldest id.",
+      "gold_sql": "SELECT start_station_name ,  end_station_name FROM trip ORDER BY id LIMIT 3",
+      "expected_behavior": "answer",
+      "sql_structure": "order_by"
+    },
+    {
+      "id": "bike_02",
+      "tier": "order_by",
+      "tables": [
+        "trip"
+      ],
+      "question": "What is the id of the trip that has the shortest duration?",
+      "gold_sql": "SELECT id FROM trip ORDER BY duration LIMIT 1",
+      "expected_behavior": "answer",
+      "sql_structure": "order_by"
+    },
+    {
+      "id": "bike_03",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "multi_aggregate"
+      ],
+      "tables": [
+        "trip"
+      ],
+      "question": "What is the total and maximum duration of trips with bike id 636?",
+      "gold_sql": "SELECT sum(duration) ,  max(duration) FROM trip WHERE bike_id  =  636",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "bike_04",
+      "tier": "aggregate",
+      "tables": [
+        "trip"
+      ],
+      "question": "From the trip record, find the number of unique bikes.",
+      "gold_sql": "SELECT count(DISTINCT bike_id) FROM trip",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "bike_05",
+      "tier": "group_by",
+      "tables": [
+        "trip"
+      ],
+      "question": "Which start station had the most trips starting from August? Give me the name and id of the station.",
+      "gold_sql": "SELECT start_station_name ,  start_station_id FROM trip WHERE start_date LIKE \"8/%\" GROUP BY start_station_name ORDER BY COUNT(*) DESC LIMIT 1",
+      "expected_behavior": "answer",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "bike_06",
+      "tier": "group_by",
+      "tables": [
+        "trip"
+      ],
+      "question": "Which bike traveled the most often in zip code 94002?",
+      "gold_sql": "SELECT bike_id FROM trip WHERE zip_code  =  94002 GROUP BY bike_id ORDER BY COUNT(*) DESC LIMIT 1",
+      "expected_behavior": "answer",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "bike_07",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "having_filter"
+      ],
+      "tables": [
+        "trip"
+      ],
+      "question": "Find the ids and names of stations from which at least 200 trips started.",
+      "gold_sql": "SELECT start_station_id ,  start_station_name FROM trip GROUP BY start_station_name HAVING COUNT(*)  >=  200",
+      "expected_behavior": "answer",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "bike_08",
+      "tier": "order_by",
+      "tables": [
+        "trip"
+      ],
+      "question": "What are the ids and durations of the trips with the top 3 durations?",
+      "gold_sql": "SELECT id ,  duration FROM trip ORDER BY duration DESC LIMIT 3",
+      "expected_behavior": "answer",
+      "sql_structure": "order_by"
+    },
+    {
+      "id": "bike_09",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "distinct_projection"
+      ],
+      "tables": [
+        "trip"
+      ],
+      "question": "List all the distinct stations from which a trip of duration below 100 started.",
+      "gold_sql": "SELECT DISTINCT start_station_name FROM trip WHERE duration  <  100",
+      "expected_behavior": "answer",
+      "sql_structure": "filter"
+    },
+    {
+      "id": "bike_10",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "aggregate_subquery"
+      ],
+      "tables": [
+        "trip"
+      ],
+      "question": "Find the id for the trips that lasted at least as long as the average duration of trips in zip code 94103.",
+      "gold_sql": "SELECT id FROM trip WHERE duration  >=  (SELECT avg(duration) FROM trip WHERE zip_code  =  94103)",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "bike_11",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "weather"
+      ],
+      "question": "Give me the dates when the max temperature was higher than 85.",
+      "gold_sql": "SELECT date FROM weather WHERE max_temperature_f  >  85",
+      "expected_behavior": "refuse",
+      "reason": "targets table ['weather'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.",
+      "sql_structure": "filter"
+    },
+    {
+      "id": "bike_12",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "weather"
+      ],
+      "question": "How many days had both mean humidity above 50 and mean visibility above 8?",
+      "gold_sql": "SELECT COUNT(*) FROM weather WHERE mean_humidity  >  50 AND mean_visibility_miles  >  8",
+      "expected_behavior": "refuse",
+      "reason": "targets table ['weather'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "bike_13",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "weather"
+      ],
+      "question": "What is the 3 most common cloud cover rates in the region of zip code 94107?",
+      "gold_sql": "SELECT cloud_cover FROM weather WHERE zip_code  =  94107 GROUP BY cloud_cover ORDER BY COUNT (*) DESC LIMIT 3",
+      "expected_behavior": "refuse",
+      "reason": "targets table ['weather'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "bike_14",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "weather"
+      ],
+      "question": "In zip code 94107, on which day neither Fog nor Rain was not observed?",
+      "gold_sql": "SELECT date FROM weather WHERE zip_code  =  94107 AND EVENTS != \"Fog\" AND EVENTS != \"Rain\"",
+      "expected_behavior": "refuse",
+      "reason": "targets table ['weather'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.",
+      "sql_structure": "filter"
+    },
+    {
+      "id": "bike_15",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "weather"
+      ],
+      "question": "What are the date, mean temperature and mean humidity for the top 3 days with the largest max gust speeds?",
+      "gold_sql": "SELECT date ,  mean_temperature_f ,  mean_humidity FROM weather ORDER BY max_gust_speed_mph DESC LIMIT 3",
+      "expected_behavior": "refuse",
+      "reason": "targets table ['weather'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.",
+      "sql_structure": "order_by"
+    },
+    {
+      "id": "bike_16",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "station"
+      ],
+      "question": "What are the names of stations that have latitude lower than 37.5?",
+      "gold_sql": "SELECT name FROM station WHERE lat  <  37.5",
+      "expected_behavior": "refuse",
+      "reason": "targets table ['station'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.",
+      "sql_structure": "filter"
+    },
+    {
+      "id": "bike_17",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "station"
+      ],
+      "question": "What is the average latitude and longitude of stations located in San Jose city?",
+      "gold_sql": "SELECT avg(lat) ,  avg(long) FROM station WHERE city  =  \"San Jose\"",
+      "expected_behavior": "refuse",
+      "reason": "targets table ['station'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "bike_18",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "station"
+      ],
+      "question": "What are the name, latitude, and city of the station with the lowest latitude?",
+      "gold_sql": "SELECT name ,  lat ,  city FROM station ORDER BY lat LIMIT 1",
+      "expected_behavior": "refuse",
+      "reason": "targets table ['station'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.",
+      "sql_structure": "order_by"
+    },
+    {
+      "id": "bike_19",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "station"
+      ],
+      "question": "List the name and the number of stations for all the cities that have at least 15 stations.",
+      "gold_sql": "SELECT city ,  COUNT(*) FROM station GROUP BY city HAVING COUNT(*)  >=  15",
+      "expected_behavior": "refuse",
+      "reason": "targets table ['station'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "bike_20",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "status"
+      ],
+      "question": "What is the average bike availability in stations that are not located in Palo Alto?",
+      "gold_sql": "SELECT avg(bikes_available) FROM status WHERE station_id NOT IN (SELECT id FROM station WHERE city  =  \"Palo Alto\")",
+      "expected_behavior": "refuse",
+      "reason": "targets table ['status'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system. (This one's gold SQL also has a WHERE-clause subquery into 'station' -- genuinely needs 2 tables' data despite the classifier reading only the outer FROM as single-table, same issue noted for 2 world_1 queries -- refuse either way, noted for completeness.)",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "bike_21",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "station",
+        "trip"
+      ],
+      "question": "What is the latitude, longitude, city of the station from which the shortest trip started?",
+      "gold_sql": "SELECT T1.lat ,  T1.long ,  T1.city FROM station AS T1 JOIN trip AS T2 ON T1.id  =  T2.start_station_id ORDER BY T2.duration LIMIT 1",
+      "expected_behavior": "refuse",
+      "reason": "requires a multi-table join or set operation (e.g. INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive. (Also references table(s) outside the single-table register.)",
+      "sql_structure": "multi_or_compound"
+    },
+    {
+      "id": "bike_22",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "station"
+      ],
+      "question": "What are the ids of stations that are located in San Francisco and have average bike availability above 10.",
+      "gold_sql": "SELECT id FROM station WHERE city  =  \"San Francisco\" INTERSECT SELECT station_id FROM status GROUP BY station_id HAVING avg(bikes_available)  >  10",
+      "expected_behavior": "refuse",
+      "reason": "requires a multi-table join or set operation (e.g. INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive. (Also references table(s) outside the single-table register.)",
+      "sql_structure": "multi_or_compound"
+    },
+    {
+      "id": "bike_23",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "trip",
+        "weather"
+      ],
+      "question": "Give me ids for all the trip that took place in a zip code area with average mean temperature above 60.",
+      "gold_sql": "SELECT T1.id FROM trip AS T1 JOIN weather AS T2 ON T1.zip_code  =  T2.zip_code GROUP BY T2.zip_code HAVING avg(T2.mean_temperature_f)  >  60",
+      "expected_behavior": "refuse",
+      "reason": "requires a multi-table join or set operation (e.g. INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive. (Also references table(s) outside the single-table register.)",
+      "sql_structure": "multi_or_compound"
+    },
+    {
+      "id": "bike_24",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "station",
+        "trip"
+      ],
+      "question": "Count the number of trips that did not end in San Francisco city.",
+      "gold_sql": "SELECT count(*) FROM trip AS T1 JOIN station AS T2 ON T1.end_station_id  =  T2.id WHERE T2.city !=  \"San Francisco\"",
+      "expected_behavior": "refuse",
+      "reason": "requires a multi-table join or set operation (e.g. INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive. (Also references table(s) outside the single-table register.)",
+      "sql_structure": "multi_or_compound"
+    },
+    {
+      "id": "bike_25",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "station",
+        "trip"
+      ],
+      "question": "How many trips started from Mountain View city and ended at Palo Alto city?",
+      "gold_sql": "SELECT count(*) FROM station AS T1 JOIN trip AS T2 JOIN station AS T3 JOIN trip AS T4 ON T1.id  =  T2.start_station_id AND T2.id  =  T4.id AND T3.id  =  T4.end_station_id WHERE T1.city  =  \"Mountain View\" AND T3.city  =  \"Palo Alto\"",
+      "expected_behavior": "refuse",
+      "reason": "requires a multi-table join or set operation (e.g. INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive. (Also references table(s) outside the single-table register.)",
+      "sql_structure": "multi_or_compound"
+    }
+  ]
+}

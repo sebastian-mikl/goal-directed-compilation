@@ -1,0 +1,106 @@
+{
+  "timestamp_utc": "2026-07-17T21:04:14.475265Z",
+  "model": "claude-sonnet-4-5",
+  "emission_model": "claude-sonnet-4-5",
+  "contract_version": "s35",
+  "temperature": 0,
+  "repetitions": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "bounds": {
+    "react_max_iters": 15,
+    "code_max_retries": 3,
+    "per_query_timeout_s": 60
+  },
+  "pricing": {
+    "claude-sonnet-4-5": {
+      "input": 3.0,
+      "output": 15.0
+    },
+    "claude-haiku-4-5": {
+      "input": 1.0,
+      "output": 5.0
+    }
+  },
+  "cache": {
+    "enabled": true,
+    "control": "ephemeral on last system block (caches tools+system)",
+    "multipliers": {
+      "cache_write": 1.25,
+      "cache_read": 0.1
+    },
+    "min_cacheable_tokens": 1024,
+    "prefix_sizes": [
+      {
+        "system": "network",
+        "system_chars": 6651,
+        "tool_chars": 0,
+        "est_tokens": 1662,
+        "min_cacheable": 1024,
+        "below_min": false
+      },
+      {
+        "system": "planner",
+        "system_chars": 1601,
+        "tool_chars": 0,
+        "est_tokens": 400,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "react",
+        "system_chars": 1010,
+        "tool_chars": 2477,
+        "est_tokens": 871,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "code_agent",
+        "system_chars": 1106,
+        "tool_chars": 559,
+        "est_tokens": 415,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "text_to_sql",
+        "system_chars": 997,
+        "tool_chars": 338,
+        "est_tokens": 333,
+        "min_cacheable": 1024,
+        "below_min": true
+      }
+    ],
+    "note": "uniform infra optimization applied identically to all 5 systems; lowers $ but NOT raw token / call counts. Paper cost metrics = calls + RAW tokens (cache-blind); cost_usd_cached is the practical bill."
+  },
+  "corpus_path": "eval_corpus_spider_world_1.json",
+  "corpus_sha256": "c8daf7f6584ccba838064b44f1a4e6426fb02b63978382bb49854bd5f5fd59e6",
+  "gold_path": "evidence/gold/gold_spider_world_1.json",
+  "gold_sha256": "8cf7da5e3d37e3f59b71c7c5dee3e8bf88ae0fb0b97728ef4210ad4a17deafd0",
+  "comparator_version": "s47",
+  "network_prompt_version": "s45",
+  "refuse_unsupported": false,
+  "git_commit": "5c807a52c8a798d78f8addf49bfbd2c3b7caeaea",
+  "lib_versions": {
+    "anthropic": "0.103.1",
+    "pandas": "3.0.3",
+    "numpy": "2.4.6",
+    "python": "3.14.4"
+  },
+  "prompts": {
+    "network": "You translate an analytical request over a tabular dataset (see the\nschema below) into a declarative GOAL plus a separate ORDER spec.\n\nThe GOAL is the SHAPE of the result relation (a set of rows \u2014 UNORDERED). The ORDER spec is\nPRESENTATION ONLY (ranking / top-N) and lives OUTSIDE the goal.\n\nBase columns:\n  - code: id [match: exact]\n  - name: text [match: exact]\n  - continent: categorical [match: exact]  (values: Africa, Antarctica, Asia, Europe, North America, Oceania, South America)\n  - region: categorical [match: exact]  (values: Antarctica, Australia and New Zealand, Baltic Countries, British Islands, Caribbean, Central Africa, Central America, Eastern Africa, Eastern Asia, Eastern Europe, Melanesia, Micronesia, Micronesia/Caribbean, Middle East, Nordic Countries, North America, Northern Africa, Polynesia, South America, Southeast Asia, Southern Africa, Southern Europe, Southern and Central Asia, Western Africa, Western Europe)\n  - surfacearea: numeric [match: numeric_compare]\n  - indepyear: numeric [match: numeric_compare]\n  - population: numeric [match: numeric_compare]\n  - lifeexpectancy: numeric [match: numeric_compare]\n  - gnp: numeric [match: numeric_compare]\n  - gnpold: numeric [match: numeric_compare]\n  - localname: text [match: exact]\n  - governmentform: categorical [match: exact]  (values: Administrated by the UN, Autonomous Area, Co-administrated, Commonwealth of the US, Constitutional Monarchy, Constitutional Monarchy (Emirate), Constitutional Monarchy, Federation, Dependent Territory of Norway, Dependent Territory of the UK, Dependent Territory of the US, Emirate Federation, Federal Republic, Federation, Independent Church State, Islamic Emirate, Islamic Republic, Monarchy, Monarchy (Emirate), Monarchy (Sultanate), Nonmetropolitan Territory of France, Nonmetropolitan Territory of New Zealand, Nonmetropolitan Territory of The Netherlands, Occupied by Marocco, Overseas Department of France, Parlementary Monarchy, Parliamentary Coprincipality, Part of Denmark, People'sRepublic, Republic, Socialistic Republic, Socialistic State, Special Administrative Region of China, Territorial Collectivity of France, Territory of Australia, US Territory)\n  - headofstate: text [match: exact]\n  - capital: id [match: exact]\n  - code2: text [match: exact]\nCONTEXT (advisory \u2014 background for interpreting the request; NOT enforced rules):\n  The classic 'world' geography/government reference database. country has one row per nation (area, population, government, economy); city lists major cities with their country and population; countrylanguage records which languages are spoken in each country, whether official, and by what percentage of the population.\n\nReturn ONLY a JSON object: {\"goal\": {...}, \"order\": {...}}.\n\n\"goal\":\n  \"columns\": [\"<name>\", ...]                  result columns (derived names allowed)\n  \"grain\":   \"row\"  OR  {\"grouped_by\": [\"<col>\", ...]}\n  \"where\":   [{\"col\": \"<c>\", \"op\": \"==|!=|<|<=|>|>=|in|contains\", \"val\": <value>}, ...]\n  \"derive\":  [{\"name\": \"<new>\", \"expr\": \"<expr>\"}, ...]\n             expr is \"fn(col)\" for an aggregate (fn \u2208 sum/avg/count/min/max/count_distinct),\n             or \"colA <op> colB\" for a computed column (op \u2208 + - * /).\n             \"how many DISTINCT / unique / different <col>\" is count_distinct(col) \u2014\n             plain count(col) counts ROWS, not distinct values.\n\n\"order\" (presentation; NEVER put ordering inside the goal):\n  \"order_by\": [{\"col\": \"<result col>\", \"dir\": \"asc|desc\"}, ...]   (may be empty)\n  \"limit\":    <int>  or  null\n\nCONTRACT (violations make it invalid \u2014 do not emit them):\n  - NO ordering/sorting/ranking/top-k inside the goal. Ranking goes ONLY in \"order\".\n  - At MOST ONE aggregate derive entry.\n  - A GLOBAL aggregate over all rows uses grain {\"grouped_by\": []}, not \"row\".\n    (grain \"row\" cannot carry an aggregate; any aggregate requires grouped grain.)\n  - A SCALAR AGGREGATE query \u2014 \"the highest / lowest / largest / smallest / max / min /\n    total / average / count of <column>\" \u2014 has as its output EXACTLY ONE derived aggregate\n    field, at the query's grain (global grain {\"grouped_by\": []} when ungrouped). Put only\n    that derived field in \"columns\"; do NOT also list the underlying raw <column>, nor any\n    other per-row column (title, id, owner, \u2026) \u2014 a row-grain column cannot coexist with a\n    global or grouped aggregate in one output, so the goal becomes unreachable. max and min\n    are scalar aggregates exactly like sum / average / count (they are NOT a request to\n    return the row).\n  - DISTINCT \u2014 ROW SELECTION: \"the N entries with the highest / lowest <column>\" is NOT an\n    aggregate. List the requested columns at row grain and put the ranking in \"order\"\n    (order_by <column> desc/asc, limit N), never in the goal.\n  - IMPLICIT RANKING \u2014 asking for an attribute OF the single best/worst entity\n    (\"the <attribute> of the oldest/largest/cheapest <entity>\", \"which <entity> has\n    the highest <metric>\") IS a top-1 ranking: emit \"order\" with order_by on the\n    deciding column (desc for highest/most, asc for lowest/least/fewest) and\n    limit 1, exactly as if the request said \"top 1\" \u2014 never a plain unordered\n    listing. This rule RECOGNIZES that a ranking is required at all; the next rule\n    governs the goal's output once any order_by exists. GUARDS: a request for the\n    VALUE of a maximum/minimum itself (\"the highest <column>\") stays a SCALAR\n    AGGREGATE (rule above) \u2014 no order, no limit; and a superlative that does not\n    single out one entity (\"most <rows> are <X>\", share comparisons) is NOT a\n    ranking \u2014 do not add order or limit there.\n  - EVERY \"order_by\" column must be part of the goal's OUTPUT: either listed in\n    \"columns\" or introduced as a \"derive\" name. This INCLUDES a ranking column the\n    request does not ask to be displayed \u2014 \"the <entity> with the highest <metric>\"\n    outputs the entity column but ranks by <metric>, so <metric> must ALSO appear in\n    \"columns\" (or in \"derive\" when it is computed). An order_by column missing from\n    the goal's output violates the contract: the request is refused, never repaired.\n  - Use only the base columns plus names introduced in \"derive\".\n\nFILTER VALUES: when a column lists `(values: ...)`, a filter on it must use one of\nthose EXACT values (op \"==\" or \"in\"), or op \"contains\" for a [match: contains] column.\nDo NOT invent a value that is not in the list.\n\nRULES (authoritative \u2014 these definitions are enforced):\n  - Respect each column's [match: ...]: use op \"contains\" for contains-matched columns, and an exact listed value (\"==\" or \"in\") for categoricals.\n\nReturn JSON only \u2014 no prose, no code fences.",
+    "planner": "You answer an analytical query over a tabular register. Emit a JSON object with one key, \"plan\",\nwhose value is a LIST of step dicts. Each step is one of these operations applied to a NAMED\nframe (start name: \"register\"). Each step produces a new named frame \"f0\",\"f1\",\u2026 for the next.\n\nThe 5 step ops (mirrors the Network's primitives + one ordering step):\n  - {\"op\":\"filter\",\"input\":\"<frame>\",\"predicates\":[{\"col\":\"...\",\"op\":\"==/!=/</<=/>/>=/in/contains\",\"value\":...}]}\n  - {\"op\":\"select\",\"input\":\"<frame>\",\"columns\":[\"...\"]}                         # project columns\n  - {\"op\":\"compute\",\"input\":\"<frame>\",\"new_col\":\"...\",\"expr\":\"ColA OP ColB\"}    # +,-,*,/\n  - {\"op\":\"aggregate\",\"input\":\"<frame>\",\"group_by\":[]|[\"col\"],\"value_col\":\"...\",\"agg\":\"sum|mean|count|min|max\"}\n  - {\"op\":\"order\",\"input\":\"<frame>\",\"order_by\":[{\"col\":\"...\",\"dir\":\"asc|desc\"}],\"limit\":<int>?}\n\nAt the end, your last step's output frame IS the final answer. ALSO include a \"final_frame\" key\nnaming that frame (e.g. \"f3\"). NO commentary outside the JSON.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: The classic 'world' geography/government reference database. country has one row per nation (area, population, government, economy); city lists major cities with their country and population; countrylanguage records which languages are spoken in each country, whether official, and by what percentage of the population.\n\nREGISTER COLUMNS (verbatim):\n'Code', 'Name', 'Continent', 'Region', 'SurfaceArea', 'IndepYear', 'Population', 'LifeExpectancy', 'GNP', 'GNPOld', 'LocalName', 'GovernmentForm', 'HeadOfState', 'Capital', 'Code2'\n",
+    "react": "You answer an analytical query over a tabular register using exactly five tools (declarative\nprimitives, the same the Network uses): filter, select (project), aggregate, compute, order\n(sort + optional limit). Start from a frame named \"register\"; each tool reads a frame and produces\na new named frame \"f0\",\"f1\",\u2026 Call final_answer with the name of the frame that IS the answer\n(a 1x1 frame for a scalar; a multi-row frame for a list).\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: The classic 'world' geography/government reference database. country has one row per nation (area, population, government, economy); city lists major cities with their country and population; countrylanguage records which languages are spoken in each country, whether official, and by what percentage of the population.\n\nREGISTER COLUMNS (verbatim):\n'Code', 'Name', 'Continent', 'Region', 'SurfaceArea', 'IndepYear', 'Population', 'LifeExpectancy', 'GNP', 'GNPOld', 'LocalName', 'GovernmentForm', 'HeadOfState', 'Capital', 'Code2'\n",
+    "code_agent": "You answer an analytical query over a pandas DataFrame `df` (239-row register).\nUse run_python to compute. ALWAYS store your answer in `result = ...` (a DataFrame,\nSeries, or scalar) \u2014 do NOT use print(). A compact summary of `result` is returned to you.\nOnce you have verified the answer is correct, call final_answer with code that sets `result`.\nBe efficient \u2014 at most a few attempts.\n\nIf the query genuinely cannot be answered from this data, STOP with a plain-text reply\nexplaining you cannot, instead of fabricating a result.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: The classic 'world' geography/government reference database. country has one row per nation (area, population, government, economy); city lists major cities with their country and population; countrylanguage records which languages are spoken in each country, whether official, and by what percentage of the population.\n\nREGISTER COLUMNS (verbatim):\n'Code', 'Name', 'Continent', 'Region', 'SurfaceArea', 'IndepYear', 'Population', 'LifeExpectancy', 'GNP', 'GNPOld', 'LocalName', 'GovernmentForm', 'HeadOfState', 'Capital', 'Code2'\n",
+    "text_to_sql": "You answer an analytical query over a single sqlite table `register` (239 rows).\nEmit EXACTLY ONE SELECT statement via the run_sql tool. Quote column names with\nspaces / parens like \"Unit Price (Net)\". No commentary outside the tool call.\n\nIf the query genuinely cannot be answered from this table, reply with plain text\nexplaining you cannot, instead of emitting SQL.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: The classic 'world' geography/government reference database. country has one row per nation (area, population, government, economy); city lists major cities with their country and population; countrylanguage records which languages are spoken in each country, whether official, and by what percentage of the population.\n\nTABLE COLUMNS (verbatim \u2014 sqlite identifiers, quote when they contain spaces/parens):\n'Code', 'Name', 'Continent', 'Region', 'SurfaceArea', 'IndepYear', 'Population', 'LifeExpectancy', 'GNP', 'GNPOld', 'LocalName', 'GovernmentForm', 'HeadOfState', 'Capital', 'Code2'\n",
+    "_shared_briefing": "DOMAIN: The classic 'world' geography/government reference database. country has one row per nation (area, population, government, economy); city lists major cities with their country and population; countrylanguage records which languages are spoken in each country, whether official, and by what percentage of the population."
+  },
+  "env": {
+    "ANTHROPIC_API_KEY_present": true
+  }
+}

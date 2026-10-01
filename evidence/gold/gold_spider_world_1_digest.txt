@@ -1,0 +1,124 @@
+GOLD DIGEST -- world_1 (Spider third-party gold, executed verbatim against the real .sqlite)
+
+[world_01] (filter)  What are the names of all the countries that became independent after 1950?
+    SQL: SELECT Name FROM country WHERE IndepYear  >  1950
+    GOLD (table, ordered=False, rows=110): [{"Name": "Algeria"}, {"Name": "Angola"}, {"Name": "Antigua and Barbuda"}, {"Name": "Armenia"}, {"Name": "Azerbaijan"}, {"Name": "Bahamas"}] … (+104 more)
+
+[world_02] (aggregate)  How many countries have a republic as their form of government?
+    SQL: SELECT count(*) FROM country WHERE GovernmentForm  =  "Republic"
+    GOLD (scalar, ordered=False, rows=1): 122
+
+[world_03] (aggregate)  What is the total surface area of the countries in the Caribbean region?
+    SQL: SELECT sum(SurfaceArea) FROM country WHERE Region  =  "Caribbean"
+    GOLD (scalar, ordered=False, rows=1): 234423.0
+
+[world_04] (filter)  Which continent is Anguilla in?
+    SQL: SELECT Continent FROM country WHERE Name  =  "Anguilla"
+    GOLD (scalar, ordered=False, rows=1): "North America"
+
+[world_05] (order_by)  What is the name of country that has the shortest life expectancy in Asia?
+    SQL: SELECT Name FROM country WHERE Continent  =  "Asia" ORDER BY LifeExpectancy LIMIT 1
+    GOLD (scalar, ordered=False, rows=1): "Afghanistan"
+
+[world_06] (out_of_contract_aggregate)  What is the total population and maximum GNP in Asia?
+    SQL: SELECT sum(Population) ,  max(GNP) FROM country WHERE Continent  =  "Asia"
+    GOLD (table, ordered=False, rows=1): [{"sum(Population)": 3705025700, "max(GNP)": 3787042.0}]
+
+[world_07] (out_of_scope_register)  How many people live in Gelderland district?
+    SQL: SELECT sum(Population) FROM city WHERE District  =  "Gelderland"
+    GOLD: REFUSE -- targets table(s) ['city'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[world_08] (out_of_scope_register)  How many unique languages are spoken in the world?
+    SQL: SELECT count(DISTINCT LANGUAGE) FROM countrylanguage
+    GOLD: REFUSE -- targets table(s) ['countrylanguage'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[world_09] (aggregate)  How many type of governments are in Africa?
+    SQL: SELECT count(DISTINCT GovernmentForm) FROM country WHERE Continent  =  "Africa"
+    GOLD (scalar, ordered=False, rows=1): 10
+
+[world_10] (out_of_contract_aggregate)  What are the countries that have greater surface area than any country in Europe?
+    SQL: SELECT Name FROM country WHERE SurfaceArea  >  (SELECT min(SurfaceArea) FROM country WHERE Continent  =  "Europe")
+    GOLD (table, ordered=False, rows=238): [{"Name": "Afghanistan"}, {"Name": "Albania"}, {"Name": "Algeria"}, {"Name": "American Samoa"}, {"Name": "Andorra"}, {"Name": "Angola"}] … (+232 more)
+
+[world_11] (out_of_contract_aggregate)  Which African countries have a smaller population than that of any country in Asia?
+    SQL: SELECT Name FROM country WHERE Continent  =  "Africa"  AND population  <  (SELECT min(population) FROM country WHERE Continent  =  "Asia")
+    GOLD (table, ordered=False, rows=5): [{"Name": "British Indian Ocean Territory"}, {"Name": "Mayotte"}, {"Name": "Saint Helena"}, {"Name": "Sao Tome and Principe"}, {"Name": "Seychelles"}]
+
+[world_12] (out_of_scope_register)  What are the country codes of countries where people use languages other than English?
+    SQL: SELECT DISTINCT CountryCode FROM countrylanguage WHERE LANGUAGE != "English"
+    GOLD: REFUSE -- targets table(s) ['countrylanguage'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[world_13] (order_by)  What are the name, independence year, and surface area of the country with the smallest population?
+    SQL: SELECT Name ,  SurfaceArea ,  IndepYear FROM country ORDER BY Population LIMIT 1
+    GOLD (ordered_list, ordered=True, rows=1): [{"Name": "Antarctica", "SurfaceArea": 13120000.0, "IndepYear": null}]
+
+[world_14] (out_of_scope_register)  Find the number of cities in each district whose population is greater than the average population of cities?
+    SQL: SELECT count(*) ,  District FROM city WHERE Population  >  (SELECT avg(Population) FROM city) GROUP BY District
+    GOLD: REFUSE -- targets table(s) ['city'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[world_15] (out_of_contract_aggregate)  Find the government form name and total population for each government form whose average life expectancy is longer than 72.
+    SQL: SELECT sum(Population) ,  GovernmentForm FROM country GROUP BY GovernmentForm HAVING avg(LifeExpectancy)  >  72
+    GOLD (table, ordered=False, rows=17): [{"sum(Population)": 78000, "GovernmentForm": "Parliamentary Coprincipality"}, {"sum(Population)": 99000, "GovernmentForm": "Part of Denmark"}, {"sum(Population)": 193050, "GovernmentForm": "Dependent Territory of the UK"}, {"sum(Population)": 320000, "GovernmentForm": "Nonmetropolitan Territory of The Netherlands"}, {"sum(Population)": 329000, "GovernmentForm": "US Territory"}, {"sum(Population)": 464000, "GovernmentForm": "Nonmetropolitan Territory of France"}] … (+11 more)
+
+[world_16] (out_of_contract_aggregate)  Find the average life expectancy and total population for each continent where the average life expectancy is shorter than 72?
+    SQL: SELECT sum(Population) ,  avg(LifeExpectancy) ,  Continent FROM country GROUP BY Continent HAVING avg(LifeExpectancy)  <  72
+    GOLD (table, ordered=False, rows=4): [{"sum(Population)": 30401150, "avg(LifeExpectancy)": 69.715, "Continent": "Oceania"}, {"sum(Population)": 345780000, "avg(LifeExpectancy)": 70.946154, "Continent": "South America"}, {"sum(Population)": 784475000, "avg(LifeExpectancy)": 52.57193, "Continent": "Africa"}, {"sum(Population)": 3705025700, "avg(LifeExpectancy)": 67.441176, "Continent": "Asia"}]
+
+[world_17] (order_by)  What are the names and areas of countries with the top 5 largest area?
+    SQL: SELECT Name ,  SurfaceArea FROM country ORDER BY SurfaceArea DESC LIMIT 5
+    GOLD (ordered_list, ordered=True, rows=5): [{"Name": "Russian Federation", "SurfaceArea": 17075400.0}, {"Name": "Antarctica", "SurfaceArea": 13120000.0}, {"Name": "Canada", "SurfaceArea": 9970610.0}, {"Name": "China", "SurfaceArea": 9572900.0}, {"Name": "United States", "SurfaceArea": 9363520.0}]
+
+[world_18] (aggregate)  how many countries are in Asia?
+    SQL: SELECT count(*) FROM country WHERE continent  =  "Asia"
+    GOLD (scalar, ordered=False, rows=1): 51
+
+[world_19] (filter)  What are the names of the countries that are in the continent of Europe and have a population of 80000?
+    SQL: SELECT Name FROM country WHERE continent  =  "Europe" AND Population  =  "80000"
+    GOLD (table, ordered=False, rows=0): []
+
+[world_20] (out_of_scope_register)  What are the cities whose population is between 160000 and 900000?
+    SQL: SELECT name FROM city WHERE Population BETWEEN 160000 AND 900000
+    GOLD: REFUSE -- targets table(s) ['city'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[world_21] (out_of_scope_register)  Return the names of cities that have a population between 160000 and 900000 .
+    SQL: select name from city where population between 160000 and 900000
+    GOLD: REFUSE -- targets table(s) ['city'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[world_22] (out_of_scope_register)  Which language is spoken by the largest number of countries?
+    SQL: SELECT LANGUAGE FROM countrylanguage GROUP BY LANGUAGE ORDER BY count(*) DESC LIMIT 1
+    GOLD: REFUSE -- targets table(s) ['countrylanguage'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[world_23] (out_of_scope_register)  What is the language spoken by the largest percentage of people in each country?
+    SQL: SELECT LANGUAGE ,  CountryCode ,  max(Percentage) FROM countrylanguage GROUP BY CountryCode
+    GOLD: REFUSE -- targets table(s) ['countrylanguage'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[world_24] (out_of_scope_register)  What is the total number of countries where Spanish is spoken by the largest percentage of people?
+    SQL: SELECT count(*) ,   max(Percentage) FROM countrylanguage WHERE LANGUAGE  =  "Spanish" GROUP BY CountryCode
+    GOLD: REFUSE -- targets table(s) ['countrylanguage'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[world_25] (out_of_scope_register)  What are the codes of countries where Spanish is spoken by the largest percentage of people?
+    SQL: SELECT CountryCode ,  max(Percentage) FROM countrylanguage WHERE LANGUAGE  =  "Spanish" GROUP BY CountryCode
+    GOLD: REFUSE -- targets table(s) ['countrylanguage'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
+
+[world_26] (out_of_scope_register)  Which region is the city Kabul located in?
+    SQL: SELECT Region FROM country AS T1 JOIN city AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Name  =  "Kabul"
+    GOLD: REFUSE -- requires a multi-table join or set operation; planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.
+
+[world_27] (out_of_scope_register)  Which language is the most popular in Aruba?
+    SQL: SELECT T2.Language FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T1.Name  =  "Aruba" ORDER BY Percentage DESC LIMIT 1
+    GOLD: REFUSE -- requires a multi-table join or set operation; planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.
+
+[world_28] (out_of_scope_register)  How many countries speak both English and Dutch?
+    SQL: SELECT COUNT(*) FROM (SELECT T1.Name FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  "English" INTERSECT SELECT T1.Name FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  "Dutch")
+    GOLD: REFUSE -- requires a multi-table join or set operation; planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.
+
+[world_29] (out_of_scope_register)  Find the city with the largest population that uses English.
+    SQL: SELECT T1.Name ,  T1.Population FROM city AS T1 JOIN countrylanguage AS T2 ON T1.CountryCode  =  T2.CountryCode WHERE T2.Language  =  "English" ORDER BY T1.Population DESC LIMIT 1
+    GOLD: REFUSE -- requires a multi-table join or set operation; planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.
+
+[world_30] (out_of_scope_register)  Which unique cities are in Asian countries where Chinese is the official language ?
+    SQL: select distinct t3.name from country as t1 join countrylanguage as t2 on t1.code  =  t2.countrycode join city as t3 on t1.code  =  t3.countrycode where t2.isofficial  =  't' and t2.language  =  'chinese' and t1.continent  =  "asia"
+    GOLD: REFUSE -- requires a multi-table join or set operation; planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.
+
+
+FLAGS: none

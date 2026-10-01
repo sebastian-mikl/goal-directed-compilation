@@ -1,0 +1,222 @@
+{
+  "dataset": {
+    "row_count": 278
+  },
+  "column_types": {
+    "text": [
+      "loser_entry",
+      "loser_ioc",
+      "loser_name",
+      "score",
+      "tourney_id",
+      "tourney_name",
+      "winner_entry",
+      "winner_ioc",
+      "winner_name"
+    ],
+    "categorical": [
+      "loser_hand",
+      "round",
+      "surface",
+      "tourney_level",
+      "winner_hand"
+    ],
+    "numeric": [
+      "best_of",
+      "draw_size",
+      "loser_age",
+      "loser_ht",
+      "loser_rank",
+      "loser_rank_points",
+      "loser_seed",
+      "match_num",
+      "minutes",
+      "winner_age",
+      "winner_ht",
+      "winner_rank",
+      "winner_rank_points",
+      "winner_seed",
+      "year"
+    ],
+    "id": [
+      "loser_id",
+      "winner_id"
+    ],
+    "date": [
+      "tourney_date"
+    ]
+  },
+  "columns": {
+    "best_of": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "draw_size": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "loser_age": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "loser_entry": {
+      "type": "text",
+      "match_strategy": "exact"
+    },
+    "loser_hand": {
+      "type": "categorical",
+      "unique_count": 2,
+      "categories": [
+        "L",
+        "R"
+      ],
+      "match_strategy": "exact"
+    },
+    "loser_ht": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "loser_id": {
+      "type": "id",
+      "match_strategy": "exact"
+    },
+    "loser_ioc": {
+      "type": "text",
+      "match_strategy": "exact"
+    },
+    "loser_name": {
+      "type": "text",
+      "match_strategy": "contains"
+    },
+    "loser_rank": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "loser_rank_points": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "loser_seed": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "match_num": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "minutes": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "round": {
+      "type": "categorical",
+      "unique_count": 7,
+      "categories": [
+        "BR",
+        "F",
+        "QF",
+        "R16",
+        "R32",
+        "RR",
+        "SF"
+      ],
+      "match_strategy": "exact"
+    },
+    "score": {
+      "type": "text",
+      "match_strategy": "exact"
+    },
+    "surface": {
+      "type": "categorical",
+      "unique_count": 3,
+      "categories": [
+        "Clay",
+        "Grass",
+        "Hard"
+      ],
+      "match_strategy": "exact"
+    },
+    "tourney_date": {
+      "type": "date",
+      "match_strategy": "date_compare",
+      "format": "YYYYMMDD_int",
+      "non_null_count": 278,
+      "min": 20131021,
+      "max": 20170828
+    },
+    "tourney_id": {
+      "type": "text",
+      "match_strategy": "exact"
+    },
+    "tourney_level": {
+      "type": "categorical",
+      "unique_count": 4,
+      "categories": [
+        "G",
+        "I",
+        "P",
+        "W"
+      ],
+      "match_strategy": "exact"
+    },
+    "tourney_name": {
+      "type": "text",
+      "match_strategy": "exact"
+    },
+    "winner_age": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "winner_entry": {
+      "type": "text",
+      "match_strategy": "exact"
+    },
+    "winner_hand": {
+      "type": "categorical",
+      "unique_count": 2,
+      "categories": [
+        "L",
+        "R"
+      ],
+      "match_strategy": "exact"
+    },
+    "winner_ht": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "winner_id": {
+      "type": "id",
+      "match_strategy": "exact"
+    },
+    "winner_ioc": {
+      "type": "text",
+      "match_strategy": "exact"
+    },
+    "winner_name": {
+      "type": "text",
+      "match_strategy": "contains"
+    },
+    "winner_rank": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "winner_rank_points": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "winner_seed": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "year": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    }
+  },
+  "domain": {
+    "description": "A women's tennis (WTA) database. players lists individual athletes; matches logs individual tournament matches (winner/loser detail per match); rankings is a historical weekly ranking snapshot per player.",
+    "source_note": "Spider (Yu et al., 2018) benchmark database wta_1, used as-is -- schema and data are third-party, not authored for this project.",
+    "register_table": "matches",
+    "register_table_note": "This domain's real Spider database has multiple tables (see git history for the full multi-table schema this was derived from); to match this project's single-flat-table register convention (register.pkl / employees.pkl), 'matches' was chosen as the ONLY visible table. Any real Spider question needing a different table is a deliberate refusal case in this domain's corpus, not an omission."
+  }
+}

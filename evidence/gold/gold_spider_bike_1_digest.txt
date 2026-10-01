@@ -1,0 +1,105 @@
+GOLD DIGEST -- bike_1 (Spider third-party gold, executed verbatim against the real .sqlite)
+
+[bike_01] (order_by)  Give me the start station and end station for the trips with the three oldest id.
+    SQL: SELECT start_station_name ,  end_station_name FROM trip ORDER BY id LIMIT 3
+    GOLD (ordered_list, ordered=True, rows=3): [{"start_station_name": "Howard at 2nd", "end_station_name": "San Francisco Caltrain 2 (330 Townsend)"}, {"start_station_name": "South Van Ness at Market", "end_station_name": "San Francisco Caltrain 2 (330 Townsend)"}, {"start_station_name": "Market at Sansome", "end_station_name": "Harry Bridges Plaza (Ferry Building)"}]
+
+[bike_02] (order_by)  What is the id of the trip that has the shortest duration?
+    SQL: SELECT id FROM trip ORDER BY duration LIMIT 1
+    GOLD (scalar, ordered=False, rows=1): 906210
+
+[bike_03] (out_of_contract_aggregate)  What is the total and maximum duration of trips with bike id 636?
+    SQL: SELECT sum(duration) ,  max(duration) FROM trip WHERE bike_id  =  636
+    GOLD (table, ordered=False, rows=1): [{"sum(duration)": 21897, "max(duration)": 1299}]
+
+[bike_04] (aggregate)  From the trip record, find the number of unique bikes.
+    SQL: SELECT count(DISTINCT bike_id) FROM trip
+    GOLD (scalar, ordered=False, rows=1): 530
+
+[bike_05] (group_by)  Which start station had the most trips starting from August? Give me the name and id of the station.
+    SQL: SELECT start_station_name ,  start_station_id FROM trip WHERE start_date LIKE "8/%" GROUP BY start_station_name ORDER BY COUNT(*) DESC LIMIT 1
+    GOLD (ordered_list, ordered=True, rows=1): [{"start_station_name": "San Francisco Caltrain 2 (330 Townsend)", "start_station_id": 69}]
+
+[bike_06] (group_by)  Which bike traveled the most often in zip code 94002?
+    SQL: SELECT bike_id FROM trip WHERE zip_code  =  94002 GROUP BY bike_id ORDER BY COUNT(*) DESC LIMIT 1
+    GOLD (scalar, ordered=False, rows=1): 679
+
+[bike_07] (out_of_contract_aggregate)  Find the ids and names of stations from which at least 200 trips started.
+    SQL: SELECT start_station_id ,  start_station_name FROM trip GROUP BY start_station_name HAVING COUNT(*)  >=  200
+    GOLD (table, ordered=False, rows=19): [{"start_station_id": 39, "start_station_name": "Powell Street BART"}, {"start_station_id": 50, "start_station_name": "Harry Bridges Plaza (Ferry Building)"}, {"start_station_id": 51, "start_station_name": "Embarcadero at Folsom"}, {"start_station_id": 54, "start_station_name": "Embarcadero at Bryant"}, {"start_station_id": 55, "start_station_name": "Temporary Transbay Terminal (Howard at Beale)"}, {"start_station_id": 56, "start_station_name": "Beale at Market"}] … (+13 more)
+
+[bike_08] (order_by)  What are the ids and durations of the trips with the top 3 durations?
+    SQL: SELECT id ,  duration FROM trip ORDER BY duration DESC LIMIT 3
+    GOLD (ordered_list, ordered=True, rows=3): [{"id": 911017, "duration": 154368}, {"id": 902480, "duration": 83921}, {"id": 902481, "duration": 83888}]
+
+[bike_09] (out_of_contract_aggregate)  List all the distinct stations from which a trip of duration below 100 started.
+    SQL: SELECT DISTINCT start_station_name FROM trip WHERE duration  <  100
+    GOLD (table, ordered=False, rows=17): [{"start_station_name": "2nd at Folsom"}, {"start_station_name": "2nd at South Park"}, {"start_station_name": "2nd at Townsend"}, {"start_station_name": "5th at Howard"}, {"start_station_name": "Beale at Market"}, {"start_station_name": "Commercial at Montgomery"}] … (+11 more)
+
+[bike_10] (out_of_contract_aggregate)  Find the id for the trips that lasted at least as long as the average duration of trips in zip code 94103.
+    SQL: SELECT id FROM trip WHERE duration  >=  (SELECT avg(duration) FROM trip WHERE zip_code  =  94103)
+    GOLD (table, ordered=False, rows=4871): [{"id": 900505}, {"id": 900507}, {"id": 900508}, {"id": 900514}, {"id": 900515}, {"id": 900519}] … (+4865 more)
+
+[bike_11] (out_of_scope_register)  Give me the dates when the max temperature was higher than 85.
+    SQL: SELECT date FROM weather WHERE max_temperature_f  >  85
+    GOLD: REFUSE -- targets table ['weather'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.
+
+[bike_12] (out_of_scope_register)  How many days had both mean humidity above 50 and mean visibility above 8?
+    SQL: SELECT COUNT(*) FROM weather WHERE mean_humidity  >  50 AND mean_visibility_miles  >  8
+    GOLD: REFUSE -- targets table ['weather'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.
+
+[bike_13] (out_of_scope_register)  What is the 3 most common cloud cover rates in the region of zip code 94107?
+    SQL: SELECT cloud_cover FROM weather WHERE zip_code  =  94107 GROUP BY cloud_cover ORDER BY COUNT (*) DESC LIMIT 3
+    GOLD: REFUSE -- targets table ['weather'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.
+
+[bike_14] (out_of_scope_register)  In zip code 94107, on which day neither Fog nor Rain was not observed?
+    SQL: SELECT date FROM weather WHERE zip_code  =  94107 AND EVENTS != "Fog" AND EVENTS != "Rain"
+    GOLD: REFUSE -- targets table ['weather'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.
+
+[bike_15] (out_of_scope_register)  What are the date, mean temperature and mean humidity for the top 3 days with the largest max gust speeds?
+    SQL: SELECT date ,  mean_temperature_f ,  mean_humidity FROM weather ORDER BY max_gust_speed_mph DESC LIMIT 3
+    GOLD: REFUSE -- targets table ['weather'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.
+
+[bike_16] (out_of_scope_register)  What are the names of stations that have latitude lower than 37.5?
+    SQL: SELECT name FROM station WHERE lat  <  37.5
+    GOLD: REFUSE -- targets table ['station'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.
+
+[bike_17] (out_of_scope_register)  What is the average latitude and longitude of stations located in San Jose city?
+    SQL: SELECT avg(lat) ,  avg(long) FROM station WHERE city  =  "San Jose"
+    GOLD: REFUSE -- targets table ['station'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.
+
+[bike_18] (out_of_scope_register)  What are the name, latitude, and city of the station with the lowest latitude?
+    SQL: SELECT name ,  lat ,  city FROM station ORDER BY lat LIMIT 1
+    GOLD: REFUSE -- targets table ['station'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.
+
+[bike_19] (out_of_scope_register)  List the name and the number of stations for all the cities that have at least 15 stations.
+    SQL: SELECT city ,  COUNT(*) FROM station GROUP BY city HAVING COUNT(*)  >=  15
+    GOLD: REFUSE -- targets table ['station'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system.
+
+[bike_20] (out_of_scope_register)  What is the average bike availability in stations that are not located in Palo Alto?
+    SQL: SELECT avg(bikes_available) FROM status WHERE station_id NOT IN (SELECT id FROM station WHERE city  =  "Palo Alto")
+    GOLD: REFUSE -- targets table ['status'] -- this domain's single-table register only exposes 'trip' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system. (This one's gold SQL also has a WHERE-clause subquery into 'station' -- genuinely needs 2 tables' data despite the classifier reading only the outer FROM as single-table, same issue noted for 2 world_1 queries -- refuse either way, noted for completeness.)
+
+[bike_21] (out_of_scope_register)  What is the latitude, longitude, city of the station from which the shortest trip started?
+    SQL: SELECT T1.lat ,  T1.long ,  T1.city FROM station AS T1 JOIN trip AS T2 ON T1.id  =  T2.start_station_id ORDER BY T2.duration LIMIT 1
+    GOLD: REFUSE -- requires a multi-table join or set operation (e.g. INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive. (Also references table(s) outside the single-table register.)
+
+[bike_22] (out_of_scope_register)  What are the ids of stations that are located in San Francisco and have average bike availability above 10.
+    SQL: SELECT id FROM station WHERE city  =  "San Francisco" INTERSECT SELECT station_id FROM status GROUP BY station_id HAVING avg(bikes_available)  >  10
+    GOLD: REFUSE -- requires a multi-table join or set operation (e.g. INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive. (Also references table(s) outside the single-table register.)
+
+[bike_23] (out_of_scope_register)  Give me ids for all the trip that took place in a zip code area with average mean temperature above 60.
+    SQL: SELECT T1.id FROM trip AS T1 JOIN weather AS T2 ON T1.zip_code  =  T2.zip_code GROUP BY T2.zip_code HAVING avg(T2.mean_temperature_f)  >  60
+    GOLD: REFUSE -- requires a multi-table join or set operation (e.g. INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive. (Also references table(s) outside the single-table register.)
+
+[bike_24] (out_of_scope_register)  Count the number of trips that did not end in San Francisco city.
+    SQL: SELECT count(*) FROM trip AS T1 JOIN station AS T2 ON T1.end_station_id  =  T2.id WHERE T2.city !=  "San Francisco"
+    GOLD: REFUSE -- requires a multi-table join or set operation (e.g. INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive. (Also references table(s) outside the single-table register.)
+
+[bike_25] (out_of_scope_register)  How many trips started from Mountain View city and ended at Palo Alto city?
+    SQL: SELECT count(*) FROM station AS T1 JOIN trip AS T2 JOIN station AS T3 JOIN trip AS T4 ON T1.id  =  T2.start_station_id AND T2.id  =  T4.id AND T3.id  =  T4.end_station_id WHERE T1.city  =  "Mountain View" AND T3.city  =  "Palo Alto"
+    GOLD: REFUSE -- requires a multi-table join or set operation (e.g. INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive. (Also references table(s) outside the single-table register.)
+
+
+================ FLAGS (architect to resolve; NOT auto-fixed) ================
+  - large gold results (row_count>1000): [('bike_10', 4871)] -- real Spider queries with no WHERE filter over a big table (e.g. all ~20k players); not an error, just worth knowing before wiring to a live comparator.

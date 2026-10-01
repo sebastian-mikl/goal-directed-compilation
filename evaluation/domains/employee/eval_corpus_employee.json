@@ -1,0 +1,1080 @@
+{
+  "meta": {
+    "domain": "employee_directory",
+    "purpose": "Second-domain evaluation corpus, built to the same rigor as the synthetic-domain benchmark (T1-T5 tiers, independently-authored gold, house_vocab + out_of_range supplementary tiers).",
+    "authoring_note": "Questions are phrased as an HR analyst would ask, NOT as engine-shaped goal specs. The 'intent' field is the unambiguous specification the INDEPENDENT gold script (evidence/gold/build_gold_employee.py) implements (plain pandas, zero imports from the engine). T5 thresholds were verified against the real augmented probe_domain/employees.pkl data before being finalized, not guessed -- see this session's threshold-verification work.",
+    "corpus_size_note": "91 queries, not 93: two originally-drafted house_vocab queries ('typical bonus for managers' and 'way more than market rate') were DROPPED after verification against real data found them genuinely undefined -- 'managers' splits into two non-overlapping populations with materially different answers (Role==Manager: 29 people, constant $19,500 bonus; generic supervisory staff: 98 people spanning all 4 roles, mean $25,469), and 'way more than market rate' has no natural gap in the salary_variance distribution to anchor a threshold on. This mirrors eval_corpus.json's own precedent of dropping hv_01/hv_04 for an undefined term ('exposure')."
+  },
+  "queries": [
+    {
+      "id": "t1_01",
+      "tier": "T1_single_op",
+      "ops": [
+        "filter"
+      ],
+      "question": "List all current employees.",
+      "intent": "filter status not in separated_statuses; return identifying columns (name, status).",
+      "complexity_ops": 1
+    },
+    {
+      "id": "t1_02",
+      "tier": "T1_single_op",
+      "ops": [
+        "filter"
+      ],
+      "question": "List employees in the Engineering department.",
+      "intent": "rows where department == 'Engineering'; return identifying columns (name, department).",
+      "complexity_ops": 1
+    },
+    {
+      "id": "t1_03",
+      "tier": "T1_single_op",
+      "ops": [
+        "filter"
+      ],
+      "question": "List employees with Role Director.",
+      "intent": "rows where role == 'Director'; return identifying columns (name, role).",
+      "complexity_ops": 1
+    },
+    {
+      "id": "t1_04",
+      "tier": "T1_single_op",
+      "ops": [
+        "filter"
+      ],
+      "question": "List employees on Sabbatical.",
+      "intent": "rows where status == 'Sabbatical'; return identifying columns (name, status).",
+      "complexity_ops": 1
+    },
+    {
+      "id": "t1_05",
+      "tier": "T1_single_op",
+      "ops": [
+        "filter"
+      ],
+      "question": "List employees in the San Francisco office.",
+      "intent": "rows where location == 'SF'; return identifying columns (name, location).",
+      "complexity_ops": 1
+    },
+    {
+      "id": "t1_06",
+      "tier": "T1_single_op",
+      "ops": [
+        "aggregate"
+      ],
+      "question": "How many employees are there in total?",
+      "intent": "count(*) over all rows.",
+      "complexity_ops": 1
+    },
+    {
+      "id": "t1_07",
+      "tier": "T1_single_op",
+      "ops": [
+        "aggregate"
+      ],
+      "question": "What is the total Annual Salary across all employees?",
+      "intent": "sum(salary).",
+      "complexity_ops": 1
+    },
+    {
+      "id": "t1_08",
+      "tier": "T1_single_op",
+      "ops": [
+        "aggregate"
+      ],
+      "question": "What is the average Performance Score across all employees?",
+      "intent": "avg(performance).",
+      "complexity_ops": 1
+    },
+    {
+      "id": "t1_09",
+      "tier": "T1_single_op",
+      "ops": [
+        "aggregate"
+      ],
+      "question": "What is the highest Annual Salary?",
+      "intent": "max(salary).",
+      "complexity_ops": 1
+    },
+    {
+      "id": "t1_10",
+      "tier": "T1_single_op",
+      "ops": [
+        "select"
+      ],
+      "question": "List each employee's name and manager ID.",
+      "intent": "select [name, manager_id] for all rows.",
+      "complexity_ops": 1
+    },
+    {
+      "id": "t1_11",
+      "tier": "T1_single_op",
+      "ops": [
+        "select"
+      ],
+      "question": "List each employee's Status and Role.",
+      "intent": "select [status, role] for all rows.",
+      "complexity_ops": 1
+    },
+    {
+      "id": "t1_12",
+      "tier": "T1_single_op",
+      "ops": [
+        "compute"
+      ],
+      "question": "For each employee, compute Annual Salary minus Bonus Target.",
+      "intent": "derive salary - bonus per row.",
+      "complexity_ops": 1
+    },
+    {
+      "id": "t1_13",
+      "tier": "T1_single_op",
+      "ops": [
+        "compute"
+      ],
+      "question": "For each employee, compute Market Rate plus Equity Grant Value.",
+      "intent": "derive market_rate + equity per row.",
+      "complexity_ops": 1
+    },
+    {
+      "id": "t1_14",
+      "tier": "T1_single_op",
+      "ops": [
+        "order"
+      ],
+      "question": "What are the 5 highest-paid employees by Annual Salary?",
+      "intent": "order by salary desc; limit 5.",
+      "complexity_ops": 1
+    },
+    {
+      "id": "t1_15",
+      "tier": "T1_single_op",
+      "ops": [
+        "order"
+      ],
+      "question": "What are the 10 employees with the highest Performance Score?",
+      "intent": "order by performance desc; limit 10.",
+      "complexity_ops": 1
+    },
+    {
+      "id": "t2_01",
+      "tier": "T2_two_ops",
+      "ops": [
+        "filter",
+        "aggregate"
+      ],
+      "question": "How many current employees are there?",
+      "intent": "filter status not in separated_statuses; count(*).",
+      "complexity_ops": 2
+    },
+    {
+      "id": "t2_02",
+      "tier": "T2_two_ops",
+      "ops": [
+        "filter",
+        "aggregate"
+      ],
+      "question": "How many employees are in the Engineering department?",
+      "intent": "filter department == 'Engineering'; count(*).",
+      "complexity_ops": 2
+    },
+    {
+      "id": "t2_03",
+      "tier": "T2_two_ops",
+      "ops": [
+        "filter",
+        "aggregate"
+      ],
+      "question": "What is the average Performance Score for employees with Role Director?",
+      "intent": "filter role == 'Director'; avg(performance).",
+      "complexity_ops": 2
+    },
+    {
+      "id": "t2_04",
+      "tier": "T2_two_ops",
+      "ops": [
+        "aggregate",
+        "group_by"
+      ],
+      "question": "What is the average Annual Salary per Department?",
+      "intent": "group_by department; avg(salary).",
+      "complexity_ops": 2
+    },
+    {
+      "id": "t2_05",
+      "tier": "T2_two_ops",
+      "ops": [
+        "aggregate",
+        "group_by"
+      ],
+      "question": "How many employees are there per Role?",
+      "intent": "group_by role; count(*).",
+      "complexity_ops": 2
+    },
+    {
+      "id": "t2_06",
+      "tier": "T2_two_ops",
+      "ops": [
+        "aggregate",
+        "group_by"
+      ],
+      "question": "What is the total Equity Grant Value per Role?",
+      "intent": "group_by role; sum(equity).",
+      "complexity_ops": 2
+    },
+    {
+      "id": "t2_07",
+      "tier": "T2_two_ops",
+      "ops": [
+        "filter",
+        "compute"
+      ],
+      "question": "For current employees, compute Annual Salary minus Market Rate.",
+      "intent": "filter status not in separated_statuses; derive salary - market_rate per row.",
+      "complexity_ops": 2
+    },
+    {
+      "id": "t2_08",
+      "tier": "T2_two_ops",
+      "ops": [
+        "filter",
+        "compute"
+      ],
+      "question": "For employees in the Sales department, compute Bonus Target plus Equity Grant Value.",
+      "intent": "filter department == 'Sales'; derive bonus + equity per row.",
+      "complexity_ops": 2
+    },
+    {
+      "id": "t2_09",
+      "tier": "T2_two_ops",
+      "ops": [
+        "compute",
+        "aggregate"
+      ],
+      "question": "What is the total salary variance (Annual Salary minus Market Rate) across all employees?",
+      "intent": "derive salary - market_rate; sum(derived).",
+      "complexity_ops": 2
+    },
+    {
+      "id": "t2_10",
+      "tier": "T2_two_ops",
+      "ops": [
+        "compute",
+        "aggregate"
+      ],
+      "question": "What is the average total variable compensation (Bonus Target plus Equity Grant Value) across all employees?",
+      "intent": "derive bonus + equity; avg(derived).",
+      "complexity_ops": 2
+    },
+    {
+      "id": "t2_11",
+      "tier": "T2_two_ops",
+      "ops": [
+        "filter",
+        "order"
+      ],
+      "question": "What are the 5 highest-paid current employees?",
+      "intent": "filter status not in separated_statuses; order by salary desc; limit 5.",
+      "complexity_ops": 2
+    },
+    {
+      "id": "t2_12",
+      "tier": "T2_two_ops",
+      "ops": [
+        "filter",
+        "order"
+      ],
+      "question": "What are the 3 employees with the highest Performance Score in the Engineering department?",
+      "intent": "filter department == 'Engineering'; order by performance desc; limit 3.",
+      "complexity_ops": 2
+    },
+    {
+      "id": "t2_13",
+      "tier": "T2_two_ops",
+      "ops": [
+        "filter",
+        "select"
+      ],
+      "question": "List the Status and Department of current employees in the Manager role.",
+      "intent": "filter status not in separated_statuses AND role == 'Manager'; select [status, department].",
+      "complexity_ops": 2
+    },
+    {
+      "id": "t2_14",
+      "tier": "T2_two_ops",
+      "ops": [
+        "filter",
+        "select"
+      ],
+      "question": "List the Status and Role of current employees in the Sales department.",
+      "intent": "filter status not in separated_statuses AND department == 'Sales'; select [status, role].",
+      "complexity_ops": 2
+    },
+    {
+      "id": "t2_15",
+      "tier": "T2_two_ops",
+      "ops": [
+        "filter",
+        "aggregate"
+      ],
+      "question": "What is the highest Annual Salary among current employees?",
+      "intent": "filter status not in separated_statuses; max(salary).",
+      "complexity_ops": 2
+    },
+    {
+      "id": "t3_01",
+      "tier": "T3_three_ops",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by"
+      ],
+      "question": "For current employees, what is the average Annual Salary per Department?",
+      "intent": "filter status not in separated_statuses; group_by department; avg(salary).",
+      "complexity_ops": 3
+    },
+    {
+      "id": "t3_02",
+      "tier": "T3_three_ops",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by"
+      ],
+      "question": "For current employees, what is the total Equity Grant Value per Role?",
+      "intent": "filter status not in separated_statuses; group_by role; sum(equity).",
+      "complexity_ops": 3
+    },
+    {
+      "id": "t3_03",
+      "tier": "T3_three_ops",
+      "ops": [
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "What are the top 3 departments by total Annual Salary?",
+      "intent": "group_by department; sum(salary); order desc; limit 3.",
+      "complexity_ops": 3
+    },
+    {
+      "id": "t3_04",
+      "tier": "T3_three_ops",
+      "ops": [
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "What are the top 5 managers by number of direct reports?",
+      "intent": "group_by manager_id; count(*) (rows whose manager_id equals this employee -- a flat groupby/count on the manager_id column, NOT a hierarchy traversal); order desc; limit 5.",
+      "complexity_ops": 3
+    },
+    {
+      "id": "t3_05",
+      "tier": "T3_three_ops",
+      "ops": [
+        "filter",
+        "aggregate"
+      ],
+      "question": "For current employees in the Engineering department, what is the average Performance Score?",
+      "intent": "filter status not in separated_statuses AND department == 'Engineering'; avg(performance).",
+      "complexity_ops": 3
+    },
+    {
+      "id": "t3_06",
+      "tier": "T3_three_ops",
+      "ops": [
+        "filter",
+        "aggregate"
+      ],
+      "question": "For current employees with Role Director, what is the total Annual Salary?",
+      "intent": "filter status not in separated_statuses AND role == 'Director'; sum(salary).",
+      "complexity_ops": 3
+    },
+    {
+      "id": "t3_07",
+      "tier": "T3_three_ops",
+      "ops": [
+        "compute",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For all employees, derive the salary variance (Annual Salary minus Market Rate) and report the total per Role, ranked descending.",
+      "intent": "derive salary - market_rate; group_by role; sum(derived); order desc.",
+      "complexity_ops": 3
+    },
+    {
+      "id": "t3_08",
+      "tier": "T3_three_ops",
+      "ops": [
+        "compute",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For all employees, derive total variable compensation (Bonus Target plus Equity Grant Value) and report the average per Department, ranked descending.",
+      "intent": "derive bonus + equity; group_by department; avg(derived); order desc.",
+      "complexity_ops": 3
+    },
+    {
+      "id": "t3_09",
+      "tier": "T3_three_ops",
+      "ops": [
+        "filter",
+        "compute",
+        "order"
+      ],
+      "question": "For current employees, derive the salary variance (Annual Salary minus Market Rate) and report the top 5 employees by variance.",
+      "intent": "filter status not in separated_statuses; derive salary - market_rate; order desc; limit 5.",
+      "complexity_ops": 3
+    },
+    {
+      "id": "t3_10",
+      "tier": "T3_three_ops",
+      "ops": [
+        "filter",
+        "compute",
+        "order"
+      ],
+      "question": "For current employees, derive total variable compensation (Bonus Target plus Equity Grant Value) and report the top 3 employees by that total.",
+      "intent": "filter status not in separated_statuses; derive bonus + equity; order desc; limit 3.",
+      "complexity_ops": 3
+    },
+    {
+      "id": "t3_11",
+      "tier": "T3_three_ops",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For employees in the Engineering department, what are the top 3 roles by total Equity Grant Value?",
+      "intent": "filter department == 'Engineering'; group_by role; sum(equity); order desc; limit 3.",
+      "complexity_ops": 3
+    },
+    {
+      "id": "t3_12",
+      "tier": "T3_three_ops",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees, what are the top 3 departments by average Annual Salary?",
+      "intent": "filter status not in separated_statuses; group_by department; avg(salary); order desc; limit 3.",
+      "complexity_ops": 3
+    },
+    {
+      "id": "t3_13",
+      "tier": "T3_three_ops",
+      "ops": [
+        "filter",
+        "order"
+      ],
+      "question": "For employees with Role Manager, what are the top 5 employees by average Performance Score?",
+      "intent": "filter role == 'Manager'; order by performance desc; limit 5.",
+      "complexity_ops": 3
+    },
+    {
+      "id": "t3_14",
+      "tier": "T3_three_ops",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For employees on Sabbatical, what is the total Annual Salary per Department, ranked descending?",
+      "intent": "filter status == 'Sabbatical'; group_by department; sum(salary); order desc.",
+      "complexity_ops": 3
+    },
+    {
+      "id": "t3_15",
+      "tier": "T3_three_ops",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by"
+      ],
+      "question": "For current employees, what is the maximum Equity Grant Value per Role?",
+      "intent": "filter status not in separated_statuses; group_by role; max(equity).",
+      "complexity_ops": 3
+    },
+    {
+      "id": "t4_01",
+      "tier": "T4_business_rule_multi_op",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by"
+      ],
+      "question": "For active employees, what is the average Annual Salary per Department?",
+      "intent": "'active' -> current business rule (status not in separated_statuses); group_by department; avg(salary)."
+    },
+    {
+      "id": "t4_02",
+      "tier": "T4_business_rule_multi_op",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by"
+      ],
+      "question": "For active employees, what is the total Equity Grant Value per Role?",
+      "intent": "'active' -> current business rule; group_by role; sum(equity)."
+    },
+    {
+      "id": "t4_03",
+      "tier": "T4_business_rule_multi_op",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by"
+      ],
+      "question": "For current staff, what is the average Performance Score per Department?",
+      "intent": "'staff' -> generic term for employee, no extra filter; current business rule applies; group_by department; avg(performance)."
+    },
+    {
+      "id": "t4_04",
+      "tier": "T4_business_rule_multi_op",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by"
+      ],
+      "question": "For employees who are still with the company, what is the total Annual Salary per Role?",
+      "intent": "'still with the company' -> current business rule; group_by role; sum(salary)."
+    },
+    {
+      "id": "t4_05",
+      "tier": "T4_business_rule_multi_op",
+      "ops": [
+        "filter",
+        "compute",
+        "aggregate",
+        "group_by"
+      ],
+      "question": "For active employees earning over $150,000, what is the average salary variance (Annual Salary minus Market Rate) per Role?",
+      "intent": "current business rule AND salary > 150000; derive salary - market_rate; group_by role; avg(derived)."
+    },
+    {
+      "id": "t4_06",
+      "tier": "T4_business_rule_multi_op",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by"
+      ],
+      "question": "For current employees with Performance Score above 4.0, what is the total Equity Grant Value per Department?",
+      "intent": "current business rule AND performance > 4.0; group_by department; sum(equity)."
+    },
+    {
+      "id": "t4_07",
+      "tier": "T4_business_rule_multi_op",
+      "ops": [
+        "filter",
+        "compute",
+        "aggregate"
+      ],
+      "question": "For active employees in the Engineering or Sales departments, what is the average total variable compensation (Bonus Target plus Equity Grant Value)?",
+      "intent": "current business rule AND department in ['Engineering','Sales']; derive bonus + equity; avg(derived)."
+    },
+    {
+      "id": "t4_08",
+      "tier": "T4_business_rule_multi_op",
+      "ops": [
+        "filter",
+        "aggregate"
+      ],
+      "question": "For active Directors, what is the average Market Rate?",
+      "intent": "current business rule AND role == 'Director'; avg(market_rate)."
+    },
+    {
+      "id": "t4_09",
+      "tier": "T4_business_rule_multi_op",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by"
+      ],
+      "question": "For current employees, excluding those on Sabbatical, what is the total Annual Salary per Department?",
+      "intent": "current business rule AND status != 'Sabbatical' (a SECOND, explicit exclusion on top of the current rule's own Terminated exclusion); group_by department; sum(salary)."
+    },
+    {
+      "id": "t4_10",
+      "tier": "T4_business_rule_multi_op",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For active employees, what are the top 3 departments by average Performance Score?",
+      "intent": "current business rule; group_by department; avg(performance); order desc; limit 3."
+    },
+    {
+      "id": "t4_11",
+      "tier": "T4_business_rule_multi_op",
+      "ops": [
+        "filter",
+        "compute",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees, what are the top 3 roles by total salary variance (Annual Salary minus Market Rate)?",
+      "intent": "current business rule; derive salary - market_rate; group_by role; sum(derived); order desc; limit 3."
+    },
+    {
+      "id": "t4_12",
+      "tier": "T4_business_rule_multi_op",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by"
+      ],
+      "question": "For active employees with Tenure above 5 years, what is the average Equity Grant Value per Role?",
+      "intent": "current business rule AND tenure > 5; group_by role; avg(equity)."
+    },
+    {
+      "id": "t4_13",
+      "tier": "T4_business_rule_multi_op",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by"
+      ],
+      "question": "For staff currently employed, what is the average Annual Salary per Location?",
+      "intent": "'staff currently employed' -> current business rule; group_by location; avg(salary)."
+    },
+    {
+      "id": "t4_14",
+      "tier": "T4_business_rule_multi_op",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by"
+      ],
+      "question": "For active employees, what is the average Time in Current Role per Department?",
+      "intent": "current business rule; group_by department; avg(time_in_role)."
+    },
+    {
+      "id": "t4_15",
+      "tier": "T4_business_rule_multi_op",
+      "ops": [
+        "filter",
+        "aggregate",
+        "group_by"
+      ],
+      "question": "For current employees in a VP or Director role, what is the total Equity Grant Value per Location?",
+      "intent": "current business rule AND role in ['VP','Director']; group_by location; sum(equity)."
+    },
+    {
+      "id": "t5_01",
+      "tier": "T5_high_complexity",
+      "ops": [
+        "filter",
+        "compute",
+        "filter",
+        "aggregate",
+        "order"
+      ],
+      "question": "For current employees with a positive salary variance (Annual Salary minus Market Rate), report the total variance per Department, top 3.",
+      "intent": "filter status not in separated_statuses; derive salary - market_rate; filter derived > 0; group_by department; sum(derived); order desc; limit 3.",
+      "complexity_ops": 5
+    },
+    {
+      "id": "t5_02",
+      "tier": "T5_high_complexity",
+      "ops": [
+        "filter",
+        "compute",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees with Role Manager, derive the total variable compensation (Bonus Target plus Equity Grant Value), report the average per Department, top 5.",
+      "intent": "filter status not in separated_statuses AND role == 'Manager'; derive bonus + equity; group_by department; avg(derived); order desc; limit 5.",
+      "complexity_ops": 5
+    },
+    {
+      "id": "t5_03",
+      "tier": "T5_high_complexity",
+      "ops": [
+        "filter",
+        "compute",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees with Annual Salary above $150,000, derive the salary variance (Annual Salary minus Market Rate), report the average variance per Role, top 3.",
+      "intent": "filter status not in separated_statuses AND salary > 150000; derive salary - market_rate; group_by role; avg(derived); order desc; limit 3.",
+      "complexity_ops": 5
+    },
+    {
+      "id": "t5_04",
+      "tier": "T5_high_complexity",
+      "ops": [
+        "filter",
+        "compute",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees with Performance Score above 4.0, derive total variable compensation (Bonus Target plus Equity Grant Value), report the sum per Department, top 3.",
+      "intent": "filter status not in separated_statuses AND performance > 4.0; derive bonus + equity; group_by department; sum(derived); order desc; limit 3.",
+      "complexity_ops": 5
+    },
+    {
+      "id": "t5_05",
+      "tier": "T5_high_complexity",
+      "ops": [
+        "filter",
+        "filter",
+        "compute",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees with Performance Score above 4.0 in the Engineering department, derive the salary variance (Annual Salary minus Market Rate), report the total salary variance per Role, top 3.",
+      "intent": "filter status not in separated_statuses AND performance > 4.0 AND department == 'Engineering'; derive salary - market_rate; group_by role; sum(derived); order desc; limit 3.",
+      "complexity_ops": 6
+    },
+    {
+      "id": "t5_06",
+      "tier": "T5_high_complexity",
+      "ops": [
+        "filter",
+        "compute",
+        "compute",
+        "filter",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees, derive both the salary variance (Annual Salary minus Market Rate) and total variable compensation (Bonus Target plus Equity Grant Value); for entries with a negative salary variance, report the average total variable compensation per Role, top 3.",
+      "intent": "filter status not in separated_statuses; derive salary - market_rate; derive bonus + equity; filter salary_variance < 0; group_by role; avg(total_variable_comp); order desc; limit 3.",
+      "complexity_ops": 6
+    },
+    {
+      "id": "t5_07",
+      "tier": "T5_high_complexity",
+      "ops": [
+        "filter",
+        "filter",
+        "compute",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees in the Sales department with Role Manager, derive the salary variance (Annual Salary minus Market Rate), report the total salary variance per Location, top 5.",
+      "intent": "filter status not in separated_statuses AND department == 'Sales' AND role == 'Manager'; derive salary - market_rate; group_by location; sum(derived); order desc; limit 5.",
+      "complexity_ops": 6
+    },
+    {
+      "id": "t5_08",
+      "tier": "T5_high_complexity",
+      "ops": [
+        "filter",
+        "compute",
+        "filter",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees, derive total compensation (Annual Salary plus Bonus Target plus Equity Grant Value); for entries with total compensation above $230,000, report the average total compensation per Department, top 3.",
+      "intent": "filter status not in separated_statuses; derive salary + bonus + equity; filter derived > 230000; group_by department; avg(derived); order desc; limit 3.",
+      "complexity_ops": 6
+    },
+    {
+      "id": "t5_09",
+      "tier": "T5_high_complexity",
+      "ops": [
+        "filter",
+        "compute",
+        "compute",
+        "filter",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees with Role Manager, derive the salary variance (Annual Salary minus Market Rate) and total variable compensation (Bonus Target plus Equity Grant Value); for entries with total variable compensation above $64,056, report the average salary variance per Department, top 3.",
+      "intent": "filter status not in separated_statuses AND role == 'Manager'; derive salary - market_rate; derive bonus + equity; filter total_variable_comp > 64056; group_by department; avg(salary_variance); order desc; limit 3.",
+      "complexity_ops": 7
+    },
+    {
+      "id": "t5_10",
+      "tier": "T5_high_complexity",
+      "ops": [
+        "filter",
+        "filter",
+        "filter",
+        "compute",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees with Performance Score above 4.0 in the Engineering department, filtered to Annual Salary above $120,000, derive the salary variance (Annual Salary minus Market Rate), report the average salary variance per Role, top 3.",
+      "intent": "filter status not in separated_statuses AND performance > 4.0 AND department == 'Engineering' AND salary > 120000; derive salary - market_rate; group_by role; avg(derived); order desc; limit 3.",
+      "complexity_ops": 7
+    },
+    {
+      "id": "t5_11",
+      "tier": "T5_high_complexity",
+      "ops": [
+        "filter",
+        "compute",
+        "filter",
+        "compute",
+        "filter",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees, derive the salary variance (Annual Salary minus Market Rate); for entries with a positive salary variance, derive total variable compensation (Bonus Target plus Equity Grant Value); for entries with total variable compensation above $30,000, report the average salary variance per Role, top 3.",
+      "intent": "filter status not in separated_statuses; derive salary - market_rate; filter derived > 0; derive bonus + equity; filter total_variable_comp > 30000; group_by role; avg(salary_variance); order desc; limit 3.",
+      "complexity_ops": 7
+    },
+    {
+      "id": "t5_12",
+      "tier": "T5_high_complexity",
+      "ops": [
+        "filter",
+        "compute",
+        "filter",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees, derive the tenure ratio (Time in Current Role divided by Tenure); for entries with a tenure ratio below 0.5, report the average tenure ratio per Department, top 3.",
+      "intent": "filter status not in separated_statuses; derive time_in_role / tenure; filter derived < 0.5; group_by department; avg(derived); order desc; limit 3.",
+      "complexity_ops": 7
+    },
+    {
+      "id": "t5_13",
+      "tier": "T5_high_complexity",
+      "ops": [
+        "filter",
+        "compute",
+        "filter",
+        "compute",
+        "filter",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees with a positive salary variance (Annual Salary minus Market Rate), derive total compensation (Annual Salary plus Bonus Target plus Equity Grant Value); for entries with total compensation below $510,000, report the average total compensation per Role, top 3.",
+      "intent": "filter status not in separated_statuses; derive salary - market_rate; filter salary_variance > 0; derive salary + bonus + equity; filter total_comp < 510000; group_by role; avg(total_comp); order desc; limit 3.",
+      "complexity_ops": 8
+    },
+    {
+      "id": "t5_14",
+      "tier": "T5_high_complexity",
+      "ops": [
+        "filter",
+        "compute",
+        "filter",
+        "compute",
+        "filter",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees in the Sales or Marketing departments, derive the salary variance (Annual Salary minus Market Rate); for entries with a positive salary variance, derive total variable compensation (Bonus Target plus Equity Grant Value); for entries with total variable compensation above $45,000, report the average salary variance per Role, top 3.",
+      "intent": "filter status not in separated_statuses AND department in ['Sales','Marketing']; derive salary - market_rate; filter salary_variance > 0; derive bonus + equity; filter total_variable_comp > 45000; group_by role; avg(salary_variance); order desc; limit 3.",
+      "complexity_ops": 8
+    },
+    {
+      "id": "t5_15",
+      "tier": "T5_high_complexity",
+      "ops": [
+        "filter",
+        "compute",
+        "filter",
+        "compute",
+        "filter",
+        "aggregate",
+        "group_by",
+        "order"
+      ],
+      "question": "For current employees with Annual Salary above $150,000, derive the salary variance (Annual Salary minus Market Rate); for entries with a positive salary variance, derive total variable compensation (Bonus Target plus Equity Grant Value); for entries with total variable compensation below $205,077, report the average total variable compensation per Role, top 3.",
+      "intent": "filter status not in separated_statuses AND salary > 150000; derive salary - market_rate; filter salary_variance > 0; derive bonus + equity; filter total_variable_comp < 205077; group_by role; avg(total_variable_comp); order desc; limit 3.",
+      "complexity_ops": 8
+    },
+    {
+      "id": "hv_01",
+      "tier": "house_vocab",
+      "ops": [
+        "filter"
+      ],
+      "question": "Who's still working here?",
+      "intent": "'still working here' -> current business rule (status not in separated_statuses); return identifying columns (name, status).",
+      "note": "casual synonym for 'current employees'."
+    },
+    {
+      "id": "hv_02",
+      "tier": "house_vocab",
+      "ops": [
+        "filter",
+        "aggregate"
+      ],
+      "question": "What's the average pay for folks in Engineering?",
+      "intent": "'pay' -> salary; 'folks in Engineering' -> department == 'Engineering'; avg(salary).",
+      "note": "'pay' is a casual synonym for Annual Salary; 'folks' -> employees."
+    },
+    {
+      "id": "hv_03",
+      "tier": "house_vocab",
+      "ops": [
+        "order"
+      ],
+      "question": "Give me the top 5 earners.",
+      "intent": "'earners' -> ranked by salary (the primary compensation column); order by salary desc; limit 5.",
+      "note": "'earners' with no other qualifier -> rank by Annual Salary."
+    },
+    {
+      "id": "hv_04",
+      "tier": "house_vocab",
+      "ops": [
+        "filter",
+        "aggregate"
+      ],
+      "question": "How many people work in Sales?",
+      "intent": "filter department == 'Sales'; count(*).",
+      "note": "'people' -> employees; 'work in' -> department membership."
+    },
+    {
+      "id": "hv_05",
+      "tier": "house_vocab",
+      "ops": [
+        "aggregate",
+        "group_by"
+      ],
+      "question": "Break down headcount by department.",
+      "intent": "'headcount' -> count(*); group_by department.",
+      "note": "'headcount' is a casual synonym for employee count."
+    },
+    {
+      "id": "hv_06",
+      "tier": "house_vocab",
+      "ops": [
+        "filter",
+        "aggregate"
+      ],
+      "question": "What is the maximum Tenure (Years) among current employees?",
+      "intent": "filter status not in separated_statuses; max(tenure)."
+    },
+    {
+      "id": "oor_01",
+      "tier": "out_of_range",
+      "ops": [
+        "aggregate"
+      ],
+      "question": "What's the average employee satisfaction score?",
+      "intent": "OUT OF RANGE: no satisfaction/engagement-score column exists in this schema.",
+      "expected_behavior": "honest refusal / unreachable",
+      "reason": "no such column"
+    },
+    {
+      "id": "oor_02",
+      "tier": "out_of_range",
+      "ops": [
+        "unsupported_fn"
+      ],
+      "question": "Who is likely to leave the company in the next year?",
+      "intent": "OUT OF RANGE: requires predictive modeling, not expressible as filter/select/aggregate/compute over the current data.",
+      "expected_behavior": "honest refusal / unreachable",
+      "reason": "requires prediction"
+    },
+    {
+      "id": "oor_03",
+      "tier": "out_of_range",
+      "ops": [
+        "unsupported_fn"
+      ],
+      "question": "Compare our salaries to industry benchmarks.",
+      "intent": "OUT OF RANGE: 'industry benchmarks' means verified external cross-company survey data, which this schema does not have. Market Rate is this analysis's own internal per-role comparator (synthetic, company-specific), not sourced/verified external survey data -- treating it as 'industry benchmarks' is an interpretive substitution the query does not authorize, and the query also doesn't specify what comparison/statistic is wanted even if it were.",
+      "expected_behavior": "honest refusal / unreachable",
+      "reason": "no verified external benchmark data; ambiguous comparison"
+    },
+    {
+      "id": "oor_04",
+      "tier": "out_of_range",
+      "ops": [
+        "join"
+      ],
+      "question": "What's the full reporting chain above each VP?",
+      "intent": "OUT OF RANGE: the register holds no reporting chain to report. Following Manager ID upward from any VP enters a cycle, and no employee is without a manager, so the hierarchy has no top.",
+      "expected_behavior": "honest refusal / unreachable",
+      "reason": "Manager ID links are cyclic: every VP's chain loops and no employee lacks a manager, so no chain exists"
+    },
+    {
+      "id": "oor_05",
+      "tier": "out_of_range",
+      "ops": [
+        "unsupported_fn"
+      ],
+      "question": "Which employees are flight risks?",
+      "intent": "OUT OF RANGE: 'flight risk' is an undefined predictive judgment term, not a computable condition over this schema's columns.",
+      "expected_behavior": "honest refusal / unreachable",
+      "reason": "undefined term, requires judgment/prediction"
+    },
+    {
+      "id": "oor_06",
+      "tier": "out_of_range",
+      "ops": [
+        "aggregate"
+      ],
+      "question": "What's the gender pay gap?",
+      "intent": "OUT OF RANGE: no gender column exists in this schema.",
+      "expected_behavior": "honest refusal / unreachable",
+      "reason": "no such column"
+    },
+    {
+      "id": "oor_07",
+      "tier": "out_of_range",
+      "ops": [
+        "cross_aggregate"
+      ],
+      "question": "How does our Performance Score compare to last year's?",
+      "intent": "OUT OF RANGE: this dataset is a single snapshot; no historical/prior-year Performance Score data exists to compare against.",
+      "expected_behavior": "honest refusal / unreachable",
+      "reason": "no historical/time-series data"
+    },
+    {
+      "id": "oor_08",
+      "tier": "out_of_range",
+      "ops": [
+        "unsupported_fn"
+      ],
+      "question": "Which department has the best culture?",
+      "intent": "OUT OF RANGE: 'culture' is not measured by any column in this schema.",
+      "expected_behavior": "honest refusal / unreachable",
+      "reason": "unmeasurable from this data"
+    },
+    {
+      "id": "oor_09",
+      "tier": "out_of_range",
+      "ops": [
+        "aggregate"
+      ],
+      "question": "What's the average commute time for employees?",
+      "intent": "OUT OF RANGE: no commute-time or similar column exists in this schema.",
+      "expected_behavior": "honest refusal / unreachable",
+      "reason": "no such column"
+    },
+    {
+      "id": "oor_10",
+      "tier": "out_of_range",
+      "ops": [
+        "aggregate"
+      ],
+      "question": "Show me employees who are underpaid relative to their skills.",
+      "intent": "OUT OF RANGE: no skills/competency/certification column exists in this schema. Role is a job-level band, not a skills inventory, so it cannot stand in for 'skills' -- unlike the Market Rate near-miss above, there is no adjacent column here that could be mistaken for this.",
+      "expected_behavior": "honest refusal / unreachable",
+      "reason": "no skills data; Role is not a skills proxy"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "dataset": {
+    "row_count": 9959
+  },
+  "column_types": {
+    "text": [
+      "start_station_name",
+      "end_station_name",
+      "zip_code"
+    ],
+    "categorical": [
+      "subscription_type"
+    ],
+    "numeric": [
+      "duration"
+    ],
+    "id": [
+      "id",
+      "start_station_id",
+      "end_station_id",
+      "bike_id"
+    ],
+    "date": [
+      "start_date",
+      "end_date"
+    ]
+  },
+  "columns": {
+    "id": {
+      "type": "id",
+      "match_strategy": "exact"
+    },
+    "duration": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "start_date": {
+      "type": "date",
+      "match_strategy": "date_compare",
+      "format": "M/D/YYYY_H:MM_string"
+    },
+    "start_station_name": {
+      "type": "text",
+      "match_strategy": "exact"
+    },
+    "start_station_id": {
+      "type": "id",
+      "match_strategy": "exact"
+    },
+    "end_date": {
+      "type": "date",
+      "match_strategy": "date_compare",
+      "format": "M/D/YYYY_H:MM_string"
+    },
+    "end_station_name": {
+      "type": "text",
+      "match_strategy": "exact"
+    },
+    "end_station_id": {
+      "type": "id",
+      "match_strategy": "exact"
+    },
+    "bike_id": {
+      "type": "id",
+      "match_strategy": "exact"
+    },
+    "subscription_type": {
+      "type": "categorical",
+      "unique_count": 2,
+      "categories": [
+        "Customer",
+        "Subscriber"
+      ],
+      "match_strategy": "exact"
+    },
+    "zip_code": {
+      "type": "text",
+      "match_strategy": "exact"
+    }
+  },
+  "domain": {
+    "description": "A San Francisco Bay Area bike-share trip log. Each row is one rental trip: start/end station, start/end time, duration, which bike was used, the rider's subscription type, and the zip code they registered with.",
+    "source_note": "Spider (Yu et al., 2018) benchmark database bike_1, used as-is -- schema and data are third-party, not authored for this project.",
+    "register_table": "trip",
+    "register_table_note": "The real bike_1 database has 4 tables (station, status, trip, weather). weather scored highest by raw column-richness (22 numeric columns) and has slightly more real single-table questions (14 vs trip's 10), but is a temperature/humidity/wind/pressure log, not bike-sharing data -- a domain literally named 'bike_1' whose answerable content was mostly weather would be a confusing choice. 'trip' was chosen instead for thematic coherence, a robust row count, and real categorical variety (subscription_type), at the cost of a thinner answer-query count than wta_1/world_1 -- flagged for review, not silently accepted."
+  }
+}

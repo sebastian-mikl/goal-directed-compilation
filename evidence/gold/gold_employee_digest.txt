@@ -1,0 +1,293 @@
+GOLD DIGEST — independent answer key for eval_corpus_employee.json
+(computed by evidence/gold/build_gold_employee.py — pandas + stdlib only, zero engine imports)
+
+AUTHORING NOTES (conventions applied):
+  - 'active' / 'current staff' / 'still with the company' / 'staff currently employed'
+    all map to the current() business rule: Status not in ['Terminated'].
+  - two originally-drafted house_vocab queries ('typical bonus for managers', 'way more
+    than market rate') were DROPPED before this script was written -- confirmed genuinely
+    undefined against real data (see report). house_vocab is 6 queries, renumbered
+    hv_01..hv_06 sequentially (fresh corpus, no prior frozen IDs to preserve gaps for).
+  - row-returning queries (filter/list rows; per-row top-k) carry 'employee_id'
+    (= Employee ID, 150/150 unique) as the stable per-row key.
+  - unordered tables sorted by all columns (grouped tables by the group key) for
+    determinism; ordered_list preserves the order/limit; scalars rounded to 6 dp,
+    counts kept as ints; derived/aggregate columns given descriptive names.
+
+[t1_01] (T1_single_op)  List all current employees.
+    GOLD (table, ordered=False, rows=139): [{"Name": "Person 1", "Status": "Active", "employee_id": "E1000"}, {"Name": "Person 10", "Status": "On Leave", "employee_id": "E1009"}, {"Name": "Person 100", "Status": "Active", "employee_id": "E1099"}, {"Name": "Person 101", "Status": "Active", "employee_id": "E1100"}, {"Name": "Person 102", "Status": "Active", "employee_id": "E1101"}, {"Name": "Person 103", "Status": "Active", "employee_id": "E1102"}] … (+133 more)
+
+[t1_02] (T1_single_op)  List employees in the Engineering department.
+    GOLD (table, ordered=False, rows=26): [{"Department": "Engineering", "Name": "Person 1", "employee_id": "E1000"}, {"Department": "Engineering", "Name": "Person 101", "employee_id": "E1100"}, {"Department": "Engineering", "Name": "Person 104", "employee_id": "E1103"}, {"Department": "Engineering", "Name": "Person 118", "employee_id": "E1117"}, {"Department": "Engineering", "Name": "Person 127", "employee_id": "E1126"}, {"Department": "Engineering", "Name": "Person 13", "employee_id": "E1012"}] … (+20 more)
+
+[t1_03] (T1_single_op)  List employees with Role Director.
+    GOLD (table, ordered=False, rows=32): [{"Name": "Person 10", "Role": "Director", "employee_id": "E1009"}, {"Name": "Person 105", "Role": "Director", "employee_id": "E1104"}, {"Name": "Person 121", "Role": "Director", "employee_id": "E1120"}, {"Name": "Person 124", "Role": "Director", "employee_id": "E1123"}, {"Name": "Person 125", "Role": "Director", "employee_id": "E1124"}, {"Name": "Person 136", "Role": "Director", "employee_id": "E1135"}] … (+26 more)
+
+[t1_04] (T1_single_op)  List employees on Sabbatical.
+    GOLD (table, ordered=False, rows=16): [{"Name": "Person 112", "Status": "Sabbatical", "employee_id": "E1111"}, {"Name": "Person 116", "Status": "Sabbatical", "employee_id": "E1115"}, {"Name": "Person 121", "Status": "Sabbatical", "employee_id": "E1120"}, {"Name": "Person 123", "Status": "Sabbatical", "employee_id": "E1122"}, {"Name": "Person 138", "Status": "Sabbatical", "employee_id": "E1137"}, {"Name": "Person 17", "Status": "Sabbatical", "employee_id": "E1016"}] … (+10 more)
+
+[t1_05] (T1_single_op)  List employees in the San Francisco office.
+    GOLD (table, ordered=False, rows=34): [{"Location": "SF", "Name": "Person 103", "employee_id": "E1102"}, {"Location": "SF", "Name": "Person 110", "employee_id": "E1109"}, {"Location": "SF", "Name": "Person 113", "employee_id": "E1112"}, {"Location": "SF", "Name": "Person 114", "employee_id": "E1113"}, {"Location": "SF", "Name": "Person 115", "employee_id": "E1114"}, {"Location": "SF", "Name": "Person 129", "employee_id": "E1128"}] … (+28 more)
+
+[t1_06] (T1_single_op)  How many employees are there in total?
+    GOLD (scalar, ordered=False, rows=1): 150
+
+[t1_07] (T1_single_op)  What is the total Annual Salary across all employees?
+    GOLD (scalar, ordered=False, rows=1): 27929341.0
+
+[t1_08] (T1_single_op)  What is the average Performance Score across all employees?
+    GOLD (scalar, ordered=False, rows=1): 3.174
+
+[t1_09] (T1_single_op)  What is the highest Annual Salary?
+    GOLD (scalar, ordered=False, rows=1): 332724.0
+
+[t1_10] (T1_single_op)  List each employee's name and manager ID.
+    GOLD (table, ordered=False, rows=150): [{"Manager ID": "E1139", "Name": "Person 1", "employee_id": "E1000"}, {"Manager ID": "E1043", "Name": "Person 10", "employee_id": "E1009"}, {"Manager ID": "E1114", "Name": "Person 100", "employee_id": "E1099"}, {"Manager ID": "E1148", "Name": "Person 101", "employee_id": "E1100"}, {"Manager ID": "E1084", "Name": "Person 102", "employee_id": "E1101"}, {"Manager ID": "E1080", "Name": "Person 103", "employee_id": "E1102"}] … (+144 more)
+
+[t1_11] (T1_single_op)  List each employee's Status and Role.
+    GOLD (table, ordered=False, rows=150): [{"Role": "Director", "Status": "Active", "employee_id": "E1025"}, {"Role": "Director", "Status": "Active", "employee_id": "E1026"}, {"Role": "Director", "Status": "Active", "employee_id": "E1041"}, {"Role": "Director", "Status": "Active", "employee_id": "E1049"}, {"Role": "Director", "Status": "Active", "employee_id": "E1051"}, {"Role": "Director", "Status": "Active", "employee_id": "E1060"}] … (+144 more)
+
+[t1_12] (T1_single_op)  For each employee, compute Annual Salary minus Bonus Target.
+    GOLD (table, ordered=False, rows=150): [{"Name": "Person 1", "diff": 101598.0, "employee_id": "E1000"}, {"Name": "Person 10", "diff": 168730.0, "employee_id": "E1009"}, {"Name": "Person 100", "diff": 276384.0, "employee_id": "E1099"}, {"Name": "Person 101", "diff": 72283.0, "employee_id": "E1100"}, {"Name": "Person 102", "diff": 276272.0, "employee_id": "E1101"}, {"Name": "Person 103", "diff": 257754.0, "employee_id": "E1102"}] … (+144 more)
+
+[t1_13] (T1_single_op)  For each employee, compute Market Rate plus Equity Grant Value.
+    GOLD (table, ordered=False, rows=150): [{"Name": "Person 1", "employee_id": "E1000", "total": 114758.0}, {"Name": "Person 10", "employee_id": "E1009", "total": 298054.0}, {"Name": "Person 100", "employee_id": "E1099", "total": 479613.0}, {"Name": "Person 101", "employee_id": "E1100", "total": 111081.0}, {"Name": "Person 102", "employee_id": "E1101", "total": 492258.0}, {"Name": "Person 103", "employee_id": "E1102", "total": 501506.0}] … (+144 more)
+
+[t1_14] (T1_single_op)  What are the 5 highest-paid employees by Annual Salary?
+    GOLD (ordered_list, ordered=True, rows=5): [{"Annual Salary": 332724.0, "Name": "Person 32", "employee_id": "E1031"}, {"Annual Salary": 332459.0, "Name": "Person 82", "employee_id": "E1081"}, {"Annual Salary": 330178.0, "Name": "Person 115", "employee_id": "E1114"}, {"Annual Salary": 329532.0, "Name": "Person 59", "employee_id": "E1058"}, {"Annual Salary": 326601.0, "Name": "Person 123", "employee_id": "E1122"}]
+
+[t1_15] (T1_single_op)  What are the 10 employees with the highest Performance Score?
+    GOLD (ordered_list, ordered=True, rows=10): [{"Name": "Person 140", "Performance Score": 5.0, "employee_id": "E1139"}, {"Name": "Person 139", "Performance Score": 4.5, "employee_id": "E1138"}, {"Name": "Person 31", "Performance Score": 4.4, "employee_id": "E1030"}, {"Name": "Person 119", "Performance Score": 4.2, "employee_id": "E1118"}, {"Name": "Person 23", "Performance Score": 4.1, "employee_id": "E1022"}, {"Name": "Person 124", "Performance Score": 4.1, "employee_id": "E1123"}] … (+4 more)
+
+[t2_01] (T2_two_ops)  How many current employees are there?
+    GOLD (scalar, ordered=False, rows=1): 139
+
+[t2_02] (T2_two_ops)  How many employees are in the Engineering department?
+    GOLD (scalar, ordered=False, rows=1): 26
+
+[t2_03] (T2_two_ops)  What is the average Performance Score for employees with Role Director?
+    GOLD (scalar, ordered=False, rows=1): 3.140625
+
+[t2_04] (T2_two_ops)  What is the average Annual Salary per Department?
+    GOLD (table, ordered=False, rows=5): [{"Department": "Engineering", "avg_salary": 191228.384615}, {"Department": "Finance", "avg_salary": 172286.121212}, {"Department": "Marketing", "avg_salary": 196022.935484}, {"Department": "Operations", "avg_salary": 188102.941176}, {"Department": "Sales", "avg_salary": 184605.769231}]
+
+[t2_05] (T2_two_ops)  How many employees are there per Role?
+    GOLD (table, ordered=False, rows=4): [{"Role": "Director", "count": 32.0}, {"Role": "IC", "count": 49.0}, {"Role": "Manager", "count": 29.0}, {"Role": "VP", "count": 40.0}]
+
+[t2_06] (T2_two_ops)  What is the total Equity Grant Value per Role?
+    GOLD (table, ordered=False, rows=4): [{"Role": "Director", "sum_equity": 2853228.0}, {"Role": "IC", "sum_equity": 890754.0}, {"Role": "Manager", "sum_equity": 1291645.0}, {"Role": "VP", "sum_equity": 7376606.0}]
+
+[t2_07] (T2_two_ops)  For current employees, compute Annual Salary minus Market Rate.
+    GOLD (table, ordered=False, rows=139): [{"Name": "Person 1", "diff": 17026.0, "employee_id": "E1000"}, {"Name": "Person 10", "diff": -2051.0, "employee_id": "E1009"}, {"Name": "Person 100", "diff": 37786.0, "employee_id": "E1099"}, {"Name": "Person 101", "diff": -10403.0, "employee_id": "E1100"}, {"Name": "Person 102", "diff": 16490.0, "employee_id": "E1101"}, {"Name": "Person 103", "diff": -21448.0, "employee_id": "E1102"}] … (+133 more)
+
+[t2_08] (T2_two_ops)  For employees in the Sales department, compute Bonus Target plus Equity Grant Value.
+    GOLD (table, ordered=False, rows=26): [{"Name": "Person 110", "employee_id": "E1109", "total": 61156.0}, {"Name": "Person 123", "employee_id": "E1122", "total": 245442.0}, {"Name": "Person 133", "employee_id": "E1132", "total": 32122.0}, {"Name": "Person 135", "employee_id": "E1134", "total": 234812.0}, {"Name": "Person 138", "employee_id": "E1137", "total": 195977.0}, {"Name": "Person 140", "employee_id": "E1139", "total": 32586.0}] … (+20 more)
+
+[t2_09] (T2_two_ops)  What is the total salary variance (Annual Salary minus Market Rate) across all employees?
+    GOLD (scalar, ordered=False, rows=1): -40286.0
+
+[t2_10] (T2_two_ops)  What is the average total variable compensation (Bonus Target plus Equity Grant Value) across all employees?
+    GOLD (scalar, ordered=False, rows=1): 108838.22
+
+[t2_11] (T2_two_ops)  What are the 5 highest-paid current employees?
+    GOLD (ordered_list, ordered=True, rows=5): [{"Annual Salary": 332459.0, "Name": "Person 82", "employee_id": "E1081"}, {"Annual Salary": 330178.0, "Name": "Person 115", "employee_id": "E1114"}, {"Annual Salary": 329532.0, "Name": "Person 59", "employee_id": "E1058"}, {"Annual Salary": 326601.0, "Name": "Person 123", "employee_id": "E1122"}, {"Annual Salary": 326074.0, "Name": "Person 76", "employee_id": "E1075"}]
+
+[t2_12] (T2_two_ops)  What are the 3 employees with the highest Performance Score in the Engineering department?
+    GOLD (ordered_list, ordered=True, rows=3): [{"Name": "Person 31", "Performance Score": 4.4, "employee_id": "E1030"}, {"Name": "Person 23", "Performance Score": 4.1, "employee_id": "E1022"}, {"Name": "Person 58", "Performance Score": 4.0, "employee_id": "E1057"}]
+
+[t2_13] (T2_two_ops)  List the Status and Department of current employees in the Manager role.
+    GOLD (table, ordered=False, rows=28): [{"Department": "Engineering", "Status": "Active", "employee_id": "E1012"}, {"Department": "Engineering", "Status": "Active", "employee_id": "E1022"}, {"Department": "Engineering", "Status": "Active", "employee_id": "E1044"}, {"Department": "Engineering", "Status": "Active", "employee_id": "E1103"}, {"Department": "Engineering", "Status": "Active", "employee_id": "E1130"}, {"Department": "Engineering", "Status": "Active", "employee_id": "E1149"}] … (+22 more)
+
+[t2_14] (T2_two_ops)  List the Status and Role of current employees in the Sales department.
+    GOLD (table, ordered=False, rows=25): [{"Role": "Director", "Status": "Active", "employee_id": "E1049"}, {"Role": "Director", "Status": "Active", "employee_id": "E1061"}, {"Role": "Director", "Status": "Active", "employee_id": "E1068"}, {"Role": "Director", "Status": "Active", "employee_id": "E1094"}, {"Role": "IC", "Status": "Active", "employee_id": "E1008"}, {"Role": "IC", "Status": "Active", "employee_id": "E1019"}] … (+19 more)
+
+[t2_15] (T2_two_ops)  What is the highest Annual Salary among current employees?
+    GOLD (scalar, ordered=False, rows=1): 332459.0
+
+[t3_01] (T3_three_ops)  For current employees, what is the average Annual Salary per Department?
+    GOLD (table, ordered=False, rows=5): [{"Department": "Engineering", "avg_salary": 182146.304348}, {"Department": "Finance", "avg_salary": 168161.9}, {"Department": "Marketing", "avg_salary": 200354.642857}, {"Department": "Operations", "avg_salary": 184684.090909}, {"Department": "Sales", "avg_salary": 188665.84}]
+
+[t3_02] (T3_three_ops)  For current employees, what is the total Equity Grant Value per Role?
+    GOLD (table, ordered=False, rows=4): [{"Role": "Director", "sum_equity": 2573124.0}, {"Role": "IC", "sum_equity": 831236.0}, {"Role": "Manager", "sum_equity": 1250922.0}, {"Role": "VP", "sum_equity": 6613726.0}]
+
+[t3_03] (T3_three_ops)  What are the top 3 departments by total Annual Salary?
+    GOLD (ordered_list, ordered=True, rows=3): [{"Department": "Operations", "sum_salary": 6395500.0}, {"Department": "Marketing", "sum_salary": 6076711.0}, {"Department": "Finance", "sum_salary": 5685442.0}]
+
+[t3_04] (T3_three_ops)  What are the top 5 managers by number of direct reports?
+    GOLD (ordered_list, ordered=True, rows=5): [{"Manager ID": "E1101", "count": 4.0}, {"Manager ID": "E1005", "count": 3.0}, {"Manager ID": "E1023", "count": 3.0}, {"Manager ID": "E1041", "count": 3.0}, {"Manager ID": "E1050", "count": 3.0}]
+
+[t3_05] (T3_three_ops)  For current employees in the Engineering department, what is the average Performance Score?
+    GOLD (scalar, ordered=False, rows=1): 3.282609
+
+[t3_06] (T3_three_ops)  For current employees with Role Director, what is the total Annual Salary?
+    GOLD (scalar, ordered=False, rows=1): 6059930.0
+
+[t3_07] (T3_three_ops)  For all employees, derive the salary variance (Annual Salary minus Market Rate) and report the total per Role, ranked descending.
+    GOLD (ordered_list, ordered=True, rows=4): [{"Role": "VP", "sum_salary_variance": 369100.0}, {"Role": "Manager", "sum_salary_variance": -40616.0}, {"Role": "Director", "sum_salary_variance": -175033.0}, {"Role": "IC", "sum_salary_variance": -193737.0}]
+
+[t3_08] (T3_three_ops)  For all employees, derive total variable compensation (Bonus Target plus Equity Grant Value) and report the average per Department, ranked descending.
+    GOLD (ordered_list, ordered=True, rows=5): [{"Department": "Marketing", "avg_total_variable_comp": 120680.967742}, {"Department": "Engineering", "avg_total_variable_comp": 111525.192308}, {"Department": "Operations", "avg_total_variable_comp": 108912.558824}, {"Department": "Sales", "avg_total_variable_comp": 106419.653846}, {"Department": "Finance", "avg_total_variable_comp": 97425.151515}]
+
+[t3_09] (T3_three_ops)  For current employees, derive the salary variance (Annual Salary minus Market Rate) and report the top 5 employees by variance.
+    GOLD (ordered_list, ordered=True, rows=5): [{"Name": "Person 59", "employee_id": "E1058", "salary_variance": 41826.0}, {"Name": "Person 82", "employee_id": "E1081", "salary_variance": 40729.0}, {"Name": "Person 100", "employee_id": "E1099", "salary_variance": 37786.0}, {"Name": "Person 135", "employee_id": "E1134", "salary_variance": 35842.0}, {"Name": "Person 87", "employee_id": "E1086", "salary_variance": 35755.0}]
+
+[t3_10] (T3_three_ops)  For current employees, derive total variable compensation (Bonus Target plus Equity Grant Value) and report the top 3 employees by that total.
+    GOLD (ordered_list, ordered=True, rows=3): [{"Name": "Person 25", "employee_id": "E1024", "total_variable_comp": 271205.0}, {"Name": "Person 63", "employee_id": "E1062", "total_variable_comp": 266399.0}, {"Name": "Person 66", "employee_id": "E1065", "total_variable_comp": 262361.0}]
+
+[t3_11] (T3_three_ops)  For employees in the Engineering department, what are the top 3 roles by total Equity Grant Value?
+    GOLD (ordered_list, ordered=True, rows=3): [{"Role": "VP", "sum_equity": 1410350.0}, {"Role": "Director", "sum_equity": 346174.0}, {"Role": "Manager", "sum_equity": 317294.0}]
+
+[t3_12] (T3_three_ops)  For current employees, what are the top 3 departments by average Annual Salary?
+    GOLD (ordered_list, ordered=True, rows=3): [{"Department": "Marketing", "avg_salary": 200354.642857}, {"Department": "Sales", "avg_salary": 188665.84}, {"Department": "Operations", "avg_salary": 184684.090909}]
+
+[t3_13] (T3_three_ops)  For employees with Role Manager, what are the top 5 employees by average Performance Score?
+    GOLD (ordered_list, ordered=True, rows=5): [{"Name": "Person 23", "Performance Score": 4.1, "employee_id": "E1022"}, {"Name": "Person 58", "Performance Score": 4.0, "employee_id": "E1057"}, {"Name": "Person 60", "Performance Score": 3.9, "employee_id": "E1059"}, {"Name": "Person 3", "Performance Score": 3.7, "employee_id": "E1002"}, {"Name": "Person 11", "Performance Score": 3.7, "employee_id": "E1010"}]
+
+[t3_14] (T3_three_ops)  For employees on Sabbatical, what is the total Annual Salary per Department, ranked descending?
+    GOLD (ordered_list, ordered=True, rows=4): [{"Department": "Sales", "sum_salary": 1135622.0}, {"Department": "Operations", "sum_salary": 1070593.0}, {"Department": "Marketing", "sum_salary": 996669.0}, {"Department": "Finance", "sum_salary": 418575.0}]
+
+[t3_15] (T3_three_ops)  For current employees, what is the maximum Equity Grant Value per Role?
+    GOLD (table, ordered=False, rows=4): [{"Role": "Director", "max_equity": 101086.0}, {"Role": "IC", "max_equity": 21701.0}, {"Role": "Manager", "max_equity": 52446.0}, {"Role": "VP", "max_equity": 226205.0}]
+
+[t4_01] (T4_business_rule_multi_op)  For active employees, what is the average Annual Salary per Department?
+    GOLD (table, ordered=False, rows=5): [{"Department": "Engineering", "avg_salary": 182146.304348}, {"Department": "Finance", "avg_salary": 168161.9}, {"Department": "Marketing", "avg_salary": 200354.642857}, {"Department": "Operations", "avg_salary": 184684.090909}, {"Department": "Sales", "avg_salary": 188665.84}]
+
+[t4_02] (T4_business_rule_multi_op)  For active employees, what is the total Equity Grant Value per Role?
+    GOLD (table, ordered=False, rows=4): [{"Role": "Director", "sum_equity": 2573124.0}, {"Role": "IC", "sum_equity": 831236.0}, {"Role": "Manager", "sum_equity": 1250922.0}, {"Role": "VP", "sum_equity": 6613726.0}]
+
+[t4_03] (T4_business_rule_multi_op)  For current staff, what is the average Performance Score per Department?
+    GOLD (table, ordered=False, rows=5): [{"Department": "Engineering", "avg_performance": 3.282609}, {"Department": "Finance", "avg_performance": 3.136667}, {"Department": "Marketing", "avg_performance": 3.092857}, {"Department": "Operations", "avg_performance": 3.151515}, {"Department": "Sales", "avg_performance": 3.14}]
+
+[t4_04] (T4_business_rule_multi_op)  For employees who are still with the company, what is the total Annual Salary per Role?
+    GOLD (table, ordered=False, rows=4): [{"Role": "Director", "sum_salary": 6059930.0}, {"Role": "IC", "sum_salary": 4410501.0}, {"Role": "Manager", "sum_salary": 4092438.0}, {"Role": "VP", "sum_salary": 11092504.0}]
+
+[t4_05] (T4_business_rule_multi_op)  For active employees earning over $150,000, what is the average salary variance (Annual Salary minus Market Rate) per Role?
+    GOLD (table, ordered=False, rows=3): [{"Role": "Director", "avg_salary_variance": -4898.931034}, {"Role": "Manager", "avg_salary_variance": 11490.461538}, {"Role": "VP", "avg_salary_variance": 8327.972222}]
+
+[t4_06] (T4_business_rule_multi_op)  For current employees with Performance Score above 4.0, what is the total Equity Grant Value per Department?
+    GOLD (table, ordered=False, rows=3): [{"Department": "Engineering", "sum_equity": 242094.0}, {"Department": "Finance", "sum_equity": 40302.0}, {"Department": "Sales", "sum_equity": 20586.0}]
+
+[t4_07] (T4_business_rule_multi_op)  For active employees in the Engineering or Sales departments, what is the average total variable compensation (Bonus Target plus Equity Grant Value)?
+    GOLD (scalar, ordered=False, rows=1): 106445.708333
+
+[t4_08] (T4_business_rule_multi_op)  For active Directors, what is the average Market Rate?
+    GOLD (scalar, ordered=False, rows=1): 213862.034483
+
+[t4_09] (T4_business_rule_multi_op)  For current employees, excluding those on Sabbatical, what is the total Annual Salary per Department?
+    GOLD (table, ordered=False, rows=5): [{"Department": "Engineering", "sum_salary": 4189365.0}, {"Department": "Finance", "sum_salary": 4626282.0}, {"Department": "Marketing", "sum_salary": 4613261.0}, {"Department": "Operations", "sum_salary": 5023982.0}, {"Department": "Sales", "sum_salary": 3581024.0}]
+
+[t4_10] (T4_business_rule_multi_op)  For active employees, what are the top 3 departments by average Performance Score?
+    GOLD (ordered_list, ordered=True, rows=3): [{"Department": "Engineering", "avg_performance": 3.282609}, {"Department": "Operations", "avg_performance": 3.151515}, {"Department": "Sales", "avg_performance": 3.14}]
+
+[t4_11] (T4_business_rule_multi_op)  For current employees, what are the top 3 roles by total salary variance (Annual Salary minus Market Rate)?
+    GOLD (ordered_list, ordered=True, rows=3): [{"Role": "VP", "sum_salary_variance": 299807.0}, {"Role": "Manager", "sum_salary_variance": -43917.0}, {"Role": "IC", "sum_salary_variance": -140477.0}]
+
+[t4_12] (T4_business_rule_multi_op)  For active employees with Tenure above 5 years, what is the average Equity Grant Value per Role?
+    GOLD (table, ordered=False, rows=4): [{"Role": "Director", "avg_equity": 93785.333333}, {"Role": "IC", "avg_equity": 19433.592593}, {"Role": "Manager", "avg_equity": 46836.52381}, {"Role": "VP", "avg_equity": 196437.636364}]
+
+[t4_13] (T4_business_rule_multi_op)  For staff currently employed, what is the average Annual Salary per Location?
+    GOLD (table, ordered=False, rows=5): [{"Location": "Berlin", "avg_salary": 200801.24}, {"Location": "London", "avg_salary": 164931.071429}, {"Location": "NYC", "avg_salary": 181682.285714}, {"Location": "Remote", "avg_salary": 185704.962963}, {"Location": "SF", "avg_salary": 190843.032258}]
+
+[t4_14] (T4_business_rule_multi_op)  For active employees, what is the average Time in Current Role per Department?
+    GOLD (table, ordered=False, rows=5): [{"Department": "Engineering", "avg_time_in_role": 4.269565}, {"Department": "Finance", "avg_time_in_role": 4.476667}, {"Department": "Marketing", "avg_time_in_role": 4.7}, {"Department": "Operations", "avg_time_in_role": 4.869697}, {"Department": "Sales", "avg_time_in_role": 5.248}]
+
+[t4_15] (T4_business_rule_multi_op)  For current employees in a VP or Director role, what is the total Equity Grant Value per Location?
+    GOLD (table, ordered=False, rows=5): [{"Location": "Berlin", "sum_equity": 1908965.0}, {"Location": "London", "sum_equity": 1413819.0}, {"Location": "NYC", "sum_equity": 1712039.0}, {"Location": "Remote", "sum_equity": 1880984.0}, {"Location": "SF", "sum_equity": 2271043.0}]
+
+[t5_01] (T5_high_complexity)  For current employees with a positive salary variance (Annual Salary minus Market Rate), report the total variance per Department, top 3.
+    GOLD (ordered_list, ordered=True, rows=3): [{"Department": "Operations", "salary_variance": 336800.0}, {"Department": "Finance", "salary_variance": 242373.0}, {"Department": "Sales", "salary_variance": 215741.0}]
+
+[t5_02] (T5_high_complexity)  For current employees with Role Manager, derive the total variable compensation (Bonus Target plus Equity Grant Value), report the average per Department, top 5.
+    GOLD (ordered_list, ordered=True, rows=5): [{"Department": "Marketing", "total_variable_comp": 67213.25}, {"Department": "Sales", "total_variable_comp": 66149.2}, {"Department": "Engineering", "total_variable_comp": 65595.166667}, {"Department": "Operations", "total_variable_comp": 63558.333333}, {"Department": "Finance", "total_variable_comp": 57931.75}]
+
+[t5_03] (T5_high_complexity)  For current employees with Annual Salary above $150,000, derive the salary variance (Annual Salary minus Market Rate), report the average variance per Role, top 3.
+    GOLD (ordered_list, ordered=True, rows=3): [{"Role": "Manager", "salary_variance": 11490.461538}, {"Role": "VP", "salary_variance": 8327.972222}, {"Role": "Director", "salary_variance": -4898.931034}]
+
+[t5_04] (T5_high_complexity)  For current employees with Performance Score above 4.0, derive total variable compensation (Bonus Target plus Equity Grant Value), report the sum per Department, top 3.
+    GOLD (ordered_list, ordered=True, rows=3): [{"Department": "Engineering", "total_variable_comp": 306594.0}, {"Department": "Finance", "total_variable_comp": 64302.0}, {"Department": "Sales", "total_variable_comp": 32586.0}]
+
+[t5_05] (T5_high_complexity)  For current employees with Performance Score above 4.0 in the Engineering department, derive the salary variance (Annual Salary minus Market Rate), report the total salary variance per Role, top 3.
+    GOLD (ordered_list, ordered=True, rows=2): [{"Role": "Manager", "salary_variance": 6732.0}, {"Role": "VP", "salary_variance": -10065.0}]
+
+[t5_06] (T5_high_complexity)  For current employees, derive both the salary variance (Annual Salary minus Market Rate) and total variable compensation (Bonus Target plus Equity Grant Value); for entries with a negative salary variance, report the average total variable compensation per Role, top 3.
+    GOLD (ordered_list, ordered=True, rows=3): [{"Role": "VP", "total_variable_comp": 229472.083333}, {"Role": "Director", "total_variable_comp": 119091.6}, {"Role": "Manager", "total_variable_comp": 63106.2}]
+
+[t5_07] (T5_high_complexity)  For current employees in the Sales department with Role Manager, derive the salary variance (Annual Salary minus Market Rate), report the total salary variance per Location, top 5.
+    GOLD (ordered_list, ordered=True, rows=3): [{"Location": "SF", "salary_variance": 56517.0}, {"Location": "NYC", "salary_variance": 15273.0}, {"Location": "Berlin", "salary_variance": -12654.0}]
+
+[t5_08] (T5_high_complexity)  For current employees, derive total compensation (Annual Salary plus Bonus Target plus Equity Grant Value); for entries with total compensation above $230,000, report the average total compensation per Department, top 3.
+    GOLD (ordered_list, ordered=True, rows=3): [{"Department": "Operations", "total_comp": 456806.714286}, {"Department": "Finance", "total_comp": 448062.0}, {"Department": "Engineering", "total_comp": 445760.2}]
+
+[t5_09] (T5_high_complexity)  For current employees with Role Manager, derive the salary variance (Annual Salary minus Market Rate) and total variable compensation (Bonus Target plus Equity Grant Value); for entries with total variable compensation above $64,056, report the average salary variance per Department, top 3.
+    GOLD (ordered_list, ordered=True, rows=3): [{"Department": "Sales", "salary_variance": 13294.0}, {"Department": "Marketing", "salary_variance": 9983.5}, {"Department": "Operations", "salary_variance": -1083.0}]
+
+[t5_10] (T5_high_complexity)  For current employees with Performance Score above 4.0 in the Engineering department, filtered to Annual Salary above $120,000, derive the salary variance (Annual Salary minus Market Rate), report the average salary variance per Role, top 3.
+    GOLD (ordered_list, ordered=True, rows=2): [{"Role": "Manager", "salary_variance": 6732.0}, {"Role": "VP", "salary_variance": -10065.0}]
+
+[t5_11] (T5_high_complexity)  For current employees, derive the salary variance (Annual Salary minus Market Rate); for entries with a positive salary variance, derive total variable compensation (Bonus Target plus Equity Grant Value); for entries with total variable compensation above $30,000, report the average salary variance per Role, top 3.
+    GOLD (ordered_list, ordered=True, rows=3): [{"Role": "VP", "salary_variance": 20015.708333}, {"Role": "Director", "salary_variance": 18070.0}, {"Role": "Manager", "salary_variance": 14452.384615}]
+
+[t5_12] (T5_high_complexity)  For current employees, derive the tenure ratio (Time in Current Role divided by Tenure); for entries with a tenure ratio below 0.5, report the average tenure ratio per Department, top 3.
+    GOLD (ordered_list, ordered=True, rows=3): [{"Department": "Sales", "tenure_ratio": 0.380535}, {"Department": "Operations", "tenure_ratio": 0.378871}, {"Department": "Engineering", "tenure_ratio": 0.361729}]
+
+[t5_13] (T5_high_complexity)  For current employees with a positive salary variance (Annual Salary minus Market Rate), derive total compensation (Annual Salary plus Bonus Target plus Equity Grant Value); for entries with total compensation below $510,000, report the average total compensation per Role, top 3.
+    GOLD (ordered_list, ordered=True, rows=3): [{"Role": "VP", "total_comp": 497554.25}, {"Role": "Director", "total_comp": 340271.111111}, {"Role": "Manager", "total_comp": 224375.846154}]
+
+[t5_14] (T5_high_complexity)  For current employees in the Sales or Marketing departments, derive the salary variance (Annual Salary minus Market Rate); for entries with a positive salary variance, derive total variable compensation (Bonus Target plus Equity Grant Value); for entries with total variable compensation above $45,000, report the average salary variance per Role, top 3.
+    GOLD (ordered_list, ordered=True, rows=3): [{"Role": "VP", "salary_variance": 23467.25}, {"Role": "Manager", "salary_variance": 16294.571429}, {"Role": "Director", "salary_variance": 11695.666667}]
+
+[t5_15] (T5_high_complexity)  For current employees with Annual Salary above $150,000, derive the salary variance (Annual Salary minus Market Rate); for entries with a positive salary variance, derive total variable compensation (Bonus Target plus Equity Grant Value); for entries with total variable compensation below $205,077, report the average total variable compensation per Role, top 3.
+    GOLD (ordered_list, ordered=True, rows=3): [{"Role": "VP", "total_variable_comp": 189106.5}, {"Role": "Director", "total_variable_comp": 117921.333333}, {"Role": "Manager", "total_variable_comp": 66384.272727}]
+
+[hv_01] (house_vocab)  Who's still working here?
+    GOLD (table, ordered=False, rows=139): [{"Name": "Person 1", "Status": "Active", "employee_id": "E1000"}, {"Name": "Person 10", "Status": "On Leave", "employee_id": "E1009"}, {"Name": "Person 100", "Status": "Active", "employee_id": "E1099"}, {"Name": "Person 101", "Status": "Active", "employee_id": "E1100"}, {"Name": "Person 102", "Status": "Active", "employee_id": "E1101"}, {"Name": "Person 103", "Status": "Active", "employee_id": "E1102"}] … (+133 more)
+
+[hv_02] (house_vocab)  What's the average pay for folks in Engineering?
+    GOLD (scalar, ordered=False, rows=1): 191228.384615
+
+[hv_03] (house_vocab)  Give me the top 5 earners.
+    GOLD (ordered_list, ordered=True, rows=5): [{"Annual Salary": 332724.0, "Name": "Person 32", "employee_id": "E1031"}, {"Annual Salary": 332459.0, "Name": "Person 82", "employee_id": "E1081"}, {"Annual Salary": 330178.0, "Name": "Person 115", "employee_id": "E1114"}, {"Annual Salary": 329532.0, "Name": "Person 59", "employee_id": "E1058"}, {"Annual Salary": 326601.0, "Name": "Person 123", "employee_id": "E1122"}]
+
+[hv_04] (house_vocab)  How many people work in Sales?
+    GOLD (scalar, ordered=False, rows=1): 26
+
+[hv_05] (house_vocab)  Break down headcount by department.
+    GOLD (table, ordered=False, rows=5): [{"Department": "Engineering", "count": 26.0}, {"Department": "Finance", "count": 33.0}, {"Department": "Marketing", "count": 31.0}, {"Department": "Operations", "count": 34.0}, {"Department": "Sales", "count": 26.0}]
+
+[hv_06] (house_vocab)  What is the maximum Tenure (Years) among current employees?
+    GOLD (scalar, ordered=False, rows=1): 14.8
+
+[oor_01] (out_of_range)  What's the average employee satisfaction score?
+    GOLD: REFUSE — no such column
+
+[oor_02] (out_of_range)  Who is likely to leave the company in the next year?
+    GOLD: REFUSE — requires prediction
+
+[oor_03] (out_of_range)  Compare our salaries to industry benchmarks.
+    GOLD: REFUSE — no verified external benchmark data; ambiguous comparison
+
+[oor_04] (out_of_range)  What's the full reporting chain above each VP?
+    GOLD: REFUSE — Manager ID links are cyclic: every VP's chain loops and no employee lacks a manager, so no chain exists
+
+[oor_05] (out_of_range)  Which employees are flight risks?
+    GOLD: REFUSE — undefined term, requires judgment/prediction
+
+[oor_06] (out_of_range)  What's the gender pay gap?
+    GOLD: REFUSE — no such column
+
+[oor_07] (out_of_range)  How does our Performance Score compare to last year's?
+    GOLD: REFUSE — no historical/time-series data
+
+[oor_08] (out_of_range)  Which department has the best culture?
+    GOLD: REFUSE — unmeasurable from this data
+
+[oor_09] (out_of_range)  What's the average commute time for employees?
+    GOLD: REFUSE — no such column
+
+[oor_10] (out_of_range)  Show me employees who are underpaid relative to their skills.
+    GOLD: REFUSE — no skills data; Role is not a skills proxy
+
+
+================ FLAGS (architect to resolve; NOT auto-fixed) ================
+  - t3_04: top-5 boundary tie on 'count' (value 3); deterministic by input order — architect may wish to confirm.
+  - t3_13: top-5 boundary tie on 'Performance Score' (value 3.7); deterministic by input order — architect may wish to confirm.

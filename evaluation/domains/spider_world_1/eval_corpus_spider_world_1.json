@@ -1,0 +1,382 @@
+{
+  "meta": {
+    "domain": "world_1",
+    "source": "Spider (Yu et al., 2018) dev-set questions + official gold SQL, xlangai/spider HuggingFace mirror -- verbatim, third-party authored, not hand-written for this project.",
+    "purpose": "Third evaluation domain (world geography/government), selected via scripts/rank_all_spider_databases.py for join-free-friendliness against planner/'s 4-operator vocabulary.",
+    "selection_note": "120 real dev-set questions covering 65 distinct gold queries (1.85x paraphrase density). Deduplicated to 65 by gold SQL text. Of 41 single-table candidates, 2 were excluded despite a single-table outer FROM clause because they contain a WHERE-clause subquery that JOINs a second table (countrylanguage) -- genuinely needs cross-table data, the classifier's outer-FROM-only read missed this. Of 5 near-identical self-referential-subquery variants (surface-area/population vs a continent superlative), kept 2 for diversity, dropped 3 as shape-redundant -- also noting, not fixing, an apparent Spider annotation inconsistency where equivalent 'less/greater than any X' phrasings are implemented with MIN in some and MAX in others. All 4 city-only and all 6 countrylanguage-only single-table questions kept (small pools, maximize table diversity); country-only trimmed from 29 remaining candidates to 15 for tier/shape diversity. 5 of 24 multi-table/compound questions kept as deliberate refusal cases, chosen for diversity of table-pair and join/compound shape. No questions authored, reworded, or padded.",
+    "tiers": "SQL-structural (filter/aggregate/group_by/order_by/multi_or_compound), not this project's T1-T5 op-count scheme -- see eval_corpus_spider_wta_1.json's meta for the full rationale.",
+    "register_table": "country",
+    "single_table_register_note": "Originally selected against the domain's full multi-table schema; converted to a single-table register ('country') to match register.pkl/employees.pkl's convention (zero engine changes needed). 10 previously-answerable queries that touched a different table were converted to refusal cases -- the underlying gold SQL is kept for documentation, but is not executed (expected_behavior=refuse).",
+    "tier_convention_note": "'tier' distinguishes answer vs refuse queries for reporting (mirrors eval_corpus.json/eval_corpus_employee.json's out_of_range convention -- never pooled into one blended accuracy number). Deliberately NOT labeled 'out_of_range': that tier means unanswerable IN PRINCIPLE (undefined terms, no such column/data at all); these refuse-cases are answerable in principle but need a table outside this domain's single-table register -- a different mechanism, kept a different label. 'sql_structure' preserves the original filter/aggregate/group_by/order_by/multi_or_compound classification for every query (answer and refuse alike)."
+  },
+  "queries": [
+    {
+      "id": "world_01",
+      "tier": "filter",
+      "tables": [
+        "country"
+      ],
+      "question": "What are the names of all the countries that became independent after 1950?",
+      "gold_sql": "SELECT Name FROM country WHERE IndepYear  >  1950",
+      "expected_behavior": "answer",
+      "sql_structure": "filter"
+    },
+    {
+      "id": "world_02",
+      "tier": "aggregate",
+      "tables": [
+        "country"
+      ],
+      "question": "How many countries have a republic as their form of government?",
+      "gold_sql": "SELECT count(*) FROM country WHERE GovernmentForm  =  \"Republic\"",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "world_03",
+      "tier": "aggregate",
+      "tables": [
+        "country"
+      ],
+      "question": "What is the total surface area of the countries in the Caribbean region?",
+      "gold_sql": "SELECT sum(SurfaceArea) FROM country WHERE Region  =  \"Caribbean\"",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "world_04",
+      "tier": "filter",
+      "tables": [
+        "country"
+      ],
+      "question": "Which continent is Anguilla in?",
+      "gold_sql": "SELECT Continent FROM country WHERE Name  =  \"Anguilla\"",
+      "expected_behavior": "answer",
+      "sql_structure": "filter"
+    },
+    {
+      "id": "world_05",
+      "tier": "order_by",
+      "tables": [
+        "country"
+      ],
+      "question": "What is the name of country that has the shortest life expectancy in Asia?",
+      "gold_sql": "SELECT Name FROM country WHERE Continent  =  \"Asia\" ORDER BY LifeExpectancy LIMIT 1",
+      "expected_behavior": "answer",
+      "sql_structure": "order_by"
+    },
+    {
+      "id": "world_06",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "multi_aggregate"
+      ],
+      "tables": [
+        "country"
+      ],
+      "question": "What is the total population and maximum GNP in Asia?",
+      "gold_sql": "SELECT sum(Population) ,  max(GNP) FROM country WHERE Continent  =  \"Asia\"",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "world_07",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "city"
+      ],
+      "question": "How many people live in Gelderland district?",
+      "gold_sql": "SELECT sum(Population) FROM city WHERE District  =  \"Gelderland\"",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['city'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "world_08",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "countrylanguage"
+      ],
+      "question": "How many unique languages are spoken in the world?",
+      "gold_sql": "SELECT count(DISTINCT LANGUAGE) FROM countrylanguage",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['countrylanguage'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "world_09",
+      "tier": "aggregate",
+      "tables": [
+        "country"
+      ],
+      "question": "How many type of governments are in Africa?",
+      "gold_sql": "SELECT count(DISTINCT GovernmentForm) FROM country WHERE Continent  =  \"Africa\"",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "world_10",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "aggregate_subquery"
+      ],
+      "tables": [
+        "country"
+      ],
+      "question": "What are the countries that have greater surface area than any country in Europe?",
+      "gold_sql": "SELECT Name FROM country WHERE SurfaceArea  >  (SELECT min(SurfaceArea) FROM country WHERE Continent  =  \"Europe\")",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "world_11",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "aggregate_subquery"
+      ],
+      "tables": [
+        "country"
+      ],
+      "question": "Which African countries have a smaller population than that of any country in Asia?",
+      "gold_sql": "SELECT Name FROM country WHERE Continent  =  \"Africa\"  AND population  <  (SELECT min(population) FROM country WHERE Continent  =  \"Asia\")",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "world_12",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "countrylanguage"
+      ],
+      "question": "What are the country codes of countries where people use languages other than English?",
+      "gold_sql": "SELECT DISTINCT CountryCode FROM countrylanguage WHERE LANGUAGE != \"English\"",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['countrylanguage'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "filter"
+    },
+    {
+      "id": "world_13",
+      "tier": "order_by",
+      "tables": [
+        "country"
+      ],
+      "question": "What are the name, independence year, and surface area of the country with the smallest population?",
+      "gold_sql": "SELECT Name ,  SurfaceArea ,  IndepYear FROM country ORDER BY Population LIMIT 1",
+      "expected_behavior": "answer",
+      "sql_structure": "order_by"
+    },
+    {
+      "id": "world_14",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "city"
+      ],
+      "question": "Find the number of cities in each district whose population is greater than the average population of cities?",
+      "gold_sql": "SELECT count(*) ,  District FROM city WHERE Population  >  (SELECT avg(Population) FROM city) GROUP BY District",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['city'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "world_15",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "having_filter",
+        "multi_aggregate"
+      ],
+      "tables": [
+        "country"
+      ],
+      "question": "Find the government form name and total population for each government form whose average life expectancy is longer than 72.",
+      "gold_sql": "SELECT sum(Population) ,  GovernmentForm FROM country GROUP BY GovernmentForm HAVING avg(LifeExpectancy)  >  72",
+      "expected_behavior": "answer",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "world_16",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "having_filter",
+        "multi_aggregate"
+      ],
+      "tables": [
+        "country"
+      ],
+      "question": "Find the average life expectancy and total population for each continent where the average life expectancy is shorter than 72?",
+      "gold_sql": "SELECT sum(Population) ,  avg(LifeExpectancy) ,  Continent FROM country GROUP BY Continent HAVING avg(LifeExpectancy)  <  72",
+      "expected_behavior": "answer",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "world_17",
+      "tier": "order_by",
+      "tables": [
+        "country"
+      ],
+      "question": "What are the names and areas of countries with the top 5 largest area?",
+      "gold_sql": "SELECT Name ,  SurfaceArea FROM country ORDER BY SurfaceArea DESC LIMIT 5",
+      "expected_behavior": "answer",
+      "sql_structure": "order_by"
+    },
+    {
+      "id": "world_18",
+      "tier": "aggregate",
+      "tables": [
+        "country"
+      ],
+      "question": "how many countries are in Asia?",
+      "gold_sql": "SELECT count(*) FROM country WHERE continent  =  \"Asia\"",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate"
+    },
+    {
+      "id": "world_19",
+      "tier": "filter",
+      "tables": [
+        "country"
+      ],
+      "question": "What are the names of the countries that are in the continent of Europe and have a population of 80000?",
+      "gold_sql": "SELECT Name FROM country WHERE continent  =  \"Europe\" AND Population  =  \"80000\"",
+      "expected_behavior": "answer",
+      "sql_structure": "filter"
+    },
+    {
+      "id": "world_20",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "city"
+      ],
+      "question": "What are the cities whose population is between 160000 and 900000?",
+      "gold_sql": "SELECT name FROM city WHERE Population BETWEEN 160000 AND 900000",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['city'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "filter"
+    },
+    {
+      "id": "world_21",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "city"
+      ],
+      "question": "Return the names of cities that have a population between 160000 and 900000 .",
+      "gold_sql": "select name from city where population between 160000 and 900000",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['city'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "filter"
+    },
+    {
+      "id": "world_22",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "countrylanguage"
+      ],
+      "question": "Which language is spoken by the largest number of countries?",
+      "gold_sql": "SELECT LANGUAGE FROM countrylanguage GROUP BY LANGUAGE ORDER BY count(*) DESC LIMIT 1",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['countrylanguage'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "world_23",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "countrylanguage"
+      ],
+      "question": "What is the language spoken by the largest percentage of people in each country?",
+      "gold_sql": "SELECT LANGUAGE ,  CountryCode ,  max(Percentage) FROM countrylanguage GROUP BY CountryCode",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['countrylanguage'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "world_24",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "countrylanguage"
+      ],
+      "question": "What is the total number of countries where Spanish is spoken by the largest percentage of people?",
+      "gold_sql": "SELECT count(*) ,   max(Percentage) FROM countrylanguage WHERE LANGUAGE  =  \"Spanish\" GROUP BY CountryCode",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['countrylanguage'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "world_25",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "countrylanguage"
+      ],
+      "question": "What are the codes of countries where Spanish is spoken by the largest percentage of people?",
+      "gold_sql": "SELECT CountryCode ,  max(Percentage) FROM countrylanguage WHERE LANGUAGE  =  \"Spanish\" GROUP BY CountryCode",
+      "expected_behavior": "refuse",
+      "reason": "targets table(s) ['countrylanguage'] -- this domain's single-table register only exposes 'country' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.",
+      "sql_structure": "group_by"
+    },
+    {
+      "id": "world_26",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "city",
+        "country"
+      ],
+      "question": "Which region is the city Kabul located in?",
+      "gold_sql": "SELECT Region FROM country AS T1 JOIN city AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Name  =  \"Kabul\"",
+      "expected_behavior": "refuse",
+      "reason": "requires a multi-table join or set operation; planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.",
+      "sql_structure": "multi_or_compound"
+    },
+    {
+      "id": "world_27",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "country",
+        "countrylanguage"
+      ],
+      "question": "Which language is the most popular in Aruba?",
+      "gold_sql": "SELECT T2.Language FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T1.Name  =  \"Aruba\" ORDER BY Percentage DESC LIMIT 1",
+      "expected_behavior": "refuse",
+      "reason": "requires a multi-table join or set operation; planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.",
+      "sql_structure": "multi_or_compound"
+    },
+    {
+      "id": "world_28",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "country",
+        "countrylanguage"
+      ],
+      "question": "How many countries speak both English and Dutch?",
+      "gold_sql": "SELECT COUNT(*) FROM (SELECT T1.Name FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  \"English\" INTERSECT SELECT T1.Name FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  \"Dutch\")",
+      "expected_behavior": "refuse",
+      "reason": "requires a multi-table join or set operation; planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.",
+      "sql_structure": "multi_or_compound"
+    },
+    {
+      "id": "world_29",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "city",
+        "countrylanguage"
+      ],
+      "question": "Find the city with the largest population that uses English.",
+      "gold_sql": "SELECT T1.Name ,  T1.Population FROM city AS T1 JOIN countrylanguage AS T2 ON T1.CountryCode  =  T2.CountryCode WHERE T2.Language  =  \"English\" ORDER BY T1.Population DESC LIMIT 1",
+      "expected_behavior": "refuse",
+      "reason": "requires a multi-table join or set operation; planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.",
+      "sql_structure": "multi_or_compound"
+    },
+    {
+      "id": "world_30",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "city",
+        "country",
+        "countrylanguage"
+      ],
+      "question": "Which unique cities are in Asian countries where Chinese is the official language ?",
+      "gold_sql": "select distinct t3.name from country as t1 join countrylanguage as t2 on t1.code  =  t2.countrycode join city as t3 on t1.code  =  t3.countrycode where t2.isofficial  =  't' and t2.language  =  'chinese' and t1.continent  =  \"asia\"",
+      "expected_behavior": "refuse",
+      "reason": "requires a multi-table join or set operation; planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.",
+      "sql_structure": "multi_or_compound"
+    }
+  ]
+}

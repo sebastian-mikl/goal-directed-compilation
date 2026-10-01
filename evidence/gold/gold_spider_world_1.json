@@ -1,0 +1,1498 @@
+{
+  "world_01": {
+    "id": "world_01",
+    "tier": "filter",
+    "architectural_gap": null,
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Name": "Algeria"
+      },
+      {
+        "Name": "Angola"
+      },
+      {
+        "Name": "Antigua and Barbuda"
+      },
+      {
+        "Name": "Armenia"
+      },
+      {
+        "Name": "Azerbaijan"
+      },
+      {
+        "Name": "Bahamas"
+      },
+      {
+        "Name": "Bahrain"
+      },
+      {
+        "Name": "Bangladesh"
+      },
+      {
+        "Name": "Barbados"
+      },
+      {
+        "Name": "Belarus"
+      },
+      {
+        "Name": "Belize"
+      },
+      {
+        "Name": "Benin"
+      },
+      {
+        "Name": "Bosnia and Herzegovina"
+      },
+      {
+        "Name": "Botswana"
+      },
+      {
+        "Name": "Brunei"
+      },
+      {
+        "Name": "Burkina Faso"
+      },
+      {
+        "Name": "Burundi"
+      },
+      {
+        "Name": "Cambodia"
+      },
+      {
+        "Name": "Cameroon"
+      },
+      {
+        "Name": "Cape Verde"
+      },
+      {
+        "Name": "Central African Republic"
+      },
+      {
+        "Name": "Chad"
+      },
+      {
+        "Name": "Comoros"
+      },
+      {
+        "Name": "Congo"
+      },
+      {
+        "Name": "Congo, The Democratic Republic of the"
+      },
+      {
+        "Name": "Croatia"
+      },
+      {
+        "Name": "Cyprus"
+      },
+      {
+        "Name": "Czech Republic"
+      },
+      {
+        "Name": "C\u00f4te d\u2019Ivoire"
+      },
+      {
+        "Name": "Djibouti"
+      },
+      {
+        "Name": "Dominica"
+      },
+      {
+        "Name": "Equatorial Guinea"
+      },
+      {
+        "Name": "Eritrea"
+      },
+      {
+        "Name": "Estonia"
+      },
+      {
+        "Name": "Fiji Islands"
+      },
+      {
+        "Name": "Gabon"
+      },
+      {
+        "Name": "Gambia"
+      },
+      {
+        "Name": "Georgia"
+      },
+      {
+        "Name": "Germany"
+      },
+      {
+        "Name": "Ghana"
+      },
+      {
+        "Name": "Grenada"
+      },
+      {
+        "Name": "Guinea"
+      },
+      {
+        "Name": "Guinea-Bissau"
+      },
+      {
+        "Name": "Guyana"
+      },
+      {
+        "Name": "Jamaica"
+      },
+      {
+        "Name": "Kazakstan"
+      },
+      {
+        "Name": "Kenya"
+      },
+      {
+        "Name": "Kiribati"
+      },
+      {
+        "Name": "Kuwait"
+      },
+      {
+        "Name": "Kyrgyzstan"
+      },
+      {
+        "Name": "Laos"
+      },
+      {
+        "Name": "Latvia"
+      },
+      {
+        "Name": "Lesotho"
+      },
+      {
+        "Name": "Libyan Arab Jamahiriya"
+      },
+      {
+        "Name": "Lithuania"
+      },
+      {
+        "Name": "Macedonia"
+      },
+      {
+        "Name": "Madagascar"
+      },
+      {
+        "Name": "Malawi"
+      },
+      {
+        "Name": "Malaysia"
+      },
+      {
+        "Name": "Maldives"
+      },
+      {
+        "Name": "Mali"
+      },
+      {
+        "Name": "Malta"
+      },
+      {
+        "Name": "Marshall Islands"
+      },
+      {
+        "Name": "Mauritania"
+      },
+      {
+        "Name": "Mauritius"
+      },
+      {
+        "Name": "Micronesia, Federated States of"
+      },
+      {
+        "Name": "Moldova"
+      },
+      {
+        "Name": "Morocco"
+      },
+      {
+        "Name": "Mozambique"
+      },
+      {
+        "Name": "Namibia"
+      },
+      {
+        "Name": "Nauru"
+      },
+      {
+        "Name": "Niger"
+      },
+      {
+        "Name": "Nigeria"
+      },
+      {
+        "Name": "Oman"
+      },
+      {
+        "Name": "Palau"
+      },
+      {
+        "Name": "Papua New Guinea"
+      },
+      {
+        "Name": "Qatar"
+      },
+      {
+        "Name": "Russian Federation"
+      },
+      {
+        "Name": "Rwanda"
+      },
+      {
+        "Name": "Saint Kitts and Nevis"
+      },
+      {
+        "Name": "Saint Lucia"
+      },
+      {
+        "Name": "Saint Vincent and the Grenadines"
+      },
+      {
+        "Name": "Samoa"
+      },
+      {
+        "Name": "Sao Tome and Principe"
+      },
+      {
+        "Name": "Senegal"
+      },
+      {
+        "Name": "Seychelles"
+      },
+      {
+        "Name": "Sierra Leone"
+      },
+      {
+        "Name": "Singapore"
+      },
+      {
+        "Name": "Slovakia"
+      },
+      {
+        "Name": "Slovenia"
+      },
+      {
+        "Name": "Solomon Islands"
+      },
+      {
+        "Name": "Somalia"
+      },
+      {
+        "Name": "Sudan"
+      },
+      {
+        "Name": "Suriname"
+      },
+      {
+        "Name": "Swaziland"
+      },
+      {
+        "Name": "Tajikistan"
+      },
+      {
+        "Name": "Tanzania"
+      },
+      {
+        "Name": "Togo"
+      },
+      {
+        "Name": "Tonga"
+      },
+      {
+        "Name": "Trinidad and Tobago"
+      },
+      {
+        "Name": "Tunisia"
+      },
+      {
+        "Name": "Turkmenistan"
+      },
+      {
+        "Name": "Tuvalu"
+      },
+      {
+        "Name": "Uganda"
+      },
+      {
+        "Name": "Ukraine"
+      },
+      {
+        "Name": "United Arab Emirates"
+      },
+      {
+        "Name": "Uzbekistan"
+      },
+      {
+        "Name": "Vanuatu"
+      },
+      {
+        "Name": "Zambia"
+      },
+      {
+        "Name": "Zimbabwe"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 110
+  },
+  "world_02": {
+    "id": "world_02",
+    "tier": "aggregate",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 122,
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "world_03": {
+    "id": "world_03",
+    "tier": "aggregate",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 234423.0,
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "world_04": {
+    "id": "world_04",
+    "tier": "filter",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": "North America",
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "world_05": {
+    "id": "world_05",
+    "tier": "order_by",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": "Afghanistan",
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "world_06": {
+    "id": "world_06",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "multi_aggregate"
+    ],
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "sum(Population)": 3705025700,
+        "max(GNP)": 3787042.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "world_07": {
+    "id": "world_07",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "world_08": {
+    "id": "world_08",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "world_09": {
+    "id": "world_09",
+    "tier": "aggregate",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 10,
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "world_10": {
+    "id": "world_10",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "aggregate_subquery"
+    ],
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Name": "Afghanistan"
+      },
+      {
+        "Name": "Albania"
+      },
+      {
+        "Name": "Algeria"
+      },
+      {
+        "Name": "American Samoa"
+      },
+      {
+        "Name": "Andorra"
+      },
+      {
+        "Name": "Angola"
+      },
+      {
+        "Name": "Anguilla"
+      },
+      {
+        "Name": "Antarctica"
+      },
+      {
+        "Name": "Antigua and Barbuda"
+      },
+      {
+        "Name": "Argentina"
+      },
+      {
+        "Name": "Armenia"
+      },
+      {
+        "Name": "Aruba"
+      },
+      {
+        "Name": "Australia"
+      },
+      {
+        "Name": "Austria"
+      },
+      {
+        "Name": "Azerbaijan"
+      },
+      {
+        "Name": "Bahamas"
+      },
+      {
+        "Name": "Bahrain"
+      },
+      {
+        "Name": "Bangladesh"
+      },
+      {
+        "Name": "Barbados"
+      },
+      {
+        "Name": "Belarus"
+      },
+      {
+        "Name": "Belgium"
+      },
+      {
+        "Name": "Belize"
+      },
+      {
+        "Name": "Benin"
+      },
+      {
+        "Name": "Bermuda"
+      },
+      {
+        "Name": "Bhutan"
+      },
+      {
+        "Name": "Bolivia"
+      },
+      {
+        "Name": "Bosnia and Herzegovina"
+      },
+      {
+        "Name": "Botswana"
+      },
+      {
+        "Name": "Bouvet Island"
+      },
+      {
+        "Name": "Brazil"
+      },
+      {
+        "Name": "British Indian Ocean Territory"
+      },
+      {
+        "Name": "Brunei"
+      },
+      {
+        "Name": "Bulgaria"
+      },
+      {
+        "Name": "Burkina Faso"
+      },
+      {
+        "Name": "Burundi"
+      },
+      {
+        "Name": "Cambodia"
+      },
+      {
+        "Name": "Cameroon"
+      },
+      {
+        "Name": "Canada"
+      },
+      {
+        "Name": "Cape Verde"
+      },
+      {
+        "Name": "Cayman Islands"
+      },
+      {
+        "Name": "Central African Republic"
+      },
+      {
+        "Name": "Chad"
+      },
+      {
+        "Name": "Chile"
+      },
+      {
+        "Name": "China"
+      },
+      {
+        "Name": "Christmas Island"
+      },
+      {
+        "Name": "Cocos (Keeling) Islands"
+      },
+      {
+        "Name": "Colombia"
+      },
+      {
+        "Name": "Comoros"
+      },
+      {
+        "Name": "Congo"
+      },
+      {
+        "Name": "Congo, The Democratic Republic of the"
+      },
+      {
+        "Name": "Cook Islands"
+      },
+      {
+        "Name": "Costa Rica"
+      },
+      {
+        "Name": "Croatia"
+      },
+      {
+        "Name": "Cuba"
+      },
+      {
+        "Name": "Cyprus"
+      },
+      {
+        "Name": "Czech Republic"
+      },
+      {
+        "Name": "C\u00f4te d\u2019Ivoire"
+      },
+      {
+        "Name": "Denmark"
+      },
+      {
+        "Name": "Djibouti"
+      },
+      {
+        "Name": "Dominica"
+      },
+      {
+        "Name": "Dominican Republic"
+      },
+      {
+        "Name": "East Timor"
+      },
+      {
+        "Name": "Ecuador"
+      },
+      {
+        "Name": "Egypt"
+      },
+      {
+        "Name": "El Salvador"
+      },
+      {
+        "Name": "Equatorial Guinea"
+      },
+      {
+        "Name": "Eritrea"
+      },
+      {
+        "Name": "Estonia"
+      },
+      {
+        "Name": "Ethiopia"
+      },
+      {
+        "Name": "Falkland Islands"
+      },
+      {
+        "Name": "Faroe Islands"
+      },
+      {
+        "Name": "Fiji Islands"
+      },
+      {
+        "Name": "Finland"
+      },
+      {
+        "Name": "France"
+      },
+      {
+        "Name": "French Guiana"
+      },
+      {
+        "Name": "French Polynesia"
+      },
+      {
+        "Name": "French Southern territories"
+      },
+      {
+        "Name": "Gabon"
+      },
+      {
+        "Name": "Gambia"
+      },
+      {
+        "Name": "Georgia"
+      },
+      {
+        "Name": "Germany"
+      },
+      {
+        "Name": "Ghana"
+      },
+      {
+        "Name": "Gibraltar"
+      },
+      {
+        "Name": "Greece"
+      },
+      {
+        "Name": "Greenland"
+      },
+      {
+        "Name": "Grenada"
+      },
+      {
+        "Name": "Guadeloupe"
+      },
+      {
+        "Name": "Guam"
+      },
+      {
+        "Name": "Guatemala"
+      },
+      {
+        "Name": "Guinea"
+      },
+      {
+        "Name": "Guinea-Bissau"
+      },
+      {
+        "Name": "Guyana"
+      },
+      {
+        "Name": "Haiti"
+      },
+      {
+        "Name": "Heard Island and McDonald Islands"
+      },
+      {
+        "Name": "Honduras"
+      },
+      {
+        "Name": "Hong Kong"
+      },
+      {
+        "Name": "Hungary"
+      },
+      {
+        "Name": "Iceland"
+      },
+      {
+        "Name": "India"
+      },
+      {
+        "Name": "Indonesia"
+      },
+      {
+        "Name": "Iran"
+      },
+      {
+        "Name": "Iraq"
+      },
+      {
+        "Name": "Ireland"
+      },
+      {
+        "Name": "Israel"
+      },
+      {
+        "Name": "Italy"
+      },
+      {
+        "Name": "Jamaica"
+      },
+      {
+        "Name": "Japan"
+      },
+      {
+        "Name": "Jordan"
+      },
+      {
+        "Name": "Kazakstan"
+      },
+      {
+        "Name": "Kenya"
+      },
+      {
+        "Name": "Kiribati"
+      },
+      {
+        "Name": "Kuwait"
+      },
+      {
+        "Name": "Kyrgyzstan"
+      },
+      {
+        "Name": "Laos"
+      },
+      {
+        "Name": "Latvia"
+      },
+      {
+        "Name": "Lebanon"
+      },
+      {
+        "Name": "Lesotho"
+      },
+      {
+        "Name": "Liberia"
+      },
+      {
+        "Name": "Libyan Arab Jamahiriya"
+      },
+      {
+        "Name": "Liechtenstein"
+      },
+      {
+        "Name": "Lithuania"
+      },
+      {
+        "Name": "Luxembourg"
+      },
+      {
+        "Name": "Macao"
+      },
+      {
+        "Name": "Macedonia"
+      },
+      {
+        "Name": "Madagascar"
+      },
+      {
+        "Name": "Malawi"
+      },
+      {
+        "Name": "Malaysia"
+      },
+      {
+        "Name": "Maldives"
+      },
+      {
+        "Name": "Mali"
+      },
+      {
+        "Name": "Malta"
+      },
+      {
+        "Name": "Marshall Islands"
+      },
+      {
+        "Name": "Martinique"
+      },
+      {
+        "Name": "Mauritania"
+      },
+      {
+        "Name": "Mauritius"
+      },
+      {
+        "Name": "Mayotte"
+      },
+      {
+        "Name": "Mexico"
+      },
+      {
+        "Name": "Micronesia, Federated States of"
+      },
+      {
+        "Name": "Moldova"
+      },
+      {
+        "Name": "Monaco"
+      },
+      {
+        "Name": "Mongolia"
+      },
+      {
+        "Name": "Montserrat"
+      },
+      {
+        "Name": "Morocco"
+      },
+      {
+        "Name": "Mozambique"
+      },
+      {
+        "Name": "Myanmar"
+      },
+      {
+        "Name": "Namibia"
+      },
+      {
+        "Name": "Nauru"
+      },
+      {
+        "Name": "Nepal"
+      },
+      {
+        "Name": "Netherlands"
+      },
+      {
+        "Name": "Netherlands Antilles"
+      },
+      {
+        "Name": "New Caledonia"
+      },
+      {
+        "Name": "New Zealand"
+      },
+      {
+        "Name": "Nicaragua"
+      },
+      {
+        "Name": "Niger"
+      },
+      {
+        "Name": "Nigeria"
+      },
+      {
+        "Name": "Niue"
+      },
+      {
+        "Name": "Norfolk Island"
+      },
+      {
+        "Name": "North Korea"
+      },
+      {
+        "Name": "Northern Mariana Islands"
+      },
+      {
+        "Name": "Norway"
+      },
+      {
+        "Name": "Oman"
+      },
+      {
+        "Name": "Pakistan"
+      },
+      {
+        "Name": "Palau"
+      },
+      {
+        "Name": "Palestine"
+      },
+      {
+        "Name": "Panama"
+      },
+      {
+        "Name": "Papua New Guinea"
+      },
+      {
+        "Name": "Paraguay"
+      },
+      {
+        "Name": "Peru"
+      },
+      {
+        "Name": "Philippines"
+      },
+      {
+        "Name": "Pitcairn"
+      },
+      {
+        "Name": "Poland"
+      },
+      {
+        "Name": "Portugal"
+      },
+      {
+        "Name": "Puerto Rico"
+      },
+      {
+        "Name": "Qatar"
+      },
+      {
+        "Name": "Romania"
+      },
+      {
+        "Name": "Russian Federation"
+      },
+      {
+        "Name": "Rwanda"
+      },
+      {
+        "Name": "R\u00e9union"
+      },
+      {
+        "Name": "Saint Helena"
+      },
+      {
+        "Name": "Saint Kitts and Nevis"
+      },
+      {
+        "Name": "Saint Lucia"
+      },
+      {
+        "Name": "Saint Pierre and Miquelon"
+      },
+      {
+        "Name": "Saint Vincent and the Grenadines"
+      },
+      {
+        "Name": "Samoa"
+      },
+      {
+        "Name": "San Marino"
+      },
+      {
+        "Name": "Sao Tome and Principe"
+      },
+      {
+        "Name": "Saudi Arabia"
+      },
+      {
+        "Name": "Senegal"
+      },
+      {
+        "Name": "Seychelles"
+      },
+      {
+        "Name": "Sierra Leone"
+      },
+      {
+        "Name": "Singapore"
+      },
+      {
+        "Name": "Slovakia"
+      },
+      {
+        "Name": "Slovenia"
+      },
+      {
+        "Name": "Solomon Islands"
+      },
+      {
+        "Name": "Somalia"
+      },
+      {
+        "Name": "South Africa"
+      },
+      {
+        "Name": "South Georgia and the South Sandwich Islands"
+      },
+      {
+        "Name": "South Korea"
+      },
+      {
+        "Name": "Spain"
+      },
+      {
+        "Name": "Sri Lanka"
+      },
+      {
+        "Name": "Sudan"
+      },
+      {
+        "Name": "Suriname"
+      },
+      {
+        "Name": "Svalbard and Jan Mayen"
+      },
+      {
+        "Name": "Swaziland"
+      },
+      {
+        "Name": "Sweden"
+      },
+      {
+        "Name": "Switzerland"
+      },
+      {
+        "Name": "Syria"
+      },
+      {
+        "Name": "Taiwan"
+      },
+      {
+        "Name": "Tajikistan"
+      },
+      {
+        "Name": "Tanzania"
+      },
+      {
+        "Name": "Thailand"
+      },
+      {
+        "Name": "Togo"
+      },
+      {
+        "Name": "Tokelau"
+      },
+      {
+        "Name": "Tonga"
+      },
+      {
+        "Name": "Trinidad and Tobago"
+      },
+      {
+        "Name": "Tunisia"
+      },
+      {
+        "Name": "Turkey"
+      },
+      {
+        "Name": "Turkmenistan"
+      },
+      {
+        "Name": "Turks and Caicos Islands"
+      },
+      {
+        "Name": "Tuvalu"
+      },
+      {
+        "Name": "Uganda"
+      },
+      {
+        "Name": "Ukraine"
+      },
+      {
+        "Name": "United Arab Emirates"
+      },
+      {
+        "Name": "United Kingdom"
+      },
+      {
+        "Name": "United States"
+      },
+      {
+        "Name": "United States Minor Outlying Islands"
+      },
+      {
+        "Name": "Uruguay"
+      },
+      {
+        "Name": "Uzbekistan"
+      },
+      {
+        "Name": "Vanuatu"
+      },
+      {
+        "Name": "Venezuela"
+      },
+      {
+        "Name": "Vietnam"
+      },
+      {
+        "Name": "Virgin Islands, British"
+      },
+      {
+        "Name": "Virgin Islands, U.S."
+      },
+      {
+        "Name": "Wallis and Futuna"
+      },
+      {
+        "Name": "Western Sahara"
+      },
+      {
+        "Name": "Yemen"
+      },
+      {
+        "Name": "Yugoslavia"
+      },
+      {
+        "Name": "Zambia"
+      },
+      {
+        "Name": "Zimbabwe"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 238
+  },
+  "world_11": {
+    "id": "world_11",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "aggregate_subquery"
+    ],
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Name": "British Indian Ocean Territory"
+      },
+      {
+        "Name": "Mayotte"
+      },
+      {
+        "Name": "Saint Helena"
+      },
+      {
+        "Name": "Sao Tome and Principe"
+      },
+      {
+        "Name": "Seychelles"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5
+  },
+  "world_12": {
+    "id": "world_12",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "world_13": {
+    "id": "world_13",
+    "tier": "order_by",
+    "architectural_gap": null,
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Name": "Antarctica",
+        "SurfaceArea": 13120000.0,
+        "IndepYear": null
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "world_14": {
+    "id": "world_14",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "world_15": {
+    "id": "world_15",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "having_filter",
+      "multi_aggregate"
+    ],
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "sum(Population)": 78000,
+        "GovernmentForm": "Parliamentary Coprincipality"
+      },
+      {
+        "sum(Population)": 99000,
+        "GovernmentForm": "Part of Denmark"
+      },
+      {
+        "sum(Population)": 193050,
+        "GovernmentForm": "Dependent Territory of the UK"
+      },
+      {
+        "sum(Population)": 320000,
+        "GovernmentForm": "Nonmetropolitan Territory of The Netherlands"
+      },
+      {
+        "sum(Population)": 329000,
+        "GovernmentForm": "US Territory"
+      },
+      {
+        "sum(Population)": 464000,
+        "GovernmentForm": "Nonmetropolitan Territory of France"
+      },
+      {
+        "sum(Population)": 617000,
+        "GovernmentForm": "Monarchy (Emirate)"
+      },
+      {
+        "sum(Population)": 1731000,
+        "GovernmentForm": "Overseas Department of France"
+      },
+      {
+        "sum(Population)": 1972000,
+        "GovernmentForm": "Constitutional Monarchy (Emirate)"
+      },
+      {
+        "sum(Population)": 2441000,
+        "GovernmentForm": "Emirate Federation"
+      },
+      {
+        "sum(Population)": 2870000,
+        "GovernmentForm": "Monarchy (Sultanate)"
+      },
+      {
+        "sum(Population)": 3947000,
+        "GovernmentForm": "Commonwealth of the US"
+      },
+      {
+        "sum(Population)": 5605000,
+        "GovernmentForm": "Socialistic State"
+      },
+      {
+        "sum(Population)": 7160400,
+        "GovernmentForm": "Federation"
+      },
+      {
+        "sum(Population)": 7255000,
+        "GovernmentForm": "Special Administrative Region of China"
+      },
+      {
+        "sum(Population)": 82516000,
+        "GovernmentForm": "Constitutional Monarchy, Federation"
+      },
+      {
+        "sum(Population)": 115072000,
+        "GovernmentForm": "Socialistic Republic"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 17
+  },
+  "world_16": {
+    "id": "world_16",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "having_filter",
+      "multi_aggregate"
+    ],
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "sum(Population)": 30401150,
+        "avg(LifeExpectancy)": 69.715,
+        "Continent": "Oceania"
+      },
+      {
+        "sum(Population)": 345780000,
+        "avg(LifeExpectancy)": 70.946154,
+        "Continent": "South America"
+      },
+      {
+        "sum(Population)": 784475000,
+        "avg(LifeExpectancy)": 52.57193,
+        "Continent": "Africa"
+      },
+      {
+        "sum(Population)": 3705025700,
+        "avg(LifeExpectancy)": 67.441176,
+        "Continent": "Asia"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 4
+  },
+  "world_17": {
+    "id": "world_17",
+    "tier": "order_by",
+    "architectural_gap": null,
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Name": "Russian Federation",
+        "SurfaceArea": 17075400.0
+      },
+      {
+        "Name": "Antarctica",
+        "SurfaceArea": 13120000.0
+      },
+      {
+        "Name": "Canada",
+        "SurfaceArea": 9970610.0
+      },
+      {
+        "Name": "China",
+        "SurfaceArea": 9572900.0
+      },
+      {
+        "Name": "United States",
+        "SurfaceArea": 9363520.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5
+  },
+  "world_18": {
+    "id": "world_18",
+    "tier": "aggregate",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 51,
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "world_19": {
+    "id": "world_19",
+    "tier": "filter",
+    "architectural_gap": null,
+    "result_kind": "table",
+    "ordered": false,
+    "value": [],
+    "expected_behavior": "answer",
+    "row_count": 0
+  },
+  "world_20": {
+    "id": "world_20",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "world_21": {
+    "id": "world_21",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "world_22": {
+    "id": "world_22",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "world_23": {
+    "id": "world_23",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "world_24": {
+    "id": "world_24",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "world_25": {
+    "id": "world_25",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "world_26": {
+    "id": "world_26",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "world_27": {
+    "id": "world_27",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "world_28": {
+    "id": "world_28",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "world_29": {
+    "id": "world_29",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "world_30": {
+    "id": "world_30",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  }
+}

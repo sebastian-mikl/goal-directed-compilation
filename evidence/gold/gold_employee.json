@@ -1,0 +1,7829 @@
+{
+  "t1_01": {
+    "id": "t1_01",
+    "tier": "T1_single_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Name": "Person 1",
+        "Status": "Active",
+        "employee_id": "E1000"
+      },
+      {
+        "Name": "Person 10",
+        "Status": "On Leave",
+        "employee_id": "E1009"
+      },
+      {
+        "Name": "Person 100",
+        "Status": "Active",
+        "employee_id": "E1099"
+      },
+      {
+        "Name": "Person 101",
+        "Status": "Active",
+        "employee_id": "E1100"
+      },
+      {
+        "Name": "Person 102",
+        "Status": "Active",
+        "employee_id": "E1101"
+      },
+      {
+        "Name": "Person 103",
+        "Status": "Active",
+        "employee_id": "E1102"
+      },
+      {
+        "Name": "Person 104",
+        "Status": "Active",
+        "employee_id": "E1103"
+      },
+      {
+        "Name": "Person 105",
+        "Status": "Active",
+        "employee_id": "E1104"
+      },
+      {
+        "Name": "Person 106",
+        "Status": "Active",
+        "employee_id": "E1105"
+      },
+      {
+        "Name": "Person 107",
+        "Status": "Active",
+        "employee_id": "E1106"
+      },
+      {
+        "Name": "Person 108",
+        "Status": "Active",
+        "employee_id": "E1107"
+      },
+      {
+        "Name": "Person 109",
+        "Status": "Active",
+        "employee_id": "E1108"
+      },
+      {
+        "Name": "Person 11",
+        "Status": "Active",
+        "employee_id": "E1010"
+      },
+      {
+        "Name": "Person 110",
+        "Status": "Active",
+        "employee_id": "E1109"
+      },
+      {
+        "Name": "Person 111",
+        "Status": "Active",
+        "employee_id": "E1110"
+      },
+      {
+        "Name": "Person 112",
+        "Status": "Sabbatical",
+        "employee_id": "E1111"
+      },
+      {
+        "Name": "Person 113",
+        "Status": "Active",
+        "employee_id": "E1112"
+      },
+      {
+        "Name": "Person 114",
+        "Status": "Active",
+        "employee_id": "E1113"
+      },
+      {
+        "Name": "Person 115",
+        "Status": "Active",
+        "employee_id": "E1114"
+      },
+      {
+        "Name": "Person 116",
+        "Status": "Sabbatical",
+        "employee_id": "E1115"
+      },
+      {
+        "Name": "Person 117",
+        "Status": "Active",
+        "employee_id": "E1116"
+      },
+      {
+        "Name": "Person 118",
+        "Status": "Active",
+        "employee_id": "E1117"
+      },
+      {
+        "Name": "Person 119",
+        "Status": "Active",
+        "employee_id": "E1118"
+      },
+      {
+        "Name": "Person 120",
+        "Status": "Active",
+        "employee_id": "E1119"
+      },
+      {
+        "Name": "Person 121",
+        "Status": "Sabbatical",
+        "employee_id": "E1120"
+      },
+      {
+        "Name": "Person 122",
+        "Status": "Active",
+        "employee_id": "E1121"
+      },
+      {
+        "Name": "Person 123",
+        "Status": "Sabbatical",
+        "employee_id": "E1122"
+      },
+      {
+        "Name": "Person 126",
+        "Status": "Active",
+        "employee_id": "E1125"
+      },
+      {
+        "Name": "Person 127",
+        "Status": "Active",
+        "employee_id": "E1126"
+      },
+      {
+        "Name": "Person 128",
+        "Status": "Active",
+        "employee_id": "E1127"
+      },
+      {
+        "Name": "Person 129",
+        "Status": "Active",
+        "employee_id": "E1128"
+      },
+      {
+        "Name": "Person 13",
+        "Status": "Active",
+        "employee_id": "E1012"
+      },
+      {
+        "Name": "Person 130",
+        "Status": "Active",
+        "employee_id": "E1129"
+      },
+      {
+        "Name": "Person 131",
+        "Status": "Active",
+        "employee_id": "E1130"
+      },
+      {
+        "Name": "Person 132",
+        "Status": "Active",
+        "employee_id": "E1131"
+      },
+      {
+        "Name": "Person 135",
+        "Status": "Active",
+        "employee_id": "E1134"
+      },
+      {
+        "Name": "Person 136",
+        "Status": "Active",
+        "employee_id": "E1135"
+      },
+      {
+        "Name": "Person 137",
+        "Status": "On Leave",
+        "employee_id": "E1136"
+      },
+      {
+        "Name": "Person 138",
+        "Status": "Sabbatical",
+        "employee_id": "E1137"
+      },
+      {
+        "Name": "Person 139",
+        "Status": "Active",
+        "employee_id": "E1138"
+      },
+      {
+        "Name": "Person 14",
+        "Status": "On Leave",
+        "employee_id": "E1013"
+      },
+      {
+        "Name": "Person 140",
+        "Status": "Active",
+        "employee_id": "E1139"
+      },
+      {
+        "Name": "Person 141",
+        "Status": "Active",
+        "employee_id": "E1140"
+      },
+      {
+        "Name": "Person 142",
+        "Status": "Active",
+        "employee_id": "E1141"
+      },
+      {
+        "Name": "Person 143",
+        "Status": "On Leave",
+        "employee_id": "E1142"
+      },
+      {
+        "Name": "Person 144",
+        "Status": "On Leave",
+        "employee_id": "E1143"
+      },
+      {
+        "Name": "Person 145",
+        "Status": "Active",
+        "employee_id": "E1144"
+      },
+      {
+        "Name": "Person 146",
+        "Status": "Active",
+        "employee_id": "E1145"
+      },
+      {
+        "Name": "Person 147",
+        "Status": "Active",
+        "employee_id": "E1146"
+      },
+      {
+        "Name": "Person 148",
+        "Status": "Active",
+        "employee_id": "E1147"
+      },
+      {
+        "Name": "Person 149",
+        "Status": "Active",
+        "employee_id": "E1148"
+      },
+      {
+        "Name": "Person 15",
+        "Status": "Active",
+        "employee_id": "E1014"
+      },
+      {
+        "Name": "Person 150",
+        "Status": "Active",
+        "employee_id": "E1149"
+      },
+      {
+        "Name": "Person 16",
+        "Status": "Active",
+        "employee_id": "E1015"
+      },
+      {
+        "Name": "Person 17",
+        "Status": "Sabbatical",
+        "employee_id": "E1016"
+      },
+      {
+        "Name": "Person 18",
+        "Status": "Active",
+        "employee_id": "E1017"
+      },
+      {
+        "Name": "Person 19",
+        "Status": "Active",
+        "employee_id": "E1018"
+      },
+      {
+        "Name": "Person 2",
+        "Status": "Active",
+        "employee_id": "E1001"
+      },
+      {
+        "Name": "Person 20",
+        "Status": "Active",
+        "employee_id": "E1019"
+      },
+      {
+        "Name": "Person 21",
+        "Status": "Sabbatical",
+        "employee_id": "E1020"
+      },
+      {
+        "Name": "Person 22",
+        "Status": "Sabbatical",
+        "employee_id": "E1021"
+      },
+      {
+        "Name": "Person 23",
+        "Status": "Active",
+        "employee_id": "E1022"
+      },
+      {
+        "Name": "Person 24",
+        "Status": "Sabbatical",
+        "employee_id": "E1023"
+      },
+      {
+        "Name": "Person 25",
+        "Status": "On Leave",
+        "employee_id": "E1024"
+      },
+      {
+        "Name": "Person 26",
+        "Status": "Active",
+        "employee_id": "E1025"
+      },
+      {
+        "Name": "Person 27",
+        "Status": "Active",
+        "employee_id": "E1026"
+      },
+      {
+        "Name": "Person 28",
+        "Status": "Active",
+        "employee_id": "E1027"
+      },
+      {
+        "Name": "Person 29",
+        "Status": "Active",
+        "employee_id": "E1028"
+      },
+      {
+        "Name": "Person 3",
+        "Status": "Active",
+        "employee_id": "E1002"
+      },
+      {
+        "Name": "Person 31",
+        "Status": "Active",
+        "employee_id": "E1030"
+      },
+      {
+        "Name": "Person 33",
+        "Status": "Active",
+        "employee_id": "E1032"
+      },
+      {
+        "Name": "Person 34",
+        "Status": "Active",
+        "employee_id": "E1033"
+      },
+      {
+        "Name": "Person 35",
+        "Status": "Active",
+        "employee_id": "E1034"
+      },
+      {
+        "Name": "Person 36",
+        "Status": "Active",
+        "employee_id": "E1035"
+      },
+      {
+        "Name": "Person 37",
+        "Status": "Active",
+        "employee_id": "E1036"
+      },
+      {
+        "Name": "Person 38",
+        "Status": "Active",
+        "employee_id": "E1037"
+      },
+      {
+        "Name": "Person 39",
+        "Status": "Active",
+        "employee_id": "E1038"
+      },
+      {
+        "Name": "Person 4",
+        "Status": "On Leave",
+        "employee_id": "E1003"
+      },
+      {
+        "Name": "Person 40",
+        "Status": "Active",
+        "employee_id": "E1039"
+      },
+      {
+        "Name": "Person 41",
+        "Status": "Active",
+        "employee_id": "E1040"
+      },
+      {
+        "Name": "Person 42",
+        "Status": "Active",
+        "employee_id": "E1041"
+      },
+      {
+        "Name": "Person 43",
+        "Status": "On Leave",
+        "employee_id": "E1042"
+      },
+      {
+        "Name": "Person 44",
+        "Status": "Active",
+        "employee_id": "E1043"
+      },
+      {
+        "Name": "Person 45",
+        "Status": "Active",
+        "employee_id": "E1044"
+      },
+      {
+        "Name": "Person 46",
+        "Status": "Active",
+        "employee_id": "E1045"
+      },
+      {
+        "Name": "Person 47",
+        "Status": "Active",
+        "employee_id": "E1046"
+      },
+      {
+        "Name": "Person 48",
+        "Status": "Active",
+        "employee_id": "E1047"
+      },
+      {
+        "Name": "Person 49",
+        "Status": "Active",
+        "employee_id": "E1048"
+      },
+      {
+        "Name": "Person 5",
+        "Status": "On Leave",
+        "employee_id": "E1004"
+      },
+      {
+        "Name": "Person 50",
+        "Status": "Active",
+        "employee_id": "E1049"
+      },
+      {
+        "Name": "Person 51",
+        "Status": "Active",
+        "employee_id": "E1050"
+      },
+      {
+        "Name": "Person 52",
+        "Status": "Active",
+        "employee_id": "E1051"
+      },
+      {
+        "Name": "Person 53",
+        "Status": "Active",
+        "employee_id": "E1052"
+      },
+      {
+        "Name": "Person 54",
+        "Status": "Sabbatical",
+        "employee_id": "E1053"
+      },
+      {
+        "Name": "Person 55",
+        "Status": "Sabbatical",
+        "employee_id": "E1054"
+      },
+      {
+        "Name": "Person 56",
+        "Status": "Active",
+        "employee_id": "E1055"
+      },
+      {
+        "Name": "Person 57",
+        "Status": "Active",
+        "employee_id": "E1056"
+      },
+      {
+        "Name": "Person 59",
+        "Status": "Active",
+        "employee_id": "E1058"
+      },
+      {
+        "Name": "Person 6",
+        "Status": "Active",
+        "employee_id": "E1005"
+      },
+      {
+        "Name": "Person 60",
+        "Status": "Active",
+        "employee_id": "E1059"
+      },
+      {
+        "Name": "Person 61",
+        "Status": "Active",
+        "employee_id": "E1060"
+      },
+      {
+        "Name": "Person 62",
+        "Status": "Active",
+        "employee_id": "E1061"
+      },
+      {
+        "Name": "Person 63",
+        "Status": "Sabbatical",
+        "employee_id": "E1062"
+      },
+      {
+        "Name": "Person 64",
+        "Status": "Active",
+        "employee_id": "E1063"
+      },
+      {
+        "Name": "Person 65",
+        "Status": "Sabbatical",
+        "employee_id": "E1064"
+      },
+      {
+        "Name": "Person 66",
+        "Status": "Active",
+        "employee_id": "E1065"
+      },
+      {
+        "Name": "Person 67",
+        "Status": "Active",
+        "employee_id": "E1066"
+      },
+      {
+        "Name": "Person 68",
+        "Status": "Active",
+        "employee_id": "E1067"
+      },
+      {
+        "Name": "Person 69",
+        "Status": "Active",
+        "employee_id": "E1068"
+      },
+      {
+        "Name": "Person 7",
+        "Status": "Active",
+        "employee_id": "E1006"
+      },
+      {
+        "Name": "Person 70",
+        "Status": "Active",
+        "employee_id": "E1069"
+      },
+      {
+        "Name": "Person 71",
+        "Status": "Active",
+        "employee_id": "E1070"
+      },
+      {
+        "Name": "Person 72",
+        "Status": "Active",
+        "employee_id": "E1071"
+      },
+      {
+        "Name": "Person 73",
+        "Status": "Active",
+        "employee_id": "E1072"
+      },
+      {
+        "Name": "Person 74",
+        "Status": "Active",
+        "employee_id": "E1073"
+      },
+      {
+        "Name": "Person 75",
+        "Status": "Active",
+        "employee_id": "E1074"
+      },
+      {
+        "Name": "Person 76",
+        "Status": "Active",
+        "employee_id": "E1075"
+      },
+      {
+        "Name": "Person 77",
+        "Status": "Active",
+        "employee_id": "E1076"
+      },
+      {
+        "Name": "Person 78",
+        "Status": "Active",
+        "employee_id": "E1077"
+      },
+      {
+        "Name": "Person 79",
+        "Status": "Active",
+        "employee_id": "E1078"
+      },
+      {
+        "Name": "Person 8",
+        "Status": "Active",
+        "employee_id": "E1007"
+      },
+      {
+        "Name": "Person 80",
+        "Status": "Active",
+        "employee_id": "E1079"
+      },
+      {
+        "Name": "Person 81",
+        "Status": "Active",
+        "employee_id": "E1080"
+      },
+      {
+        "Name": "Person 82",
+        "Status": "Active",
+        "employee_id": "E1081"
+      },
+      {
+        "Name": "Person 83",
+        "Status": "Active",
+        "employee_id": "E1082"
+      },
+      {
+        "Name": "Person 84",
+        "Status": "Active",
+        "employee_id": "E1083"
+      },
+      {
+        "Name": "Person 86",
+        "Status": "Sabbatical",
+        "employee_id": "E1085"
+      },
+      {
+        "Name": "Person 87",
+        "Status": "Active",
+        "employee_id": "E1086"
+      },
+      {
+        "Name": "Person 88",
+        "Status": "Active",
+        "employee_id": "E1087"
+      },
+      {
+        "Name": "Person 89",
+        "Status": "Sabbatical",
+        "employee_id": "E1088"
+      },
+      {
+        "Name": "Person 9",
+        "Status": "Active",
+        "employee_id": "E1008"
+      },
+      {
+        "Name": "Person 90",
+        "Status": "Active",
+        "employee_id": "E1089"
+      },
+      {
+        "Name": "Person 91",
+        "Status": "Active",
+        "employee_id": "E1090"
+      },
+      {
+        "Name": "Person 92",
+        "Status": "On Leave",
+        "employee_id": "E1091"
+      },
+      {
+        "Name": "Person 93",
+        "Status": "Active",
+        "employee_id": "E1092"
+      },
+      {
+        "Name": "Person 95",
+        "Status": "Active",
+        "employee_id": "E1094"
+      },
+      {
+        "Name": "Person 97",
+        "Status": "Active",
+        "employee_id": "E1096"
+      },
+      {
+        "Name": "Person 98",
+        "Status": "Active",
+        "employee_id": "E1097"
+      },
+      {
+        "Name": "Person 99",
+        "Status": "Sabbatical",
+        "employee_id": "E1098"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 139,
+    "complexity_ops": 1
+  },
+  "t1_02": {
+    "id": "t1_02",
+    "tier": "T1_single_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Department": "Engineering",
+        "Name": "Person 1",
+        "employee_id": "E1000"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 101",
+        "employee_id": "E1100"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 104",
+        "employee_id": "E1103"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 118",
+        "employee_id": "E1117"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 127",
+        "employee_id": "E1126"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 13",
+        "employee_id": "E1012"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 131",
+        "employee_id": "E1130"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 141",
+        "employee_id": "E1140"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 143",
+        "employee_id": "E1142"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 150",
+        "employee_id": "E1149"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 2",
+        "employee_id": "E1001"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 23",
+        "employee_id": "E1022"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 27",
+        "employee_id": "E1026"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 28",
+        "employee_id": "E1027"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 31",
+        "employee_id": "E1030"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 32",
+        "employee_id": "E1031"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 45",
+        "employee_id": "E1044"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 49",
+        "employee_id": "E1048"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 51",
+        "employee_id": "E1050"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 52",
+        "employee_id": "E1051"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 58",
+        "employee_id": "E1057"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 64",
+        "employee_id": "E1063"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 83",
+        "employee_id": "E1082"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 87",
+        "employee_id": "E1086"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 94",
+        "employee_id": "E1093"
+      },
+      {
+        "Department": "Engineering",
+        "Name": "Person 98",
+        "employee_id": "E1097"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 26,
+    "complexity_ops": 1
+  },
+  "t1_03": {
+    "id": "t1_03",
+    "tier": "T1_single_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Name": "Person 10",
+        "Role": "Director",
+        "employee_id": "E1009"
+      },
+      {
+        "Name": "Person 105",
+        "Role": "Director",
+        "employee_id": "E1104"
+      },
+      {
+        "Name": "Person 121",
+        "Role": "Director",
+        "employee_id": "E1120"
+      },
+      {
+        "Name": "Person 124",
+        "Role": "Director",
+        "employee_id": "E1123"
+      },
+      {
+        "Name": "Person 125",
+        "Role": "Director",
+        "employee_id": "E1124"
+      },
+      {
+        "Name": "Person 136",
+        "Role": "Director",
+        "employee_id": "E1135"
+      },
+      {
+        "Name": "Person 141",
+        "Role": "Director",
+        "employee_id": "E1140"
+      },
+      {
+        "Name": "Person 144",
+        "Role": "Director",
+        "employee_id": "E1143"
+      },
+      {
+        "Name": "Person 148",
+        "Role": "Director",
+        "employee_id": "E1147"
+      },
+      {
+        "Name": "Person 149",
+        "Role": "Director",
+        "employee_id": "E1148"
+      },
+      {
+        "Name": "Person 21",
+        "Role": "Director",
+        "employee_id": "E1020"
+      },
+      {
+        "Name": "Person 22",
+        "Role": "Director",
+        "employee_id": "E1021"
+      },
+      {
+        "Name": "Person 26",
+        "Role": "Director",
+        "employee_id": "E1025"
+      },
+      {
+        "Name": "Person 27",
+        "Role": "Director",
+        "employee_id": "E1026"
+      },
+      {
+        "Name": "Person 4",
+        "Role": "Director",
+        "employee_id": "E1003"
+      },
+      {
+        "Name": "Person 42",
+        "Role": "Director",
+        "employee_id": "E1041"
+      },
+      {
+        "Name": "Person 43",
+        "Role": "Director",
+        "employee_id": "E1042"
+      },
+      {
+        "Name": "Person 5",
+        "Role": "Director",
+        "employee_id": "E1004"
+      },
+      {
+        "Name": "Person 50",
+        "Role": "Director",
+        "employee_id": "E1049"
+      },
+      {
+        "Name": "Person 52",
+        "Role": "Director",
+        "employee_id": "E1051"
+      },
+      {
+        "Name": "Person 61",
+        "Role": "Director",
+        "employee_id": "E1060"
+      },
+      {
+        "Name": "Person 62",
+        "Role": "Director",
+        "employee_id": "E1061"
+      },
+      {
+        "Name": "Person 64",
+        "Role": "Director",
+        "employee_id": "E1063"
+      },
+      {
+        "Name": "Person 67",
+        "Role": "Director",
+        "employee_id": "E1066"
+      },
+      {
+        "Name": "Person 69",
+        "Role": "Director",
+        "employee_id": "E1068"
+      },
+      {
+        "Name": "Person 74",
+        "Role": "Director",
+        "employee_id": "E1073"
+      },
+      {
+        "Name": "Person 77",
+        "Role": "Director",
+        "employee_id": "E1076"
+      },
+      {
+        "Name": "Person 89",
+        "Role": "Director",
+        "employee_id": "E1088"
+      },
+      {
+        "Name": "Person 93",
+        "Role": "Director",
+        "employee_id": "E1092"
+      },
+      {
+        "Name": "Person 95",
+        "Role": "Director",
+        "employee_id": "E1094"
+      },
+      {
+        "Name": "Person 96",
+        "Role": "Director",
+        "employee_id": "E1095"
+      },
+      {
+        "Name": "Person 99",
+        "Role": "Director",
+        "employee_id": "E1098"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 32,
+    "complexity_ops": 1
+  },
+  "t1_04": {
+    "id": "t1_04",
+    "tier": "T1_single_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Name": "Person 112",
+        "Status": "Sabbatical",
+        "employee_id": "E1111"
+      },
+      {
+        "Name": "Person 116",
+        "Status": "Sabbatical",
+        "employee_id": "E1115"
+      },
+      {
+        "Name": "Person 121",
+        "Status": "Sabbatical",
+        "employee_id": "E1120"
+      },
+      {
+        "Name": "Person 123",
+        "Status": "Sabbatical",
+        "employee_id": "E1122"
+      },
+      {
+        "Name": "Person 138",
+        "Status": "Sabbatical",
+        "employee_id": "E1137"
+      },
+      {
+        "Name": "Person 17",
+        "Status": "Sabbatical",
+        "employee_id": "E1016"
+      },
+      {
+        "Name": "Person 21",
+        "Status": "Sabbatical",
+        "employee_id": "E1020"
+      },
+      {
+        "Name": "Person 22",
+        "Status": "Sabbatical",
+        "employee_id": "E1021"
+      },
+      {
+        "Name": "Person 24",
+        "Status": "Sabbatical",
+        "employee_id": "E1023"
+      },
+      {
+        "Name": "Person 54",
+        "Status": "Sabbatical",
+        "employee_id": "E1053"
+      },
+      {
+        "Name": "Person 55",
+        "Status": "Sabbatical",
+        "employee_id": "E1054"
+      },
+      {
+        "Name": "Person 63",
+        "Status": "Sabbatical",
+        "employee_id": "E1062"
+      },
+      {
+        "Name": "Person 65",
+        "Status": "Sabbatical",
+        "employee_id": "E1064"
+      },
+      {
+        "Name": "Person 86",
+        "Status": "Sabbatical",
+        "employee_id": "E1085"
+      },
+      {
+        "Name": "Person 89",
+        "Status": "Sabbatical",
+        "employee_id": "E1088"
+      },
+      {
+        "Name": "Person 99",
+        "Status": "Sabbatical",
+        "employee_id": "E1098"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 16,
+    "complexity_ops": 1
+  },
+  "t1_05": {
+    "id": "t1_05",
+    "tier": "T1_single_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Location": "SF",
+        "Name": "Person 103",
+        "employee_id": "E1102"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 110",
+        "employee_id": "E1109"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 113",
+        "employee_id": "E1112"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 114",
+        "employee_id": "E1113"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 115",
+        "employee_id": "E1114"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 129",
+        "employee_id": "E1128"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 132",
+        "employee_id": "E1131"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 139",
+        "employee_id": "E1138"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 145",
+        "employee_id": "E1144"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 146",
+        "employee_id": "E1145"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 15",
+        "employee_id": "E1014"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 16",
+        "employee_id": "E1015"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 24",
+        "employee_id": "E1023"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 25",
+        "employee_id": "E1024"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 26",
+        "employee_id": "E1025"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 27",
+        "employee_id": "E1026"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 29",
+        "employee_id": "E1028"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 3",
+        "employee_id": "E1002"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 30",
+        "employee_id": "E1029"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 32",
+        "employee_id": "E1031"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 33",
+        "employee_id": "E1032"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 39",
+        "employee_id": "E1038"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 4",
+        "employee_id": "E1003"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 44",
+        "employee_id": "E1043"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 51",
+        "employee_id": "E1050"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 54",
+        "employee_id": "E1053"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 57",
+        "employee_id": "E1056"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 65",
+        "employee_id": "E1064"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 66",
+        "employee_id": "E1065"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 70",
+        "employee_id": "E1069"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 77",
+        "employee_id": "E1076"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 82",
+        "employee_id": "E1081"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 88",
+        "employee_id": "E1087"
+      },
+      {
+        "Location": "SF",
+        "Name": "Person 94",
+        "employee_id": "E1093"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 34,
+    "complexity_ops": 1
+  },
+  "t1_06": {
+    "id": "t1_06",
+    "tier": "T1_single_op",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 150,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": 1
+  },
+  "t1_07": {
+    "id": "t1_07",
+    "tier": "T1_single_op",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 27929341.0,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": 1
+  },
+  "t1_08": {
+    "id": "t1_08",
+    "tier": "T1_single_op",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 3.174,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": 1
+  },
+  "t1_09": {
+    "id": "t1_09",
+    "tier": "T1_single_op",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 332724.0,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": 1
+  },
+  "t1_10": {
+    "id": "t1_10",
+    "tier": "T1_single_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Manager ID": "E1139",
+        "Name": "Person 1",
+        "employee_id": "E1000"
+      },
+      {
+        "Manager ID": "E1043",
+        "Name": "Person 10",
+        "employee_id": "E1009"
+      },
+      {
+        "Manager ID": "E1114",
+        "Name": "Person 100",
+        "employee_id": "E1099"
+      },
+      {
+        "Manager ID": "E1148",
+        "Name": "Person 101",
+        "employee_id": "E1100"
+      },
+      {
+        "Manager ID": "E1084",
+        "Name": "Person 102",
+        "employee_id": "E1101"
+      },
+      {
+        "Manager ID": "E1080",
+        "Name": "Person 103",
+        "employee_id": "E1102"
+      },
+      {
+        "Manager ID": "E1134",
+        "Name": "Person 104",
+        "employee_id": "E1103"
+      },
+      {
+        "Manager ID": "E1045",
+        "Name": "Person 105",
+        "employee_id": "E1104"
+      },
+      {
+        "Manager ID": "E1141",
+        "Name": "Person 106",
+        "employee_id": "E1105"
+      },
+      {
+        "Manager ID": "E1146",
+        "Name": "Person 107",
+        "employee_id": "E1106"
+      },
+      {
+        "Manager ID": "E1064",
+        "Name": "Person 108",
+        "employee_id": "E1107"
+      },
+      {
+        "Manager ID": "E1013",
+        "Name": "Person 109",
+        "employee_id": "E1108"
+      },
+      {
+        "Manager ID": "E1056",
+        "Name": "Person 11",
+        "employee_id": "E1010"
+      },
+      {
+        "Manager ID": "E1030",
+        "Name": "Person 110",
+        "employee_id": "E1109"
+      },
+      {
+        "Manager ID": "E1097",
+        "Name": "Person 111",
+        "employee_id": "E1110"
+      },
+      {
+        "Manager ID": "E1145",
+        "Name": "Person 112",
+        "employee_id": "E1111"
+      },
+      {
+        "Manager ID": "E1054",
+        "Name": "Person 113",
+        "employee_id": "E1112"
+      },
+      {
+        "Manager ID": "E1000",
+        "Name": "Person 114",
+        "employee_id": "E1113"
+      },
+      {
+        "Manager ID": "E1073",
+        "Name": "Person 115",
+        "employee_id": "E1114"
+      },
+      {
+        "Manager ID": "E1050",
+        "Name": "Person 116",
+        "employee_id": "E1115"
+      },
+      {
+        "Manager ID": "E1036",
+        "Name": "Person 117",
+        "employee_id": "E1116"
+      },
+      {
+        "Manager ID": "E1073",
+        "Name": "Person 118",
+        "employee_id": "E1117"
+      },
+      {
+        "Manager ID": "E1128",
+        "Name": "Person 119",
+        "employee_id": "E1118"
+      },
+      {
+        "Manager ID": "E1068",
+        "Name": "Person 12",
+        "employee_id": "E1011"
+      },
+      {
+        "Manager ID": "E1082",
+        "Name": "Person 120",
+        "employee_id": "E1119"
+      },
+      {
+        "Manager ID": "E1005",
+        "Name": "Person 121",
+        "employee_id": "E1120"
+      },
+      {
+        "Manager ID": "E1071",
+        "Name": "Person 122",
+        "employee_id": "E1121"
+      },
+      {
+        "Manager ID": "E1089",
+        "Name": "Person 123",
+        "employee_id": "E1122"
+      },
+      {
+        "Manager ID": "E1105",
+        "Name": "Person 124",
+        "employee_id": "E1123"
+      },
+      {
+        "Manager ID": "E1009",
+        "Name": "Person 125",
+        "employee_id": "E1124"
+      },
+      {
+        "Manager ID": "E1131",
+        "Name": "Person 126",
+        "employee_id": "E1125"
+      },
+      {
+        "Manager ID": "E1127",
+        "Name": "Person 127",
+        "employee_id": "E1126"
+      },
+      {
+        "Manager ID": "E1112",
+        "Name": "Person 128",
+        "employee_id": "E1127"
+      },
+      {
+        "Manager ID": "E1040",
+        "Name": "Person 129",
+        "employee_id": "E1128"
+      },
+      {
+        "Manager ID": "E1101",
+        "Name": "Person 13",
+        "employee_id": "E1012"
+      },
+      {
+        "Manager ID": "E1118",
+        "Name": "Person 130",
+        "employee_id": "E1129"
+      },
+      {
+        "Manager ID": "E1106",
+        "Name": "Person 131",
+        "employee_id": "E1130"
+      },
+      {
+        "Manager ID": "E1130",
+        "Name": "Person 132",
+        "employee_id": "E1131"
+      },
+      {
+        "Manager ID": "E1129",
+        "Name": "Person 133",
+        "employee_id": "E1132"
+      },
+      {
+        "Manager ID": "E1125",
+        "Name": "Person 134",
+        "employee_id": "E1133"
+      },
+      {
+        "Manager ID": "E1096",
+        "Name": "Person 135",
+        "employee_id": "E1134"
+      },
+      {
+        "Manager ID": "E1059",
+        "Name": "Person 136",
+        "employee_id": "E1135"
+      },
+      {
+        "Manager ID": "E1098",
+        "Name": "Person 137",
+        "employee_id": "E1136"
+      },
+      {
+        "Manager ID": "E1025",
+        "Name": "Person 138",
+        "employee_id": "E1137"
+      },
+      {
+        "Manager ID": "E1104",
+        "Name": "Person 139",
+        "employee_id": "E1138"
+      },
+      {
+        "Manager ID": "E1067",
+        "Name": "Person 14",
+        "employee_id": "E1013"
+      },
+      {
+        "Manager ID": "E1101",
+        "Name": "Person 140",
+        "employee_id": "E1139"
+      },
+      {
+        "Manager ID": "E1124",
+        "Name": "Person 141",
+        "employee_id": "E1140"
+      },
+      {
+        "Manager ID": "E1058",
+        "Name": "Person 142",
+        "employee_id": "E1141"
+      },
+      {
+        "Manager ID": "E1113",
+        "Name": "Person 143",
+        "employee_id": "E1142"
+      },
+      {
+        "Manager ID": "E1091",
+        "Name": "Person 144",
+        "employee_id": "E1143"
+      },
+      {
+        "Manager ID": "E1043",
+        "Name": "Person 145",
+        "employee_id": "E1144"
+      },
+      {
+        "Manager ID": "E1127",
+        "Name": "Person 146",
+        "employee_id": "E1145"
+      },
+      {
+        "Manager ID": "E1002",
+        "Name": "Person 147",
+        "employee_id": "E1146"
+      },
+      {
+        "Manager ID": "E1076",
+        "Name": "Person 148",
+        "employee_id": "E1147"
+      },
+      {
+        "Manager ID": "E1123",
+        "Name": "Person 149",
+        "employee_id": "E1148"
+      },
+      {
+        "Manager ID": "E1130",
+        "Name": "Person 15",
+        "employee_id": "E1014"
+      },
+      {
+        "Manager ID": "E1005",
+        "Name": "Person 150",
+        "employee_id": "E1149"
+      },
+      {
+        "Manager ID": "E1108",
+        "Name": "Person 16",
+        "employee_id": "E1015"
+      },
+      {
+        "Manager ID": "E1064",
+        "Name": "Person 17",
+        "employee_id": "E1016"
+      },
+      {
+        "Manager ID": "E1068",
+        "Name": "Person 18",
+        "employee_id": "E1017"
+      },
+      {
+        "Manager ID": "E1128",
+        "Name": "Person 19",
+        "employee_id": "E1018"
+      },
+      {
+        "Manager ID": "E1006",
+        "Name": "Person 2",
+        "employee_id": "E1001"
+      },
+      {
+        "Manager ID": "E1050",
+        "Name": "Person 20",
+        "employee_id": "E1019"
+      },
+      {
+        "Manager ID": "E1000",
+        "Name": "Person 21",
+        "employee_id": "E1020"
+      },
+      {
+        "Manager ID": "E1061",
+        "Name": "Person 22",
+        "employee_id": "E1021"
+      },
+      {
+        "Manager ID": "E1017",
+        "Name": "Person 23",
+        "employee_id": "E1022"
+      },
+      {
+        "Manager ID": "E1067",
+        "Name": "Person 24",
+        "employee_id": "E1023"
+      },
+      {
+        "Manager ID": "E1079",
+        "Name": "Person 25",
+        "employee_id": "E1024"
+      },
+      {
+        "Manager ID": "E1057",
+        "Name": "Person 26",
+        "employee_id": "E1025"
+      },
+      {
+        "Manager ID": "E1001",
+        "Name": "Person 27",
+        "employee_id": "E1026"
+      },
+      {
+        "Manager ID": "E1018",
+        "Name": "Person 28",
+        "employee_id": "E1027"
+      },
+      {
+        "Manager ID": "E1146",
+        "Name": "Person 29",
+        "employee_id": "E1028"
+      },
+      {
+        "Manager ID": "E1114",
+        "Name": "Person 3",
+        "employee_id": "E1002"
+      },
+      {
+        "Manager ID": "E1024",
+        "Name": "Person 30",
+        "employee_id": "E1029"
+      },
+      {
+        "Manager ID": "E1025",
+        "Name": "Person 31",
+        "employee_id": "E1030"
+      },
+      {
+        "Manager ID": "E1049",
+        "Name": "Person 32",
+        "employee_id": "E1031"
+      },
+      {
+        "Manager ID": "E1019",
+        "Name": "Person 33",
+        "employee_id": "E1032"
+      },
+      {
+        "Manager ID": "E1023",
+        "Name": "Person 34",
+        "employee_id": "E1033"
+      },
+      {
+        "Manager ID": "E1015",
+        "Name": "Person 35",
+        "employee_id": "E1034"
+      },
+      {
+        "Manager ID": "E1073",
+        "Name": "Person 36",
+        "employee_id": "E1035"
+      },
+      {
+        "Manager ID": "E1148",
+        "Name": "Person 37",
+        "employee_id": "E1036"
+      },
+      {
+        "Manager ID": "E1128",
+        "Name": "Person 38",
+        "employee_id": "E1037"
+      },
+      {
+        "Manager ID": "E1017",
+        "Name": "Person 39",
+        "employee_id": "E1038"
+      },
+      {
+        "Manager ID": "E1108",
+        "Name": "Person 4",
+        "employee_id": "E1003"
+      },
+      {
+        "Manager ID": "E1063",
+        "Name": "Person 40",
+        "employee_id": "E1039"
+      },
+      {
+        "Manager ID": "E1133",
+        "Name": "Person 41",
+        "employee_id": "E1040"
+      },
+      {
+        "Manager ID": "E1101",
+        "Name": "Person 42",
+        "employee_id": "E1041"
+      },
+      {
+        "Manager ID": "E1002",
+        "Name": "Person 43",
+        "employee_id": "E1042"
+      },
+      {
+        "Manager ID": "E1089",
+        "Name": "Person 44",
+        "employee_id": "E1043"
+      },
+      {
+        "Manager ID": "E1077",
+        "Name": "Person 45",
+        "employee_id": "E1044"
+      },
+      {
+        "Manager ID": "E1034",
+        "Name": "Person 46",
+        "employee_id": "E1045"
+      },
+      {
+        "Manager ID": "E1053",
+        "Name": "Person 47",
+        "employee_id": "E1046"
+      },
+      {
+        "Manager ID": "E1064",
+        "Name": "Person 48",
+        "employee_id": "E1047"
+      },
+      {
+        "Manager ID": "E1085",
+        "Name": "Person 49",
+        "employee_id": "E1048"
+      },
+      {
+        "Manager ID": "E1023",
+        "Name": "Person 5",
+        "employee_id": "E1004"
+      },
+      {
+        "Manager ID": "E1143",
+        "Name": "Person 50",
+        "employee_id": "E1049"
+      },
+      {
+        "Manager ID": "E1139",
+        "Name": "Person 51",
+        "employee_id": "E1050"
+      },
+      {
+        "Manager ID": "E1078",
+        "Name": "Person 52",
+        "employee_id": "E1051"
+      },
+      {
+        "Manager ID": "E1090",
+        "Name": "Person 53",
+        "employee_id": "E1052"
+      },
+      {
+        "Manager ID": "E1041",
+        "Name": "Person 54",
+        "employee_id": "E1053"
+      },
+      {
+        "Manager ID": "E1063",
+        "Name": "Person 55",
+        "employee_id": "E1054"
+      },
+      {
+        "Manager ID": "E1120",
+        "Name": "Person 56",
+        "employee_id": "E1055"
+      },
+      {
+        "Manager ID": "E1057",
+        "Name": "Person 57",
+        "employee_id": "E1056"
+      },
+      {
+        "Manager ID": "E1089",
+        "Name": "Person 58",
+        "employee_id": "E1057"
+      },
+      {
+        "Manager ID": "E1029",
+        "Name": "Person 59",
+        "employee_id": "E1058"
+      },
+      {
+        "Manager ID": "E1117",
+        "Name": "Person 6",
+        "employee_id": "E1005"
+      },
+      {
+        "Manager ID": "E1111",
+        "Name": "Person 60",
+        "employee_id": "E1059"
+      },
+      {
+        "Manager ID": "E1147",
+        "Name": "Person 61",
+        "employee_id": "E1060"
+      },
+      {
+        "Manager ID": "E1050",
+        "Name": "Person 62",
+        "employee_id": "E1061"
+      },
+      {
+        "Manager ID": "E1080",
+        "Name": "Person 63",
+        "employee_id": "E1062"
+      },
+      {
+        "Manager ID": "E1075",
+        "Name": "Person 64",
+        "employee_id": "E1063"
+      },
+      {
+        "Manager ID": "E1145",
+        "Name": "Person 65",
+        "employee_id": "E1064"
+      },
+      {
+        "Manager ID": "E1110",
+        "Name": "Person 66",
+        "employee_id": "E1065"
+      },
+      {
+        "Manager ID": "E1121",
+        "Name": "Person 67",
+        "employee_id": "E1066"
+      },
+      {
+        "Manager ID": "E1023",
+        "Name": "Person 68",
+        "employee_id": "E1067"
+      },
+      {
+        "Manager ID": "E1062",
+        "Name": "Person 69",
+        "employee_id": "E1068"
+      },
+      {
+        "Manager ID": "E1092",
+        "Name": "Person 7",
+        "employee_id": "E1006"
+      },
+      {
+        "Manager ID": "E1098",
+        "Name": "Person 70",
+        "employee_id": "E1069"
+      },
+      {
+        "Manager ID": "E1108",
+        "Name": "Person 71",
+        "employee_id": "E1070"
+      },
+      {
+        "Manager ID": "E1142",
+        "Name": "Person 72",
+        "employee_id": "E1071"
+      },
+      {
+        "Manager ID": "E1143",
+        "Name": "Person 73",
+        "employee_id": "E1072"
+      },
+      {
+        "Manager ID": "E1109",
+        "Name": "Person 74",
+        "employee_id": "E1073"
+      },
+      {
+        "Manager ID": "E1063",
+        "Name": "Person 75",
+        "employee_id": "E1074"
+      },
+      {
+        "Manager ID": "E1060",
+        "Name": "Person 76",
+        "employee_id": "E1075"
+      },
+      {
+        "Manager ID": "E1059",
+        "Name": "Person 77",
+        "employee_id": "E1076"
+      },
+      {
+        "Manager ID": "E1138",
+        "Name": "Person 78",
+        "employee_id": "E1077"
+      },
+      {
+        "Manager ID": "E1005",
+        "Name": "Person 79",
+        "employee_id": "E1078"
+      },
+      {
+        "Manager ID": "E1020",
+        "Name": "Person 8",
+        "employee_id": "E1007"
+      },
+      {
+        "Manager ID": "E1107",
+        "Name": "Person 80",
+        "employee_id": "E1079"
+      },
+      {
+        "Manager ID": "E1099",
+        "Name": "Person 81",
+        "employee_id": "E1080"
+      },
+      {
+        "Manager ID": "E1136",
+        "Name": "Person 82",
+        "employee_id": "E1081"
+      },
+      {
+        "Manager ID": "E1034",
+        "Name": "Person 83",
+        "employee_id": "E1082"
+      },
+      {
+        "Manager ID": "E1083",
+        "Name": "Person 84",
+        "employee_id": "E1083"
+      },
+      {
+        "Manager ID": "E1020",
+        "Name": "Person 85",
+        "employee_id": "E1084"
+      },
+      {
+        "Manager ID": "E1057",
+        "Name": "Person 86",
+        "employee_id": "E1085"
+      },
+      {
+        "Manager ID": "E1039",
+        "Name": "Person 87",
+        "employee_id": "E1086"
+      },
+      {
+        "Manager ID": "E1119",
+        "Name": "Person 88",
+        "employee_id": "E1087"
+      },
+      {
+        "Manager ID": "E1041",
+        "Name": "Person 89",
+        "employee_id": "E1088"
+      },
+      {
+        "Manager ID": "E1041",
+        "Name": "Person 9",
+        "employee_id": "E1008"
+      },
+      {
+        "Manager ID": "E1101",
+        "Name": "Person 90",
+        "employee_id": "E1089"
+      },
+      {
+        "Manager ID": "E1077",
+        "Name": "Person 91",
+        "employee_id": "E1090"
+      },
+      {
+        "Manager ID": "E1136",
+        "Name": "Person 92",
+        "employee_id": "E1091"
+      },
+      {
+        "Manager ID": "E1125",
+        "Name": "Person 93",
+        "employee_id": "E1092"
+      },
+      {
+        "Manager ID": "E1111",
+        "Name": "Person 94",
+        "employee_id": "E1093"
+      },
+      {
+        "Manager ID": "E1119",
+        "Name": "Person 95",
+        "employee_id": "E1094"
+      },
+      {
+        "Manager ID": "E1071",
+        "Name": "Person 96",
+        "employee_id": "E1095"
+      },
+      {
+        "Manager ID": "E1086",
+        "Name": "Person 97",
+        "employee_id": "E1096"
+      },
+      {
+        "Manager ID": "E1087",
+        "Name": "Person 98",
+        "employee_id": "E1097"
+      },
+      {
+        "Manager ID": "E1061",
+        "Name": "Person 99",
+        "employee_id": "E1098"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 150,
+    "complexity_ops": 1
+  },
+  "t1_11": {
+    "id": "t1_11",
+    "tier": "T1_single_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1025"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1026"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1041"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1049"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1051"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1060"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1061"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1063"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1066"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1068"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1073"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1076"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1092"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1094"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1104"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1135"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1140"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1147"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1148"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1000"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1005"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1006"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1008"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1015"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1017"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1018"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1019"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1027"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1033"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1037"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1039"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1040"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1043"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1045"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1046"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1048"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1050"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1052"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1067"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1069"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1072"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1086"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1089"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1090"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1100"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1105"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1108"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1112"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1113"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1116"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1117"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1118"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1121"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1125"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1127"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1128"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1129"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1138"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1139"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1141"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1145"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1002"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1007"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1010"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1012"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1022"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1028"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1034"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1038"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1044"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1047"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1055"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1056"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1059"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1071"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1077"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1080"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1083"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1087"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1096"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1103"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1106"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1109"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1130"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1146"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1149"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1001"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1014"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1030"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1032"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1035"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1036"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1058"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1065"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1070"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1074"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1075"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1078"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1079"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1081"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1082"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1097"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1099"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1101"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1102"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1107"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1110"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1114"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1119"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1126"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1131"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1134"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1144"
+      },
+      {
+        "Role": "Director",
+        "Status": "On Leave",
+        "employee_id": "E1003"
+      },
+      {
+        "Role": "Director",
+        "Status": "On Leave",
+        "employee_id": "E1004"
+      },
+      {
+        "Role": "Director",
+        "Status": "On Leave",
+        "employee_id": "E1009"
+      },
+      {
+        "Role": "Director",
+        "Status": "On Leave",
+        "employee_id": "E1042"
+      },
+      {
+        "Role": "Director",
+        "Status": "On Leave",
+        "employee_id": "E1143"
+      },
+      {
+        "Role": "IC",
+        "Status": "On Leave",
+        "employee_id": "E1091"
+      },
+      {
+        "Role": "IC",
+        "Status": "On Leave",
+        "employee_id": "E1136"
+      },
+      {
+        "Role": "Manager",
+        "Status": "On Leave",
+        "employee_id": "E1013"
+      },
+      {
+        "Role": "VP",
+        "Status": "On Leave",
+        "employee_id": "E1024"
+      },
+      {
+        "Role": "VP",
+        "Status": "On Leave",
+        "employee_id": "E1142"
+      },
+      {
+        "Role": "Director",
+        "Status": "Sabbatical",
+        "employee_id": "E1020"
+      },
+      {
+        "Role": "Director",
+        "Status": "Sabbatical",
+        "employee_id": "E1021"
+      },
+      {
+        "Role": "Director",
+        "Status": "Sabbatical",
+        "employee_id": "E1088"
+      },
+      {
+        "Role": "Director",
+        "Status": "Sabbatical",
+        "employee_id": "E1098"
+      },
+      {
+        "Role": "Director",
+        "Status": "Sabbatical",
+        "employee_id": "E1120"
+      },
+      {
+        "Role": "IC",
+        "Status": "Sabbatical",
+        "employee_id": "E1016"
+      },
+      {
+        "Role": "IC",
+        "Status": "Sabbatical",
+        "employee_id": "E1085"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Sabbatical",
+        "employee_id": "E1023"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Sabbatical",
+        "employee_id": "E1064"
+      },
+      {
+        "Role": "VP",
+        "Status": "Sabbatical",
+        "employee_id": "E1053"
+      },
+      {
+        "Role": "VP",
+        "Status": "Sabbatical",
+        "employee_id": "E1054"
+      },
+      {
+        "Role": "VP",
+        "Status": "Sabbatical",
+        "employee_id": "E1062"
+      },
+      {
+        "Role": "VP",
+        "Status": "Sabbatical",
+        "employee_id": "E1111"
+      },
+      {
+        "Role": "VP",
+        "Status": "Sabbatical",
+        "employee_id": "E1115"
+      },
+      {
+        "Role": "VP",
+        "Status": "Sabbatical",
+        "employee_id": "E1122"
+      },
+      {
+        "Role": "VP",
+        "Status": "Sabbatical",
+        "employee_id": "E1137"
+      },
+      {
+        "Role": "Director",
+        "Status": "Terminated",
+        "employee_id": "E1095"
+      },
+      {
+        "Role": "Director",
+        "Status": "Terminated",
+        "employee_id": "E1123"
+      },
+      {
+        "Role": "Director",
+        "Status": "Terminated",
+        "employee_id": "E1124"
+      },
+      {
+        "Role": "IC",
+        "Status": "Terminated",
+        "employee_id": "E1011"
+      },
+      {
+        "Role": "IC",
+        "Status": "Terminated",
+        "employee_id": "E1132"
+      },
+      {
+        "Role": "IC",
+        "Status": "Terminated",
+        "employee_id": "E1133"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Terminated",
+        "employee_id": "E1057"
+      },
+      {
+        "Role": "VP",
+        "Status": "Terminated",
+        "employee_id": "E1029"
+      },
+      {
+        "Role": "VP",
+        "Status": "Terminated",
+        "employee_id": "E1031"
+      },
+      {
+        "Role": "VP",
+        "Status": "Terminated",
+        "employee_id": "E1084"
+      },
+      {
+        "Role": "VP",
+        "Status": "Terminated",
+        "employee_id": "E1093"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 150,
+    "complexity_ops": 1
+  },
+  "t1_12": {
+    "id": "t1_12",
+    "tier": "T1_single_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Name": "Person 1",
+        "diff": 101598.0,
+        "employee_id": "E1000"
+      },
+      {
+        "Name": "Person 10",
+        "diff": 168730.0,
+        "employee_id": "E1009"
+      },
+      {
+        "Name": "Person 100",
+        "diff": 276384.0,
+        "employee_id": "E1099"
+      },
+      {
+        "Name": "Person 101",
+        "diff": 72283.0,
+        "employee_id": "E1100"
+      },
+      {
+        "Name": "Person 102",
+        "diff": 276272.0,
+        "employee_id": "E1101"
+      },
+      {
+        "Name": "Person 103",
+        "diff": 257754.0,
+        "employee_id": "E1102"
+      },
+      {
+        "Name": "Person 104",
+        "diff": 108052.0,
+        "employee_id": "E1103"
+      },
+      {
+        "Name": "Person 105",
+        "diff": 161588.0,
+        "employee_id": "E1104"
+      },
+      {
+        "Name": "Person 106",
+        "diff": 99400.0,
+        "employee_id": "E1105"
+      },
+      {
+        "Name": "Person 107",
+        "diff": 137303.0,
+        "employee_id": "E1106"
+      },
+      {
+        "Name": "Person 108",
+        "diff": 271373.0,
+        "employee_id": "E1107"
+      },
+      {
+        "Name": "Person 109",
+        "diff": 106878.0,
+        "employee_id": "E1108"
+      },
+      {
+        "Name": "Person 11",
+        "diff": 106208.0,
+        "employee_id": "E1010"
+      },
+      {
+        "Name": "Person 110",
+        "diff": 148659.0,
+        "employee_id": "E1109"
+      },
+      {
+        "Name": "Person 111",
+        "diff": 279735.0,
+        "employee_id": "E1110"
+      },
+      {
+        "Name": "Person 112",
+        "diff": 259487.0,
+        "employee_id": "E1111"
+      },
+      {
+        "Name": "Person 113",
+        "diff": 92952.0,
+        "employee_id": "E1112"
+      },
+      {
+        "Name": "Person 114",
+        "diff": 63292.0,
+        "employee_id": "E1113"
+      },
+      {
+        "Name": "Person 115",
+        "diff": 285178.0,
+        "employee_id": "E1114"
+      },
+      {
+        "Name": "Person 116",
+        "diff": 244664.0,
+        "employee_id": "E1115"
+      },
+      {
+        "Name": "Person 117",
+        "diff": 88688.0,
+        "employee_id": "E1116"
+      },
+      {
+        "Name": "Person 118",
+        "diff": 63873.0,
+        "employee_id": "E1117"
+      },
+      {
+        "Name": "Person 119",
+        "diff": 83716.0,
+        "employee_id": "E1118"
+      },
+      {
+        "Name": "Person 12",
+        "diff": 68010.0,
+        "employee_id": "E1011"
+      },
+      {
+        "Name": "Person 120",
+        "diff": 268688.0,
+        "employee_id": "E1119"
+      },
+      {
+        "Name": "Person 121",
+        "diff": 156695.0,
+        "employee_id": "E1120"
+      },
+      {
+        "Name": "Person 122",
+        "diff": 103011.0,
+        "employee_id": "E1121"
+      },
+      {
+        "Name": "Person 123",
+        "diff": 281601.0,
+        "employee_id": "E1122"
+      },
+      {
+        "Name": "Person 124",
+        "diff": 176040.0,
+        "employee_id": "E1123"
+      },
+      {
+        "Name": "Person 125",
+        "diff": 198423.0,
+        "employee_id": "E1124"
+      },
+      {
+        "Name": "Person 126",
+        "diff": 73612.0,
+        "employee_id": "E1125"
+      },
+      {
+        "Name": "Person 127",
+        "diff": 267082.0,
+        "employee_id": "E1126"
+      },
+      {
+        "Name": "Person 128",
+        "diff": 66340.0,
+        "employee_id": "E1127"
+      },
+      {
+        "Name": "Person 129",
+        "diff": 54891.0,
+        "employee_id": "E1128"
+      },
+      {
+        "Name": "Person 13",
+        "diff": 132670.0,
+        "employee_id": "E1012"
+      },
+      {
+        "Name": "Person 130",
+        "diff": 89192.0,
+        "employee_id": "E1129"
+      },
+      {
+        "Name": "Person 131",
+        "diff": 128161.0,
+        "employee_id": "E1130"
+      },
+      {
+        "Name": "Person 132",
+        "diff": 255973.0,
+        "employee_id": "E1131"
+      },
+      {
+        "Name": "Person 133",
+        "diff": 71104.0,
+        "employee_id": "E1132"
+      },
+      {
+        "Name": "Person 134",
+        "diff": 71536.0,
+        "employee_id": "E1133"
+      },
+      {
+        "Name": "Person 135",
+        "diff": 275296.0,
+        "employee_id": "E1134"
+      },
+      {
+        "Name": "Person 136",
+        "diff": 167363.0,
+        "employee_id": "E1135"
+      },
+      {
+        "Name": "Person 137",
+        "diff": 73852.0,
+        "employee_id": "E1136"
+      },
+      {
+        "Name": "Person 138",
+        "diff": 242426.0,
+        "employee_id": "E1137"
+      },
+      {
+        "Name": "Person 139",
+        "diff": 87468.0,
+        "employee_id": "E1138"
+      },
+      {
+        "Name": "Person 14",
+        "diff": 112859.0,
+        "employee_id": "E1013"
+      },
+      {
+        "Name": "Person 140",
+        "diff": 83768.0,
+        "employee_id": "E1139"
+      },
+      {
+        "Name": "Person 141",
+        "diff": 199194.0,
+        "employee_id": "E1140"
+      },
+      {
+        "Name": "Person 142",
+        "diff": 93465.0,
+        "employee_id": "E1141"
+      },
+      {
+        "Name": "Person 143",
+        "diff": 246451.0,
+        "employee_id": "E1142"
+      },
+      {
+        "Name": "Person 144",
+        "diff": 156897.0,
+        "employee_id": "E1143"
+      },
+      {
+        "Name": "Person 145",
+        "diff": 249540.0,
+        "employee_id": "E1144"
+      },
+      {
+        "Name": "Person 146",
+        "diff": 92943.0,
+        "employee_id": "E1145"
+      },
+      {
+        "Name": "Person 147",
+        "diff": 110716.0,
+        "employee_id": "E1146"
+      },
+      {
+        "Name": "Person 148",
+        "diff": 199407.0,
+        "employee_id": "E1147"
+      },
+      {
+        "Name": "Person 149",
+        "diff": 184939.0,
+        "employee_id": "E1148"
+      },
+      {
+        "Name": "Person 15",
+        "diff": 278242.0,
+        "employee_id": "E1014"
+      },
+      {
+        "Name": "Person 150",
+        "diff": 120493.0,
+        "employee_id": "E1149"
+      },
+      {
+        "Name": "Person 16",
+        "diff": 102530.0,
+        "employee_id": "E1015"
+      },
+      {
+        "Name": "Person 17",
+        "diff": 78216.0,
+        "employee_id": "E1016"
+      },
+      {
+        "Name": "Person 18",
+        "diff": 97583.0,
+        "employee_id": "E1017"
+      },
+      {
+        "Name": "Person 19",
+        "diff": 72234.0,
+        "employee_id": "E1018"
+      },
+      {
+        "Name": "Person 2",
+        "diff": 242082.0,
+        "employee_id": "E1001"
+      },
+      {
+        "Name": "Person 20",
+        "diff": 93979.0,
+        "employee_id": "E1019"
+      },
+      {
+        "Name": "Person 21",
+        "diff": 204971.0,
+        "employee_id": "E1020"
+      },
+      {
+        "Name": "Person 22",
+        "diff": 187021.0,
+        "employee_id": "E1021"
+      },
+      {
+        "Name": "Person 23",
+        "diff": 132682.0,
+        "employee_id": "E1022"
+      },
+      {
+        "Name": "Person 24",
+        "diff": 103914.0,
+        "employee_id": "E1023"
+      },
+      {
+        "Name": "Person 25",
+        "diff": 253880.0,
+        "employee_id": "E1024"
+      },
+      {
+        "Name": "Person 26",
+        "diff": 183711.0,
+        "employee_id": "E1025"
+      },
+      {
+        "Name": "Person 27",
+        "diff": 156378.0,
+        "employee_id": "E1026"
+      },
+      {
+        "Name": "Person 28",
+        "diff": 68003.0,
+        "employee_id": "E1027"
+      },
+      {
+        "Name": "Person 29",
+        "diff": 113750.0,
+        "employee_id": "E1028"
+      },
+      {
+        "Name": "Person 3",
+        "diff": 142425.0,
+        "employee_id": "E1002"
+      },
+      {
+        "Name": "Person 30",
+        "diff": 255925.0,
+        "employee_id": "E1029"
+      },
+      {
+        "Name": "Person 31",
+        "diff": 263219.0,
+        "employee_id": "E1030"
+      },
+      {
+        "Name": "Person 32",
+        "diff": 287724.0,
+        "employee_id": "E1031"
+      },
+      {
+        "Name": "Person 33",
+        "diff": 249186.0,
+        "employee_id": "E1032"
+      },
+      {
+        "Name": "Person 34",
+        "diff": 56315.0,
+        "employee_id": "E1033"
+      },
+      {
+        "Name": "Person 35",
+        "diff": 122134.0,
+        "employee_id": "E1034"
+      },
+      {
+        "Name": "Person 36",
+        "diff": 240141.0,
+        "employee_id": "E1035"
+      },
+      {
+        "Name": "Person 37",
+        "diff": 250144.0,
+        "employee_id": "E1036"
+      },
+      {
+        "Name": "Person 38",
+        "diff": 102019.0,
+        "employee_id": "E1037"
+      },
+      {
+        "Name": "Person 39",
+        "diff": 99227.0,
+        "employee_id": "E1038"
+      },
+      {
+        "Name": "Person 4",
+        "diff": 208046.0,
+        "employee_id": "E1003"
+      },
+      {
+        "Name": "Person 40",
+        "diff": 97250.0,
+        "employee_id": "E1039"
+      },
+      {
+        "Name": "Person 41",
+        "diff": 93591.0,
+        "employee_id": "E1040"
+      },
+      {
+        "Name": "Person 42",
+        "diff": 168386.0,
+        "employee_id": "E1041"
+      },
+      {
+        "Name": "Person 43",
+        "diff": 184964.0,
+        "employee_id": "E1042"
+      },
+      {
+        "Name": "Person 44",
+        "diff": 57801.0,
+        "employee_id": "E1043"
+      },
+      {
+        "Name": "Person 45",
+        "diff": 119717.0,
+        "employee_id": "E1044"
+      },
+      {
+        "Name": "Person 46",
+        "diff": 96769.0,
+        "employee_id": "E1045"
+      },
+      {
+        "Name": "Person 47",
+        "diff": 60014.0,
+        "employee_id": "E1046"
+      },
+      {
+        "Name": "Person 48",
+        "diff": 140555.0,
+        "employee_id": "E1047"
+      },
+      {
+        "Name": "Person 49",
+        "diff": 94568.0,
+        "employee_id": "E1048"
+      },
+      {
+        "Name": "Person 5",
+        "diff": 165189.0,
+        "employee_id": "E1004"
+      },
+      {
+        "Name": "Person 50",
+        "diff": 165589.0,
+        "employee_id": "E1049"
+      },
+      {
+        "Name": "Person 51",
+        "diff": 57931.0,
+        "employee_id": "E1050"
+      },
+      {
+        "Name": "Person 52",
+        "diff": 193175.0,
+        "employee_id": "E1051"
+      },
+      {
+        "Name": "Person 53",
+        "diff": 76449.0,
+        "employee_id": "E1052"
+      },
+      {
+        "Name": "Person 54",
+        "diff": 280675.0,
+        "employee_id": "E1053"
+      },
+      {
+        "Name": "Person 55",
+        "diff": 241624.0,
+        "employee_id": "E1054"
+      },
+      {
+        "Name": "Person 56",
+        "diff": 147101.0,
+        "employee_id": "E1055"
+      },
+      {
+        "Name": "Person 57",
+        "diff": 149015.0,
+        "employee_id": "E1056"
+      },
+      {
+        "Name": "Person 58",
+        "diff": 121613.0,
+        "employee_id": "E1057"
+      },
+      {
+        "Name": "Person 59",
+        "diff": 284532.0,
+        "employee_id": "E1058"
+      },
+      {
+        "Name": "Person 6",
+        "diff": 76526.0,
+        "employee_id": "E1005"
+      },
+      {
+        "Name": "Person 60",
+        "diff": 133549.0,
+        "employee_id": "E1059"
+      },
+      {
+        "Name": "Person 61",
+        "diff": 183599.0,
+        "employee_id": "E1060"
+      },
+      {
+        "Name": "Person 62",
+        "diff": 157908.0,
+        "employee_id": "E1061"
+      },
+      {
+        "Name": "Person 63",
+        "diff": 244585.0,
+        "employee_id": "E1062"
+      },
+      {
+        "Name": "Person 64",
+        "diff": 188234.0,
+        "employee_id": "E1063"
+      },
+      {
+        "Name": "Person 65",
+        "diff": 108072.0,
+        "employee_id": "E1064"
+      },
+      {
+        "Name": "Person 66",
+        "diff": 275909.0,
+        "employee_id": "E1065"
+      },
+      {
+        "Name": "Person 67",
+        "diff": 185473.0,
+        "employee_id": "E1066"
+      },
+      {
+        "Name": "Person 68",
+        "diff": 71598.0,
+        "employee_id": "E1067"
+      },
+      {
+        "Name": "Person 69",
+        "diff": 169722.0,
+        "employee_id": "E1068"
+      },
+      {
+        "Name": "Person 7",
+        "diff": 77807.0,
+        "employee_id": "E1006"
+      },
+      {
+        "Name": "Person 70",
+        "diff": 82846.0,
+        "employee_id": "E1069"
+      },
+      {
+        "Name": "Person 71",
+        "diff": 255989.0,
+        "employee_id": "E1070"
+      },
+      {
+        "Name": "Person 72",
+        "diff": 148198.0,
+        "employee_id": "E1071"
+      },
+      {
+        "Name": "Person 73",
+        "diff": 82914.0,
+        "employee_id": "E1072"
+      },
+      {
+        "Name": "Person 74",
+        "diff": 204496.0,
+        "employee_id": "E1073"
+      },
+      {
+        "Name": "Person 75",
+        "diff": 250430.0,
+        "employee_id": "E1074"
+      },
+      {
+        "Name": "Person 76",
+        "diff": 281074.0,
+        "employee_id": "E1075"
+      },
+      {
+        "Name": "Person 77",
+        "diff": 175952.0,
+        "employee_id": "E1076"
+      },
+      {
+        "Name": "Person 78",
+        "diff": 141795.0,
+        "employee_id": "E1077"
+      },
+      {
+        "Name": "Person 79",
+        "diff": 244080.0,
+        "employee_id": "E1078"
+      },
+      {
+        "Name": "Person 8",
+        "diff": 141674.0,
+        "employee_id": "E1007"
+      },
+      {
+        "Name": "Person 80",
+        "diff": 271259.0,
+        "employee_id": "E1079"
+      },
+      {
+        "Name": "Person 81",
+        "diff": 127496.0,
+        "employee_id": "E1080"
+      },
+      {
+        "Name": "Person 82",
+        "diff": 287459.0,
+        "employee_id": "E1081"
+      },
+      {
+        "Name": "Person 83",
+        "diff": 278790.0,
+        "employee_id": "E1082"
+      },
+      {
+        "Name": "Person 84",
+        "diff": 98795.0,
+        "employee_id": "E1083"
+      },
+      {
+        "Name": "Person 85",
+        "diff": 258235.0,
+        "employee_id": "E1084"
+      },
+      {
+        "Name": "Person 86",
+        "diff": 102088.0,
+        "employee_id": "E1085"
+      },
+      {
+        "Name": "Person 87",
+        "diff": 102429.0,
+        "employee_id": "E1086"
+      },
+      {
+        "Name": "Person 88",
+        "diff": 126535.0,
+        "employee_id": "E1087"
+      },
+      {
+        "Name": "Person 89",
+        "diff": 165996.0,
+        "employee_id": "E1088"
+      },
+      {
+        "Name": "Person 9",
+        "diff": 77911.0,
+        "employee_id": "E1008"
+      },
+      {
+        "Name": "Person 90",
+        "diff": 90924.0,
+        "employee_id": "E1089"
+      },
+      {
+        "Name": "Person 91",
+        "diff": 91803.0,
+        "employee_id": "E1090"
+      },
+      {
+        "Name": "Person 92",
+        "diff": 105181.0,
+        "employee_id": "E1091"
+      },
+      {
+        "Name": "Person 93",
+        "diff": 159519.0,
+        "employee_id": "E1092"
+      },
+      {
+        "Name": "Person 94",
+        "diff": 263736.0,
+        "employee_id": "E1093"
+      },
+      {
+        "Name": "Person 95",
+        "diff": 195364.0,
+        "employee_id": "E1094"
+      },
+      {
+        "Name": "Person 96",
+        "diff": 176122.0,
+        "employee_id": "E1095"
+      },
+      {
+        "Name": "Person 97",
+        "diff": 144683.0,
+        "employee_id": "E1096"
+      },
+      {
+        "Name": "Person 98",
+        "diff": 261300.0,
+        "employee_id": "E1097"
+      },
+      {
+        "Name": "Person 99",
+        "diff": 191424.0,
+        "employee_id": "E1098"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 150,
+    "complexity_ops": 1
+  },
+  "t1_13": {
+    "id": "t1_13",
+    "tier": "T1_single_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Name": "Person 1",
+        "employee_id": "E1000",
+        "total": 114758.0
+      },
+      {
+        "Name": "Person 10",
+        "employee_id": "E1009",
+        "total": 298054.0
+      },
+      {
+        "Name": "Person 100",
+        "employee_id": "E1099",
+        "total": 479613.0
+      },
+      {
+        "Name": "Person 101",
+        "employee_id": "E1100",
+        "total": 111081.0
+      },
+      {
+        "Name": "Person 102",
+        "employee_id": "E1101",
+        "total": 492258.0
+      },
+      {
+        "Name": "Person 103",
+        "employee_id": "E1102",
+        "total": 501506.0
+      },
+      {
+        "Name": "Person 104",
+        "employee_id": "E1103",
+        "total": 177907.0
+      },
+      {
+        "Name": "Person 105",
+        "employee_id": "E1104",
+        "total": 310131.0
+      },
+      {
+        "Name": "Person 106",
+        "employee_id": "E1105",
+        "total": 123442.0
+      },
+      {
+        "Name": "Person 107",
+        "employee_id": "E1106",
+        "total": 202792.0
+      },
+      {
+        "Name": "Person 108",
+        "employee_id": "E1107",
+        "total": 481105.0
+      },
+      {
+        "Name": "Person 109",
+        "employee_id": "E1108",
+        "total": 110796.0
+      },
+      {
+        "Name": "Person 11",
+        "employee_id": "E1010",
+        "total": 184759.0
+      },
+      {
+        "Name": "Person 110",
+        "employee_id": "E1109",
+        "total": 177907.0
+      },
+      {
+        "Name": "Person 111",
+        "employee_id": "E1110",
+        "total": 476050.0
+      },
+      {
+        "Name": "Person 112",
+        "employee_id": "E1111",
+        "total": 486819.0
+      },
+      {
+        "Name": "Person 113",
+        "employee_id": "E1112",
+        "total": 121061.0
+      },
+      {
+        "Name": "Person 114",
+        "employee_id": "E1113",
+        "total": 110229.0
+      },
+      {
+        "Name": "Person 115",
+        "employee_id": "E1114",
+        "total": 494515.0
+      },
+      {
+        "Name": "Person 116",
+        "employee_id": "E1115",
+        "total": 512011.0
+      },
+      {
+        "Name": "Person 117",
+        "employee_id": "E1116",
+        "total": 116746.0
+      },
+      {
+        "Name": "Person 118",
+        "employee_id": "E1117",
+        "total": 122517.0
+      },
+      {
+        "Name": "Person 119",
+        "employee_id": "E1118",
+        "total": 118106.0
+      },
+      {
+        "Name": "Person 12",
+        "employee_id": "E1011",
+        "total": 112337.0
+      },
+      {
+        "Name": "Person 120",
+        "employee_id": "E1119",
+        "total": 466003.0
+      },
+      {
+        "Name": "Person 121",
+        "employee_id": "E1120",
+        "total": 279813.0
+      },
+      {
+        "Name": "Person 122",
+        "employee_id": "E1121",
+        "total": 120350.0
+      },
+      {
+        "Name": "Person 123",
+        "employee_id": "E1122",
+        "total": 499080.0
+      },
+      {
+        "Name": "Person 124",
+        "employee_id": "E1123",
+        "total": 326146.0
+      },
+      {
+        "Name": "Person 125",
+        "employee_id": "E1124",
+        "total": 330592.0
+      },
+      {
+        "Name": "Person 126",
+        "employee_id": "E1125",
+        "total": 117959.0
+      },
+      {
+        "Name": "Person 127",
+        "employee_id": "E1126",
+        "total": 449394.0
+      },
+      {
+        "Name": "Person 128",
+        "employee_id": "E1127",
+        "total": 106124.0
+      },
+      {
+        "Name": "Person 129",
+        "employee_id": "E1128",
+        "total": 129253.0
+      },
+      {
+        "Name": "Person 13",
+        "employee_id": "E1012",
+        "total": 223197.0
+      },
+      {
+        "Name": "Person 130",
+        "employee_id": "E1129",
+        "total": 118450.0
+      },
+      {
+        "Name": "Person 131",
+        "employee_id": "E1130",
+        "total": 202680.0
+      },
+      {
+        "Name": "Person 132",
+        "employee_id": "E1131",
+        "total": 460186.0
+      },
+      {
+        "Name": "Person 133",
+        "employee_id": "E1132",
+        "total": 126469.0
+      },
+      {
+        "Name": "Person 134",
+        "employee_id": "E1133",
+        "total": 120622.0
+      },
+      {
+        "Name": "Person 135",
+        "employee_id": "E1134",
+        "total": 474266.0
+      },
+      {
+        "Name": "Person 136",
+        "employee_id": "E1135",
+        "total": 308094.0
+      },
+      {
+        "Name": "Person 137",
+        "employee_id": "E1136",
+        "total": 120013.0
+      },
+      {
+        "Name": "Person 138",
+        "employee_id": "E1137",
+        "total": 451712.0
+      },
+      {
+        "Name": "Person 139",
+        "employee_id": "E1138",
+        "total": 116044.0
+      },
+      {
+        "Name": "Person 14",
+        "employee_id": "E1013",
+        "total": 179864.0
+      },
+      {
+        "Name": "Person 140",
+        "employee_id": "E1139",
+        "total": 117655.0
+      },
+      {
+        "Name": "Person 141",
+        "employee_id": "E1140",
+        "total": 308404.0
+      },
+      {
+        "Name": "Person 142",
+        "employee_id": "E1141",
+        "total": 115114.0
+      },
+      {
+        "Name": "Person 143",
+        "employee_id": "E1142",
+        "total": 524615.0
+      },
+      {
+        "Name": "Person 144",
+        "employee_id": "E1143",
+        "total": 260502.0
+      },
+      {
+        "Name": "Person 145",
+        "employee_id": "E1144",
+        "total": 460763.0
+      },
+      {
+        "Name": "Person 146",
+        "employee_id": "E1145",
+        "total": 119376.0
+      },
+      {
+        "Name": "Person 147",
+        "employee_id": "E1146",
+        "total": 197178.0
+      },
+      {
+        "Name": "Person 148",
+        "employee_id": "E1147",
+        "total": 296597.0
+      },
+      {
+        "Name": "Person 149",
+        "employee_id": "E1148",
+        "total": 294490.0
+      },
+      {
+        "Name": "Person 15",
+        "employee_id": "E1014",
+        "total": 495399.0
+      },
+      {
+        "Name": "Person 150",
+        "employee_id": "E1149",
+        "total": 197981.0
+      },
+      {
+        "Name": "Person 16",
+        "employee_id": "E1015",
+        "total": 105012.0
+      },
+      {
+        "Name": "Person 17",
+        "employee_id": "E1016",
+        "total": 124044.0
+      },
+      {
+        "Name": "Person 18",
+        "employee_id": "E1017",
+        "total": 120802.0
+      },
+      {
+        "Name": "Person 19",
+        "employee_id": "E1018",
+        "total": 115302.0
+      },
+      {
+        "Name": "Person 2",
+        "employee_id": "E1001",
+        "total": 426247.0
+      },
+      {
+        "Name": "Person 20",
+        "employee_id": "E1019",
+        "total": 113774.0
+      },
+      {
+        "Name": "Person 21",
+        "employee_id": "E1020",
+        "total": 285131.0
+      },
+      {
+        "Name": "Person 22",
+        "employee_id": "E1021",
+        "total": 290526.0
+      },
+      {
+        "Name": "Person 23",
+        "employee_id": "E1022",
+        "total": 197410.0
+      },
+      {
+        "Name": "Person 24",
+        "employee_id": "E1023",
+        "total": 184453.0
+      },
+      {
+        "Name": "Person 25",
+        "employee_id": "E1024",
+        "total": 508314.0
+      },
+      {
+        "Name": "Person 26",
+        "employee_id": "E1025",
+        "total": 317979.0
+      },
+      {
+        "Name": "Person 27",
+        "employee_id": "E1026",
+        "total": 317137.0
+      },
+      {
+        "Name": "Person 28",
+        "employee_id": "E1027",
+        "total": 114885.0
+      },
+      {
+        "Name": "Person 29",
+        "employee_id": "E1028",
+        "total": 192368.0
+      },
+      {
+        "Name": "Person 3",
+        "employee_id": "E1002",
+        "total": 180055.0
+      },
+      {
+        "Name": "Person 30",
+        "employee_id": "E1029",
+        "total": 503215.0
+      },
+      {
+        "Name": "Person 31",
+        "employee_id": "E1030",
+        "total": 508418.0
+      },
+      {
+        "Name": "Person 32",
+        "employee_id": "E1031",
+        "total": 481253.0
+      },
+      {
+        "Name": "Person 33",
+        "employee_id": "E1032",
+        "total": 467805.0
+      },
+      {
+        "Name": "Person 34",
+        "employee_id": "E1033",
+        "total": 126607.0
+      },
+      {
+        "Name": "Person 35",
+        "employee_id": "E1034",
+        "total": 197010.0
+      },
+      {
+        "Name": "Person 36",
+        "employee_id": "E1035",
+        "total": 528977.0
+      },
+      {
+        "Name": "Person 37",
+        "employee_id": "E1036",
+        "total": 460581.0
+      },
+      {
+        "Name": "Person 38",
+        "employee_id": "E1037",
+        "total": 104374.0
+      },
+      {
+        "Name": "Person 39",
+        "employee_id": "E1038",
+        "total": 188460.0
+      },
+      {
+        "Name": "Person 4",
+        "employee_id": "E1003",
+        "total": 305524.0
+      },
+      {
+        "Name": "Person 40",
+        "employee_id": "E1039",
+        "total": 134120.0
+      },
+      {
+        "Name": "Person 41",
+        "employee_id": "E1040",
+        "total": 127380.0
+      },
+      {
+        "Name": "Person 42",
+        "employee_id": "E1041",
+        "total": 305121.0
+      },
+      {
+        "Name": "Person 43",
+        "employee_id": "E1042",
+        "total": 290734.0
+      },
+      {
+        "Name": "Person 44",
+        "employee_id": "E1043",
+        "total": 130108.0
+      },
+      {
+        "Name": "Person 45",
+        "employee_id": "E1044",
+        "total": 181273.0
+      },
+      {
+        "Name": "Person 46",
+        "employee_id": "E1045",
+        "total": 108935.0
+      },
+      {
+        "Name": "Person 47",
+        "employee_id": "E1046",
+        "total": 123387.0
+      },
+      {
+        "Name": "Person 48",
+        "employee_id": "E1047",
+        "total": 192168.0
+      },
+      {
+        "Name": "Person 49",
+        "employee_id": "E1048",
+        "total": 114648.0
+      },
+      {
+        "Name": "Person 5",
+        "employee_id": "E1004",
+        "total": 291070.0
+      },
+      {
+        "Name": "Person 50",
+        "employee_id": "E1049",
+        "total": 311515.0
+      },
+      {
+        "Name": "Person 51",
+        "employee_id": "E1050",
+        "total": 122704.0
+      },
+      {
+        "Name": "Person 52",
+        "employee_id": "E1051",
+        "total": 322283.0
+      },
+      {
+        "Name": "Person 53",
+        "employee_id": "E1052",
+        "total": 114827.0
+      },
+      {
+        "Name": "Person 54",
+        "employee_id": "E1053",
+        "total": 515968.0
+      },
+      {
+        "Name": "Person 55",
+        "employee_id": "E1054",
+        "total": 441912.0
+      },
+      {
+        "Name": "Person 56",
+        "employee_id": "E1055",
+        "total": 195946.0
+      },
+      {
+        "Name": "Person 57",
+        "employee_id": "E1056",
+        "total": 191468.0
+      },
+      {
+        "Name": "Person 58",
+        "employee_id": "E1057",
+        "total": 178535.0
+      },
+      {
+        "Name": "Person 59",
+        "employee_id": "E1058",
+        "total": 497381.0
+      },
+      {
+        "Name": "Person 6",
+        "employee_id": "E1005",
+        "total": 133836.0
+      },
+      {
+        "Name": "Person 60",
+        "employee_id": "E1059",
+        "total": 196521.0
+      },
+      {
+        "Name": "Person 61",
+        "employee_id": "E1060",
+        "total": 314567.0
+      },
+      {
+        "Name": "Person 62",
+        "employee_id": "E1061",
+        "total": 292895.0
+      },
+      {
+        "Name": "Person 63",
+        "employee_id": "E1062",
+        "total": 521828.0
+      },
+      {
+        "Name": "Person 64",
+        "employee_id": "E1063",
+        "total": 285355.0
+      },
+      {
+        "Name": "Person 65",
+        "employee_id": "E1064",
+        "total": 188224.0
+      },
+      {
+        "Name": "Person 66",
+        "employee_id": "E1065",
+        "total": 531400.0
+      },
+      {
+        "Name": "Person 67",
+        "employee_id": "E1066",
+        "total": 302924.0
+      },
+      {
+        "Name": "Person 68",
+        "employee_id": "E1067",
+        "total": 127930.0
+      },
+      {
+        "Name": "Person 69",
+        "employee_id": "E1068",
+        "total": 309264.0
+      },
+      {
+        "Name": "Person 7",
+        "employee_id": "E1006",
+        "total": 114506.0
+      },
+      {
+        "Name": "Person 70",
+        "employee_id": "E1069",
+        "total": 110205.0
+      },
+      {
+        "Name": "Person 71",
+        "employee_id": "E1070",
+        "total": 457302.0
+      },
+      {
+        "Name": "Person 72",
+        "employee_id": "E1071",
+        "total": 204871.0
+      },
+      {
+        "Name": "Person 73",
+        "employee_id": "E1072",
+        "total": 116177.0
+      },
+      {
+        "Name": "Person 74",
+        "employee_id": "E1073",
+        "total": 303073.0
+      },
+      {
+        "Name": "Person 75",
+        "employee_id": "E1074",
+        "total": 505823.0
+      },
+      {
+        "Name": "Person 76",
+        "employee_id": "E1075",
+        "total": 487302.0
+      },
+      {
+        "Name": "Person 77",
+        "employee_id": "E1076",
+        "total": 342632.0
+      },
+      {
+        "Name": "Person 78",
+        "employee_id": "E1077",
+        "total": 203727.0
+      },
+      {
+        "Name": "Person 79",
+        "employee_id": "E1078",
+        "total": 464487.0
+      },
+      {
+        "Name": "Person 8",
+        "employee_id": "E1007",
+        "total": 198257.0
+      },
+      {
+        "Name": "Person 80",
+        "employee_id": "E1079",
+        "total": 443444.0
+      },
+      {
+        "Name": "Person 81",
+        "employee_id": "E1080",
+        "total": 174125.0
+      },
+      {
+        "Name": "Person 82",
+        "employee_id": "E1081",
+        "total": 463252.0
+      },
+      {
+        "Name": "Person 83",
+        "employee_id": "E1082",
+        "total": 480651.0
+      },
+      {
+        "Name": "Person 84",
+        "employee_id": "E1083",
+        "total": 199069.0
+      },
+      {
+        "Name": "Person 85",
+        "employee_id": "E1084",
+        "total": 478633.0
+      },
+      {
+        "Name": "Person 86",
+        "employee_id": "E1085",
+        "total": 110162.0
+      },
+      {
+        "Name": "Person 87",
+        "employee_id": "E1086",
+        "total": 94274.0
+      },
+      {
+        "Name": "Person 88",
+        "employee_id": "E1087",
+        "total": 194895.0
+      },
+      {
+        "Name": "Person 89",
+        "employee_id": "E1088",
+        "total": 292328.0
+      },
+      {
+        "Name": "Person 9",
+        "employee_id": "E1008",
+        "total": 110833.0
+      },
+      {
+        "Name": "Person 90",
+        "employee_id": "E1089",
+        "total": 107400.0
+      },
+      {
+        "Name": "Person 91",
+        "employee_id": "E1090",
+        "total": 108055.0
+      },
+      {
+        "Name": "Person 92",
+        "employee_id": "E1091",
+        "total": 118853.0
+      },
+      {
+        "Name": "Person 93",
+        "employee_id": "E1092",
+        "total": 278216.0
+      },
+      {
+        "Name": "Person 94",
+        "employee_id": "E1093",
+        "total": 476106.0
+      },
+      {
+        "Name": "Person 95",
+        "employee_id": "E1094",
+        "total": 338418.0
+      },
+      {
+        "Name": "Person 96",
+        "employee_id": "E1095",
+        "total": 296915.0
+      },
+      {
+        "Name": "Person 97",
+        "employee_id": "E1096",
+        "total": 182712.0
+      },
+      {
+        "Name": "Person 98",
+        "employee_id": "E1097",
+        "total": 490036.0
+      },
+      {
+        "Name": "Person 99",
+        "employee_id": "E1098",
+        "total": 322346.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 150,
+    "complexity_ops": 1
+  },
+  "t1_14": {
+    "id": "t1_14",
+    "tier": "T1_single_op",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Annual Salary": 332724.0,
+        "Name": "Person 32",
+        "employee_id": "E1031"
+      },
+      {
+        "Annual Salary": 332459.0,
+        "Name": "Person 82",
+        "employee_id": "E1081"
+      },
+      {
+        "Annual Salary": 330178.0,
+        "Name": "Person 115",
+        "employee_id": "E1114"
+      },
+      {
+        "Annual Salary": 329532.0,
+        "Name": "Person 59",
+        "employee_id": "E1058"
+      },
+      {
+        "Annual Salary": 326601.0,
+        "Name": "Person 123",
+        "employee_id": "E1122"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": 1
+  },
+  "t1_15": {
+    "id": "t1_15",
+    "tier": "T1_single_op",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Name": "Person 140",
+        "Performance Score": 5.0,
+        "employee_id": "E1139"
+      },
+      {
+        "Name": "Person 139",
+        "Performance Score": 4.5,
+        "employee_id": "E1138"
+      },
+      {
+        "Name": "Person 31",
+        "Performance Score": 4.4,
+        "employee_id": "E1030"
+      },
+      {
+        "Name": "Person 119",
+        "Performance Score": 4.2,
+        "employee_id": "E1118"
+      },
+      {
+        "Name": "Person 23",
+        "Performance Score": 4.1,
+        "employee_id": "E1022"
+      },
+      {
+        "Name": "Person 124",
+        "Performance Score": 4.1,
+        "employee_id": "E1123"
+      },
+      {
+        "Name": "Person 36",
+        "Performance Score": 4.0,
+        "employee_id": "E1035"
+      },
+      {
+        "Name": "Person 58",
+        "Performance Score": 4.0,
+        "employee_id": "E1057"
+      },
+      {
+        "Name": "Person 102",
+        "Performance Score": 4.0,
+        "employee_id": "E1101"
+      },
+      {
+        "Name": "Person 149",
+        "Performance Score": 4.0,
+        "employee_id": "E1148"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 10,
+    "complexity_ops": 1
+  },
+  "t2_01": {
+    "id": "t2_01",
+    "tier": "T2_two_ops",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 139,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": 2
+  },
+  "t2_02": {
+    "id": "t2_02",
+    "tier": "T2_two_ops",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 26,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": 2
+  },
+  "t2_03": {
+    "id": "t2_03",
+    "tier": "T2_two_ops",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 3.140625,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": 2
+  },
+  "t2_04": {
+    "id": "t2_04",
+    "tier": "T2_two_ops",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Department": "Engineering",
+        "avg_salary": 191228.384615
+      },
+      {
+        "Department": "Finance",
+        "avg_salary": 172286.121212
+      },
+      {
+        "Department": "Marketing",
+        "avg_salary": 196022.935484
+      },
+      {
+        "Department": "Operations",
+        "avg_salary": 188102.941176
+      },
+      {
+        "Department": "Sales",
+        "avg_salary": 184605.769231
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": 2
+  },
+  "t2_05": {
+    "id": "t2_05",
+    "tier": "T2_two_ops",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Role": "Director",
+        "count": 32.0
+      },
+      {
+        "Role": "IC",
+        "count": 49.0
+      },
+      {
+        "Role": "Manager",
+        "count": 29.0
+      },
+      {
+        "Role": "VP",
+        "count": 40.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 4,
+    "complexity_ops": 2
+  },
+  "t2_06": {
+    "id": "t2_06",
+    "tier": "T2_two_ops",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Role": "Director",
+        "sum_equity": 2853228.0
+      },
+      {
+        "Role": "IC",
+        "sum_equity": 890754.0
+      },
+      {
+        "Role": "Manager",
+        "sum_equity": 1291645.0
+      },
+      {
+        "Role": "VP",
+        "sum_equity": 7376606.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 4,
+    "complexity_ops": 2
+  },
+  "t2_07": {
+    "id": "t2_07",
+    "tier": "T2_two_ops",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Name": "Person 1",
+        "diff": 17026.0,
+        "employee_id": "E1000"
+      },
+      {
+        "Name": "Person 10",
+        "diff": -2051.0,
+        "employee_id": "E1009"
+      },
+      {
+        "Name": "Person 100",
+        "diff": 37786.0,
+        "employee_id": "E1099"
+      },
+      {
+        "Name": "Person 101",
+        "diff": -10403.0,
+        "employee_id": "E1100"
+      },
+      {
+        "Name": "Person 102",
+        "diff": 16490.0,
+        "employee_id": "E1101"
+      },
+      {
+        "Name": "Person 103",
+        "diff": -21448.0,
+        "employee_id": "E1102"
+      },
+      {
+        "Name": "Person 104",
+        "diff": -12579.0,
+        "employee_id": "E1103"
+      },
+      {
+        "Name": "Person 105",
+        "diff": -20469.0,
+        "employee_id": "E1104"
+      },
+      {
+        "Name": "Person 106",
+        "diff": 6404.0,
+        "employee_id": "E1105"
+      },
+      {
+        "Name": "Person 107",
+        "diff": 2455.0,
+        "employee_id": "E1106"
+      },
+      {
+        "Name": "Person 108",
+        "diff": 21639.0,
+        "employee_id": "E1107"
+      },
+      {
+        "Name": "Person 109",
+        "diff": 22082.0,
+        "employee_id": "E1108"
+      },
+      {
+        "Name": "Person 11",
+        "diff": -14641.0,
+        "employee_id": "E1010"
+      },
+      {
+        "Name": "Person 110",
+        "diff": 31908.0,
+        "employee_id": "E1109"
+      },
+      {
+        "Name": "Person 111",
+        "diff": 28069.0,
+        "employee_id": "E1110"
+      },
+      {
+        "Name": "Person 112",
+        "diff": 8216.0,
+        "employee_id": "E1111"
+      },
+      {
+        "Name": "Person 113",
+        "diff": 4862.0,
+        "employee_id": "E1112"
+      },
+      {
+        "Name": "Person 114",
+        "diff": -17710.0,
+        "employee_id": "E1113"
+      },
+      {
+        "Name": "Person 115",
+        "diff": 23576.0,
+        "employee_id": "E1114"
+      },
+      {
+        "Name": "Person 116",
+        "diff": -24514.0,
+        "employee_id": "E1115"
+      },
+      {
+        "Name": "Person 117",
+        "diff": 1289.0,
+        "employee_id": "E1116"
+      },
+      {
+        "Name": "Person 118",
+        "diff": -25293.0,
+        "employee_id": "E1117"
+      },
+      {
+        "Name": "Person 119",
+        "diff": -2762.0,
+        "employee_id": "E1118"
+      },
+      {
+        "Name": "Person 120",
+        "diff": 13687.0,
+        "employee_id": "E1119"
+      },
+      {
+        "Name": "Person 121",
+        "diff": -19646.0,
+        "employee_id": "E1120"
+      },
+      {
+        "Name": "Person 122",
+        "diff": 14163.0,
+        "employee_id": "E1121"
+      },
+      {
+        "Name": "Person 123",
+        "diff": 27963.0,
+        "employee_id": "E1122"
+      },
+      {
+        "Name": "Person 126",
+        "diff": -15861.0,
+        "employee_id": "E1125"
+      },
+      {
+        "Name": "Person 127",
+        "diff": 22765.0,
+        "employee_id": "E1126"
+      },
+      {
+        "Name": "Person 128",
+        "diff": -9648.0,
+        "employee_id": "E1127"
+      },
+      {
+        "Name": "Person 129",
+        "diff": -41829.0,
+        "employee_id": "E1128"
+      },
+      {
+        "Name": "Person 13",
+        "diff": -19115.0,
+        "employee_id": "E1012"
+      },
+      {
+        "Name": "Person 130",
+        "diff": 827.0,
+        "employee_id": "E1129"
+      },
+      {
+        "Name": "Person 131",
+        "diff": -7140.0,
+        "employee_id": "E1130"
+      },
+      {
+        "Name": "Person 132",
+        "diff": 25397.0,
+        "employee_id": "E1131"
+      },
+      {
+        "Name": "Person 135",
+        "diff": 35842.0,
+        "employee_id": "E1134"
+      },
+      {
+        "Name": "Person 136",
+        "diff": -11979.0,
+        "employee_id": "E1135"
+      },
+      {
+        "Name": "Person 137",
+        "diff": -14521.0,
+        "employee_id": "E1136"
+      },
+      {
+        "Name": "Person 138",
+        "diff": -13309.0,
+        "employee_id": "E1137"
+      },
+      {
+        "Name": "Person 139",
+        "diff": 4098.0,
+        "employee_id": "E1138"
+      },
+      {
+        "Name": "Person 14",
+        "diff": -9427.0,
+        "employee_id": "E1013"
+      },
+      {
+        "Name": "Person 140",
+        "diff": -1301.0,
+        "employee_id": "E1139"
+      },
+      {
+        "Name": "Person 141",
+        "diff": 17218.0,
+        "employee_id": "E1140"
+      },
+      {
+        "Name": "Person 142",
+        "diff": 6092.0,
+        "employee_id": "E1141"
+      },
+      {
+        "Name": "Person 143",
+        "diff": -29150.0,
+        "employee_id": "E1142"
+      },
+      {
+        "Name": "Person 144",
+        "diff": 2697.0,
+        "employee_id": "E1143"
+      },
+      {
+        "Name": "Person 145",
+        "diff": -2144.0,
+        "employee_id": "E1144"
+      },
+      {
+        "Name": "Person 146",
+        "diff": 5354.0,
+        "employee_id": "E1145"
+      },
+      {
+        "Name": "Person 147",
+        "diff": -22744.0,
+        "employee_id": "E1146"
+      },
+      {
+        "Name": "Person 148",
+        "diff": 18870.0,
+        "employee_id": "E1147"
+      },
+      {
+        "Name": "Person 149",
+        "diff": 21020.0,
+        "employee_id": "E1148"
+      },
+      {
+        "Name": "Person 15",
+        "diff": 11503.0,
+        "employee_id": "E1014"
+      },
+      {
+        "Name": "Person 150",
+        "diff": -13287.0,
+        "employee_id": "E1149"
+      },
+      {
+        "Name": "Person 16",
+        "diff": 24656.0,
+        "employee_id": "E1015"
+      },
+      {
+        "Name": "Person 17",
+        "diff": -16168.0,
+        "employee_id": "E1016"
+      },
+      {
+        "Name": "Person 18",
+        "diff": 8118.0,
+        "employee_id": "E1017"
+      },
+      {
+        "Name": "Person 19",
+        "diff": -12356.0,
+        "employee_id": "E1018"
+      },
+      {
+        "Name": "Person 2",
+        "diff": 1581.0,
+        "employee_id": "E1001"
+      },
+      {
+        "Name": "Person 20",
+        "diff": 8346.0,
+        "employee_id": "E1019"
+      },
+      {
+        "Name": "Person 21",
+        "diff": 27828.0,
+        "employee_id": "E1020"
+      },
+      {
+        "Name": "Person 22",
+        "diff": -3332.0,
+        "employee_id": "E1021"
+      },
+      {
+        "Name": "Person 23",
+        "diff": 6732.0,
+        "employee_id": "E1022"
+      },
+      {
+        "Name": "Person 24",
+        "diff": -14330.0,
+        "employee_id": "E1023"
+      },
+      {
+        "Name": "Person 25",
+        "diff": 16771.0,
+        "employee_id": "E1024"
+      },
+      {
+        "Name": "Person 26",
+        "diff": -3360.0,
+        "employee_id": "E1025"
+      },
+      {
+        "Name": "Person 27",
+        "diff": -47571.0,
+        "employee_id": "E1026"
+      },
+      {
+        "Name": "Person 28",
+        "diff": -19437.0,
+        "employee_id": "E1027"
+      },
+      {
+        "Name": "Person 29",
+        "diff": -15564.0,
+        "employee_id": "E1028"
+      },
+      {
+        "Name": "Person 3",
+        "diff": 28672.0,
+        "employee_id": "E1002"
+      },
+      {
+        "Name": "Person 31",
+        "diff": -10065.0,
+        "employee_id": "E1030"
+      },
+      {
+        "Name": "Person 33",
+        "diff": -61.0,
+        "employee_id": "E1032"
+      },
+      {
+        "Name": "Person 34",
+        "diff": -39642.0,
+        "employee_id": "E1033"
+      },
+      {
+        "Name": "Person 35",
+        "diff": -12654.0,
+        "employee_id": "E1034"
+      },
+      {
+        "Name": "Person 36",
+        "diff": -36360.0,
+        "employee_id": "E1035"
+      },
+      {
+        "Name": "Person 37",
+        "diff": -7421.0,
+        "employee_id": "E1036"
+      },
+      {
+        "Name": "Person 38",
+        "diff": 27039.0,
+        "employee_id": "E1037"
+      },
+      {
+        "Name": "Person 39",
+        "diff": -17591.0,
+        "employee_id": "E1038"
+      },
+      {
+        "Name": "Person 4",
+        "diff": 28882.0,
+        "employee_id": "E1003"
+      },
+      {
+        "Name": "Person 40",
+        "diff": -3608.0,
+        "employee_id": "E1039"
+      },
+      {
+        "Name": "Person 41",
+        "diff": -7922.0,
+        "employee_id": "E1040"
+      },
+      {
+        "Name": "Person 42",
+        "diff": -14460.0,
+        "employee_id": "E1041"
+      },
+      {
+        "Name": "Person 43",
+        "diff": 4562.0,
+        "employee_id": "E1042"
+      },
+      {
+        "Name": "Person 44",
+        "diff": -41352.0,
+        "employee_id": "E1043"
+      },
+      {
+        "Name": "Person 45",
+        "diff": 287.0,
+        "employee_id": "E1044"
+      },
+      {
+        "Name": "Person 46",
+        "diff": 18822.0,
+        "employee_id": "E1045"
+      },
+      {
+        "Name": "Person 47",
+        "diff": -31776.0,
+        "employee_id": "E1046"
+      },
+      {
+        "Name": "Person 48",
+        "diff": 14001.0,
+        "employee_id": "E1047"
+      },
+      {
+        "Name": "Person 49",
+        "diff": 8614.0,
+        "employee_id": "E1048"
+      },
+      {
+        "Name": "Person 5",
+        "diff": -19166.0,
+        "employee_id": "E1004"
+      },
+      {
+        "Name": "Person 50",
+        "diff": -17450.0,
+        "employee_id": "E1049"
+      },
+      {
+        "Name": "Person 51",
+        "diff": -31107.0,
+        "employee_id": "E1050"
+      },
+      {
+        "Name": "Person 52",
+        "diff": -8715.0,
+        "employee_id": "E1051"
+      },
+      {
+        "Name": "Person 53",
+        "diff": -10366.0,
+        "employee_id": "E1052"
+      },
+      {
+        "Name": "Person 54",
+        "diff": 16660.0,
+        "employee_id": "E1053"
+      },
+      {
+        "Name": "Person 55",
+        "diff": 15326.0,
+        "employee_id": "E1054"
+      },
+      {
+        "Name": "Person 56",
+        "diff": 17088.0,
+        "employee_id": "E1055"
+      },
+      {
+        "Name": "Person 57",
+        "diff": 26947.0,
+        "employee_id": "E1056"
+      },
+      {
+        "Name": "Person 59",
+        "diff": 41826.0,
+        "employee_id": "E1058"
+      },
+      {
+        "Name": "Person 6",
+        "diff": -25385.0,
+        "employee_id": "E1005"
+      },
+      {
+        "Name": "Person 60",
+        "diff": 6390.0,
+        "employee_id": "E1059"
+      },
+      {
+        "Name": "Person 61",
+        "diff": -12392.0,
+        "employee_id": "E1060"
+      },
+      {
+        "Name": "Person 62",
+        "diff": -11175.0,
+        "employee_id": "E1061"
+      },
+      {
+        "Name": "Person 63",
+        "diff": -10844.0,
+        "employee_id": "E1062"
+      },
+      {
+        "Name": "Person 64",
+        "diff": 9044.0,
+        "employee_id": "E1063"
+      },
+      {
+        "Name": "Person 65",
+        "diff": -19151.0,
+        "employee_id": "E1064"
+      },
+      {
+        "Name": "Person 66",
+        "diff": 6870.0,
+        "employee_id": "E1065"
+      },
+      {
+        "Name": "Person 67",
+        "diff": -5984.0,
+        "employee_id": "E1066"
+      },
+      {
+        "Name": "Person 68",
+        "diff": -26439.0,
+        "employee_id": "E1067"
+      },
+      {
+        "Name": "Person 69",
+        "diff": -13424.0,
+        "employee_id": "E1068"
+      },
+      {
+        "Name": "Person 7",
+        "diff": -9365.0,
+        "employee_id": "E1006"
+      },
+      {
+        "Name": "Person 70",
+        "diff": 3109.0,
+        "employee_id": "E1069"
+      },
+      {
+        "Name": "Person 71",
+        "diff": 4123.0,
+        "employee_id": "E1070"
+      },
+      {
+        "Name": "Person 72",
+        "diff": 15273.0,
+        "employee_id": "E1071"
+      },
+      {
+        "Name": "Person 73",
+        "diff": -4675.0,
+        "employee_id": "E1072"
+      },
+      {
+        "Name": "Person 74",
+        "diff": 32509.0,
+        "employee_id": "E1073"
+      },
+      {
+        "Name": "Person 75",
+        "diff": -5837.0,
+        "employee_id": "E1074"
+      },
+      {
+        "Name": "Person 76",
+        "diff": 22879.0,
+        "employee_id": "E1075"
+      },
+      {
+        "Name": "Person 77",
+        "diff": -39258.0,
+        "employee_id": "E1076"
+      },
+      {
+        "Name": "Person 78",
+        "diff": -7473.0,
+        "employee_id": "E1077"
+      },
+      {
+        "Name": "Person 79",
+        "diff": 1025.0,
+        "employee_id": "E1078"
+      },
+      {
+        "Name": "Person 8",
+        "diff": 1347.0,
+        "employee_id": "E1007"
+      },
+      {
+        "Name": "Person 80",
+        "diff": 20282.0,
+        "employee_id": "E1079"
+      },
+      {
+        "Name": "Person 81",
+        "diff": 11630.0,
+        "employee_id": "E1080"
+      },
+      {
+        "Name": "Person 82",
+        "diff": 40729.0,
+        "employee_id": "E1081"
+      },
+      {
+        "Name": "Person 83",
+        "diff": 19372.0,
+        "employee_id": "E1082"
+      },
+      {
+        "Name": "Person 84",
+        "diff": -43764.0,
+        "employee_id": "E1083"
+      },
+      {
+        "Name": "Person 86",
+        "diff": 21975.0,
+        "employee_id": "E1085"
+      },
+      {
+        "Name": "Person 87",
+        "diff": 35755.0,
+        "employee_id": "E1086"
+      },
+      {
+        "Name": "Person 88",
+        "diff": -2338.0,
+        "employee_id": "E1087"
+      },
+      {
+        "Name": "Person 89",
+        "diff": -6255.0,
+        "employee_id": "E1088"
+      },
+      {
+        "Name": "Person 9",
+        "diff": -3595.0,
+        "employee_id": "E1008"
+      },
+      {
+        "Name": "Person 90",
+        "diff": 9689.0,
+        "employee_id": "E1089"
+      },
+      {
+        "Name": "Person 91",
+        "diff": 13695.0,
+        "employee_id": "E1090"
+      },
+      {
+        "Name": "Person 92",
+        "diff": 20029.0,
+        "employee_id": "E1091"
+      },
+      {
+        "Name": "Person 93",
+        "diff": -4388.0,
+        "employee_id": "E1092"
+      },
+      {
+        "Name": "Person 95",
+        "diff": -15187.0,
+        "employee_id": "E1094"
+      },
+      {
+        "Name": "Person 97",
+        "diff": 25151.0,
+        "employee_id": "E1096"
+      },
+      {
+        "Name": "Person 98",
+        "diff": -19417.0,
+        "employee_id": "E1097"
+      },
+      {
+        "Name": "Person 99",
+        "diff": -28437.0,
+        "employee_id": "E1098"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 139,
+    "complexity_ops": 2
+  },
+  "t2_08": {
+    "id": "t2_08",
+    "tier": "T2_two_ops",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Name": "Person 110",
+        "employee_id": "E1109",
+        "total": 61156.0
+      },
+      {
+        "Name": "Person 123",
+        "employee_id": "E1122",
+        "total": 245442.0
+      },
+      {
+        "Name": "Person 133",
+        "employee_id": "E1132",
+        "total": 32122.0
+      },
+      {
+        "Name": "Person 135",
+        "employee_id": "E1134",
+        "total": 234812.0
+      },
+      {
+        "Name": "Person 138",
+        "employee_id": "E1137",
+        "total": 195977.0
+      },
+      {
+        "Name": "Person 140",
+        "employee_id": "E1139",
+        "total": 32586.0
+      },
+      {
+        "Name": "Person 144",
+        "employee_id": "E1143",
+        "total": 106302.0
+      },
+      {
+        "Name": "Person 146",
+        "employee_id": "E1145",
+        "total": 31787.0
+      },
+      {
+        "Name": "Person 20",
+        "employee_id": "E1019",
+        "total": 28141.0
+      },
+      {
+        "Name": "Person 21",
+        "employee_id": "E1020",
+        "total": 107988.0
+      },
+      {
+        "Name": "Person 33",
+        "employee_id": "E1032",
+        "total": 218558.0
+      },
+      {
+        "Name": "Person 35",
+        "employee_id": "E1034",
+        "total": 62222.0
+      },
+      {
+        "Name": "Person 36",
+        "employee_id": "E1035",
+        "total": 252476.0
+      },
+      {
+        "Name": "Person 43",
+        "employee_id": "E1042",
+        "total": 110332.0
+      },
+      {
+        "Name": "Person 50",
+        "employee_id": "E1049",
+        "total": 128476.0
+      },
+      {
+        "Name": "Person 55",
+        "employee_id": "E1054",
+        "total": 215614.0
+      },
+      {
+        "Name": "Person 57",
+        "employee_id": "E1056",
+        "total": 69400.0
+      },
+      {
+        "Name": "Person 62",
+        "employee_id": "E1061",
+        "total": 123812.0
+      },
+      {
+        "Name": "Person 68",
+        "employee_id": "E1067",
+        "total": 29893.0
+      },
+      {
+        "Name": "Person 69",
+        "employee_id": "E1068",
+        "total": 126118.0
+      },
+      {
+        "Name": "Person 72",
+        "employee_id": "E1071",
+        "total": 71946.0
+      },
+      {
+        "Name": "Person 73",
+        "employee_id": "E1072",
+        "total": 28588.0
+      },
+      {
+        "Name": "Person 88",
+        "employee_id": "E1087",
+        "total": 66022.0
+      },
+      {
+        "Name": "Person 9",
+        "employee_id": "E1008",
+        "total": 29327.0
+      },
+      {
+        "Name": "Person 91",
+        "employee_id": "E1090",
+        "total": 29947.0
+      },
+      {
+        "Name": "Person 95",
+        "employee_id": "E1094",
+        "total": 127867.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 26,
+    "complexity_ops": 2
+  },
+  "t2_09": {
+    "id": "t2_09",
+    "tier": "T2_two_ops",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": -40286.0,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": 2
+  },
+  "t2_10": {
+    "id": "t2_10",
+    "tier": "T2_two_ops",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 108838.22,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": 2
+  },
+  "t2_11": {
+    "id": "t2_11",
+    "tier": "T2_two_ops",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Annual Salary": 332459.0,
+        "Name": "Person 82",
+        "employee_id": "E1081"
+      },
+      {
+        "Annual Salary": 330178.0,
+        "Name": "Person 115",
+        "employee_id": "E1114"
+      },
+      {
+        "Annual Salary": 329532.0,
+        "Name": "Person 59",
+        "employee_id": "E1058"
+      },
+      {
+        "Annual Salary": 326601.0,
+        "Name": "Person 123",
+        "employee_id": "E1122"
+      },
+      {
+        "Annual Salary": 326074.0,
+        "Name": "Person 76",
+        "employee_id": "E1075"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": 2
+  },
+  "t2_12": {
+    "id": "t2_12",
+    "tier": "T2_two_ops",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Name": "Person 31",
+        "Performance Score": 4.4,
+        "employee_id": "E1030"
+      },
+      {
+        "Name": "Person 23",
+        "Performance Score": 4.1,
+        "employee_id": "E1022"
+      },
+      {
+        "Name": "Person 58",
+        "Performance Score": 4.0,
+        "employee_id": "E1057"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 2
+  },
+  "t2_13": {
+    "id": "t2_13",
+    "tier": "T2_two_ops",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Department": "Engineering",
+        "Status": "Active",
+        "employee_id": "E1012"
+      },
+      {
+        "Department": "Engineering",
+        "Status": "Active",
+        "employee_id": "E1022"
+      },
+      {
+        "Department": "Engineering",
+        "Status": "Active",
+        "employee_id": "E1044"
+      },
+      {
+        "Department": "Engineering",
+        "Status": "Active",
+        "employee_id": "E1103"
+      },
+      {
+        "Department": "Engineering",
+        "Status": "Active",
+        "employee_id": "E1130"
+      },
+      {
+        "Department": "Engineering",
+        "Status": "Active",
+        "employee_id": "E1149"
+      },
+      {
+        "Department": "Finance",
+        "Status": "Active",
+        "employee_id": "E1077"
+      },
+      {
+        "Department": "Finance",
+        "Status": "Active",
+        "employee_id": "E1083"
+      },
+      {
+        "Department": "Finance",
+        "Status": "Active",
+        "employee_id": "E1096"
+      },
+      {
+        "Department": "Marketing",
+        "Status": "Active",
+        "employee_id": "E1047"
+      },
+      {
+        "Department": "Marketing",
+        "Status": "Active",
+        "employee_id": "E1055"
+      },
+      {
+        "Department": "Marketing",
+        "Status": "Active",
+        "employee_id": "E1059"
+      },
+      {
+        "Department": "Marketing",
+        "Status": "Active",
+        "employee_id": "E1106"
+      },
+      {
+        "Department": "Operations",
+        "Status": "Active",
+        "employee_id": "E1002"
+      },
+      {
+        "Department": "Operations",
+        "Status": "Active",
+        "employee_id": "E1007"
+      },
+      {
+        "Department": "Operations",
+        "Status": "Active",
+        "employee_id": "E1010"
+      },
+      {
+        "Department": "Operations",
+        "Status": "Active",
+        "employee_id": "E1028"
+      },
+      {
+        "Department": "Operations",
+        "Status": "Active",
+        "employee_id": "E1038"
+      },
+      {
+        "Department": "Operations",
+        "Status": "Active",
+        "employee_id": "E1080"
+      },
+      {
+        "Department": "Operations",
+        "Status": "Active",
+        "employee_id": "E1146"
+      },
+      {
+        "Department": "Sales",
+        "Status": "Active",
+        "employee_id": "E1034"
+      },
+      {
+        "Department": "Sales",
+        "Status": "Active",
+        "employee_id": "E1056"
+      },
+      {
+        "Department": "Sales",
+        "Status": "Active",
+        "employee_id": "E1071"
+      },
+      {
+        "Department": "Sales",
+        "Status": "Active",
+        "employee_id": "E1087"
+      },
+      {
+        "Department": "Sales",
+        "Status": "Active",
+        "employee_id": "E1109"
+      },
+      {
+        "Department": "Finance",
+        "Status": "On Leave",
+        "employee_id": "E1013"
+      },
+      {
+        "Department": "Operations",
+        "Status": "Sabbatical",
+        "employee_id": "E1023"
+      },
+      {
+        "Department": "Operations",
+        "Status": "Sabbatical",
+        "employee_id": "E1064"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 28,
+    "complexity_ops": 2
+  },
+  "t2_14": {
+    "id": "t2_14",
+    "tier": "T2_two_ops",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1049"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1061"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1068"
+      },
+      {
+        "Role": "Director",
+        "Status": "Active",
+        "employee_id": "E1094"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1008"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1019"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1067"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1072"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1090"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1139"
+      },
+      {
+        "Role": "IC",
+        "Status": "Active",
+        "employee_id": "E1145"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1034"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1056"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1071"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1087"
+      },
+      {
+        "Role": "Manager",
+        "Status": "Active",
+        "employee_id": "E1109"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1032"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1035"
+      },
+      {
+        "Role": "VP",
+        "Status": "Active",
+        "employee_id": "E1134"
+      },
+      {
+        "Role": "Director",
+        "Status": "On Leave",
+        "employee_id": "E1042"
+      },
+      {
+        "Role": "Director",
+        "Status": "On Leave",
+        "employee_id": "E1143"
+      },
+      {
+        "Role": "Director",
+        "Status": "Sabbatical",
+        "employee_id": "E1020"
+      },
+      {
+        "Role": "VP",
+        "Status": "Sabbatical",
+        "employee_id": "E1054"
+      },
+      {
+        "Role": "VP",
+        "Status": "Sabbatical",
+        "employee_id": "E1122"
+      },
+      {
+        "Role": "VP",
+        "Status": "Sabbatical",
+        "employee_id": "E1137"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 25,
+    "complexity_ops": 2
+  },
+  "t2_15": {
+    "id": "t2_15",
+    "tier": "T2_two_ops",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 332459.0,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": 2
+  },
+  "t3_01": {
+    "id": "t3_01",
+    "tier": "T3_three_ops",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Department": "Engineering",
+        "avg_salary": 182146.304348
+      },
+      {
+        "Department": "Finance",
+        "avg_salary": 168161.9
+      },
+      {
+        "Department": "Marketing",
+        "avg_salary": 200354.642857
+      },
+      {
+        "Department": "Operations",
+        "avg_salary": 184684.090909
+      },
+      {
+        "Department": "Sales",
+        "avg_salary": 188665.84
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": 3
+  },
+  "t3_02": {
+    "id": "t3_02",
+    "tier": "T3_three_ops",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Role": "Director",
+        "sum_equity": 2573124.0
+      },
+      {
+        "Role": "IC",
+        "sum_equity": 831236.0
+      },
+      {
+        "Role": "Manager",
+        "sum_equity": 1250922.0
+      },
+      {
+        "Role": "VP",
+        "sum_equity": 6613726.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 4,
+    "complexity_ops": 3
+  },
+  "t3_03": {
+    "id": "t3_03",
+    "tier": "T3_three_ops",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Department": "Operations",
+        "sum_salary": 6395500.0
+      },
+      {
+        "Department": "Marketing",
+        "sum_salary": 6076711.0
+      },
+      {
+        "Department": "Finance",
+        "sum_salary": 5685442.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 3
+  },
+  "t3_04": {
+    "id": "t3_04",
+    "tier": "T3_three_ops",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Manager ID": "E1101",
+        "count": 4.0
+      },
+      {
+        "Manager ID": "E1005",
+        "count": 3.0
+      },
+      {
+        "Manager ID": "E1023",
+        "count": 3.0
+      },
+      {
+        "Manager ID": "E1041",
+        "count": 3.0
+      },
+      {
+        "Manager ID": "E1050",
+        "count": 3.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": 3
+  },
+  "t3_05": {
+    "id": "t3_05",
+    "tier": "T3_three_ops",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 3.282609,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": 3
+  },
+  "t3_06": {
+    "id": "t3_06",
+    "tier": "T3_three_ops",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 6059930.0,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": 3
+  },
+  "t3_07": {
+    "id": "t3_07",
+    "tier": "T3_three_ops",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Role": "VP",
+        "sum_salary_variance": 369100.0
+      },
+      {
+        "Role": "Manager",
+        "sum_salary_variance": -40616.0
+      },
+      {
+        "Role": "Director",
+        "sum_salary_variance": -175033.0
+      },
+      {
+        "Role": "IC",
+        "sum_salary_variance": -193737.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 4,
+    "complexity_ops": 3
+  },
+  "t3_08": {
+    "id": "t3_08",
+    "tier": "T3_three_ops",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Department": "Marketing",
+        "avg_total_variable_comp": 120680.967742
+      },
+      {
+        "Department": "Engineering",
+        "avg_total_variable_comp": 111525.192308
+      },
+      {
+        "Department": "Operations",
+        "avg_total_variable_comp": 108912.558824
+      },
+      {
+        "Department": "Sales",
+        "avg_total_variable_comp": 106419.653846
+      },
+      {
+        "Department": "Finance",
+        "avg_total_variable_comp": 97425.151515
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": 3
+  },
+  "t3_09": {
+    "id": "t3_09",
+    "tier": "T3_three_ops",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Name": "Person 59",
+        "employee_id": "E1058",
+        "salary_variance": 41826.0
+      },
+      {
+        "Name": "Person 82",
+        "employee_id": "E1081",
+        "salary_variance": 40729.0
+      },
+      {
+        "Name": "Person 100",
+        "employee_id": "E1099",
+        "salary_variance": 37786.0
+      },
+      {
+        "Name": "Person 135",
+        "employee_id": "E1134",
+        "salary_variance": 35842.0
+      },
+      {
+        "Name": "Person 87",
+        "employee_id": "E1086",
+        "salary_variance": 35755.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": 3
+  },
+  "t3_10": {
+    "id": "t3_10",
+    "tier": "T3_three_ops",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Name": "Person 25",
+        "employee_id": "E1024",
+        "total_variable_comp": 271205.0
+      },
+      {
+        "Name": "Person 63",
+        "employee_id": "E1062",
+        "total_variable_comp": 266399.0
+      },
+      {
+        "Name": "Person 66",
+        "employee_id": "E1065",
+        "total_variable_comp": 262361.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 3
+  },
+  "t3_11": {
+    "id": "t3_11",
+    "tier": "T3_three_ops",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Role": "VP",
+        "sum_equity": 1410350.0
+      },
+      {
+        "Role": "Director",
+        "sum_equity": 346174.0
+      },
+      {
+        "Role": "Manager",
+        "sum_equity": 317294.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 3
+  },
+  "t3_12": {
+    "id": "t3_12",
+    "tier": "T3_three_ops",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Department": "Marketing",
+        "avg_salary": 200354.642857
+      },
+      {
+        "Department": "Sales",
+        "avg_salary": 188665.84
+      },
+      {
+        "Department": "Operations",
+        "avg_salary": 184684.090909
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 3
+  },
+  "t3_13": {
+    "id": "t3_13",
+    "tier": "T3_three_ops",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Name": "Person 23",
+        "Performance Score": 4.1,
+        "employee_id": "E1022"
+      },
+      {
+        "Name": "Person 58",
+        "Performance Score": 4.0,
+        "employee_id": "E1057"
+      },
+      {
+        "Name": "Person 60",
+        "Performance Score": 3.9,
+        "employee_id": "E1059"
+      },
+      {
+        "Name": "Person 3",
+        "Performance Score": 3.7,
+        "employee_id": "E1002"
+      },
+      {
+        "Name": "Person 11",
+        "Performance Score": 3.7,
+        "employee_id": "E1010"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": 3
+  },
+  "t3_14": {
+    "id": "t3_14",
+    "tier": "T3_three_ops",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Department": "Sales",
+        "sum_salary": 1135622.0
+      },
+      {
+        "Department": "Operations",
+        "sum_salary": 1070593.0
+      },
+      {
+        "Department": "Marketing",
+        "sum_salary": 996669.0
+      },
+      {
+        "Department": "Finance",
+        "sum_salary": 418575.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 4,
+    "complexity_ops": 3
+  },
+  "t3_15": {
+    "id": "t3_15",
+    "tier": "T3_three_ops",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Role": "Director",
+        "max_equity": 101086.0
+      },
+      {
+        "Role": "IC",
+        "max_equity": 21701.0
+      },
+      {
+        "Role": "Manager",
+        "max_equity": 52446.0
+      },
+      {
+        "Role": "VP",
+        "max_equity": 226205.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 4,
+    "complexity_ops": 3
+  },
+  "t4_01": {
+    "id": "t4_01",
+    "tier": "T4_business_rule_multi_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Department": "Engineering",
+        "avg_salary": 182146.304348
+      },
+      {
+        "Department": "Finance",
+        "avg_salary": 168161.9
+      },
+      {
+        "Department": "Marketing",
+        "avg_salary": 200354.642857
+      },
+      {
+        "Department": "Operations",
+        "avg_salary": 184684.090909
+      },
+      {
+        "Department": "Sales",
+        "avg_salary": 188665.84
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": null
+  },
+  "t4_02": {
+    "id": "t4_02",
+    "tier": "T4_business_rule_multi_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Role": "Director",
+        "sum_equity": 2573124.0
+      },
+      {
+        "Role": "IC",
+        "sum_equity": 831236.0
+      },
+      {
+        "Role": "Manager",
+        "sum_equity": 1250922.0
+      },
+      {
+        "Role": "VP",
+        "sum_equity": 6613726.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 4,
+    "complexity_ops": null
+  },
+  "t4_03": {
+    "id": "t4_03",
+    "tier": "T4_business_rule_multi_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Department": "Engineering",
+        "avg_performance": 3.282609
+      },
+      {
+        "Department": "Finance",
+        "avg_performance": 3.136667
+      },
+      {
+        "Department": "Marketing",
+        "avg_performance": 3.092857
+      },
+      {
+        "Department": "Operations",
+        "avg_performance": 3.151515
+      },
+      {
+        "Department": "Sales",
+        "avg_performance": 3.14
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": null
+  },
+  "t4_04": {
+    "id": "t4_04",
+    "tier": "T4_business_rule_multi_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Role": "Director",
+        "sum_salary": 6059930.0
+      },
+      {
+        "Role": "IC",
+        "sum_salary": 4410501.0
+      },
+      {
+        "Role": "Manager",
+        "sum_salary": 4092438.0
+      },
+      {
+        "Role": "VP",
+        "sum_salary": 11092504.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 4,
+    "complexity_ops": null
+  },
+  "t4_05": {
+    "id": "t4_05",
+    "tier": "T4_business_rule_multi_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Role": "Director",
+        "avg_salary_variance": -4898.931034
+      },
+      {
+        "Role": "Manager",
+        "avg_salary_variance": 11490.461538
+      },
+      {
+        "Role": "VP",
+        "avg_salary_variance": 8327.972222
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": null
+  },
+  "t4_06": {
+    "id": "t4_06",
+    "tier": "T4_business_rule_multi_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Department": "Engineering",
+        "sum_equity": 242094.0
+      },
+      {
+        "Department": "Finance",
+        "sum_equity": 40302.0
+      },
+      {
+        "Department": "Sales",
+        "sum_equity": 20586.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": null
+  },
+  "t4_07": {
+    "id": "t4_07",
+    "tier": "T4_business_rule_multi_op",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 106445.708333,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": null
+  },
+  "t4_08": {
+    "id": "t4_08",
+    "tier": "T4_business_rule_multi_op",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 213862.034483,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": null
+  },
+  "t4_09": {
+    "id": "t4_09",
+    "tier": "T4_business_rule_multi_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Department": "Engineering",
+        "sum_salary": 4189365.0
+      },
+      {
+        "Department": "Finance",
+        "sum_salary": 4626282.0
+      },
+      {
+        "Department": "Marketing",
+        "sum_salary": 4613261.0
+      },
+      {
+        "Department": "Operations",
+        "sum_salary": 5023982.0
+      },
+      {
+        "Department": "Sales",
+        "sum_salary": 3581024.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": null
+  },
+  "t4_10": {
+    "id": "t4_10",
+    "tier": "T4_business_rule_multi_op",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Department": "Engineering",
+        "avg_performance": 3.282609
+      },
+      {
+        "Department": "Operations",
+        "avg_performance": 3.151515
+      },
+      {
+        "Department": "Sales",
+        "avg_performance": 3.14
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": null
+  },
+  "t4_11": {
+    "id": "t4_11",
+    "tier": "T4_business_rule_multi_op",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Role": "VP",
+        "sum_salary_variance": 299807.0
+      },
+      {
+        "Role": "Manager",
+        "sum_salary_variance": -43917.0
+      },
+      {
+        "Role": "IC",
+        "sum_salary_variance": -140477.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": null
+  },
+  "t4_12": {
+    "id": "t4_12",
+    "tier": "T4_business_rule_multi_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Role": "Director",
+        "avg_equity": 93785.333333
+      },
+      {
+        "Role": "IC",
+        "avg_equity": 19433.592593
+      },
+      {
+        "Role": "Manager",
+        "avg_equity": 46836.52381
+      },
+      {
+        "Role": "VP",
+        "avg_equity": 196437.636364
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 4,
+    "complexity_ops": null
+  },
+  "t4_13": {
+    "id": "t4_13",
+    "tier": "T4_business_rule_multi_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Location": "Berlin",
+        "avg_salary": 200801.24
+      },
+      {
+        "Location": "London",
+        "avg_salary": 164931.071429
+      },
+      {
+        "Location": "NYC",
+        "avg_salary": 181682.285714
+      },
+      {
+        "Location": "Remote",
+        "avg_salary": 185704.962963
+      },
+      {
+        "Location": "SF",
+        "avg_salary": 190843.032258
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": null
+  },
+  "t4_14": {
+    "id": "t4_14",
+    "tier": "T4_business_rule_multi_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Department": "Engineering",
+        "avg_time_in_role": 4.269565
+      },
+      {
+        "Department": "Finance",
+        "avg_time_in_role": 4.476667
+      },
+      {
+        "Department": "Marketing",
+        "avg_time_in_role": 4.7
+      },
+      {
+        "Department": "Operations",
+        "avg_time_in_role": 4.869697
+      },
+      {
+        "Department": "Sales",
+        "avg_time_in_role": 5.248
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": null
+  },
+  "t4_15": {
+    "id": "t4_15",
+    "tier": "T4_business_rule_multi_op",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Location": "Berlin",
+        "sum_equity": 1908965.0
+      },
+      {
+        "Location": "London",
+        "sum_equity": 1413819.0
+      },
+      {
+        "Location": "NYC",
+        "sum_equity": 1712039.0
+      },
+      {
+        "Location": "Remote",
+        "sum_equity": 1880984.0
+      },
+      {
+        "Location": "SF",
+        "sum_equity": 2271043.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": null
+  },
+  "t5_01": {
+    "id": "t5_01",
+    "tier": "T5_high_complexity",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Department": "Operations",
+        "salary_variance": 336800.0
+      },
+      {
+        "Department": "Finance",
+        "salary_variance": 242373.0
+      },
+      {
+        "Department": "Sales",
+        "salary_variance": 215741.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 5
+  },
+  "t5_02": {
+    "id": "t5_02",
+    "tier": "T5_high_complexity",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Department": "Marketing",
+        "total_variable_comp": 67213.25
+      },
+      {
+        "Department": "Sales",
+        "total_variable_comp": 66149.2
+      },
+      {
+        "Department": "Engineering",
+        "total_variable_comp": 65595.166667
+      },
+      {
+        "Department": "Operations",
+        "total_variable_comp": 63558.333333
+      },
+      {
+        "Department": "Finance",
+        "total_variable_comp": 57931.75
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": 5
+  },
+  "t5_03": {
+    "id": "t5_03",
+    "tier": "T5_high_complexity",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Role": "Manager",
+        "salary_variance": 11490.461538
+      },
+      {
+        "Role": "VP",
+        "salary_variance": 8327.972222
+      },
+      {
+        "Role": "Director",
+        "salary_variance": -4898.931034
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 5
+  },
+  "t5_04": {
+    "id": "t5_04",
+    "tier": "T5_high_complexity",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Department": "Engineering",
+        "total_variable_comp": 306594.0
+      },
+      {
+        "Department": "Finance",
+        "total_variable_comp": 64302.0
+      },
+      {
+        "Department": "Sales",
+        "total_variable_comp": 32586.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 5
+  },
+  "t5_05": {
+    "id": "t5_05",
+    "tier": "T5_high_complexity",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Role": "Manager",
+        "salary_variance": 6732.0
+      },
+      {
+        "Role": "VP",
+        "salary_variance": -10065.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 2,
+    "complexity_ops": 6
+  },
+  "t5_06": {
+    "id": "t5_06",
+    "tier": "T5_high_complexity",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Role": "VP",
+        "total_variable_comp": 229472.083333
+      },
+      {
+        "Role": "Director",
+        "total_variable_comp": 119091.6
+      },
+      {
+        "Role": "Manager",
+        "total_variable_comp": 63106.2
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 6
+  },
+  "t5_07": {
+    "id": "t5_07",
+    "tier": "T5_high_complexity",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Location": "SF",
+        "salary_variance": 56517.0
+      },
+      {
+        "Location": "NYC",
+        "salary_variance": 15273.0
+      },
+      {
+        "Location": "Berlin",
+        "salary_variance": -12654.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 6
+  },
+  "t5_08": {
+    "id": "t5_08",
+    "tier": "T5_high_complexity",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Department": "Operations",
+        "total_comp": 456806.714286
+      },
+      {
+        "Department": "Finance",
+        "total_comp": 448062.0
+      },
+      {
+        "Department": "Engineering",
+        "total_comp": 445760.2
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 6
+  },
+  "t5_09": {
+    "id": "t5_09",
+    "tier": "T5_high_complexity",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Department": "Sales",
+        "salary_variance": 13294.0
+      },
+      {
+        "Department": "Marketing",
+        "salary_variance": 9983.5
+      },
+      {
+        "Department": "Operations",
+        "salary_variance": -1083.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 7
+  },
+  "t5_10": {
+    "id": "t5_10",
+    "tier": "T5_high_complexity",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Role": "Manager",
+        "salary_variance": 6732.0
+      },
+      {
+        "Role": "VP",
+        "salary_variance": -10065.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 2,
+    "complexity_ops": 7
+  },
+  "t5_11": {
+    "id": "t5_11",
+    "tier": "T5_high_complexity",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Role": "VP",
+        "salary_variance": 20015.708333
+      },
+      {
+        "Role": "Director",
+        "salary_variance": 18070.0
+      },
+      {
+        "Role": "Manager",
+        "salary_variance": 14452.384615
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 7
+  },
+  "t5_12": {
+    "id": "t5_12",
+    "tier": "T5_high_complexity",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Department": "Sales",
+        "tenure_ratio": 0.380535
+      },
+      {
+        "Department": "Operations",
+        "tenure_ratio": 0.378871
+      },
+      {
+        "Department": "Engineering",
+        "tenure_ratio": 0.361729
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 7
+  },
+  "t5_13": {
+    "id": "t5_13",
+    "tier": "T5_high_complexity",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Role": "VP",
+        "total_comp": 497554.25
+      },
+      {
+        "Role": "Director",
+        "total_comp": 340271.111111
+      },
+      {
+        "Role": "Manager",
+        "total_comp": 224375.846154
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 8
+  },
+  "t5_14": {
+    "id": "t5_14",
+    "tier": "T5_high_complexity",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Role": "VP",
+        "salary_variance": 23467.25
+      },
+      {
+        "Role": "Manager",
+        "salary_variance": 16294.571429
+      },
+      {
+        "Role": "Director",
+        "salary_variance": 11695.666667
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 8
+  },
+  "t5_15": {
+    "id": "t5_15",
+    "tier": "T5_high_complexity",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Role": "VP",
+        "total_variable_comp": 189106.5
+      },
+      {
+        "Role": "Director",
+        "total_variable_comp": 117921.333333
+      },
+      {
+        "Role": "Manager",
+        "total_variable_comp": 66384.272727
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3,
+    "complexity_ops": 8
+  },
+  "hv_01": {
+    "id": "hv_01",
+    "tier": "house_vocab",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Name": "Person 1",
+        "Status": "Active",
+        "employee_id": "E1000"
+      },
+      {
+        "Name": "Person 10",
+        "Status": "On Leave",
+        "employee_id": "E1009"
+      },
+      {
+        "Name": "Person 100",
+        "Status": "Active",
+        "employee_id": "E1099"
+      },
+      {
+        "Name": "Person 101",
+        "Status": "Active",
+        "employee_id": "E1100"
+      },
+      {
+        "Name": "Person 102",
+        "Status": "Active",
+        "employee_id": "E1101"
+      },
+      {
+        "Name": "Person 103",
+        "Status": "Active",
+        "employee_id": "E1102"
+      },
+      {
+        "Name": "Person 104",
+        "Status": "Active",
+        "employee_id": "E1103"
+      },
+      {
+        "Name": "Person 105",
+        "Status": "Active",
+        "employee_id": "E1104"
+      },
+      {
+        "Name": "Person 106",
+        "Status": "Active",
+        "employee_id": "E1105"
+      },
+      {
+        "Name": "Person 107",
+        "Status": "Active",
+        "employee_id": "E1106"
+      },
+      {
+        "Name": "Person 108",
+        "Status": "Active",
+        "employee_id": "E1107"
+      },
+      {
+        "Name": "Person 109",
+        "Status": "Active",
+        "employee_id": "E1108"
+      },
+      {
+        "Name": "Person 11",
+        "Status": "Active",
+        "employee_id": "E1010"
+      },
+      {
+        "Name": "Person 110",
+        "Status": "Active",
+        "employee_id": "E1109"
+      },
+      {
+        "Name": "Person 111",
+        "Status": "Active",
+        "employee_id": "E1110"
+      },
+      {
+        "Name": "Person 112",
+        "Status": "Sabbatical",
+        "employee_id": "E1111"
+      },
+      {
+        "Name": "Person 113",
+        "Status": "Active",
+        "employee_id": "E1112"
+      },
+      {
+        "Name": "Person 114",
+        "Status": "Active",
+        "employee_id": "E1113"
+      },
+      {
+        "Name": "Person 115",
+        "Status": "Active",
+        "employee_id": "E1114"
+      },
+      {
+        "Name": "Person 116",
+        "Status": "Sabbatical",
+        "employee_id": "E1115"
+      },
+      {
+        "Name": "Person 117",
+        "Status": "Active",
+        "employee_id": "E1116"
+      },
+      {
+        "Name": "Person 118",
+        "Status": "Active",
+        "employee_id": "E1117"
+      },
+      {
+        "Name": "Person 119",
+        "Status": "Active",
+        "employee_id": "E1118"
+      },
+      {
+        "Name": "Person 120",
+        "Status": "Active",
+        "employee_id": "E1119"
+      },
+      {
+        "Name": "Person 121",
+        "Status": "Sabbatical",
+        "employee_id": "E1120"
+      },
+      {
+        "Name": "Person 122",
+        "Status": "Active",
+        "employee_id": "E1121"
+      },
+      {
+        "Name": "Person 123",
+        "Status": "Sabbatical",
+        "employee_id": "E1122"
+      },
+      {
+        "Name": "Person 126",
+        "Status": "Active",
+        "employee_id": "E1125"
+      },
+      {
+        "Name": "Person 127",
+        "Status": "Active",
+        "employee_id": "E1126"
+      },
+      {
+        "Name": "Person 128",
+        "Status": "Active",
+        "employee_id": "E1127"
+      },
+      {
+        "Name": "Person 129",
+        "Status": "Active",
+        "employee_id": "E1128"
+      },
+      {
+        "Name": "Person 13",
+        "Status": "Active",
+        "employee_id": "E1012"
+      },
+      {
+        "Name": "Person 130",
+        "Status": "Active",
+        "employee_id": "E1129"
+      },
+      {
+        "Name": "Person 131",
+        "Status": "Active",
+        "employee_id": "E1130"
+      },
+      {
+        "Name": "Person 132",
+        "Status": "Active",
+        "employee_id": "E1131"
+      },
+      {
+        "Name": "Person 135",
+        "Status": "Active",
+        "employee_id": "E1134"
+      },
+      {
+        "Name": "Person 136",
+        "Status": "Active",
+        "employee_id": "E1135"
+      },
+      {
+        "Name": "Person 137",
+        "Status": "On Leave",
+        "employee_id": "E1136"
+      },
+      {
+        "Name": "Person 138",
+        "Status": "Sabbatical",
+        "employee_id": "E1137"
+      },
+      {
+        "Name": "Person 139",
+        "Status": "Active",
+        "employee_id": "E1138"
+      },
+      {
+        "Name": "Person 14",
+        "Status": "On Leave",
+        "employee_id": "E1013"
+      },
+      {
+        "Name": "Person 140",
+        "Status": "Active",
+        "employee_id": "E1139"
+      },
+      {
+        "Name": "Person 141",
+        "Status": "Active",
+        "employee_id": "E1140"
+      },
+      {
+        "Name": "Person 142",
+        "Status": "Active",
+        "employee_id": "E1141"
+      },
+      {
+        "Name": "Person 143",
+        "Status": "On Leave",
+        "employee_id": "E1142"
+      },
+      {
+        "Name": "Person 144",
+        "Status": "On Leave",
+        "employee_id": "E1143"
+      },
+      {
+        "Name": "Person 145",
+        "Status": "Active",
+        "employee_id": "E1144"
+      },
+      {
+        "Name": "Person 146",
+        "Status": "Active",
+        "employee_id": "E1145"
+      },
+      {
+        "Name": "Person 147",
+        "Status": "Active",
+        "employee_id": "E1146"
+      },
+      {
+        "Name": "Person 148",
+        "Status": "Active",
+        "employee_id": "E1147"
+      },
+      {
+        "Name": "Person 149",
+        "Status": "Active",
+        "employee_id": "E1148"
+      },
+      {
+        "Name": "Person 15",
+        "Status": "Active",
+        "employee_id": "E1014"
+      },
+      {
+        "Name": "Person 150",
+        "Status": "Active",
+        "employee_id": "E1149"
+      },
+      {
+        "Name": "Person 16",
+        "Status": "Active",
+        "employee_id": "E1015"
+      },
+      {
+        "Name": "Person 17",
+        "Status": "Sabbatical",
+        "employee_id": "E1016"
+      },
+      {
+        "Name": "Person 18",
+        "Status": "Active",
+        "employee_id": "E1017"
+      },
+      {
+        "Name": "Person 19",
+        "Status": "Active",
+        "employee_id": "E1018"
+      },
+      {
+        "Name": "Person 2",
+        "Status": "Active",
+        "employee_id": "E1001"
+      },
+      {
+        "Name": "Person 20",
+        "Status": "Active",
+        "employee_id": "E1019"
+      },
+      {
+        "Name": "Person 21",
+        "Status": "Sabbatical",
+        "employee_id": "E1020"
+      },
+      {
+        "Name": "Person 22",
+        "Status": "Sabbatical",
+        "employee_id": "E1021"
+      },
+      {
+        "Name": "Person 23",
+        "Status": "Active",
+        "employee_id": "E1022"
+      },
+      {
+        "Name": "Person 24",
+        "Status": "Sabbatical",
+        "employee_id": "E1023"
+      },
+      {
+        "Name": "Person 25",
+        "Status": "On Leave",
+        "employee_id": "E1024"
+      },
+      {
+        "Name": "Person 26",
+        "Status": "Active",
+        "employee_id": "E1025"
+      },
+      {
+        "Name": "Person 27",
+        "Status": "Active",
+        "employee_id": "E1026"
+      },
+      {
+        "Name": "Person 28",
+        "Status": "Active",
+        "employee_id": "E1027"
+      },
+      {
+        "Name": "Person 29",
+        "Status": "Active",
+        "employee_id": "E1028"
+      },
+      {
+        "Name": "Person 3",
+        "Status": "Active",
+        "employee_id": "E1002"
+      },
+      {
+        "Name": "Person 31",
+        "Status": "Active",
+        "employee_id": "E1030"
+      },
+      {
+        "Name": "Person 33",
+        "Status": "Active",
+        "employee_id": "E1032"
+      },
+      {
+        "Name": "Person 34",
+        "Status": "Active",
+        "employee_id": "E1033"
+      },
+      {
+        "Name": "Person 35",
+        "Status": "Active",
+        "employee_id": "E1034"
+      },
+      {
+        "Name": "Person 36",
+        "Status": "Active",
+        "employee_id": "E1035"
+      },
+      {
+        "Name": "Person 37",
+        "Status": "Active",
+        "employee_id": "E1036"
+      },
+      {
+        "Name": "Person 38",
+        "Status": "Active",
+        "employee_id": "E1037"
+      },
+      {
+        "Name": "Person 39",
+        "Status": "Active",
+        "employee_id": "E1038"
+      },
+      {
+        "Name": "Person 4",
+        "Status": "On Leave",
+        "employee_id": "E1003"
+      },
+      {
+        "Name": "Person 40",
+        "Status": "Active",
+        "employee_id": "E1039"
+      },
+      {
+        "Name": "Person 41",
+        "Status": "Active",
+        "employee_id": "E1040"
+      },
+      {
+        "Name": "Person 42",
+        "Status": "Active",
+        "employee_id": "E1041"
+      },
+      {
+        "Name": "Person 43",
+        "Status": "On Leave",
+        "employee_id": "E1042"
+      },
+      {
+        "Name": "Person 44",
+        "Status": "Active",
+        "employee_id": "E1043"
+      },
+      {
+        "Name": "Person 45",
+        "Status": "Active",
+        "employee_id": "E1044"
+      },
+      {
+        "Name": "Person 46",
+        "Status": "Active",
+        "employee_id": "E1045"
+      },
+      {
+        "Name": "Person 47",
+        "Status": "Active",
+        "employee_id": "E1046"
+      },
+      {
+        "Name": "Person 48",
+        "Status": "Active",
+        "employee_id": "E1047"
+      },
+      {
+        "Name": "Person 49",
+        "Status": "Active",
+        "employee_id": "E1048"
+      },
+      {
+        "Name": "Person 5",
+        "Status": "On Leave",
+        "employee_id": "E1004"
+      },
+      {
+        "Name": "Person 50",
+        "Status": "Active",
+        "employee_id": "E1049"
+      },
+      {
+        "Name": "Person 51",
+        "Status": "Active",
+        "employee_id": "E1050"
+      },
+      {
+        "Name": "Person 52",
+        "Status": "Active",
+        "employee_id": "E1051"
+      },
+      {
+        "Name": "Person 53",
+        "Status": "Active",
+        "employee_id": "E1052"
+      },
+      {
+        "Name": "Person 54",
+        "Status": "Sabbatical",
+        "employee_id": "E1053"
+      },
+      {
+        "Name": "Person 55",
+        "Status": "Sabbatical",
+        "employee_id": "E1054"
+      },
+      {
+        "Name": "Person 56",
+        "Status": "Active",
+        "employee_id": "E1055"
+      },
+      {
+        "Name": "Person 57",
+        "Status": "Active",
+        "employee_id": "E1056"
+      },
+      {
+        "Name": "Person 59",
+        "Status": "Active",
+        "employee_id": "E1058"
+      },
+      {
+        "Name": "Person 6",
+        "Status": "Active",
+        "employee_id": "E1005"
+      },
+      {
+        "Name": "Person 60",
+        "Status": "Active",
+        "employee_id": "E1059"
+      },
+      {
+        "Name": "Person 61",
+        "Status": "Active",
+        "employee_id": "E1060"
+      },
+      {
+        "Name": "Person 62",
+        "Status": "Active",
+        "employee_id": "E1061"
+      },
+      {
+        "Name": "Person 63",
+        "Status": "Sabbatical",
+        "employee_id": "E1062"
+      },
+      {
+        "Name": "Person 64",
+        "Status": "Active",
+        "employee_id": "E1063"
+      },
+      {
+        "Name": "Person 65",
+        "Status": "Sabbatical",
+        "employee_id": "E1064"
+      },
+      {
+        "Name": "Person 66",
+        "Status": "Active",
+        "employee_id": "E1065"
+      },
+      {
+        "Name": "Person 67",
+        "Status": "Active",
+        "employee_id": "E1066"
+      },
+      {
+        "Name": "Person 68",
+        "Status": "Active",
+        "employee_id": "E1067"
+      },
+      {
+        "Name": "Person 69",
+        "Status": "Active",
+        "employee_id": "E1068"
+      },
+      {
+        "Name": "Person 7",
+        "Status": "Active",
+        "employee_id": "E1006"
+      },
+      {
+        "Name": "Person 70",
+        "Status": "Active",
+        "employee_id": "E1069"
+      },
+      {
+        "Name": "Person 71",
+        "Status": "Active",
+        "employee_id": "E1070"
+      },
+      {
+        "Name": "Person 72",
+        "Status": "Active",
+        "employee_id": "E1071"
+      },
+      {
+        "Name": "Person 73",
+        "Status": "Active",
+        "employee_id": "E1072"
+      },
+      {
+        "Name": "Person 74",
+        "Status": "Active",
+        "employee_id": "E1073"
+      },
+      {
+        "Name": "Person 75",
+        "Status": "Active",
+        "employee_id": "E1074"
+      },
+      {
+        "Name": "Person 76",
+        "Status": "Active",
+        "employee_id": "E1075"
+      },
+      {
+        "Name": "Person 77",
+        "Status": "Active",
+        "employee_id": "E1076"
+      },
+      {
+        "Name": "Person 78",
+        "Status": "Active",
+        "employee_id": "E1077"
+      },
+      {
+        "Name": "Person 79",
+        "Status": "Active",
+        "employee_id": "E1078"
+      },
+      {
+        "Name": "Person 8",
+        "Status": "Active",
+        "employee_id": "E1007"
+      },
+      {
+        "Name": "Person 80",
+        "Status": "Active",
+        "employee_id": "E1079"
+      },
+      {
+        "Name": "Person 81",
+        "Status": "Active",
+        "employee_id": "E1080"
+      },
+      {
+        "Name": "Person 82",
+        "Status": "Active",
+        "employee_id": "E1081"
+      },
+      {
+        "Name": "Person 83",
+        "Status": "Active",
+        "employee_id": "E1082"
+      },
+      {
+        "Name": "Person 84",
+        "Status": "Active",
+        "employee_id": "E1083"
+      },
+      {
+        "Name": "Person 86",
+        "Status": "Sabbatical",
+        "employee_id": "E1085"
+      },
+      {
+        "Name": "Person 87",
+        "Status": "Active",
+        "employee_id": "E1086"
+      },
+      {
+        "Name": "Person 88",
+        "Status": "Active",
+        "employee_id": "E1087"
+      },
+      {
+        "Name": "Person 89",
+        "Status": "Sabbatical",
+        "employee_id": "E1088"
+      },
+      {
+        "Name": "Person 9",
+        "Status": "Active",
+        "employee_id": "E1008"
+      },
+      {
+        "Name": "Person 90",
+        "Status": "Active",
+        "employee_id": "E1089"
+      },
+      {
+        "Name": "Person 91",
+        "Status": "Active",
+        "employee_id": "E1090"
+      },
+      {
+        "Name": "Person 92",
+        "Status": "On Leave",
+        "employee_id": "E1091"
+      },
+      {
+        "Name": "Person 93",
+        "Status": "Active",
+        "employee_id": "E1092"
+      },
+      {
+        "Name": "Person 95",
+        "Status": "Active",
+        "employee_id": "E1094"
+      },
+      {
+        "Name": "Person 97",
+        "Status": "Active",
+        "employee_id": "E1096"
+      },
+      {
+        "Name": "Person 98",
+        "Status": "Active",
+        "employee_id": "E1097"
+      },
+      {
+        "Name": "Person 99",
+        "Status": "Sabbatical",
+        "employee_id": "E1098"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 139,
+    "complexity_ops": null
+  },
+  "hv_02": {
+    "id": "hv_02",
+    "tier": "house_vocab",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 191228.384615,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": null
+  },
+  "hv_03": {
+    "id": "hv_03",
+    "tier": "house_vocab",
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Annual Salary": 332724.0,
+        "Name": "Person 32",
+        "employee_id": "E1031"
+      },
+      {
+        "Annual Salary": 332459.0,
+        "Name": "Person 82",
+        "employee_id": "E1081"
+      },
+      {
+        "Annual Salary": 330178.0,
+        "Name": "Person 115",
+        "employee_id": "E1114"
+      },
+      {
+        "Annual Salary": 329532.0,
+        "Name": "Person 59",
+        "employee_id": "E1058"
+      },
+      {
+        "Annual Salary": 326601.0,
+        "Name": "Person 123",
+        "employee_id": "E1122"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": null
+  },
+  "hv_04": {
+    "id": "hv_04",
+    "tier": "house_vocab",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 26,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": null
+  },
+  "hv_05": {
+    "id": "hv_05",
+    "tier": "house_vocab",
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Department": "Engineering",
+        "count": 26.0
+      },
+      {
+        "Department": "Finance",
+        "count": 33.0
+      },
+      {
+        "Department": "Marketing",
+        "count": 31.0
+      },
+      {
+        "Department": "Operations",
+        "count": 34.0
+      },
+      {
+        "Department": "Sales",
+        "count": 26.0
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5,
+    "complexity_ops": null
+  },
+  "hv_06": {
+    "id": "hv_06",
+    "tier": "house_vocab",
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 14.8,
+    "expected_behavior": "answer",
+    "row_count": 1,
+    "complexity_ops": null
+  },
+  "oor_01": {
+    "id": "oor_01",
+    "tier": "out_of_range",
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0,
+    "complexity_ops": null
+  },
+  "oor_02": {
+    "id": "oor_02",
+    "tier": "out_of_range",
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0,
+    "complexity_ops": null
+  },
+  "oor_03": {
+    "id": "oor_03",
+    "tier": "out_of_range",
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0,
+    "complexity_ops": null
+  },
+  "oor_04": {
+    "id": "oor_04",
+    "tier": "out_of_range",
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0,
+    "complexity_ops": null
+  },
+  "oor_05": {
+    "id": "oor_05",
+    "tier": "out_of_range",
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0,
+    "complexity_ops": null
+  },
+  "oor_06": {
+    "id": "oor_06",
+    "tier": "out_of_range",
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0,
+    "complexity_ops": null
+  },
+  "oor_07": {
+    "id": "oor_07",
+    "tier": "out_of_range",
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0,
+    "complexity_ops": null
+  },
+  "oor_08": {
+    "id": "oor_08",
+    "tier": "out_of_range",
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0,
+    "complexity_ops": null
+  },
+  "oor_09": {
+    "id": "oor_09",
+    "tier": "out_of_range",
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0,
+    "complexity_ops": null
+  },
+  "oor_10": {
+    "id": "oor_10",
+    "tier": "out_of_range",
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0,
+    "complexity_ops": null
+  }
+}

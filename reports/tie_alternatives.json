@@ -1,0 +1,126 @@
+{
+  "world_13": {
+    "domain": "world_1",
+    "tier": "order_by",
+    "rank_by": "SELECT Name ,  SurfaceArea ,  IndepYear, Population AS __rv FROM country",
+    "direction": "ASC",
+    "boundary": "0",
+    "multiplicity": 7,
+    "gold": [
+      {
+        "Name": "Antarctica",
+        "SurfaceArea": 13120000.0,
+        "IndepYear": null
+      }
+    ],
+    "alt_values": [
+      [
+        {
+          "Name": "Antarctica",
+          "SurfaceArea": 13120000.0,
+          "IndepYear": null
+        }
+      ],
+      [
+        {
+          "Name": "French Southern territories",
+          "SurfaceArea": 7780.0,
+          "IndepYear": null
+        }
+      ],
+      [
+        {
+          "Name": "Bouvet Island",
+          "SurfaceArea": 59.0,
+          "IndepYear": null
+        }
+      ],
+      [
+        {
+          "Name": "Heard Island and McDonald Islands",
+          "SurfaceArea": 359.0,
+          "IndepYear": null
+        }
+      ],
+      [
+        {
+          "Name": "British Indian Ocean Territory",
+          "SurfaceArea": 78.0,
+          "IndepYear": null
+        }
+      ],
+      [
+        {
+          "Name": "South Georgia and the South Sandwich Islands",
+          "SurfaceArea": 3903.0,
+          "IndepYear": null
+        }
+      ],
+      [
+        {
+          "Name": "United States Minor Outlying Islands",
+          "SurfaceArea": 16.0,
+          "IndepYear": null
+        }
+      ]
+    ],
+    "alt_rows": [
+      {
+        "Name": "Antarctica",
+        "SurfaceArea": 13120000.0,
+        "IndepYear": null
+      },
+      {
+        "Name": "French Southern territories",
+        "SurfaceArea": 7780.0,
+        "IndepYear": null
+      },
+      {
+        "Name": "Bouvet Island",
+        "SurfaceArea": 59.0,
+        "IndepYear": null
+      },
+      {
+        "Name": "Heard Island and McDonald Islands",
+        "SurfaceArea": 359.0,
+        "IndepYear": null
+      },
+      {
+        "Name": "British Indian Ocean Territory",
+        "SurfaceArea": 78.0,
+        "IndepYear": null
+      },
+      {
+        "Name": "South Georgia and the South Sandwich Islands",
+        "SurfaceArea": 3903.0,
+        "IndepYear": null
+      },
+      {
+        "Name": "United States Minor Outlying Islands",
+        "SurfaceArea": 16.0,
+        "IndepYear": null
+      }
+    ]
+  },
+  "bike_06": {
+    "domain": "bike_1",
+    "tier": "group_by",
+    "rank_by": "SELECT bike_id, COUNT(*) AS __rv FROM trip WHERE zip_code  =  94002 GROUP BY bike_id",
+    "direction": "DESC",
+    "boundary": "4",
+    "multiplicity": 2,
+    "gold": 679,
+    "alt_values": [
+      252,
+      679
+    ],
+    "alt_rows": [
+      {
+        "bike_id": 252
+      },
+      {
+        "bike_id": 679
+      }
+    ]
+  }
+}

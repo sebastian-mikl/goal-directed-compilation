@@ -1,0 +1,6 @@
+system,metric,value_pct,numerator,denominator
+text_to_sql,accuracy,92.6,125,135
+network,accuracy,88.9,120,135
+react,accuracy,85.2,115,135
+code_agent,accuracy,85.2,115,135
+planner,accuracy,76.3,103,135
