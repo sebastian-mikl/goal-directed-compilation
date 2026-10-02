@@ -1,0 +1,70 @@
+{
+  "dataset": {
+    "row_count": 12
+  },
+  "column_types": {
+    "text": [
+      "Name",
+      "Main_Services"
+    ],
+    "categorical": [
+      "Location"
+    ],
+    "numeric": [
+      "Annual_entry_exit",
+      "Annual_interchanges",
+      "Total_Passengers",
+      "Number_of_Platforms"
+    ],
+    "id": [
+      "Station_ID"
+    ],
+    "date": []
+  },
+  "columns": {
+    "Station_ID": {
+      "type": "id",
+      "match_strategy": "exact"
+    },
+    "Name": {
+      "type": "text",
+      "match_strategy": "exact"
+    },
+    "Annual_entry_exit": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "Annual_interchanges": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "Total_Passengers": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "Location": {
+      "type": "categorical",
+      "unique_count": 3,
+      "categories": [
+        "Birmingham",
+        "Glasgow",
+        "London"
+      ],
+      "match_strategy": "exact"
+    },
+    "Main_Services": {
+      "type": "text",
+      "match_strategy": "exact"
+    },
+    "Number_of_Platforms": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    }
+  },
+  "domain": {
+    "description": "The Spider (Yu et al., 2018) database train_station, with tables station, train and train_station.",
+    "source_note": "Spider (Yu et al., 2018) benchmark database train_station, used as-is -- schema and data are third-party, not authored for this project.",
+    "register_table": "station",
+    "register_table_note": "Single-table register by the pre-registered rule (heldout/PREREGISTRATION.md): 'station' is the only visible table; a question needing another table is a refusal case in this domain's corpus."
+  }
+}

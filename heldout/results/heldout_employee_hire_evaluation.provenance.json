@@ -1,0 +1,1188 @@
+{
+  "timestamp_utc": "2026-10-02T08:49:59.911343Z",
+  "model": "claude-sonnet-4-5",
+  "emission_model": "claude-sonnet-4-5",
+  "contract_version": "s49",
+  "temperature": 0,
+  "repetitions": [
+    0,
+    1
+  ],
+  "bounds": {
+    "react_max_iters": 15,
+    "code_max_retries": 12,
+    "per_query_timeout_s": 60
+  },
+  "pricing": {
+    "claude-sonnet-4-5": {
+      "input": 3.0,
+      "output": 15.0
+    },
+    "claude-haiku-4-5": {
+      "input": 1.0,
+      "output": 5.0
+    }
+  },
+  "cache": {
+    "enabled": true,
+    "control": "ephemeral on last system block (caches tools+system)",
+    "multipliers": {
+      "cache_write": 1.25,
+      "cache_read": 0.1
+    },
+    "min_cacheable_tokens": 1024,
+    "prefix_sizes": [
+      {
+        "system": "network",
+        "system_chars": 5820,
+        "tool_chars": 0,
+        "est_tokens": 1455,
+        "min_cacheable": 1024,
+        "below_min": false
+      },
+      {
+        "system": "planner",
+        "system_chars": 1292,
+        "tool_chars": 0,
+        "est_tokens": 323,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "react",
+        "system_chars": 701,
+        "tool_chars": 2477,
+        "est_tokens": 794,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "code_agent",
+        "system_chars": 795,
+        "tool_chars": 632,
+        "est_tokens": 356,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "text_to_sql",
+        "system_chars": 686,
+        "tool_chars": 338,
+        "est_tokens": 255,
+        "min_cacheable": 1024,
+        "below_min": true
+      }
+    ],
+    "note": "uniform infra optimization applied identically to all 5 systems; lowers $ but NOT raw token / call counts. Paper cost metrics = calls + RAW tokens (cache-blind); cost_usd_cached is the practical bill."
+  },
+  "corpus_path": "heldout/eval_corpus_spider_employee_hire_evaluation.json",
+  "corpus_sha256": "1ac18860b477ef521847dddb24de5b436ce8fc3120793ffb848f87cd9d3caac8",
+  "gold_path": "heldout/gold/gold_spider_employee_hire_evaluation.json",
+  "gold_sha256": "20149cb12972fbc8f7d0fda5e73a46ace45bc813a597178c5bb7aa30543b1693",
+  "comparator_version": "s48",
+  "network_prompt_version": "s45",
+  "refuse_unsupported": false,
+  "git_commit": "5bf429e68e232033135c68272635234b2c55423e",
+  "lib_versions": {
+    "anthropic": "0.120.2",
+    "pandas": "3.0.5",
+    "numpy": "2.5.1",
+    "python": "3.14.6",
+    "sqlite": "3.53.4",
+    "sqlite3_module": null
+  },
+  "prompts": {
+    "network": "You translate an analytical request over a tabular dataset (see the\nschema below) into a declarative GOAL plus a separate ORDER spec.\n\nThe GOAL is the SHAPE of the result relation (a set of rows \u2014 UNORDERED). The ORDER spec is\nPRESENTATION ONLY (ranking / top-N) and lives OUTSIDE the goal.\n\nBase columns:\n  - shop_id: id [match: exact]\n  - name: text [match: exact]\n  - location: text [match: exact]\n  - district: text [match: exact]\n  - number_products: numeric [match: numeric_compare]\n  - manager_name: text [match: exact]\nCONTEXT (advisory \u2014 background for interpreting the request; NOT enforced rules):\n  The Spider (Yu et al., 2018) database employee_hire_evaluation, with tables employee, shop, hiring and evaluation.\n\nReturn ONLY a JSON object: {\"goal\": {...}, \"order\": {...}}.\n\n\"goal\":\n  \"columns\": [\"<name>\", ...]                  result columns (derived names allowed)\n  \"grain\":   \"row\"  OR  {\"grouped_by\": [\"<col>\", ...]}\n  \"where\":   [{\"col\": \"<c>\", \"op\": \"==|!=|<|<=|>|>=|in|contains\", \"val\": <value>}, ...]\n  \"derive\":  [{\"name\": \"<new>\", \"expr\": \"<expr>\"}, ...]\n             expr is \"fn(col)\" for an aggregate (fn \u2208 sum/avg/count/min/max/count_distinct),\n             or \"colA <op> colB\" for a computed column (op \u2208 + - * /).\n             \"how many DISTINCT / unique / different <col>\" is count_distinct(col) \u2014\n             plain count(col) counts ROWS, not distinct values.\n\n\"order\" (presentation; NEVER put ordering inside the goal):\n  \"order_by\": [{\"col\": \"<result col>\", \"dir\": \"asc|desc\"}, ...]   (may be empty)\n  \"limit\":    <int>  or  null\n\nCONTRACT (violations make it invalid \u2014 do not emit them):\n  - NO ordering/sorting/ranking/top-k inside the goal. Ranking goes ONLY in \"order\".\n  - At MOST ONE aggregate derive entry.\n  - A GLOBAL aggregate over all rows uses grain {\"grouped_by\": []}, not \"row\".\n    (grain \"row\" cannot carry an aggregate; any aggregate requires grouped grain.)\n  - A SCALAR AGGREGATE query \u2014 \"the highest / lowest / largest / smallest / max / min /\n    total / average / count of <column>\" \u2014 has as its output EXACTLY ONE derived aggregate\n    field, at the query's grain (global grain {\"grouped_by\": []} when ungrouped). Put only\n    that derived field in \"columns\"; do NOT also list the underlying raw <column>, nor any\n    other per-row column (title, id, owner, \u2026) \u2014 a row-grain column cannot coexist with a\n    global or grouped aggregate in one output, so the goal becomes unreachable. max and min\n    are scalar aggregates exactly like sum / average / count (they are NOT a request to\n    return the row).\n  - DISTINCT \u2014 ROW SELECTION: \"the N entries with the highest / lowest <column>\" is NOT an\n    aggregate. List the requested columns at row grain and put the ranking in \"order\"\n    (order_by <column> desc/asc, limit N), never in the goal.\n  - IMPLICIT RANKING \u2014 asking for an attribute OF the single best/worst entity\n    (\"the <attribute> of the oldest/largest/cheapest <entity>\", \"which <entity> has\n    the highest <metric>\") IS a top-1 ranking: emit \"order\" with order_by on the\n    deciding column (desc for highest/most, asc for lowest/least/fewest) and\n    limit 1, exactly as if the request said \"top 1\" \u2014 never a plain unordered\n    listing. This rule RECOGNIZES that a ranking is required at all; the next rule\n    governs the goal's output once any order_by exists. GUARDS: a request for the\n    VALUE of a maximum/minimum itself (\"the highest <column>\") stays a SCALAR\n    AGGREGATE (rule above) \u2014 no order, no limit; and a superlative that does not\n    single out one entity (\"most <rows> are <X>\", share comparisons) is NOT a\n    ranking \u2014 do not add order or limit there.\n  - EVERY \"order_by\" column must be part of the goal's OUTPUT: either listed in\n    \"columns\" or introduced as a \"derive\" name. This INCLUDES a ranking column the\n    request does not ask to be displayed \u2014 \"the <entity> with the highest <metric>\"\n    outputs the entity column but ranks by <metric>, so <metric> must ALSO appear in\n    \"columns\" (or in \"derive\" when it is computed). An order_by column missing from\n    the goal's output violates the contract: the request is refused, never repaired.\n  - Use only the base columns plus names introduced in \"derive\".\n\nFILTER VALUES: when a column lists `(values: ...)`, a filter on it must use one of\nthose EXACT values (op \"==\" or \"in\"), or op \"contains\" for a [match: contains] column.\nDo NOT invent a value that is not in the list.\n\nRULES (authoritative \u2014 these definitions are enforced):\n  - Respect each column's [match: ...]: use op \"contains\" for contains-matched columns, and an exact listed value (\"==\" or \"in\") for categoricals.\n\nReturn JSON only \u2014 no prose, no code fences.",
+    "planner": "You answer an analytical query over a tabular register. Emit a JSON object with one key, \"plan\",\nwhose value is a LIST of step dicts. Each step is one of these operations applied to a NAMED\nframe (start name: \"register\"). Each step produces a new named frame \"f0\",\"f1\",\u2026 for the next.\n\nThe 5 step ops (mirrors the Network's primitives + one ordering step):\n  - {\"op\":\"filter\",\"input\":\"<frame>\",\"predicates\":[{\"col\":\"...\",\"op\":\"==/!=/</<=/>/>=/in/contains\",\"value\":...}]}\n  - {\"op\":\"select\",\"input\":\"<frame>\",\"columns\":[\"...\"]}                         # project columns\n  - {\"op\":\"compute\",\"input\":\"<frame>\",\"new_col\":\"...\",\"expr\":\"ColA OP ColB\"}    # +,-,*,/\n  - {\"op\":\"aggregate\",\"input\":\"<frame>\",\"group_by\":[]|[\"col\"],\"value_col\":\"...\",\"agg\":\"sum|mean|count|min|max\"}\n  - {\"op\":\"order\",\"input\":\"<frame>\",\"order_by\":[{\"col\":\"...\",\"dir\":\"asc|desc\"}],\"limit\":<int>?}\n\nAt the end, your last step's output frame IS the final answer. ALSO include a \"final_frame\" key\nnaming that frame (e.g. \"f3\"). NO commentary outside the JSON.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: The Spider (Yu et al., 2018) database employee_hire_evaluation, with tables employee, shop, hiring and evaluation.\n\nREGISTER COLUMNS (verbatim):\n'Shop_ID', 'Name', 'Location', 'District', 'Number_products', 'Manager_name'\n",
+    "react": "You answer an analytical query over a tabular register using exactly five tools (declarative\nprimitives, the same the Network uses): filter, select (project), aggregate, compute, order\n(sort + optional limit). Start from a frame named \"register\"; each tool reads a frame and produces\na new named frame \"f0\",\"f1\",\u2026 Call final_answer with the name of the frame that IS the answer\n(a 1x1 frame for a scalar; a multi-row frame for a list).\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: The Spider (Yu et al., 2018) database employee_hire_evaluation, with tables employee, shop, hiring and evaluation.\n\nREGISTER COLUMNS (verbatim):\n'Shop_ID', 'Name', 'Location', 'District', 'Number_products', 'Manager_name'\n",
+    "code_agent": "You answer an analytical query over a pandas DataFrame `df` (9-row register).\nUse run_python to compute. ALWAYS store your answer in `result = ...` (a DataFrame,\nSeries, or scalar) \u2014 do NOT use print(). A compact summary of `result` is returned to you.\nOnce you have verified the answer is correct, call final_answer with code that sets `result`.\nBe efficient \u2014 at most a few attempts.\n\nIf the query genuinely cannot be answered from this data, STOP with a plain-text reply\nexplaining you cannot, instead of fabricating a result.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: The Spider (Yu et al., 2018) database employee_hire_evaluation, with tables employee, shop, hiring and evaluation.\n\nREGISTER COLUMNS (verbatim):\n'Shop_ID', 'Name', 'Location', 'District', 'Number_products', 'Manager_name'\n",
+    "text_to_sql": "You answer an analytical query over a single sqlite table `register` (9 rows).\nEmit EXACTLY ONE SELECT statement via the run_sql tool. Quote column names with\nspaces / parens like \"Unit Price (Net)\". No commentary outside the tool call.\n\nIf the query genuinely cannot be answered from this table, reply with plain text\nexplaining you cannot, instead of emitting SQL.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: The Spider (Yu et al., 2018) database employee_hire_evaluation, with tables employee, shop, hiring and evaluation.\n\nTABLE COLUMNS (verbatim \u2014 sqlite identifiers, quote when they contain spaces/parens):\n'Shop_ID', 'Name', 'Location', 'District', 'Number_products', 'Manager_name'\n"
+  },
+  "env": {
+    "ANTHROPIC_API_KEY_present": true
+  },
+  "heldout": {
+    "script": "heldout/run_heldout.py",
+    "frozen_sha256": "286ac45a110b009d919b2baa6d76e216450b0aac21f2374339feefbef8e54f2c",
+    "seeds": [
+      0,
+      1
+    ],
+    "gdc_prompt_version_sent": "s45",
+    "gdc_prompt_derivation": "frozen s48 rendering with S48_BLOCKS removed",
+    "s45_verification": {
+      "wta_1": {
+        "recorded_sha256": "c37aab9ff84a2a1f78e9ea92ae6d8ca45387b1c84dcd6b92c62fef9d53ac379b",
+        "derived_sha256": "c37aab9ff84a2a1f78e9ea92ae6d8ca45387b1c84dcd6b92c62fef9d53ac379b",
+        "identical": true
+      },
+      "world_1": {
+        "recorded_sha256": "de7a977a28e4dd4420707b5797f8a7b72fbc527da65b028feb6c4eefe655760f",
+        "derived_sha256": "de7a977a28e4dd4420707b5797f8a7b72fbc527da65b028feb6c4eefe655760f",
+        "identical": true
+      },
+      "bike_1": {
+        "recorded_sha256": "5b73b145ecf7fee7210a68cfa3412141a623d5b0e6202e0d0a390af55277dfcd",
+        "derived_sha256": "5b73b145ecf7fee7210a68cfa3412141a623d5b0e6202e0d0a390af55277dfcd",
+        "identical": true
+      }
+    },
+    "fixed_code": {
+      "checks": {
+        "engine: one arithmetic grammar for plan search and executor": true,
+        "engine: stable total-order sort": true,
+        "engine: executed step checked against its planned state": true,
+        "engine: typed refusal of an undeclared aggregate": true,
+        "code_agent: one namespace per episode": true,
+        "code_agent: labelled index kept": true,
+        "code_agent: tool description states the frame": true,
+        "code_agent: tool description says variables persist": true
+      },
+      "contract_version": "s49",
+      "sqlite": {
+        "sqlite_version": "3.53.4",
+        "sqlite3_module_version": null,
+        "functions": {
+          "median": true,
+          "percentile": true,
+          "corr": false
+        }
+      },
+      "sha256": {
+        "evidence/eval_run/adapters/__init__.py": "bee6bd0657183d148956da890071a9fc569b044ededb91aaed4b9d609a2090b6",
+        "evidence/eval_run/adapters/base.py": "fcb786c6d28ce9e93e1688844e40f983d0cc92f8c4d1100b98815847bbde4199",
+        "evidence/eval_run/adapters/code_agent.py": "121afebffe585a080fc696299e7a5f3b78114a7537e3444d723e08c3dd7e742c",
+        "evidence/eval_run/adapters/network.py": "82152f88b1e194f33fce414b422599eeb82b4ee56d4dfb5c2f15066912003d10",
+        "evidence/eval_run/adapters/planner_upfront.py": "df95bb1c4887a1b3ba1d707d4148f02d9e460c7c3ffca8db0bbf39a53a8853bd",
+        "evidence/eval_run/adapters/react.py": "49f7e8b9595238844cb8d1f5efc392f5601311b72e3faa070e4071a87211f5a1",
+        "evidence/eval_run/adapters/text_to_sql.py": "16aa4c540e4191c54ff8cbd45e4855f771a5798b802510cf192c53698d22d72a",
+        "evidence/eval_run/harness.py": "93308ae4cd76c5923cef3aa7d4d43d9dd14f6bd2084e91fb1d323126ea6afc88",
+        "evidence/eval_run/tools_code.py": "9814a30fc737267b72838475e78d9a090cd740ed65dafdbabb26aa62d51b0304",
+        "evidence/eval_run/tools_decl.py": "b1b71828bbba5566d36985fc1b767812469b7d495cff579053a25f4cd5229e1a",
+        "evidence/eval_run/tools_sql.py": "0c8d7004e4df33ab2a50095dd1ed758543c52bd589eb2c87236df34e6e1f3f3b",
+        "gdc/primitives.py": "720241fd4a99c05dd0990bc281a1515e175b7c0420daa1c01a09592249dba22d",
+        "planner/__init__.py": "27a4257e36206eb93f2ad90e7f955745462ef81f7b2173120c33cb730958e223",
+        "planner/contract.py": "988406820a84bd4ec95cd4dd77e5702d70ef9215c5227b2af622997fe1fba82e",
+        "planner/declaration_probe.py": "36deb1d134190ef9d2fd2caa26cc8e267da6923c9c9425679b13944d4a8d1845",
+        "planner/integrate.py": "bc1116262cb7c89c69a9c8d71d87cd1d47a62401dda8597b22bb0c105c87c11a",
+        "planner/llm.py": "4098ec47604c136b2da528d31ff8233609d8dda2a8a80a2e434350dd847dd4dc",
+        "planner/operators.py": "b69fe46663e4a08b49f82613c09f43bea55071f6fb5e7117b3ac58ff3dd4b374",
+        "planner/order.py": "f57d869e24d62904ab27d1cd391e2b56e720456e6978de813d3a57727b1279a2",
+        "planner/probe.py": "ee85ceb2f4b9173d0137e09849ddcb261c92ad5c6987973c1a9d5ef9084e89d8",
+        "planner/schema_bridge.py": "2e90ab7077de1a4823e35ec5d775fbe7080ca4884180d600037abe0c392d6fbc",
+        "planner/search.py": "6abdde4cef65d6f33828d5a309d9923eddc07b80561efaf36dd4e3e1566c56fd",
+        "planner/state.py": "e5b03aa0d4091075f461d99f43557d30d8d30b50fc0a96e9e5635b8baa78dad2"
+      }
+    },
+    "cap_usd": 15.0,
+    "domain": "employee_hire_evaluation",
+    "plan_keys": [
+      [
+        "code_agent",
+        "hire_01",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_01",
+        1
+      ],
+      [
+        "code_agent",
+        "hire_02",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_02",
+        1
+      ],
+      [
+        "code_agent",
+        "hire_03",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_03",
+        1
+      ],
+      [
+        "code_agent",
+        "hire_04",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_04",
+        1
+      ],
+      [
+        "code_agent",
+        "hire_05",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_05",
+        1
+      ],
+      [
+        "code_agent",
+        "hire_06",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_06",
+        1
+      ],
+      [
+        "code_agent",
+        "hire_08",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_08",
+        1
+      ],
+      [
+        "code_agent",
+        "hire_10",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_10",
+        1
+      ],
+      [
+        "code_agent",
+        "hire_11",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_11",
+        1
+      ],
+      [
+        "code_agent",
+        "hire_12",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_12",
+        1
+      ],
+      [
+        "code_agent",
+        "hire_13",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_13",
+        1
+      ],
+      [
+        "code_agent",
+        "hire_14",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_14",
+        1
+      ],
+      [
+        "code_agent",
+        "hire_15",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_15",
+        1
+      ],
+      [
+        "code_agent",
+        "hire_16",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_16",
+        1
+      ],
+      [
+        "code_agent",
+        "hire_17",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_17",
+        1
+      ],
+      [
+        "code_agent",
+        "hire_19",
+        0
+      ],
+      [
+        "code_agent",
+        "hire_19",
+        1
+      ],
+      [
+        "network",
+        "hire_01",
+        0
+      ],
+      [
+        "network",
+        "hire_01",
+        1
+      ],
+      [
+        "network",
+        "hire_02",
+        0
+      ],
+      [
+        "network",
+        "hire_02",
+        1
+      ],
+      [
+        "network",
+        "hire_03",
+        0
+      ],
+      [
+        "network",
+        "hire_03",
+        1
+      ],
+      [
+        "network",
+        "hire_04",
+        0
+      ],
+      [
+        "network",
+        "hire_04",
+        1
+      ],
+      [
+        "network",
+        "hire_05",
+        0
+      ],
+      [
+        "network",
+        "hire_05",
+        1
+      ],
+      [
+        "network",
+        "hire_06",
+        0
+      ],
+      [
+        "network",
+        "hire_06",
+        1
+      ],
+      [
+        "network",
+        "hire_07",
+        0
+      ],
+      [
+        "network",
+        "hire_07",
+        1
+      ],
+      [
+        "network",
+        "hire_08",
+        0
+      ],
+      [
+        "network",
+        "hire_08",
+        1
+      ],
+      [
+        "network",
+        "hire_09",
+        0
+      ],
+      [
+        "network",
+        "hire_09",
+        1
+      ],
+      [
+        "network",
+        "hire_10",
+        0
+      ],
+      [
+        "network",
+        "hire_10",
+        1
+      ],
+      [
+        "network",
+        "hire_11",
+        0
+      ],
+      [
+        "network",
+        "hire_11",
+        1
+      ],
+      [
+        "network",
+        "hire_12",
+        0
+      ],
+      [
+        "network",
+        "hire_12",
+        1
+      ],
+      [
+        "network",
+        "hire_13",
+        0
+      ],
+      [
+        "network",
+        "hire_13",
+        1
+      ],
+      [
+        "network",
+        "hire_14",
+        0
+      ],
+      [
+        "network",
+        "hire_14",
+        1
+      ],
+      [
+        "network",
+        "hire_15",
+        0
+      ],
+      [
+        "network",
+        "hire_15",
+        1
+      ],
+      [
+        "network",
+        "hire_16",
+        0
+      ],
+      [
+        "network",
+        "hire_16",
+        1
+      ],
+      [
+        "network",
+        "hire_17",
+        0
+      ],
+      [
+        "network",
+        "hire_17",
+        1
+      ],
+      [
+        "network",
+        "hire_18",
+        0
+      ],
+      [
+        "network",
+        "hire_18",
+        1
+      ],
+      [
+        "network",
+        "hire_19",
+        0
+      ],
+      [
+        "network",
+        "hire_19",
+        1
+      ],
+      [
+        "planner",
+        "hire_01",
+        0
+      ],
+      [
+        "planner",
+        "hire_01",
+        1
+      ],
+      [
+        "planner",
+        "hire_02",
+        0
+      ],
+      [
+        "planner",
+        "hire_02",
+        1
+      ],
+      [
+        "planner",
+        "hire_03",
+        0
+      ],
+      [
+        "planner",
+        "hire_03",
+        1
+      ],
+      [
+        "planner",
+        "hire_04",
+        0
+      ],
+      [
+        "planner",
+        "hire_04",
+        1
+      ],
+      [
+        "planner",
+        "hire_05",
+        0
+      ],
+      [
+        "planner",
+        "hire_05",
+        1
+      ],
+      [
+        "planner",
+        "hire_06",
+        0
+      ],
+      [
+        "planner",
+        "hire_06",
+        1
+      ],
+      [
+        "planner",
+        "hire_08",
+        0
+      ],
+      [
+        "planner",
+        "hire_08",
+        1
+      ],
+      [
+        "planner",
+        "hire_10",
+        0
+      ],
+      [
+        "planner",
+        "hire_10",
+        1
+      ],
+      [
+        "planner",
+        "hire_11",
+        0
+      ],
+      [
+        "planner",
+        "hire_11",
+        1
+      ],
+      [
+        "planner",
+        "hire_12",
+        0
+      ],
+      [
+        "planner",
+        "hire_12",
+        1
+      ],
+      [
+        "planner",
+        "hire_13",
+        0
+      ],
+      [
+        "planner",
+        "hire_13",
+        1
+      ],
+      [
+        "planner",
+        "hire_14",
+        0
+      ],
+      [
+        "planner",
+        "hire_14",
+        1
+      ],
+      [
+        "planner",
+        "hire_15",
+        0
+      ],
+      [
+        "planner",
+        "hire_15",
+        1
+      ],
+      [
+        "planner",
+        "hire_16",
+        0
+      ],
+      [
+        "planner",
+        "hire_16",
+        1
+      ],
+      [
+        "planner",
+        "hire_17",
+        0
+      ],
+      [
+        "planner",
+        "hire_17",
+        1
+      ],
+      [
+        "planner",
+        "hire_19",
+        0
+      ],
+      [
+        "planner",
+        "hire_19",
+        1
+      ],
+      [
+        "react",
+        "hire_01",
+        0
+      ],
+      [
+        "react",
+        "hire_01",
+        1
+      ],
+      [
+        "react",
+        "hire_02",
+        0
+      ],
+      [
+        "react",
+        "hire_02",
+        1
+      ],
+      [
+        "react",
+        "hire_03",
+        0
+      ],
+      [
+        "react",
+        "hire_03",
+        1
+      ],
+      [
+        "react",
+        "hire_04",
+        0
+      ],
+      [
+        "react",
+        "hire_04",
+        1
+      ],
+      [
+        "react",
+        "hire_05",
+        0
+      ],
+      [
+        "react",
+        "hire_05",
+        1
+      ],
+      [
+        "react",
+        "hire_06",
+        0
+      ],
+      [
+        "react",
+        "hire_06",
+        1
+      ],
+      [
+        "react",
+        "hire_08",
+        0
+      ],
+      [
+        "react",
+        "hire_08",
+        1
+      ],
+      [
+        "react",
+        "hire_10",
+        0
+      ],
+      [
+        "react",
+        "hire_10",
+        1
+      ],
+      [
+        "react",
+        "hire_11",
+        0
+      ],
+      [
+        "react",
+        "hire_11",
+        1
+      ],
+      [
+        "react",
+        "hire_12",
+        0
+      ],
+      [
+        "react",
+        "hire_12",
+        1
+      ],
+      [
+        "react",
+        "hire_13",
+        0
+      ],
+      [
+        "react",
+        "hire_13",
+        1
+      ],
+      [
+        "react",
+        "hire_14",
+        0
+      ],
+      [
+        "react",
+        "hire_14",
+        1
+      ],
+      [
+        "react",
+        "hire_15",
+        0
+      ],
+      [
+        "react",
+        "hire_15",
+        1
+      ],
+      [
+        "react",
+        "hire_16",
+        0
+      ],
+      [
+        "react",
+        "hire_16",
+        1
+      ],
+      [
+        "react",
+        "hire_17",
+        0
+      ],
+      [
+        "react",
+        "hire_17",
+        1
+      ],
+      [
+        "react",
+        "hire_19",
+        0
+      ],
+      [
+        "react",
+        "hire_19",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_01",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_01",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_02",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_02",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_03",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_03",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_04",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_04",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_05",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_05",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_06",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_06",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_08",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_08",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_10",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_10",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_11",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_11",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_12",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_12",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_13",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_13",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_14",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_14",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_15",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_15",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_16",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_16",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_17",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_17",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hire_19",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hire_19",
+        1
+      ]
+    ],
+    "plan_keys_sha256": "54c3791c7a38189a26ed791e825a1fd88a976214fdec522e2f15c96530699475",
+    "sent_calls_by_sha256": {
+      "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7": 38,
+      "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919": 32,
+      "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256": 75,
+      "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102": 120,
+      "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f": 32
+    },
+    "cell_prompt": {
+      "network/hire_01/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_01/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_02/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_02/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_03/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_03/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_04/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_04/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_05/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_05/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_06/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_06/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_07/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_07/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_08/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_08/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_09/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_09/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_10/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_10/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_11/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_11/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_12/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_12/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_13/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_13/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_14/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_14/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_15/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_15/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_16/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_16/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_17/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_17/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_18/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_18/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_19/0": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "network/hire_19/1": "4cdcfd8850ae4b240d213d10d07dd7bec3e5799d5aab46a5e3f82ad20ad8e5b7",
+      "planner/hire_01/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_01/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_02/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_02/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_03/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_03/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_04/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_04/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_05/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_05/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_06/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_06/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_08/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_08/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_10/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_10/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_11/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_11/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_12/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_12/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_13/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_13/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_14/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_14/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_15/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_15/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_16/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_16/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_17/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_17/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_19/0": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "planner/hire_19/1": "3f281f131e8a749fa725cf200f4c1e891e4ecab08138dfa031e76fe1bc8a6919",
+      "react/hire_01/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_01/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_02/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_02/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_03/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_03/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_04/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_04/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_05/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_05/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_06/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_06/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_08/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_08/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_10/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_10/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_11/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_11/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_12/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_12/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_13/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_13/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_14/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_14/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_15/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_15/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_16/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_16/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_17/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_17/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_19/0": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "react/hire_19/1": "54a8d2af6745a4b7ca63c40c5c05d78540ea407f5a41c645a77899a003df2256",
+      "code_agent/hire_01/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_01/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_02/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_02/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_03/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_03/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_04/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_04/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_05/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_05/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_06/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_06/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_08/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_08/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_10/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_10/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_11/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_11/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_12/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_12/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_13/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_13/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_14/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_14/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_15/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_15/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_16/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_16/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_17/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_17/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_19/0": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "code_agent/hire_19/1": "126a71de4e5fa7d65e511ac0e4396447be48b1da60a56904170f6349c3423102",
+      "text_to_sql/hire_01/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_01/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_02/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_02/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_03/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_03/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_04/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_04/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_05/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_05/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_06/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_06/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_08/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_08/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_10/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_10/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_11/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_11/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_12/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_12/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_13/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_13/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_14/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_14/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_15/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_15/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_16/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_16/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_17/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_17/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_19/0": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f",
+      "text_to_sql/hire_19/1": "13cba1adde6040ec7b5e4dd3b300d15268b9b7fbb1d1993b652939e114fc569f"
+    }
+  }
+}

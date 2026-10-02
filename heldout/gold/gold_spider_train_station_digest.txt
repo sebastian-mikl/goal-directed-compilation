@@ -1,0 +1,96 @@
+GOLD DIGEST -- train_station (Spider third-party gold, executed verbatim against the real .sqlite)
+
+[station_01] (aggregate)  How many train stations are there?
+    SQL: SELECT count(*) FROM station
+    GOLD (scalar, ordered=False, rows=1): 12
+
+[station_02] (filter)  Show the name, location, and number of platforms for all stations.
+    SQL: SELECT name ,  LOCATION ,  number_of_platforms FROM station
+    GOLD (table, ordered=False, rows=12): [{"Name": "Birmingham New Street", "Location": "Birmingham", "Number_of_Platforms": 13}, {"Name": "East Croydon", "Location": "London", "Number_of_Platforms": 6}, {"Name": "Glasgow Central", "Location": "Glasgow", "Number_of_Platforms": 17}, {"Name": "London Bridge", "Location": "London", "Number_of_Platforms": 12}, {"Name": "London Charing Cross", "Location": "London", "Number_of_Platforms": 6}, {"Name": "London Euston", "Location": "London", "Number_of_Platforms": 18}] … (+6 more)
+
+[station_03] (out_of_contract_aggregate)  What are all locations of train stations?
+    SQL: SELECT DISTINCT LOCATION FROM station
+    GOLD (table, ordered=False, rows=3): [{"Location": "Birmingham"}, {"Location": "Glasgow"}, {"Location": "London"}]
+
+[station_04] (filter)  Show the names and total passengers for all train stations not in London.
+    SQL: SELECT name ,  total_passengers FROM station WHERE LOCATION != 'London'
+    GOLD (table, ordered=False, rows=2): [{"Name": "Birmingham New Street", "Total_Passengers": 36.331}, {"Name": "Glasgow Central", "Total_Passengers": 29.658}]
+
+[station_05] (order_by)  Show the names and main services for train stations that have the top three total number of passengers.
+    SQL: SELECT name ,  main_services FROM station ORDER BY total_passengers DESC LIMIT 3
+    GOLD (ordered_list, ordered=True, rows=3): [{"Name": "London Waterloo", "Main_Services": "South Western Main Line West of England Main Line"}, {"Name": "London Victoria", "Main_Services": "Brighton Main Line Chatham Main Line"}, {"Name": "London Bridge", "Main_Services": "South Eastern Main Line Thameslink"}]
+
+[station_06] (out_of_contract_aggregate)  What is the average and maximum number of total passengers for train stations in London or Glasgow?
+    SQL: SELECT avg(total_passengers) ,  max(total_passengers) FROM station WHERE LOCATION  =  'London' OR LOCATION  =  'Glasgow'
+    GOLD (table, ordered=False, rows=1): [{"avg(total_passengers)": 48.015, "max(total_passengers)": 103.534}]
+
+[station_07] (out_of_contract_aggregate)  Show all locations and the total number of platforms and passengers for all train stations in each location.
+    SQL: SELECT LOCATION ,  sum(number_of_platforms) ,  sum(total_passengers) FROM station GROUP BY LOCATION
+    GOLD (table, ordered=False, rows=3): [{"Location": "Birmingham", "sum(number_of_platforms)": 13, "sum(total_passengers)": 36.331}, {"Location": "Glasgow", "sum(number_of_platforms)": 17, "sum(total_passengers)": 29.658}, {"Location": "London", "sum(number_of_platforms)": 140, "sum(total_passengers)": 498.507}]
+
+[station_08] (out_of_contract_aggregate)  Show all locations that have train stations with at least 15 platforms and train stations with more than 25 total passengers.
+    SQL: SELECT DISTINCT LOCATION FROM station WHERE number_of_platforms  >=  15 AND total_passengers  >  25
+    GOLD (table, ordered=False, rows=2): [{"Location": "Glasgow"}, {"Location": "London"}]
+
+[station_09] (out_of_contract_aggregate)  Show all locations which don't have a train station with at least 15 platforms.
+    SQL: SELECT LOCATION FROM station EXCEPT SELECT LOCATION FROM station WHERE number_of_platforms  >=  15
+    GOLD (scalar, ordered=False, rows=1): "Birmingham"
+
+[station_10] (group_by)  Show the location with most number of train stations.
+    SQL: SELECT LOCATION FROM station GROUP BY LOCATION ORDER BY count(*) DESC LIMIT 1
+    GOLD (scalar, ordered=False, rows=1): "London"
+
+[station_11] (out_of_scope_register)  Show the name, time, and service for all trains.
+    SQL: SELECT name ,  TIME ,  service FROM train
+    GOLD: REFUSE -- reads table(s) ['train'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.
+
+[station_12] (out_of_scope_register)  Show the number of trains
+    SQL: SELECT count(*) FROM train
+    GOLD: REFUSE -- reads table(s) ['train'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.
+
+[station_13] (out_of_scope_register)  Show the name and service for all trains in order by time.
+    SQL: SELECT name ,  service FROM train ORDER BY TIME
+    GOLD: REFUSE -- reads table(s) ['train'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.
+
+[station_14] (out_of_scope_register)  Show the station name and number of trains in each station.
+    SQL: SELECT T2.name ,  count(*) FROM train_station AS T1 JOIN station AS T2 ON T1.station_id  =  T2.station_id GROUP BY T1.station_id
+    GOLD: REFUSE -- reads table(s) ['train_station'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.
+
+[station_15] (out_of_scope_register)  show the train name and station name for each train.
+    SQL: SELECT T2.name ,  T3.name FROM train_station AS T1 JOIN station AS T2 ON T1.station_id  =  T2.station_id JOIN train AS T3 ON T3.train_id  =  T1.train_id
+    GOLD: REFUSE -- reads table(s) ['train_station', 'train'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.
+
+[station_16] (out_of_scope_register)  Show all train names and times in stations in London in descending order by train time.
+    SQL: SELECT T3.name ,  T3.time FROM train_station AS T1 JOIN station AS T2 ON T1.station_id  =  T2.station_id JOIN train AS T3 ON T3.train_id  =  T1.train_id WHERE T2.location  =  'London' ORDER BY T3.time DESC
+    GOLD: REFUSE -- reads table(s) ['train_station', 'train'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.
+
+[station_17] (out_of_scope_register)  Show the station name with greatest number of trains.
+    SQL: SELECT T2.name FROM train_station AS T1 JOIN station AS T2 ON T1.station_id  =  T2.station_id GROUP BY T1.station_id ORDER BY count(*) DESC LIMIT 1
+    GOLD: REFUSE -- reads table(s) ['train_station'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.
+
+[station_18] (out_of_scope_register)  Show the station name with at least two trains.
+    SQL: SELECT T2.name FROM train_station AS T1 JOIN station AS T2 ON T1.station_id  =  T2.station_id GROUP BY T1.station_id HAVING count(*)  >=  2
+    GOLD: REFUSE -- reads table(s) ['train_station'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.
+
+[station_19] (out_of_contract_aggregate)  Show all locations with only 1 station.
+    SQL: SELECT LOCATION FROM station GROUP BY LOCATION HAVING count(*)  =  1
+    GOLD (table, ordered=False, rows=2): [{"Location": "Birmingham"}, {"Location": "Glasgow"}]
+
+[station_20] (out_of_scope_register)  Show station names without any trains.
+    SQL: SELECT name FROM station WHERE station_id NOT IN (SELECT station_id FROM train_station)
+    GOLD: REFUSE -- reads table(s) ['train_station'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.
+
+[station_21] (out_of_scope_register)  What are the names of the stations which serve both "Ananthapuri Express" and "Guruvayur Express" trains?
+    SQL: SELECT T2.name FROM train_station AS T1 JOIN station AS T2 ON T1.station_id  =  T2.station_id JOIN train AS T3 ON T3.train_id  =  T1.train_id WHERE T3.Name  =  "Ananthapuri Express" INTERSECT SELECT T2.name FROM train_station AS T1 JOIN station AS T2 ON T1.station_id  =  T2.station_id JOIN train AS T3 ON T3.train_id  =  T1.train_id WHERE T3.Name  =  "Guruvayur Express"
+    GOLD: REFUSE -- reads table(s) ['train_station', 'train'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.
+
+[station_22] (out_of_scope_register)  Find the names of the trains that do not pass any station located in London.
+    SQL: SELECT T2.name FROM train_station AS T1 JOIN train AS T2 ON T1.train_id  =  T2.train_id WHERE T1.station_id NOT IN (SELECT T4.station_id FROM train_station AS T3 JOIN station AS T4 ON T3.station_id  =  T4.station_id WHERE t4.location  =  "London")
+    GOLD: REFUSE -- reads table(s) ['train_station', 'train'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.
+
+[station_23] (order_by)  List the names and locations of all stations ordered by their yearly entry exit and interchange amounts.
+    SQL: SELECT name ,  LOCATION FROM station ORDER BY Annual_entry_exit ,  Annual_interchanges
+    GOLD (ordered_list, ordered=True, rows=12): [{"Name": "East Croydon", "Location": "London"}, {"Name": "Stratford", "Location": "London"}, {"Name": "London St Pancras", "Location": "London"}, {"Name": "Glasgow Central", "Location": "Glasgow"}, {"Name": "London King's Cross", "Location": "London"}, {"Name": "Birmingham New Street", "Location": "Birmingham"}] … (+6 more)
+
+
+FLAGS: none

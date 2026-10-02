@@ -1,0 +1,421 @@
+{
+  "station_01": {
+    "id": "station_01",
+    "tier": "aggregate",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 12,
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "station_02": {
+    "id": "station_02",
+    "tier": "filter",
+    "architectural_gap": null,
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Name": "Birmingham New Street",
+        "Location": "Birmingham",
+        "Number_of_Platforms": 13
+      },
+      {
+        "Name": "East Croydon",
+        "Location": "London",
+        "Number_of_Platforms": 6
+      },
+      {
+        "Name": "Glasgow Central",
+        "Location": "Glasgow",
+        "Number_of_Platforms": 17
+      },
+      {
+        "Name": "London Bridge",
+        "Location": "London",
+        "Number_of_Platforms": 12
+      },
+      {
+        "Name": "London Charing Cross",
+        "Location": "London",
+        "Number_of_Platforms": 6
+      },
+      {
+        "Name": "London Euston",
+        "Location": "London",
+        "Number_of_Platforms": 18
+      },
+      {
+        "Name": "London King's Cross",
+        "Location": "London",
+        "Number_of_Platforms": 12
+      },
+      {
+        "Name": "London Liverpool Street",
+        "Location": "London",
+        "Number_of_Platforms": 18
+      },
+      {
+        "Name": "London St Pancras",
+        "Location": "London",
+        "Number_of_Platforms": 15
+      },
+      {
+        "Name": "London Victoria",
+        "Location": "London",
+        "Number_of_Platforms": 19
+      },
+      {
+        "Name": "London Waterloo",
+        "Location": "London",
+        "Number_of_Platforms": 19
+      },
+      {
+        "Name": "Stratford",
+        "Location": "London",
+        "Number_of_Platforms": 15
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 12
+  },
+  "station_03": {
+    "id": "station_03",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "distinct_projection"
+    ],
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Location": "Birmingham"
+      },
+      {
+        "Location": "Glasgow"
+      },
+      {
+        "Location": "London"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3
+  },
+  "station_04": {
+    "id": "station_04",
+    "tier": "filter",
+    "architectural_gap": null,
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Name": "Birmingham New Street",
+        "Total_Passengers": 36.331
+      },
+      {
+        "Name": "Glasgow Central",
+        "Total_Passengers": 29.658
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 2
+  },
+  "station_05": {
+    "id": "station_05",
+    "tier": "order_by",
+    "architectural_gap": null,
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Name": "London Waterloo",
+        "Main_Services": "South Western Main Line West of England Main Line"
+      },
+      {
+        "Name": "London Victoria",
+        "Main_Services": "Brighton Main Line Chatham Main Line"
+      },
+      {
+        "Name": "London Bridge",
+        "Main_Services": "South Eastern Main Line Thameslink"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3
+  },
+  "station_06": {
+    "id": "station_06",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "multi_aggregate"
+    ],
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "avg(total_passengers)": 48.015,
+        "max(total_passengers)": 103.534
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "station_07": {
+    "id": "station_07",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "multi_aggregate"
+    ],
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Location": "Birmingham",
+        "sum(number_of_platforms)": 13,
+        "sum(total_passengers)": 36.331
+      },
+      {
+        "Location": "Glasgow",
+        "sum(number_of_platforms)": 17,
+        "sum(total_passengers)": 29.658
+      },
+      {
+        "Location": "London",
+        "sum(number_of_platforms)": 140,
+        "sum(total_passengers)": 498.507
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3
+  },
+  "station_08": {
+    "id": "station_08",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "distinct_projection"
+    ],
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Location": "Glasgow"
+      },
+      {
+        "Location": "London"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 2
+  },
+  "station_09": {
+    "id": "station_09",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "set_operation"
+    ],
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": "Birmingham",
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "station_10": {
+    "id": "station_10",
+    "tier": "group_by",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": "London",
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "station_11": {
+    "id": "station_11",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "station_12": {
+    "id": "station_12",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "station_13": {
+    "id": "station_13",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "station_14": {
+    "id": "station_14",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "station_15": {
+    "id": "station_15",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "station_16": {
+    "id": "station_16",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "station_17": {
+    "id": "station_17",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "station_18": {
+    "id": "station_18",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "station_19": {
+    "id": "station_19",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "having_filter"
+    ],
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Location": "Birmingham"
+      },
+      {
+        "Location": "Glasgow"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 2
+  },
+  "station_20": {
+    "id": "station_20",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "station_21": {
+    "id": "station_21",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "station_22": {
+    "id": "station_22",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "station_23": {
+    "id": "station_23",
+    "tier": "order_by",
+    "architectural_gap": null,
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Name": "East Croydon",
+        "Location": "London"
+      },
+      {
+        "Name": "Stratford",
+        "Location": "London"
+      },
+      {
+        "Name": "London St Pancras",
+        "Location": "London"
+      },
+      {
+        "Name": "Glasgow Central",
+        "Location": "Glasgow"
+      },
+      {
+        "Name": "London King's Cross",
+        "Location": "London"
+      },
+      {
+        "Name": "Birmingham New Street",
+        "Location": "Birmingham"
+      },
+      {
+        "Name": "London Euston",
+        "Location": "London"
+      },
+      {
+        "Name": "London Charing Cross",
+        "Location": "London"
+      },
+      {
+        "Name": "London Bridge",
+        "Location": "London"
+      },
+      {
+        "Name": "London Liverpool Street",
+        "Location": "London"
+      },
+      {
+        "Name": "London Victoria",
+        "Location": "London"
+      },
+      {
+        "Name": "London Waterloo",
+        "Location": "London"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 12
+  }
+}

@@ -1,0 +1,360 @@
+{
+  "meta": {
+    "domain": "train_station",
+    "source": "Spider (Yu et al., 2018) train-split questions + official gold SQL (combined_data.parquet), verbatim -- third-party authored, not hand-written for this project.",
+    "purpose": "Held-out evaluation domain: a Spider database no system, prompt or engine fix was developed on. Built mechanically by heldout/build_domains.py under the rule fixed in heldout/PREREGISTRATION.md before any held-out cell ran.",
+    "rule_version": "heldout-r1",
+    "selection_note": "23 Spider questions covering 23 distinct gold queries, deduplicated by exact gold SQL text (first phrasing kept). Every distinct query kept; none authored, reworded, dropped or padded.",
+    "register_table": "station",
+    "register_rule": "the table the most deduplicated questions read alone, ties to more rows then name: {'station': 12, 'train': 3, 'train_station': 0}",
+    "tier_counts": {
+      "answer": 6,
+      "out_of_scope_register": 11,
+      "out_of_contract_aggregate": 6
+    },
+    "tiers": "Mechanical (heldout/sql_tier.py): out_of_scope_register if the gold SQL reads any table other than the register; else out_of_contract_aggregate if it uses a construct outside the Goal vocabulary (architectural_gap lists each); else the SQL structure (filter/aggregate/group_by/order_by), the answer tier.",
+    "tier_convention_note": "As in the released Spider corpora: out_of_scope_register questions are answerable in principle but need a table outside the register (expected_behavior=refuse); out_of_contract_aggregate questions are in scope by tau and excluded from scoring because the Goal vocabulary cannot express them (expected_behavior=answer, gold executed)."
+  },
+  "queries": [
+    {
+      "id": "station_01",
+      "tier": "aggregate",
+      "tables": [
+        "station"
+      ],
+      "question": "How many train stations are there?",
+      "gold_sql": "SELECT count(*) FROM station",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate",
+      "spider_split": "train",
+      "spider_row": 6599
+    },
+    {
+      "id": "station_02",
+      "tier": "filter",
+      "tables": [
+        "station"
+      ],
+      "question": "Show the name, location, and number of platforms for all stations.",
+      "gold_sql": "SELECT name ,  LOCATION ,  number_of_platforms FROM station",
+      "expected_behavior": "answer",
+      "sql_structure": "filter",
+      "spider_split": "train",
+      "spider_row": 6600
+    },
+    {
+      "id": "station_03",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "distinct_projection"
+      ],
+      "tables": [
+        "station"
+      ],
+      "question": "What are all locations of train stations?",
+      "gold_sql": "SELECT DISTINCT LOCATION FROM station",
+      "expected_behavior": "answer",
+      "sql_structure": "filter",
+      "spider_split": "train",
+      "spider_row": 6601
+    },
+    {
+      "id": "station_04",
+      "tier": "filter",
+      "tables": [
+        "station"
+      ],
+      "question": "Show the names and total passengers for all train stations not in London.",
+      "gold_sql": "SELECT name ,  total_passengers FROM station WHERE LOCATION != 'London'",
+      "expected_behavior": "answer",
+      "sql_structure": "filter",
+      "spider_split": "train",
+      "spider_row": 6602
+    },
+    {
+      "id": "station_05",
+      "tier": "order_by",
+      "tables": [
+        "station"
+      ],
+      "question": "Show the names and main services for train stations that have the top three total number of passengers.",
+      "gold_sql": "SELECT name ,  main_services FROM station ORDER BY total_passengers DESC LIMIT 3",
+      "expected_behavior": "answer",
+      "sql_structure": "order_by",
+      "spider_split": "train",
+      "spider_row": 6603
+    },
+    {
+      "id": "station_06",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "multi_aggregate"
+      ],
+      "tables": [
+        "station"
+      ],
+      "question": "What is the average and maximum number of total passengers for train stations in London or Glasgow?",
+      "gold_sql": "SELECT avg(total_passengers) ,  max(total_passengers) FROM station WHERE LOCATION  =  'London' OR LOCATION  =  'Glasgow'",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate",
+      "spider_split": "train",
+      "spider_row": 6604
+    },
+    {
+      "id": "station_07",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "multi_aggregate"
+      ],
+      "tables": [
+        "station"
+      ],
+      "question": "Show all locations and the total number of platforms and passengers for all train stations in each location.",
+      "gold_sql": "SELECT LOCATION ,  sum(number_of_platforms) ,  sum(total_passengers) FROM station GROUP BY LOCATION",
+      "expected_behavior": "answer",
+      "sql_structure": "group_by",
+      "spider_split": "train",
+      "spider_row": 6605
+    },
+    {
+      "id": "station_08",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "distinct_projection"
+      ],
+      "tables": [
+        "station"
+      ],
+      "question": "Show all locations that have train stations with at least 15 platforms and train stations with more than 25 total passengers.",
+      "gold_sql": "SELECT DISTINCT LOCATION FROM station WHERE number_of_platforms  >=  15 AND total_passengers  >  25",
+      "expected_behavior": "answer",
+      "sql_structure": "filter",
+      "spider_split": "train",
+      "spider_row": 6606
+    },
+    {
+      "id": "station_09",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "set_operation"
+      ],
+      "tables": [
+        "station"
+      ],
+      "question": "Show all locations which don't have a train station with at least 15 platforms.",
+      "gold_sql": "SELECT LOCATION FROM station EXCEPT SELECT LOCATION FROM station WHERE number_of_platforms  >=  15",
+      "expected_behavior": "answer",
+      "sql_structure": "multi_or_compound",
+      "spider_split": "train",
+      "spider_row": 6607
+    },
+    {
+      "id": "station_10",
+      "tier": "group_by",
+      "tables": [
+        "station"
+      ],
+      "question": "Show the location with most number of train stations.",
+      "gold_sql": "SELECT LOCATION FROM station GROUP BY LOCATION ORDER BY count(*) DESC LIMIT 1",
+      "expected_behavior": "answer",
+      "sql_structure": "group_by",
+      "spider_split": "train",
+      "spider_row": 6608
+    },
+    {
+      "id": "station_11",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "train"
+      ],
+      "question": "Show the name, time, and service for all trains.",
+      "gold_sql": "SELECT name ,  TIME ,  service FROM train",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['train'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.",
+      "sql_structure": "filter",
+      "spider_split": "train",
+      "spider_row": 6609
+    },
+    {
+      "id": "station_12",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "train"
+      ],
+      "question": "Show the number of trains",
+      "gold_sql": "SELECT count(*) FROM train",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['train'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.",
+      "sql_structure": "aggregate",
+      "spider_split": "train",
+      "spider_row": 6610
+    },
+    {
+      "id": "station_13",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "train"
+      ],
+      "question": "Show the name and service for all trains in order by time.",
+      "gold_sql": "SELECT name ,  service FROM train ORDER BY TIME",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['train'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.",
+      "sql_structure": "order_by",
+      "spider_split": "train",
+      "spider_row": 6611
+    },
+    {
+      "id": "station_14",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "train_station",
+        "station"
+      ],
+      "question": "Show the station name and number of trains in each station.",
+      "gold_sql": "SELECT T2.name ,  count(*) FROM train_station AS T1 JOIN station AS T2 ON T1.station_id  =  T2.station_id GROUP BY T1.station_id",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['train_station'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.",
+      "sql_structure": "multi_or_compound",
+      "spider_split": "train",
+      "spider_row": 6612
+    },
+    {
+      "id": "station_15",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "train_station",
+        "station",
+        "train"
+      ],
+      "question": "show the train name and station name for each train.",
+      "gold_sql": "SELECT T2.name ,  T3.name FROM train_station AS T1 JOIN station AS T2 ON T1.station_id  =  T2.station_id JOIN train AS T3 ON T3.train_id  =  T1.train_id",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['train_station', 'train'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.",
+      "sql_structure": "multi_or_compound",
+      "spider_split": "train",
+      "spider_row": 6613
+    },
+    {
+      "id": "station_16",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "train_station",
+        "station",
+        "train"
+      ],
+      "question": "Show all train names and times in stations in London in descending order by train time.",
+      "gold_sql": "SELECT T3.name ,  T3.time FROM train_station AS T1 JOIN station AS T2 ON T1.station_id  =  T2.station_id JOIN train AS T3 ON T3.train_id  =  T1.train_id WHERE T2.location  =  'London' ORDER BY T3.time DESC",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['train_station', 'train'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.",
+      "sql_structure": "multi_or_compound",
+      "spider_split": "train",
+      "spider_row": 6614
+    },
+    {
+      "id": "station_17",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "train_station",
+        "station"
+      ],
+      "question": "Show the station name with greatest number of trains.",
+      "gold_sql": "SELECT T2.name FROM train_station AS T1 JOIN station AS T2 ON T1.station_id  =  T2.station_id GROUP BY T1.station_id ORDER BY count(*) DESC LIMIT 1",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['train_station'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.",
+      "sql_structure": "multi_or_compound",
+      "spider_split": "train",
+      "spider_row": 6615
+    },
+    {
+      "id": "station_18",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "train_station",
+        "station"
+      ],
+      "question": "Show the station name with at least two trains.",
+      "gold_sql": "SELECT T2.name FROM train_station AS T1 JOIN station AS T2 ON T1.station_id  =  T2.station_id GROUP BY T1.station_id HAVING count(*)  >=  2",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['train_station'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.",
+      "sql_structure": "multi_or_compound",
+      "spider_split": "train",
+      "spider_row": 6616
+    },
+    {
+      "id": "station_19",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "having_filter"
+      ],
+      "tables": [
+        "station"
+      ],
+      "question": "Show all locations with only 1 station.",
+      "gold_sql": "SELECT LOCATION FROM station GROUP BY LOCATION HAVING count(*)  =  1",
+      "expected_behavior": "answer",
+      "sql_structure": "group_by",
+      "spider_split": "train",
+      "spider_row": 6617
+    },
+    {
+      "id": "station_20",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "station",
+        "train_station"
+      ],
+      "question": "Show station names without any trains.",
+      "gold_sql": "SELECT name FROM station WHERE station_id NOT IN (SELECT station_id FROM train_station)",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['train_station'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.",
+      "sql_structure": "filter",
+      "spider_split": "train",
+      "spider_row": 6618
+    },
+    {
+      "id": "station_21",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "train_station",
+        "station",
+        "train"
+      ],
+      "question": "What are the names of the stations which serve both \"Ananthapuri Express\" and \"Guruvayur Express\" trains?",
+      "gold_sql": "SELECT T2.name FROM train_station AS T1 JOIN station AS T2 ON T1.station_id  =  T2.station_id JOIN train AS T3 ON T3.train_id  =  T1.train_id WHERE T3.Name  =  \"Ananthapuri Express\" INTERSECT SELECT T2.name FROM train_station AS T1 JOIN station AS T2 ON T1.station_id  =  T2.station_id JOIN train AS T3 ON T3.train_id  =  T1.train_id WHERE T3.Name  =  \"Guruvayur Express\"",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['train_station', 'train'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.",
+      "sql_structure": "multi_or_compound",
+      "spider_split": "train",
+      "spider_row": 6619
+    },
+    {
+      "id": "station_22",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "train_station",
+        "train",
+        "station"
+      ],
+      "question": "Find the names of the trains that do not pass any station located in London.",
+      "gold_sql": "SELECT T2.name FROM train_station AS T1 JOIN train AS T2 ON T1.train_id  =  T2.train_id WHERE T1.station_id NOT IN (SELECT T4.station_id FROM train_station AS T3 JOIN station AS T4 ON T3.station_id  =  T4.station_id WHERE t4.location  =  \"London\")",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['train_station', 'train'] -- this domain's single-table register only exposes 'station'; the data this question needs is not visible to the system.",
+      "sql_structure": "multi_or_compound",
+      "spider_split": "train",
+      "spider_row": 6620
+    },
+    {
+      "id": "station_23",
+      "tier": "order_by",
+      "tables": [
+        "station"
+      ],
+      "question": "List the names and locations of all stations ordered by their yearly entry exit and interchange amounts.",
+      "gold_sql": "SELECT name ,  LOCATION FROM station ORDER BY Annual_entry_exit ,  Annual_interchanges",
+      "expected_behavior": "answer",
+      "sql_structure": "order_by",
+      "spider_split": "train",
+      "spider_row": 6621
+    }
+  ]
+}

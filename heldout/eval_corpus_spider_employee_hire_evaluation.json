@@ -1,0 +1,294 @@
+{
+  "meta": {
+    "domain": "employee_hire_evaluation",
+    "source": "Spider (Yu et al., 2018) dev-split questions + official gold SQL (combined_data.parquet), verbatim -- third-party authored, not hand-written for this project.",
+    "purpose": "Held-out evaluation domain: a Spider database no system, prompt or engine fix was developed on. Built mechanically by heldout/build_domains.py under the rule fixed in heldout/PREREGISTRATION.md before any held-out cell ran.",
+    "rule_version": "heldout-r1",
+    "selection_note": "38 Spider questions covering 19 distinct gold queries, deduplicated by exact gold SQL text (first phrasing kept). Every distinct query kept; none authored, reworded, dropped or padded.",
+    "register_table": "shop",
+    "register_rule": "the table the most deduplicated questions read alone, ties to more rows then name: {'employee': 4, 'shop': 7, 'hiring': 1, 'evaluation': 1}",
+    "tier_counts": {
+      "answer": 4,
+      "out_of_scope_register": 12,
+      "out_of_contract_aggregate": 3
+    },
+    "tiers": "Mechanical (heldout/sql_tier.py): out_of_scope_register if the gold SQL reads any table other than the register; else out_of_contract_aggregate if it uses a construct outside the Goal vocabulary (architectural_gap lists each); else the SQL structure (filter/aggregate/group_by/order_by), the answer tier.",
+    "tier_convention_note": "As in the released Spider corpora: out_of_scope_register questions are answerable in principle but need a table outside the register (expected_behavior=refuse); out_of_contract_aggregate questions are in scope by tau and excluded from scoring because the Goal vocabulary cannot express them (expected_behavior=answer, gold executed)."
+  },
+  "queries": [
+    {
+      "id": "hire_01",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "employee"
+      ],
+      "question": "How many employees are there?",
+      "gold_sql": "SELECT count(*) FROM employee",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['employee'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.",
+      "sql_structure": "aggregate",
+      "spider_split": "dev",
+      "spider_row": 7259
+    },
+    {
+      "id": "hire_02",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "employee"
+      ],
+      "question": "Sort employee names by their age in ascending order.",
+      "gold_sql": "SELECT name FROM employee ORDER BY age",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['employee'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.",
+      "sql_structure": "order_by",
+      "spider_split": "dev",
+      "spider_row": 7261
+    },
+    {
+      "id": "hire_03",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "employee"
+      ],
+      "question": "What is the number of employees from each city?",
+      "gold_sql": "SELECT count(*) ,  city FROM employee GROUP BY city",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['employee'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.",
+      "sql_structure": "group_by",
+      "spider_split": "dev",
+      "spider_row": 7263
+    },
+    {
+      "id": "hire_04",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "employee"
+      ],
+      "question": "Which cities do more than one employee under age 30 come from?",
+      "gold_sql": "SELECT city FROM employee WHERE age  <  30 GROUP BY city HAVING count(*)  >  1",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['employee'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.",
+      "sql_structure": "group_by",
+      "spider_split": "dev",
+      "spider_row": 7265
+    },
+    {
+      "id": "hire_05",
+      "tier": "group_by",
+      "tables": [
+        "shop"
+      ],
+      "question": "Find the number of shops in each location.",
+      "gold_sql": "SELECT count(*) ,  LOCATION FROM shop GROUP BY LOCATION",
+      "expected_behavior": "answer",
+      "sql_structure": "group_by",
+      "spider_split": "dev",
+      "spider_row": 7267
+    },
+    {
+      "id": "hire_06",
+      "tier": "order_by",
+      "tables": [
+        "shop"
+      ],
+      "question": "Find the manager name and district of the shop whose number of products is the largest.",
+      "gold_sql": "SELECT manager_name ,  district FROM shop ORDER BY number_products DESC LIMIT 1",
+      "expected_behavior": "answer",
+      "sql_structure": "order_by",
+      "spider_split": "dev",
+      "spider_row": 7269
+    },
+    {
+      "id": "hire_07",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "multi_aggregate"
+      ],
+      "tables": [
+        "shop"
+      ],
+      "question": "find the minimum and maximum number of products of all stores.",
+      "gold_sql": "SELECT min(Number_products) ,  max(Number_products) FROM shop",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate",
+      "spider_split": "dev",
+      "spider_row": 7271
+    },
+    {
+      "id": "hire_08",
+      "tier": "order_by",
+      "tables": [
+        "shop"
+      ],
+      "question": "Return the name, location and district of all shops in descending order of number of products.",
+      "gold_sql": "SELECT name ,  LOCATION ,  district FROM shop ORDER BY number_products DESC",
+      "expected_behavior": "answer",
+      "sql_structure": "order_by",
+      "spider_split": "dev",
+      "spider_row": 7273
+    },
+    {
+      "id": "hire_09",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "aggregate_subquery"
+      ],
+      "tables": [
+        "shop"
+      ],
+      "question": "Find the names of stores whose number products is more than the average number of products.",
+      "gold_sql": "SELECT name FROM shop WHERE number_products  >  (SELECT avg(number_products) FROM shop)",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate",
+      "spider_split": "dev",
+      "spider_row": 7275
+    },
+    {
+      "id": "hire_10",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "employee",
+        "evaluation"
+      ],
+      "question": "find the name of employee who was awarded the most times in the evaluation.",
+      "gold_sql": "SELECT t1.name FROM employee AS t1 JOIN evaluation AS t2 ON t1.Employee_ID  =  t2.Employee_ID GROUP BY t2.Employee_ID ORDER BY count(*) DESC LIMIT 1",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['employee', 'evaluation'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.",
+      "sql_structure": "multi_or_compound",
+      "spider_split": "dev",
+      "spider_row": 7277
+    },
+    {
+      "id": "hire_11",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "employee",
+        "evaluation"
+      ],
+      "question": "Find the name of the employee who got the highest one time bonus.",
+      "gold_sql": "SELECT t1.name FROM employee AS t1 JOIN evaluation AS t2 ON t1.Employee_ID  =  t2.Employee_ID ORDER BY t2.bonus DESC LIMIT 1",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['employee', 'evaluation'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.",
+      "sql_structure": "multi_or_compound",
+      "spider_split": "dev",
+      "spider_row": 7279
+    },
+    {
+      "id": "hire_12",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "employee",
+        "evaluation"
+      ],
+      "question": "Find the names of employees who never won any award in the evaluation.",
+      "gold_sql": "SELECT name FROM employee WHERE Employee_ID NOT IN (SELECT Employee_ID FROM evaluation)",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['employee', 'evaluation'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.",
+      "sql_structure": "filter",
+      "spider_split": "dev",
+      "spider_row": 7281
+    },
+    {
+      "id": "hire_13",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "hiring",
+        "shop"
+      ],
+      "question": "What is the name of the shop that is hiring the largest number of employees?",
+      "gold_sql": "SELECT t2.name FROM hiring AS t1 JOIN shop AS t2 ON t1.shop_id  =  t2.shop_id GROUP BY t1.shop_id ORDER BY count(*) DESC LIMIT 1",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['hiring'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.",
+      "sql_structure": "multi_or_compound",
+      "spider_split": "dev",
+      "spider_row": 7283
+    },
+    {
+      "id": "hire_14",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "shop",
+        "hiring"
+      ],
+      "question": "Find the name of the shops that do not hire any employee.",
+      "gold_sql": "SELECT name FROM shop WHERE shop_id NOT IN (SELECT shop_id FROM hiring)",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['hiring'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.",
+      "sql_structure": "filter",
+      "spider_split": "dev",
+      "spider_row": 7285
+    },
+    {
+      "id": "hire_15",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "hiring",
+        "shop"
+      ],
+      "question": "Find the number of employees hired in each shop; show the shop name as well.",
+      "gold_sql": "SELECT count(*) ,  t2.name FROM hiring AS t1 JOIN shop AS t2 ON t1.shop_id  =  t2.shop_id GROUP BY t2.name",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['hiring'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.",
+      "sql_structure": "multi_or_compound",
+      "spider_split": "dev",
+      "spider_row": 7287
+    },
+    {
+      "id": "hire_16",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "evaluation"
+      ],
+      "question": "What is total bonus given in all evaluations?",
+      "gold_sql": "SELECT sum(bonus) FROM evaluation",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['evaluation'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.",
+      "sql_structure": "aggregate",
+      "spider_split": "dev",
+      "spider_row": 7289
+    },
+    {
+      "id": "hire_17",
+      "tier": "out_of_scope_register",
+      "tables": [
+        "hiring"
+      ],
+      "question": "Give me all the information about hiring.",
+      "gold_sql": "SELECT * FROM hiring",
+      "expected_behavior": "refuse",
+      "reason": "reads table(s) ['hiring'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.",
+      "sql_structure": "filter",
+      "spider_split": "dev",
+      "spider_row": 7291
+    },
+    {
+      "id": "hire_18",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "set_operation"
+      ],
+      "tables": [
+        "shop"
+      ],
+      "question": "Which district has both stores with less than 3000 products and stores with more than 10000 products?",
+      "gold_sql": "SELECT district FROM shop WHERE Number_products  <  3000 INTERSECT SELECT district FROM shop WHERE Number_products  >  10000",
+      "expected_behavior": "answer",
+      "sql_structure": "multi_or_compound",
+      "spider_split": "dev",
+      "spider_row": 7293
+    },
+    {
+      "id": "hire_19",
+      "tier": "aggregate",
+      "tables": [
+        "shop"
+      ],
+      "question": "How many different store locations are there?",
+      "gold_sql": "SELECT count(DISTINCT LOCATION) FROM shop",
+      "expected_behavior": "answer",
+      "sql_structure": "aggregate",
+      "spider_split": "dev",
+      "spider_row": 7295
+    }
+  ]
+}

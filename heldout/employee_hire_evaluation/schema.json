@@ -1,0 +1,53 @@
+{
+  "dataset": {
+    "row_count": 9
+  },
+  "column_types": {
+    "text": [
+      "Name",
+      "Location",
+      "District",
+      "Manager_name"
+    ],
+    "categorical": [],
+    "numeric": [
+      "Number_products"
+    ],
+    "id": [
+      "Shop_ID"
+    ],
+    "date": []
+  },
+  "columns": {
+    "Shop_ID": {
+      "type": "id",
+      "match_strategy": "exact"
+    },
+    "Name": {
+      "type": "text",
+      "match_strategy": "exact"
+    },
+    "Location": {
+      "type": "text",
+      "match_strategy": "exact"
+    },
+    "District": {
+      "type": "text",
+      "match_strategy": "exact"
+    },
+    "Number_products": {
+      "type": "numeric",
+      "match_strategy": "numeric_compare"
+    },
+    "Manager_name": {
+      "type": "text",
+      "match_strategy": "exact"
+    }
+  },
+  "domain": {
+    "description": "The Spider (Yu et al., 2018) database employee_hire_evaluation, with tables employee, shop, hiring and evaluation.",
+    "source_note": "Spider (Yu et al., 2018) benchmark database employee_hire_evaluation, used as-is -- schema and data are third-party, not authored for this project.",
+    "register_table": "shop",
+    "register_table_note": "Single-table register by the pre-registered rule (heldout/PREREGISTRATION.md): 'shop' is the only visible table; a question needing another table is a refusal case in this domain's corpus."
+  }
+}

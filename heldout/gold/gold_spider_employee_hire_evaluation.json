@@ -1,0 +1,301 @@
+{
+  "hire_01": {
+    "id": "hire_01",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "hire_02": {
+    "id": "hire_02",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "hire_03": {
+    "id": "hire_03",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "hire_04": {
+    "id": "hire_04",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "hire_05": {
+    "id": "hire_05",
+    "tier": "group_by",
+    "architectural_gap": null,
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "count(*)": 1,
+        "Location": "Espoo"
+      },
+      {
+        "count(*)": 1,
+        "Location": "Helsinki"
+      },
+      {
+        "count(*)": 1,
+        "Location": "Jakobstad"
+      },
+      {
+        "count(*)": 1,
+        "Location": "Kotka"
+      },
+      {
+        "count(*)": 1,
+        "Location": "Kuopio"
+      },
+      {
+        "count(*)": 1,
+        "Location": "Lahti"
+      },
+      {
+        "count(*)": 1,
+        "Location": "Mariehamn"
+      },
+      {
+        "count(*)": 1,
+        "Location": "Turku"
+      },
+      {
+        "count(*)": 1,
+        "Location": "Valkeakoski"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 9
+  },
+  "hire_06": {
+    "id": "hire_06",
+    "tier": "order_by",
+    "architectural_gap": null,
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Manager_name": "Ilkka M\u00e4kel\u00e4",
+        "District": "Lahden Stadion"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "hire_07": {
+    "id": "hire_07",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "multi_aggregate"
+    ],
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "min(Number_products)": 1600,
+        "max(Number_products)": 15000
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 1
+  },
+  "hire_08": {
+    "id": "hire_08",
+    "tier": "order_by",
+    "architectural_gap": null,
+    "result_kind": "ordered_list",
+    "ordered": true,
+    "value": [
+      {
+        "Name": "FC Lahti",
+        "Location": "Lahti",
+        "District": "Lahden Stadion"
+      },
+      {
+        "Name": "HJK",
+        "Location": "Helsinki",
+        "District": "Finnair Stadium"
+      },
+      {
+        "Name": "FC Inter",
+        "Location": "Turku",
+        "District": "Veritas Stadion"
+      },
+      {
+        "Name": "FC Honka",
+        "Location": "Espoo",
+        "District": "Tapiolan Urheilupuisto"
+      },
+      {
+        "Name": "FF Jaro",
+        "Location": "Jakobstad",
+        "District": "Jakobstads Centralplan"
+      },
+      {
+        "Name": "FC KooTeePee",
+        "Location": "Kotka",
+        "District": "Arto Tolsa Areena"
+      },
+      {
+        "Name": "FC Haka",
+        "Location": "Valkeakoski",
+        "District": "Tehtaan kentt\u00e4"
+      },
+      {
+        "Name": "KuPS",
+        "Location": "Kuopio",
+        "District": "Magnum Areena"
+      },
+      {
+        "Name": "IFK Mariehamn",
+        "Location": "Mariehamn",
+        "District": "Wikl\u00f6f Holding Arena"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 9
+  },
+  "hire_09": {
+    "id": "hire_09",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "aggregate_subquery"
+    ],
+    "result_kind": "table",
+    "ordered": false,
+    "value": [
+      {
+        "Name": "FC Inter"
+      },
+      {
+        "Name": "FC Lahti"
+      },
+      {
+        "Name": "HJK"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 3
+  },
+  "hire_10": {
+    "id": "hire_10",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "hire_11": {
+    "id": "hire_11",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "hire_12": {
+    "id": "hire_12",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "hire_13": {
+    "id": "hire_13",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "hire_14": {
+    "id": "hire_14",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "hire_15": {
+    "id": "hire_15",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "hire_16": {
+    "id": "hire_16",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "hire_17": {
+    "id": "hire_17",
+    "tier": "out_of_scope_register",
+    "architectural_gap": null,
+    "result_kind": null,
+    "ordered": false,
+    "value": null,
+    "expected_behavior": "refuse",
+    "row_count": 0
+  },
+  "hire_18": {
+    "id": "hire_18",
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "set_operation"
+    ],
+    "result_kind": "table",
+    "ordered": false,
+    "value": [],
+    "expected_behavior": "answer",
+    "row_count": 0
+  },
+  "hire_19": {
+    "id": "hire_19",
+    "tier": "aggregate",
+    "architectural_gap": null,
+    "result_kind": "scalar",
+    "ordered": false,
+    "value": 9,
+    "expected_behavior": "answer",
+    "row_count": 1
+  }
+}

@@ -1,0 +1,80 @@
+GOLD DIGEST -- employee_hire_evaluation (Spider third-party gold, executed verbatim against the real .sqlite)
+
+[hire_01] (out_of_scope_register)  How many employees are there?
+    SQL: SELECT count(*) FROM employee
+    GOLD: REFUSE -- reads table(s) ['employee'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.
+
+[hire_02] (out_of_scope_register)  Sort employee names by their age in ascending order.
+    SQL: SELECT name FROM employee ORDER BY age
+    GOLD: REFUSE -- reads table(s) ['employee'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.
+
+[hire_03] (out_of_scope_register)  What is the number of employees from each city?
+    SQL: SELECT count(*) ,  city FROM employee GROUP BY city
+    GOLD: REFUSE -- reads table(s) ['employee'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.
+
+[hire_04] (out_of_scope_register)  Which cities do more than one employee under age 30 come from?
+    SQL: SELECT city FROM employee WHERE age  <  30 GROUP BY city HAVING count(*)  >  1
+    GOLD: REFUSE -- reads table(s) ['employee'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.
+
+[hire_05] (group_by)  Find the number of shops in each location.
+    SQL: SELECT count(*) ,  LOCATION FROM shop GROUP BY LOCATION
+    GOLD (table, ordered=False, rows=9): [{"count(*)": 1, "Location": "Espoo"}, {"count(*)": 1, "Location": "Helsinki"}, {"count(*)": 1, "Location": "Jakobstad"}, {"count(*)": 1, "Location": "Kotka"}, {"count(*)": 1, "Location": "Kuopio"}, {"count(*)": 1, "Location": "Lahti"}] … (+3 more)
+
+[hire_06] (order_by)  Find the manager name and district of the shop whose number of products is the largest.
+    SQL: SELECT manager_name ,  district FROM shop ORDER BY number_products DESC LIMIT 1
+    GOLD (ordered_list, ordered=True, rows=1): [{"Manager_name": "Ilkka M\u00e4kel\u00e4", "District": "Lahden Stadion"}]
+
+[hire_07] (out_of_contract_aggregate)  find the minimum and maximum number of products of all stores.
+    SQL: SELECT min(Number_products) ,  max(Number_products) FROM shop
+    GOLD (table, ordered=False, rows=1): [{"min(Number_products)": 1600, "max(Number_products)": 15000}]
+
+[hire_08] (order_by)  Return the name, location and district of all shops in descending order of number of products.
+    SQL: SELECT name ,  LOCATION ,  district FROM shop ORDER BY number_products DESC
+    GOLD (ordered_list, ordered=True, rows=9): [{"Name": "FC Lahti", "Location": "Lahti", "District": "Lahden Stadion"}, {"Name": "HJK", "Location": "Helsinki", "District": "Finnair Stadium"}, {"Name": "FC Inter", "Location": "Turku", "District": "Veritas Stadion"}, {"Name": "FC Honka", "Location": "Espoo", "District": "Tapiolan Urheilupuisto"}, {"Name": "FF Jaro", "Location": "Jakobstad", "District": "Jakobstads Centralplan"}, {"Name": "FC KooTeePee", "Location": "Kotka", "District": "Arto Tolsa Areena"}] … (+3 more)
+
+[hire_09] (out_of_contract_aggregate)  Find the names of stores whose number products is more than the average number of products.
+    SQL: SELECT name FROM shop WHERE number_products  >  (SELECT avg(number_products) FROM shop)
+    GOLD (table, ordered=False, rows=3): [{"Name": "FC Inter"}, {"Name": "FC Lahti"}, {"Name": "HJK"}]
+
+[hire_10] (out_of_scope_register)  find the name of employee who was awarded the most times in the evaluation.
+    SQL: SELECT t1.name FROM employee AS t1 JOIN evaluation AS t2 ON t1.Employee_ID  =  t2.Employee_ID GROUP BY t2.Employee_ID ORDER BY count(*) DESC LIMIT 1
+    GOLD: REFUSE -- reads table(s) ['employee', 'evaluation'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.
+
+[hire_11] (out_of_scope_register)  Find the name of the employee who got the highest one time bonus.
+    SQL: SELECT t1.name FROM employee AS t1 JOIN evaluation AS t2 ON t1.Employee_ID  =  t2.Employee_ID ORDER BY t2.bonus DESC LIMIT 1
+    GOLD: REFUSE -- reads table(s) ['employee', 'evaluation'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.
+
+[hire_12] (out_of_scope_register)  Find the names of employees who never won any award in the evaluation.
+    SQL: SELECT name FROM employee WHERE Employee_ID NOT IN (SELECT Employee_ID FROM evaluation)
+    GOLD: REFUSE -- reads table(s) ['employee', 'evaluation'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.
+
+[hire_13] (out_of_scope_register)  What is the name of the shop that is hiring the largest number of employees?
+    SQL: SELECT t2.name FROM hiring AS t1 JOIN shop AS t2 ON t1.shop_id  =  t2.shop_id GROUP BY t1.shop_id ORDER BY count(*) DESC LIMIT 1
+    GOLD: REFUSE -- reads table(s) ['hiring'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.
+
+[hire_14] (out_of_scope_register)  Find the name of the shops that do not hire any employee.
+    SQL: SELECT name FROM shop WHERE shop_id NOT IN (SELECT shop_id FROM hiring)
+    GOLD: REFUSE -- reads table(s) ['hiring'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.
+
+[hire_15] (out_of_scope_register)  Find the number of employees hired in each shop; show the shop name as well.
+    SQL: SELECT count(*) ,  t2.name FROM hiring AS t1 JOIN shop AS t2 ON t1.shop_id  =  t2.shop_id GROUP BY t2.name
+    GOLD: REFUSE -- reads table(s) ['hiring'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.
+
+[hire_16] (out_of_scope_register)  What is total bonus given in all evaluations?
+    SQL: SELECT sum(bonus) FROM evaluation
+    GOLD: REFUSE -- reads table(s) ['evaluation'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.
+
+[hire_17] (out_of_scope_register)  Give me all the information about hiring.
+    SQL: SELECT * FROM hiring
+    GOLD: REFUSE -- reads table(s) ['hiring'] -- this domain's single-table register only exposes 'shop'; the data this question needs is not visible to the system.
+
+[hire_18] (out_of_contract_aggregate)  Which district has both stores with less than 3000 products and stores with more than 10000 products?
+    SQL: SELECT district FROM shop WHERE Number_products  <  3000 INTERSECT SELECT district FROM shop WHERE Number_products  >  10000
+    GOLD (table, ordered=False, rows=0): []
+
+[hire_19] (aggregate)  How many different store locations are there?
+    SQL: SELECT count(DISTINCT LOCATION) FROM shop
+    GOLD (scalar, ordered=False, rows=1): 9
+
+
+FLAGS: none
