@@ -1,0 +1,1965 @@
+{
+  "timestamp_utc": "2026-10-01T17:46:09.630935Z",
+  "model": "claude-sonnet-4-5",
+  "emission_model": "claude-sonnet-4-5",
+  "contract_version": "s49",
+  "temperature": 0,
+  "repetitions": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "bounds": {
+    "react_max_iters": 15,
+    "code_max_retries": 12,
+    "per_query_timeout_s": 60
+  },
+  "pricing": {
+    "claude-sonnet-4-5": {
+      "input": 3.0,
+      "output": 15.0
+    },
+    "claude-haiku-4-5": {
+      "input": 1.0,
+      "output": 5.0
+    }
+  },
+  "cache": {
+    "enabled": true,
+    "control": "ephemeral on last system block (caches tools+system)",
+    "multipliers": {
+      "cache_write": 1.25,
+      "cache_read": 0.1
+    },
+    "min_cacheable_tokens": 1024,
+    "prefix_sizes": [
+      {
+        "system": "network",
+        "system_chars": 6163,
+        "tool_chars": 0,
+        "est_tokens": 1540,
+        "min_cacheable": 1024,
+        "below_min": false
+      },
+      {
+        "system": "planner",
+        "system_chars": 1478,
+        "tool_chars": 0,
+        "est_tokens": 369,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "react",
+        "system_chars": 887,
+        "tool_chars": 2477,
+        "est_tokens": 840,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "code_agent",
+        "system_chars": 984,
+        "tool_chars": 635,
+        "est_tokens": 404,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "text_to_sql",
+        "system_chars": 875,
+        "tool_chars": 338,
+        "est_tokens": 302,
+        "min_cacheable": 1024,
+        "below_min": true
+      }
+    ],
+    "note": "uniform infra optimization applied identically to all 5 systems; lowers $ but NOT raw token / call counts. Paper cost metrics = calls + RAW tokens (cache-blind); cost_usd_cached is the practical bill."
+  },
+  "corpus_path": "eval_corpus_spider_bike_1.json",
+  "corpus_sha256": "10b80726ae1b805bcbc345b9286aaa004e91397ae422d0eec950ab18e1fdd1f6",
+  "gold_path": "evidence/gold/gold_spider_bike_1.json",
+  "gold_sha256": "1d8ee8ad2aa495623ae0ff0016f8e846f2d64bdc39e83da5209e5f233a8a585b",
+  "comparator_version": "s48",
+  "network_prompt_version": "s48",
+  "refuse_unsupported": false,
+  "git_commit": "8605f521f4d106509b79ca49f0f8fc439dc2fd3f",
+  "lib_versions": {
+    "anthropic": "0.120.2",
+    "pandas": "3.0.5",
+    "numpy": "2.5.1",
+    "python": "3.14.6",
+    "sqlite": "3.53.4",
+    "sqlite3_module": null
+  },
+  "prompts": {
+    "code_agent": "You answer an analytical query over a pandas DataFrame `df` (9959-row register).\nUse run_python to compute. ALWAYS store your answer in `result = ...` (a DataFrame,\nSeries, or scalar) \u2014 do NOT use print(). A compact summary of `result` is returned to you.\nOnce you have verified the answer is correct, call final_answer with code that sets `result`.\nBe efficient \u2014 at most a few attempts.\n\nIf the query genuinely cannot be answered from this data, STOP with a plain-text reply\nexplaining you cannot, instead of fabricating a result.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: A San Francisco Bay Area bike-share trip log. Each row is one rental trip: start/end station, start/end time, duration, which bike was used, the rider's subscription type, and the zip code they registered with.\n\nREGISTER COLUMNS (verbatim):\n'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_station_name', 'end_station_id', 'bike_id', 'subscription_type', 'zip_code'\n",
+    "react": "You answer an analytical query over a tabular register using exactly five tools (declarative\nprimitives, the same the Network uses): filter, select (project), aggregate, compute, order\n(sort + optional limit). Start from a frame named \"register\"; each tool reads a frame and produces\na new named frame \"f0\",\"f1\",\u2026 Call final_answer with the name of the frame that IS the answer\n(a 1x1 frame for a scalar; a multi-row frame for a list).\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: A San Francisco Bay Area bike-share trip log. Each row is one rental trip: start/end station, start/end time, duration, which bike was used, the rider's subscription type, and the zip code they registered with.\n\nREGISTER COLUMNS (verbatim):\n'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_station_name', 'end_station_id', 'bike_id', 'subscription_type', 'zip_code'\n",
+    "text_to_sql": "You answer an analytical query over a single sqlite table `register` (9959 rows).\nEmit EXACTLY ONE SELECT statement via the run_sql tool. Quote column names with\nspaces / parens like \"Unit Price (Net)\". No commentary outside the tool call.\n\nIf the query genuinely cannot be answered from this table, reply with plain text\nexplaining you cannot, instead of emitting SQL.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: A San Francisco Bay Area bike-share trip log. Each row is one rental trip: start/end station, start/end time, duration, which bike was used, the rider's subscription type, and the zip code they registered with.\n\nTABLE COLUMNS (verbatim \u2014 sqlite identifiers, quote when they contain spaces/parens):\n'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_station_name', 'end_station_id', 'bike_id', 'subscription_type', 'zip_code'\n"
+  },
+  "env": {
+    "ANTHROPIC_API_KEY_present": true
+  },
+  "batch2": {
+    "script": "scripts/rerun_temp0_batch2.py",
+    "arm": "recorded",
+    "domain": "bike_1",
+    "git": [
+      {
+        "commit": "8605f521f4d106509b79ca49f0f8fc439dc2fd3f",
+        "tracked_changes": false
+      }
+    ],
+    "fixed_code": {
+      "checks": {
+        "engine: one arithmetic grammar for plan search and executor": true,
+        "engine: stable total-order sort": true,
+        "engine: executed step checked against its planned state": true,
+        "engine: typed refusal of an undeclared aggregate": true,
+        "code_agent: one namespace per episode": true,
+        "code_agent: labelled index kept": true,
+        "code_agent: tool description states the frame": true,
+        "code_agent: tool description says variables persist": true
+      },
+      "contract_version": "s49",
+      "sqlite": {
+        "sqlite_version": "3.53.4",
+        "sqlite3_module_version": null,
+        "functions": {
+          "median": true,
+          "percentile": true,
+          "corr": false
+        }
+      },
+      "sha256": {
+        "evidence/eval_run/adapters/__init__.py": "bee6bd0657183d148956da890071a9fc569b044ededb91aaed4b9d609a2090b6",
+        "evidence/eval_run/adapters/base.py": "fcb786c6d28ce9e93e1688844e40f983d0cc92f8c4d1100b98815847bbde4199",
+        "evidence/eval_run/adapters/code_agent.py": "121afebffe585a080fc696299e7a5f3b78114a7537e3444d723e08c3dd7e742c",
+        "evidence/eval_run/adapters/network.py": "82152f88b1e194f33fce414b422599eeb82b4ee56d4dfb5c2f15066912003d10",
+        "evidence/eval_run/adapters/planner_upfront.py": "df95bb1c4887a1b3ba1d707d4148f02d9e460c7c3ffca8db0bbf39a53a8853bd",
+        "evidence/eval_run/adapters/react.py": "49f7e8b9595238844cb8d1f5efc392f5601311b72e3faa070e4071a87211f5a1",
+        "evidence/eval_run/adapters/text_to_sql.py": "16aa4c540e4191c54ff8cbd45e4855f771a5798b802510cf192c53698d22d72a",
+        "evidence/eval_run/harness.py": "93308ae4cd76c5923cef3aa7d4d43d9dd14f6bd2084e91fb1d323126ea6afc88",
+        "evidence/eval_run/tools_code.py": "9814a30fc737267b72838475e78d9a090cd740ed65dafdbabb26aa62d51b0304",
+        "evidence/eval_run/tools_decl.py": "b1b71828bbba5566d36985fc1b767812469b7d495cff579053a25f4cd5229e1a",
+        "evidence/eval_run/tools_sql.py": "0c8d7004e4df33ab2a50095dd1ed758543c52bd589eb2c87236df34e6e1f3f3b",
+        "gdc/primitives.py": "720241fd4a99c05dd0990bc281a1515e175b7c0420daa1c01a09592249dba22d",
+        "planner/__init__.py": "27a4257e36206eb93f2ad90e7f955745462ef81f7b2173120c33cb730958e223",
+        "planner/contract.py": "988406820a84bd4ec95cd4dd77e5702d70ef9215c5227b2af622997fe1fba82e",
+        "planner/declaration_probe.py": "36deb1d134190ef9d2fd2caa26cc8e267da6923c9c9425679b13944d4a8d1845",
+        "planner/integrate.py": "bc1116262cb7c89c69a9c8d71d87cd1d47a62401dda8597b22bb0c105c87c11a",
+        "planner/llm.py": "4098ec47604c136b2da528d31ff8233609d8dda2a8a80a2e434350dd847dd4dc",
+        "planner/operators.py": "b69fe46663e4a08b49f82613c09f43bea55071f6fb5e7117b3ac58ff3dd4b374",
+        "planner/order.py": "f57d869e24d62904ab27d1cd391e2b56e720456e6978de813d3a57727b1279a2",
+        "planner/probe.py": "ee85ceb2f4b9173d0137e09849ddcb261c92ad5c6987973c1a9d5ef9084e89d8",
+        "planner/schema_bridge.py": "2e90ab7077de1a4823e35ec5d775fbe7080ca4884180d600037abe0c392d6fbc",
+        "planner/search.py": "6abdde4cef65d6f33828d5a309d9923eddc07b80561efaf36dd4e3e1566c56fd",
+        "planner/state.py": "e5b03aa0d4091075f461d99f43557d30d8d30b50fc0a96e9e5635b8baa78dad2"
+      }
+    },
+    "plan_sha256": [
+      "0a9b4f9a7f76ab3b6489728b90f92039f5dc09ee237976481d5cfce375ff8e71"
+    ],
+    "plan_keys": [
+      [
+        "code_agent",
+        "bike_01",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_01",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_01",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_01",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_01",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_02",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_02",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_02",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_02",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_02",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_04",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_04",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_04",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_04",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_04",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_05",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_05",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_05",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_05",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_05",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_06",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_06",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_06",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_06",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_06",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_08",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_08",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_08",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_08",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_08",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_11",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_11",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_11",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_11",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_11",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_12",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_12",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_12",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_12",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_12",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_13",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_13",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_13",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_13",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_13",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_14",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_14",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_14",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_14",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_14",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_15",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_15",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_15",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_15",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_15",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_16",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_16",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_16",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_16",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_16",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_17",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_17",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_17",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_17",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_17",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_18",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_18",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_18",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_18",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_18",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_19",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_19",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_19",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_19",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_19",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_20",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_20",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_20",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_20",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_20",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_21",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_21",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_21",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_21",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_21",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_22",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_22",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_22",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_22",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_22",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_23",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_23",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_23",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_23",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_23",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_24",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_24",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_24",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_24",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_24",
+        4
+      ],
+      [
+        "code_agent",
+        "bike_25",
+        0
+      ],
+      [
+        "code_agent",
+        "bike_25",
+        1
+      ],
+      [
+        "code_agent",
+        "bike_25",
+        2
+      ],
+      [
+        "code_agent",
+        "bike_25",
+        3
+      ],
+      [
+        "code_agent",
+        "bike_25",
+        4
+      ],
+      [
+        "react",
+        "bike_06",
+        0
+      ],
+      [
+        "react",
+        "bike_06",
+        1
+      ],
+      [
+        "react",
+        "bike_06",
+        2
+      ],
+      [
+        "react",
+        "bike_06",
+        3
+      ],
+      [
+        "react",
+        "bike_06",
+        4
+      ],
+      [
+        "react",
+        "bike_11",
+        0
+      ],
+      [
+        "react",
+        "bike_11",
+        1
+      ],
+      [
+        "react",
+        "bike_11",
+        2
+      ],
+      [
+        "react",
+        "bike_11",
+        3
+      ],
+      [
+        "react",
+        "bike_11",
+        4
+      ],
+      [
+        "react",
+        "bike_12",
+        0
+      ],
+      [
+        "react",
+        "bike_12",
+        1
+      ],
+      [
+        "react",
+        "bike_12",
+        2
+      ],
+      [
+        "react",
+        "bike_12",
+        3
+      ],
+      [
+        "react",
+        "bike_12",
+        4
+      ],
+      [
+        "react",
+        "bike_13",
+        0
+      ],
+      [
+        "react",
+        "bike_13",
+        1
+      ],
+      [
+        "react",
+        "bike_13",
+        2
+      ],
+      [
+        "react",
+        "bike_13",
+        3
+      ],
+      [
+        "react",
+        "bike_13",
+        4
+      ],
+      [
+        "react",
+        "bike_14",
+        0
+      ],
+      [
+        "react",
+        "bike_14",
+        1
+      ],
+      [
+        "react",
+        "bike_14",
+        2
+      ],
+      [
+        "react",
+        "bike_14",
+        3
+      ],
+      [
+        "react",
+        "bike_14",
+        4
+      ],
+      [
+        "react",
+        "bike_15",
+        0
+      ],
+      [
+        "react",
+        "bike_15",
+        1
+      ],
+      [
+        "react",
+        "bike_15",
+        2
+      ],
+      [
+        "react",
+        "bike_15",
+        3
+      ],
+      [
+        "react",
+        "bike_15",
+        4
+      ],
+      [
+        "react",
+        "bike_16",
+        0
+      ],
+      [
+        "react",
+        "bike_16",
+        1
+      ],
+      [
+        "react",
+        "bike_16",
+        2
+      ],
+      [
+        "react",
+        "bike_16",
+        3
+      ],
+      [
+        "react",
+        "bike_16",
+        4
+      ],
+      [
+        "react",
+        "bike_17",
+        0
+      ],
+      [
+        "react",
+        "bike_17",
+        1
+      ],
+      [
+        "react",
+        "bike_17",
+        2
+      ],
+      [
+        "react",
+        "bike_17",
+        3
+      ],
+      [
+        "react",
+        "bike_17",
+        4
+      ],
+      [
+        "react",
+        "bike_18",
+        0
+      ],
+      [
+        "react",
+        "bike_18",
+        1
+      ],
+      [
+        "react",
+        "bike_18",
+        2
+      ],
+      [
+        "react",
+        "bike_18",
+        3
+      ],
+      [
+        "react",
+        "bike_18",
+        4
+      ],
+      [
+        "react",
+        "bike_19",
+        0
+      ],
+      [
+        "react",
+        "bike_19",
+        1
+      ],
+      [
+        "react",
+        "bike_19",
+        2
+      ],
+      [
+        "react",
+        "bike_19",
+        3
+      ],
+      [
+        "react",
+        "bike_19",
+        4
+      ],
+      [
+        "react",
+        "bike_20",
+        0
+      ],
+      [
+        "react",
+        "bike_20",
+        1
+      ],
+      [
+        "react",
+        "bike_20",
+        2
+      ],
+      [
+        "react",
+        "bike_20",
+        3
+      ],
+      [
+        "react",
+        "bike_20",
+        4
+      ],
+      [
+        "react",
+        "bike_21",
+        0
+      ],
+      [
+        "react",
+        "bike_21",
+        1
+      ],
+      [
+        "react",
+        "bike_21",
+        2
+      ],
+      [
+        "react",
+        "bike_21",
+        3
+      ],
+      [
+        "react",
+        "bike_21",
+        4
+      ],
+      [
+        "react",
+        "bike_22",
+        0
+      ],
+      [
+        "react",
+        "bike_22",
+        1
+      ],
+      [
+        "react",
+        "bike_22",
+        2
+      ],
+      [
+        "react",
+        "bike_22",
+        3
+      ],
+      [
+        "react",
+        "bike_22",
+        4
+      ],
+      [
+        "react",
+        "bike_23",
+        0
+      ],
+      [
+        "react",
+        "bike_23",
+        1
+      ],
+      [
+        "react",
+        "bike_23",
+        2
+      ],
+      [
+        "react",
+        "bike_23",
+        3
+      ],
+      [
+        "react",
+        "bike_23",
+        4
+      ],
+      [
+        "react",
+        "bike_24",
+        0
+      ],
+      [
+        "react",
+        "bike_24",
+        1
+      ],
+      [
+        "react",
+        "bike_24",
+        2
+      ],
+      [
+        "react",
+        "bike_24",
+        3
+      ],
+      [
+        "react",
+        "bike_24",
+        4
+      ],
+      [
+        "react",
+        "bike_25",
+        0
+      ],
+      [
+        "react",
+        "bike_25",
+        1
+      ],
+      [
+        "react",
+        "bike_25",
+        2
+      ],
+      [
+        "react",
+        "bike_25",
+        3
+      ],
+      [
+        "react",
+        "bike_25",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_01",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_01",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_01",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_01",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_01",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_02",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_02",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_02",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_02",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_02",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_04",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_04",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_04",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_04",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_04",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_05",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_05",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_05",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_05",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_05",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_06",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_06",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_06",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_06",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_06",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_08",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_08",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_08",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_08",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_08",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_11",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_11",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_11",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_11",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_11",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_12",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_12",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_12",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_12",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_12",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_13",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_13",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_13",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_13",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_13",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_14",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_14",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_14",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_14",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_14",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_15",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_15",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_15",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_15",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_15",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_16",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_16",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_16",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_16",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_16",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_17",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_17",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_17",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_17",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_17",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_18",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_18",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_18",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_18",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_18",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_19",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_19",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_19",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_19",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_19",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_20",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_20",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_20",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_20",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_20",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_21",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_21",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_21",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_21",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_21",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_22",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_22",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_22",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_22",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_22",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_23",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_23",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_23",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_23",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_23",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_24",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_24",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_24",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_24",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_24",
+        4
+      ],
+      [
+        "text_to_sql",
+        "bike_25",
+        0
+      ],
+      [
+        "text_to_sql",
+        "bike_25",
+        1
+      ],
+      [
+        "text_to_sql",
+        "bike_25",
+        2
+      ],
+      [
+        "text_to_sql",
+        "bike_25",
+        3
+      ],
+      [
+        "text_to_sql",
+        "bike_25",
+        4
+      ]
+    ],
+    "plan_keys_sha256": "cd5d4d6d6bde69d4ab4a5a5a5d23f8fe7975855d6fcfdd91e4d38ccaee035e4e",
+    "prompt_keys": {
+      "code_agent": {
+        "sha256": "5dd66a2d5d9b6e60dbe701df0cdf4eb6f6580012ceda44caf17e14968e60646d",
+        "system": "code_agent",
+        "recorded_sha256": [
+          "5dd66a2d5d9b6e60dbe701df0cdf4eb6f6580012ceda44caf17e14968e60646d"
+        ],
+        "recorded_in": [
+          "results_spider_bike_1.provenance.json",
+          "results_temp0_parity_bike_1.provenance.json",
+          "results_temp0_parity_c1_bound12_rerun_bike_1.provenance.json"
+        ],
+        "alias_lines_added": false,
+        "prompt_overrides": []
+      },
+      "react": {
+        "sha256": "6ef430833ff2c3ca74e8bb173483a795c87a53ecd24d0c5360247b2c91deb90c",
+        "system": "react",
+        "recorded_sha256": [
+          "6ef430833ff2c3ca74e8bb173483a795c87a53ecd24d0c5360247b2c91deb90c"
+        ],
+        "recorded_in": [
+          "results_spider_bike_1.provenance.json",
+          "results_temp0_parity_bike_1.provenance.json"
+        ],
+        "alias_lines_added": false,
+        "prompt_overrides": []
+      },
+      "text_to_sql": {
+        "sha256": "4457e65bb5d0478b713e07476c57bbfbc2849b00c83493a889d757365fa039a4",
+        "system": "text_to_sql",
+        "recorded_sha256": [
+          "4457e65bb5d0478b713e07476c57bbfbc2849b00c83493a889d757365fa039a4"
+        ],
+        "recorded_in": [
+          "results_spider_bike_1.provenance.json",
+          "results_temp0_parity_bike_1.provenance.json"
+        ],
+        "alias_lines_added": false,
+        "prompt_overrides": []
+      }
+    },
+    "prompt_overrides": {},
+    "sent_calls_by_sha256": {
+      "5dd66a2d5d9b6e60dbe701df0cdf4eb6f6580012ceda44caf17e14968e60646d": 435,
+      "6ef430833ff2c3ca74e8bb173483a795c87a53ecd24d0c5360247b2c91deb90c": 152,
+      "4457e65bb5d0478b713e07476c57bbfbc2849b00c83493a889d757365fa039a4": 105
+    },
+    "cell_prompt": {
+      "code_agent/bike_01/0": "code_agent",
+      "code_agent/bike_01/1": "code_agent",
+      "code_agent/bike_01/2": "code_agent",
+      "code_agent/bike_01/3": "code_agent",
+      "code_agent/bike_01/4": "code_agent",
+      "code_agent/bike_02/0": "code_agent",
+      "code_agent/bike_02/1": "code_agent",
+      "code_agent/bike_02/2": "code_agent",
+      "code_agent/bike_02/3": "code_agent",
+      "code_agent/bike_02/4": "code_agent",
+      "code_agent/bike_04/0": "code_agent",
+      "code_agent/bike_04/1": "code_agent",
+      "code_agent/bike_04/2": "code_agent",
+      "code_agent/bike_04/3": "code_agent",
+      "code_agent/bike_04/4": "code_agent",
+      "code_agent/bike_05/0": "code_agent",
+      "code_agent/bike_05/1": "code_agent",
+      "code_agent/bike_05/2": "code_agent",
+      "code_agent/bike_05/3": "code_agent",
+      "code_agent/bike_05/4": "code_agent",
+      "code_agent/bike_06/0": "code_agent",
+      "code_agent/bike_06/1": "code_agent",
+      "code_agent/bike_06/2": "code_agent",
+      "code_agent/bike_06/3": "code_agent",
+      "code_agent/bike_06/4": "code_agent",
+      "code_agent/bike_08/0": "code_agent",
+      "code_agent/bike_08/1": "code_agent",
+      "code_agent/bike_08/2": "code_agent",
+      "code_agent/bike_08/3": "code_agent",
+      "code_agent/bike_08/4": "code_agent",
+      "code_agent/bike_11/0": "code_agent",
+      "code_agent/bike_11/1": "code_agent",
+      "code_agent/bike_11/2": "code_agent",
+      "code_agent/bike_11/3": "code_agent",
+      "code_agent/bike_11/4": "code_agent",
+      "code_agent/bike_12/0": "code_agent",
+      "code_agent/bike_12/1": "code_agent",
+      "code_agent/bike_12/2": "code_agent",
+      "code_agent/bike_12/3": "code_agent",
+      "code_agent/bike_12/4": "code_agent",
+      "code_agent/bike_13/0": "code_agent",
+      "code_agent/bike_13/1": "code_agent",
+      "code_agent/bike_13/2": "code_agent",
+      "code_agent/bike_13/3": "code_agent",
+      "code_agent/bike_13/4": "code_agent",
+      "code_agent/bike_14/0": "code_agent",
+      "code_agent/bike_14/1": "code_agent",
+      "code_agent/bike_14/2": "code_agent",
+      "code_agent/bike_14/3": "code_agent",
+      "code_agent/bike_14/4": "code_agent",
+      "code_agent/bike_15/0": "code_agent",
+      "code_agent/bike_15/1": "code_agent",
+      "code_agent/bike_15/2": "code_agent",
+      "code_agent/bike_15/3": "code_agent",
+      "code_agent/bike_15/4": "code_agent",
+      "code_agent/bike_16/0": "code_agent",
+      "code_agent/bike_16/1": "code_agent",
+      "code_agent/bike_16/2": "code_agent",
+      "code_agent/bike_16/3": "code_agent",
+      "code_agent/bike_16/4": "code_agent",
+      "code_agent/bike_17/0": "code_agent",
+      "code_agent/bike_17/1": "code_agent",
+      "code_agent/bike_17/2": "code_agent",
+      "code_agent/bike_17/3": "code_agent",
+      "code_agent/bike_17/4": "code_agent",
+      "code_agent/bike_18/0": "code_agent",
+      "code_agent/bike_18/1": "code_agent",
+      "code_agent/bike_18/2": "code_agent",
+      "code_agent/bike_18/3": "code_agent",
+      "code_agent/bike_18/4": "code_agent",
+      "code_agent/bike_19/0": "code_agent",
+      "code_agent/bike_19/1": "code_agent",
+      "code_agent/bike_19/2": "code_agent",
+      "code_agent/bike_19/3": "code_agent",
+      "code_agent/bike_19/4": "code_agent",
+      "code_agent/bike_20/0": "code_agent",
+      "code_agent/bike_20/1": "code_agent",
+      "code_agent/bike_20/2": "code_agent",
+      "code_agent/bike_20/3": "code_agent",
+      "code_agent/bike_20/4": "code_agent",
+      "code_agent/bike_21/0": "code_agent",
+      "code_agent/bike_21/1": "code_agent",
+      "code_agent/bike_21/2": "code_agent",
+      "code_agent/bike_21/3": "code_agent",
+      "code_agent/bike_21/4": "code_agent",
+      "code_agent/bike_22/0": "code_agent",
+      "code_agent/bike_22/1": "code_agent",
+      "code_agent/bike_22/2": "code_agent",
+      "code_agent/bike_22/3": "code_agent",
+      "code_agent/bike_22/4": "code_agent",
+      "code_agent/bike_23/0": "code_agent",
+      "code_agent/bike_23/1": "code_agent",
+      "code_agent/bike_23/2": "code_agent",
+      "code_agent/bike_23/3": "code_agent",
+      "code_agent/bike_23/4": "code_agent",
+      "code_agent/bike_24/0": "code_agent",
+      "code_agent/bike_24/1": "code_agent",
+      "code_agent/bike_24/2": "code_agent",
+      "code_agent/bike_24/3": "code_agent",
+      "code_agent/bike_24/4": "code_agent",
+      "code_agent/bike_25/0": "code_agent",
+      "code_agent/bike_25/1": "code_agent",
+      "code_agent/bike_25/2": "code_agent",
+      "code_agent/bike_25/3": "code_agent",
+      "code_agent/bike_25/4": "code_agent",
+      "react/bike_06/0": "react",
+      "react/bike_06/1": "react",
+      "react/bike_06/2": "react",
+      "react/bike_06/3": "react",
+      "react/bike_06/4": "react",
+      "react/bike_11/0": "react",
+      "react/bike_11/1": "react",
+      "react/bike_11/2": "react",
+      "react/bike_11/3": "react",
+      "react/bike_11/4": "react",
+      "react/bike_12/0": "react",
+      "react/bike_12/1": "react",
+      "react/bike_12/2": "react",
+      "react/bike_12/3": "react",
+      "react/bike_12/4": "react",
+      "react/bike_13/0": "react",
+      "react/bike_13/1": "react",
+      "react/bike_13/2": "react",
+      "react/bike_13/3": "react",
+      "react/bike_13/4": "react",
+      "react/bike_14/0": "react",
+      "react/bike_14/1": "react",
+      "react/bike_14/2": "react",
+      "react/bike_14/3": "react",
+      "react/bike_14/4": "react",
+      "react/bike_15/0": "react",
+      "react/bike_15/1": "react",
+      "react/bike_15/2": "react",
+      "react/bike_15/3": "react",
+      "react/bike_15/4": "react",
+      "react/bike_16/0": "react",
+      "react/bike_16/1": "react",
+      "react/bike_16/2": "react",
+      "react/bike_16/3": "react",
+      "react/bike_16/4": "react",
+      "react/bike_17/0": "react",
+      "react/bike_17/1": "react",
+      "react/bike_17/2": "react",
+      "react/bike_17/3": "react",
+      "react/bike_17/4": "react",
+      "react/bike_18/0": "react",
+      "react/bike_18/1": "react",
+      "react/bike_18/2": "react",
+      "react/bike_18/3": "react",
+      "react/bike_18/4": "react",
+      "react/bike_19/0": "react",
+      "react/bike_19/1": "react",
+      "react/bike_19/2": "react",
+      "react/bike_19/3": "react",
+      "react/bike_19/4": "react",
+      "react/bike_20/0": "react",
+      "react/bike_20/1": "react",
+      "react/bike_20/2": "react",
+      "react/bike_20/3": "react",
+      "react/bike_20/4": "react",
+      "react/bike_21/0": "react",
+      "react/bike_21/1": "react",
+      "react/bike_21/2": "react",
+      "react/bike_21/3": "react",
+      "react/bike_21/4": "react",
+      "react/bike_22/0": "react",
+      "react/bike_22/1": "react",
+      "react/bike_22/2": "react",
+      "react/bike_22/3": "react",
+      "react/bike_22/4": "react",
+      "react/bike_23/0": "react",
+      "react/bike_23/1": "react",
+      "react/bike_23/2": "react",
+      "react/bike_23/3": "react",
+      "react/bike_23/4": "react",
+      "react/bike_24/0": "react",
+      "react/bike_24/1": "react",
+      "react/bike_24/2": "react",
+      "react/bike_24/3": "react",
+      "react/bike_24/4": "react",
+      "react/bike_25/0": "react",
+      "react/bike_25/1": "react",
+      "react/bike_25/2": "react",
+      "react/bike_25/3": "react",
+      "react/bike_25/4": "react",
+      "text_to_sql/bike_01/0": "text_to_sql",
+      "text_to_sql/bike_01/1": "text_to_sql",
+      "text_to_sql/bike_01/2": "text_to_sql",
+      "text_to_sql/bike_01/3": "text_to_sql",
+      "text_to_sql/bike_01/4": "text_to_sql",
+      "text_to_sql/bike_02/0": "text_to_sql",
+      "text_to_sql/bike_02/1": "text_to_sql",
+      "text_to_sql/bike_02/2": "text_to_sql",
+      "text_to_sql/bike_02/3": "text_to_sql",
+      "text_to_sql/bike_02/4": "text_to_sql",
+      "text_to_sql/bike_04/0": "text_to_sql",
+      "text_to_sql/bike_04/1": "text_to_sql",
+      "text_to_sql/bike_04/2": "text_to_sql",
+      "text_to_sql/bike_04/3": "text_to_sql",
+      "text_to_sql/bike_04/4": "text_to_sql",
+      "text_to_sql/bike_05/0": "text_to_sql",
+      "text_to_sql/bike_05/1": "text_to_sql",
+      "text_to_sql/bike_05/2": "text_to_sql",
+      "text_to_sql/bike_05/3": "text_to_sql",
+      "text_to_sql/bike_05/4": "text_to_sql",
+      "text_to_sql/bike_06/0": "text_to_sql",
+      "text_to_sql/bike_06/1": "text_to_sql",
+      "text_to_sql/bike_06/2": "text_to_sql",
+      "text_to_sql/bike_06/3": "text_to_sql",
+      "text_to_sql/bike_06/4": "text_to_sql",
+      "text_to_sql/bike_08/0": "text_to_sql",
+      "text_to_sql/bike_08/1": "text_to_sql",
+      "text_to_sql/bike_08/2": "text_to_sql",
+      "text_to_sql/bike_08/3": "text_to_sql",
+      "text_to_sql/bike_08/4": "text_to_sql",
+      "text_to_sql/bike_11/0": "text_to_sql",
+      "text_to_sql/bike_11/1": "text_to_sql",
+      "text_to_sql/bike_11/2": "text_to_sql",
+      "text_to_sql/bike_11/3": "text_to_sql",
+      "text_to_sql/bike_11/4": "text_to_sql",
+      "text_to_sql/bike_12/0": "text_to_sql",
+      "text_to_sql/bike_12/1": "text_to_sql",
+      "text_to_sql/bike_12/2": "text_to_sql",
+      "text_to_sql/bike_12/3": "text_to_sql",
+      "text_to_sql/bike_12/4": "text_to_sql",
+      "text_to_sql/bike_13/0": "text_to_sql",
+      "text_to_sql/bike_13/1": "text_to_sql",
+      "text_to_sql/bike_13/2": "text_to_sql",
+      "text_to_sql/bike_13/3": "text_to_sql",
+      "text_to_sql/bike_13/4": "text_to_sql",
+      "text_to_sql/bike_14/0": "text_to_sql",
+      "text_to_sql/bike_14/1": "text_to_sql",
+      "text_to_sql/bike_14/2": "text_to_sql",
+      "text_to_sql/bike_14/3": "text_to_sql",
+      "text_to_sql/bike_14/4": "text_to_sql",
+      "text_to_sql/bike_15/0": "text_to_sql",
+      "text_to_sql/bike_15/1": "text_to_sql",
+      "text_to_sql/bike_15/2": "text_to_sql",
+      "text_to_sql/bike_15/3": "text_to_sql",
+      "text_to_sql/bike_15/4": "text_to_sql",
+      "text_to_sql/bike_16/0": "text_to_sql",
+      "text_to_sql/bike_16/1": "text_to_sql",
+      "text_to_sql/bike_16/2": "text_to_sql",
+      "text_to_sql/bike_16/3": "text_to_sql",
+      "text_to_sql/bike_16/4": "text_to_sql",
+      "text_to_sql/bike_17/0": "text_to_sql",
+      "text_to_sql/bike_17/1": "text_to_sql",
+      "text_to_sql/bike_17/2": "text_to_sql",
+      "text_to_sql/bike_17/3": "text_to_sql",
+      "text_to_sql/bike_17/4": "text_to_sql",
+      "text_to_sql/bike_18/0": "text_to_sql",
+      "text_to_sql/bike_18/1": "text_to_sql",
+      "text_to_sql/bike_18/2": "text_to_sql",
+      "text_to_sql/bike_18/3": "text_to_sql",
+      "text_to_sql/bike_18/4": "text_to_sql",
+      "text_to_sql/bike_19/0": "text_to_sql",
+      "text_to_sql/bike_19/1": "text_to_sql",
+      "text_to_sql/bike_19/2": "text_to_sql",
+      "text_to_sql/bike_19/3": "text_to_sql",
+      "text_to_sql/bike_19/4": "text_to_sql",
+      "text_to_sql/bike_20/0": "text_to_sql",
+      "text_to_sql/bike_20/1": "text_to_sql",
+      "text_to_sql/bike_20/2": "text_to_sql",
+      "text_to_sql/bike_20/3": "text_to_sql",
+      "text_to_sql/bike_20/4": "text_to_sql",
+      "text_to_sql/bike_21/0": "text_to_sql",
+      "text_to_sql/bike_21/1": "text_to_sql",
+      "text_to_sql/bike_21/2": "text_to_sql",
+      "text_to_sql/bike_21/3": "text_to_sql",
+      "text_to_sql/bike_21/4": "text_to_sql",
+      "text_to_sql/bike_22/0": "text_to_sql",
+      "text_to_sql/bike_22/1": "text_to_sql",
+      "text_to_sql/bike_22/2": "text_to_sql",
+      "text_to_sql/bike_22/3": "text_to_sql",
+      "text_to_sql/bike_22/4": "text_to_sql",
+      "text_to_sql/bike_23/0": "text_to_sql",
+      "text_to_sql/bike_23/1": "text_to_sql",
+      "text_to_sql/bike_23/2": "text_to_sql",
+      "text_to_sql/bike_23/3": "text_to_sql",
+      "text_to_sql/bike_23/4": "text_to_sql",
+      "text_to_sql/bike_24/0": "text_to_sql",
+      "text_to_sql/bike_24/1": "text_to_sql",
+      "text_to_sql/bike_24/2": "text_to_sql",
+      "text_to_sql/bike_24/3": "text_to_sql",
+      "text_to_sql/bike_24/4": "text_to_sql",
+      "text_to_sql/bike_25/0": "text_to_sql",
+      "text_to_sql/bike_25/1": "text_to_sql",
+      "text_to_sql/bike_25/2": "text_to_sql",
+      "text_to_sql/bike_25/3": "text_to_sql",
+      "text_to_sql/bike_25/4": "text_to_sql"
+    },
+    "timeout_note": "per_query_timeout_s bounds text_to_sql's SQL only; code_agent exec has no wall-clock bound",
+    "sqlite_vs_recorded": "The recorded runs did not record their SQLite version. Their one MEDIAN query failed with 'no such function', so they ran without MEDIAN. This batch's SQLite is in `sqlite` (`functions` says which of MEDIAN, PERCENTILE and CORR it has); every reported text_to_sql cell is re-run on it (reason vi).",
+    "code_agent_tool_description": {
+      "choice": "row count only, called the register (the frame's table name is not stated)",
+      "kept_sentence": "Variables persist across run_python and final_answer calls for this query."
+    }
+  }
+}

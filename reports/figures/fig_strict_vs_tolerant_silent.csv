@@ -1,6 +1,6 @@
 system,silent_strict_pct,silent_tolerant_pct
 text_to_sql,7.4,7.4
 network,7.4,3.7
-react,14.8,7.4
-code_agent,14.8,11.1
+react,11.1,7.4
+code_agent,20.7,17.0
 planner,22.2,18.5

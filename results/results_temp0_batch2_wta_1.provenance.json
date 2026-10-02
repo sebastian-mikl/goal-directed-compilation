@@ -1,0 +1,2324 @@
+{
+  "timestamp_utc": "2026-10-01T22:34:02.718482Z",
+  "model": "claude-sonnet-4-5",
+  "emission_model": "claude-sonnet-4-5",
+  "contract_version": "s49",
+  "temperature": 0,
+  "repetitions": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "bounds": {
+    "react_max_iters": 15,
+    "code_max_retries": 12,
+    "per_query_timeout_s": 60
+  },
+  "pricing": {
+    "claude-sonnet-4-5": {
+      "input": 3.0,
+      "output": 15.0
+    },
+    "claude-haiku-4-5": {
+      "input": 1.0,
+      "output": 5.0
+    }
+  },
+  "cache": {
+    "enabled": true,
+    "control": "ephemeral on last system block (caches tools+system)",
+    "multipliers": {
+      "cache_write": 1.25,
+      "cache_read": 0.1
+    },
+    "min_cacheable_tokens": 1024,
+    "prefix_sizes": [
+      {
+        "system": "network",
+        "system_chars": 7214,
+        "tool_chars": 0,
+        "est_tokens": 1803,
+        "min_cacheable": 1024,
+        "below_min": false
+      },
+      {
+        "system": "planner",
+        "system_chars": 1746,
+        "tool_chars": 0,
+        "est_tokens": 436,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "react",
+        "system_chars": 1155,
+        "tool_chars": 2477,
+        "est_tokens": 907,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "code_agent",
+        "system_chars": 1251,
+        "tool_chars": 634,
+        "est_tokens": 470,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "text_to_sql",
+        "system_chars": 1142,
+        "tool_chars": 338,
+        "est_tokens": 369,
+        "min_cacheable": 1024,
+        "below_min": true
+      }
+    ],
+    "note": "uniform infra optimization applied identically to all 5 systems; lowers $ but NOT raw token / call counts. Paper cost metrics = calls + RAW tokens (cache-blind); cost_usd_cached is the practical bill."
+  },
+  "corpus_path": "eval_corpus_spider_wta_1.json",
+  "corpus_sha256": "fd7dfd389bba4ec8b5b48ff3a72cb9da00e180d2de3023b14c67fd5a8263f74a",
+  "gold_path": "evidence/gold/gold_spider_wta_1.json",
+  "gold_sha256": "c1228120320a1f5a6c0db26fc3e1a4129431a1983a8fd38b36fb6a03f90b21ba",
+  "comparator_version": "s48",
+  "network_prompt_version": "s48",
+  "refuse_unsupported": false,
+  "git_commit": "5bf429e68e232033135c68272635234b2c55423e",
+  "lib_versions": {
+    "anthropic": "0.120.2",
+    "pandas": "3.0.5",
+    "numpy": "2.5.1",
+    "python": "3.14.6",
+    "sqlite": "3.53.4",
+    "sqlite3_module": null
+  },
+  "prompts": {
+    "code_agent": "You answer an analytical query over a pandas DataFrame `df` (278-row register).\nUse run_python to compute. ALWAYS store your answer in `result = ...` (a DataFrame,\nSeries, or scalar) \u2014 do NOT use print(). A compact summary of `result` is returned to you.\nOnce you have verified the answer is correct, call final_answer with code that sets `result`.\nBe efficient \u2014 at most a few attempts.\n\nIf the query genuinely cannot be answered from this data, STOP with a plain-text reply\nexplaining you cannot, instead of fabricating a result.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: A women's tennis (WTA) database. players lists individual athletes; matches logs individual tournament matches (winner/loser detail per match); rankings is a historical weekly ranking snapshot per player.\n\nREGISTER COLUMNS (verbatim):\n'best_of', 'draw_size', 'loser_age', 'loser_entry', 'loser_hand', 'loser_ht', 'loser_id', 'loser_ioc', 'loser_name', 'loser_rank', 'loser_rank_points', 'loser_seed', 'match_num', 'minutes', 'round', 'score', 'surface', 'tourney_date', 'tourney_id', 'tourney_level', 'tourney_name', 'winner_age', 'winner_entry', 'winner_hand', 'winner_ht', 'winner_id', 'winner_ioc', 'winner_name', 'winner_rank', 'winner_rank_points', 'winner_seed', 'year'\n",
+    "react": "You answer an analytical query over a tabular register using exactly five tools (declarative\nprimitives, the same the Network uses): filter, select (project), aggregate, compute, order\n(sort + optional limit). Start from a frame named \"register\"; each tool reads a frame and produces\na new named frame \"f0\",\"f1\",\u2026 Call final_answer with the name of the frame that IS the answer\n(a 1x1 frame for a scalar; a multi-row frame for a list).\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: A women's tennis (WTA) database. players lists individual athletes; matches logs individual tournament matches (winner/loser detail per match); rankings is a historical weekly ranking snapshot per player.\n\nREGISTER COLUMNS (verbatim):\n'best_of', 'draw_size', 'loser_age', 'loser_entry', 'loser_hand', 'loser_ht', 'loser_id', 'loser_ioc', 'loser_name', 'loser_rank', 'loser_rank_points', 'loser_seed', 'match_num', 'minutes', 'round', 'score', 'surface', 'tourney_date', 'tourney_id', 'tourney_level', 'tourney_name', 'winner_age', 'winner_entry', 'winner_hand', 'winner_ht', 'winner_id', 'winner_ioc', 'winner_name', 'winner_rank', 'winner_rank_points', 'winner_seed', 'year'\n",
+    "text_to_sql": "You answer an analytical query over a single sqlite table `register` (278 rows).\nEmit EXACTLY ONE SELECT statement via the run_sql tool. Quote column names with\nspaces / parens like \"Unit Price (Net)\". No commentary outside the tool call.\n\nIf the query genuinely cannot be answered from this table, reply with plain text\nexplaining you cannot, instead of emitting SQL.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: A women's tennis (WTA) database. players lists individual athletes; matches logs individual tournament matches (winner/loser detail per match); rankings is a historical weekly ranking snapshot per player.\n\nTABLE COLUMNS (verbatim \u2014 sqlite identifiers, quote when they contain spaces/parens):\n'best_of', 'draw_size', 'loser_age', 'loser_entry', 'loser_hand', 'loser_ht', 'loser_id', 'loser_ioc', 'loser_name', 'loser_rank', 'loser_rank_points', 'loser_seed', 'match_num', 'minutes', 'round', 'score', 'surface', 'tourney_date', 'tourney_id', 'tourney_level', 'tourney_name', 'winner_age', 'winner_entry', 'winner_hand', 'winner_ht', 'winner_id', 'winner_ioc', 'winner_name', 'winner_rank', 'winner_rank_points', 'winner_seed', 'year'\n"
+  },
+  "env": {
+    "ANTHROPIC_API_KEY_present": true
+  },
+  "batch2": {
+    "script": "scripts/rerun_temp0_batch2.py",
+    "arm": "recorded",
+    "domain": "wta_1",
+    "git": [
+      {
+        "commit": "5bf429e68e232033135c68272635234b2c55423e",
+        "tracked_changes": false
+      }
+    ],
+    "fixed_code": {
+      "checks": {
+        "engine: one arithmetic grammar for plan search and executor": true,
+        "engine: stable total-order sort": true,
+        "engine: executed step checked against its planned state": true,
+        "engine: typed refusal of an undeclared aggregate": true,
+        "code_agent: one namespace per episode": true,
+        "code_agent: labelled index kept": true,
+        "code_agent: tool description states the frame": true,
+        "code_agent: tool description says variables persist": true
+      },
+      "contract_version": "s49",
+      "sqlite": {
+        "sqlite_version": "3.53.4",
+        "sqlite3_module_version": null,
+        "functions": {
+          "median": true,
+          "percentile": true,
+          "corr": false
+        }
+      },
+      "sha256": {
+        "evidence/eval_run/adapters/__init__.py": "bee6bd0657183d148956da890071a9fc569b044ededb91aaed4b9d609a2090b6",
+        "evidence/eval_run/adapters/base.py": "fcb786c6d28ce9e93e1688844e40f983d0cc92f8c4d1100b98815847bbde4199",
+        "evidence/eval_run/adapters/code_agent.py": "121afebffe585a080fc696299e7a5f3b78114a7537e3444d723e08c3dd7e742c",
+        "evidence/eval_run/adapters/network.py": "82152f88b1e194f33fce414b422599eeb82b4ee56d4dfb5c2f15066912003d10",
+        "evidence/eval_run/adapters/planner_upfront.py": "df95bb1c4887a1b3ba1d707d4148f02d9e460c7c3ffca8db0bbf39a53a8853bd",
+        "evidence/eval_run/adapters/react.py": "49f7e8b9595238844cb8d1f5efc392f5601311b72e3faa070e4071a87211f5a1",
+        "evidence/eval_run/adapters/text_to_sql.py": "16aa4c540e4191c54ff8cbd45e4855f771a5798b802510cf192c53698d22d72a",
+        "evidence/eval_run/harness.py": "93308ae4cd76c5923cef3aa7d4d43d9dd14f6bd2084e91fb1d323126ea6afc88",
+        "evidence/eval_run/tools_code.py": "9814a30fc737267b72838475e78d9a090cd740ed65dafdbabb26aa62d51b0304",
+        "evidence/eval_run/tools_decl.py": "b1b71828bbba5566d36985fc1b767812469b7d495cff579053a25f4cd5229e1a",
+        "evidence/eval_run/tools_sql.py": "0c8d7004e4df33ab2a50095dd1ed758543c52bd589eb2c87236df34e6e1f3f3b",
+        "gdc/primitives.py": "720241fd4a99c05dd0990bc281a1515e175b7c0420daa1c01a09592249dba22d",
+        "planner/__init__.py": "27a4257e36206eb93f2ad90e7f955745462ef81f7b2173120c33cb730958e223",
+        "planner/contract.py": "988406820a84bd4ec95cd4dd77e5702d70ef9215c5227b2af622997fe1fba82e",
+        "planner/declaration_probe.py": "36deb1d134190ef9d2fd2caa26cc8e267da6923c9c9425679b13944d4a8d1845",
+        "planner/integrate.py": "bc1116262cb7c89c69a9c8d71d87cd1d47a62401dda8597b22bb0c105c87c11a",
+        "planner/llm.py": "4098ec47604c136b2da528d31ff8233609d8dda2a8a80a2e434350dd847dd4dc",
+        "planner/operators.py": "b69fe46663e4a08b49f82613c09f43bea55071f6fb5e7117b3ac58ff3dd4b374",
+        "planner/order.py": "f57d869e24d62904ab27d1cd391e2b56e720456e6978de813d3a57727b1279a2",
+        "planner/probe.py": "ee85ceb2f4b9173d0137e09849ddcb261c92ad5c6987973c1a9d5ef9084e89d8",
+        "planner/schema_bridge.py": "2e90ab7077de1a4823e35ec5d775fbe7080ca4884180d600037abe0c392d6fbc",
+        "planner/search.py": "6abdde4cef65d6f33828d5a309d9923eddc07b80561efaf36dd4e3e1566c56fd",
+        "planner/state.py": "e5b03aa0d4091075f461d99f43557d30d8d30b50fc0a96e9e5635b8baa78dad2"
+      }
+    },
+    "plan_sha256": [
+      "08f5608fb0c7bf3fd7f093e49021fbe5d10435a0784aaa2568f8a36f8f513155"
+    ],
+    "plan_keys": [
+      [
+        "code_agent",
+        "wta_01",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_01",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_01",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_01",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_01",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_02",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_02",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_02",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_02",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_02",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_03",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_03",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_03",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_03",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_03",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_05",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_05",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_05",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_05",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_05",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_06",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_06",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_06",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_06",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_06",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_07",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_07",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_07",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_07",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_07",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_08",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_08",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_08",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_08",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_08",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_10",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_10",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_10",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_10",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_10",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_11",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_11",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_11",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_11",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_11",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_12",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_12",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_12",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_12",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_12",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_13",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_13",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_13",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_13",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_13",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_14",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_14",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_14",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_14",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_14",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_16",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_16",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_16",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_16",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_16",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_17",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_17",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_17",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_17",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_17",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_18",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_18",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_18",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_18",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_18",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_19",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_19",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_19",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_19",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_19",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_20",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_20",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_20",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_20",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_20",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_21",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_21",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_21",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_21",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_21",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_22",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_22",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_22",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_22",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_22",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_23",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_23",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_23",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_23",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_23",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_24",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_24",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_24",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_24",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_24",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_25",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_25",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_25",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_25",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_25",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_26",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_26",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_26",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_26",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_26",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_27",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_27",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_27",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_27",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_27",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_28",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_28",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_28",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_28",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_28",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_29",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_29",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_29",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_29",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_29",
+        4
+      ],
+      [
+        "code_agent",
+        "wta_30",
+        0
+      ],
+      [
+        "code_agent",
+        "wta_30",
+        1
+      ],
+      [
+        "code_agent",
+        "wta_30",
+        2
+      ],
+      [
+        "code_agent",
+        "wta_30",
+        3
+      ],
+      [
+        "code_agent",
+        "wta_30",
+        4
+      ],
+      [
+        "react",
+        "wta_01",
+        0
+      ],
+      [
+        "react",
+        "wta_01",
+        1
+      ],
+      [
+        "react",
+        "wta_01",
+        2
+      ],
+      [
+        "react",
+        "wta_01",
+        3
+      ],
+      [
+        "react",
+        "wta_01",
+        4
+      ],
+      [
+        "react",
+        "wta_03",
+        0
+      ],
+      [
+        "react",
+        "wta_03",
+        1
+      ],
+      [
+        "react",
+        "wta_03",
+        2
+      ],
+      [
+        "react",
+        "wta_03",
+        3
+      ],
+      [
+        "react",
+        "wta_03",
+        4
+      ],
+      [
+        "react",
+        "wta_07",
+        0
+      ],
+      [
+        "react",
+        "wta_07",
+        1
+      ],
+      [
+        "react",
+        "wta_07",
+        2
+      ],
+      [
+        "react",
+        "wta_07",
+        3
+      ],
+      [
+        "react",
+        "wta_07",
+        4
+      ],
+      [
+        "react",
+        "wta_11",
+        0
+      ],
+      [
+        "react",
+        "wta_11",
+        1
+      ],
+      [
+        "react",
+        "wta_11",
+        2
+      ],
+      [
+        "react",
+        "wta_11",
+        3
+      ],
+      [
+        "react",
+        "wta_11",
+        4
+      ],
+      [
+        "react",
+        "wta_12",
+        0
+      ],
+      [
+        "react",
+        "wta_12",
+        1
+      ],
+      [
+        "react",
+        "wta_12",
+        2
+      ],
+      [
+        "react",
+        "wta_12",
+        3
+      ],
+      [
+        "react",
+        "wta_12",
+        4
+      ],
+      [
+        "react",
+        "wta_13",
+        0
+      ],
+      [
+        "react",
+        "wta_13",
+        1
+      ],
+      [
+        "react",
+        "wta_13",
+        2
+      ],
+      [
+        "react",
+        "wta_13",
+        3
+      ],
+      [
+        "react",
+        "wta_13",
+        4
+      ],
+      [
+        "react",
+        "wta_18",
+        0
+      ],
+      [
+        "react",
+        "wta_18",
+        1
+      ],
+      [
+        "react",
+        "wta_18",
+        2
+      ],
+      [
+        "react",
+        "wta_18",
+        3
+      ],
+      [
+        "react",
+        "wta_18",
+        4
+      ],
+      [
+        "react",
+        "wta_19",
+        0
+      ],
+      [
+        "react",
+        "wta_19",
+        1
+      ],
+      [
+        "react",
+        "wta_19",
+        2
+      ],
+      [
+        "react",
+        "wta_19",
+        3
+      ],
+      [
+        "react",
+        "wta_19",
+        4
+      ],
+      [
+        "react",
+        "wta_20",
+        0
+      ],
+      [
+        "react",
+        "wta_20",
+        1
+      ],
+      [
+        "react",
+        "wta_20",
+        2
+      ],
+      [
+        "react",
+        "wta_20",
+        3
+      ],
+      [
+        "react",
+        "wta_20",
+        4
+      ],
+      [
+        "react",
+        "wta_21",
+        0
+      ],
+      [
+        "react",
+        "wta_21",
+        1
+      ],
+      [
+        "react",
+        "wta_21",
+        2
+      ],
+      [
+        "react",
+        "wta_21",
+        3
+      ],
+      [
+        "react",
+        "wta_21",
+        4
+      ],
+      [
+        "react",
+        "wta_25",
+        0
+      ],
+      [
+        "react",
+        "wta_25",
+        1
+      ],
+      [
+        "react",
+        "wta_25",
+        2
+      ],
+      [
+        "react",
+        "wta_25",
+        3
+      ],
+      [
+        "react",
+        "wta_25",
+        4
+      ],
+      [
+        "react",
+        "wta_26",
+        0
+      ],
+      [
+        "react",
+        "wta_26",
+        1
+      ],
+      [
+        "react",
+        "wta_26",
+        2
+      ],
+      [
+        "react",
+        "wta_26",
+        3
+      ],
+      [
+        "react",
+        "wta_26",
+        4
+      ],
+      [
+        "react",
+        "wta_27",
+        0
+      ],
+      [
+        "react",
+        "wta_27",
+        1
+      ],
+      [
+        "react",
+        "wta_27",
+        2
+      ],
+      [
+        "react",
+        "wta_27",
+        3
+      ],
+      [
+        "react",
+        "wta_27",
+        4
+      ],
+      [
+        "react",
+        "wta_28",
+        0
+      ],
+      [
+        "react",
+        "wta_28",
+        1
+      ],
+      [
+        "react",
+        "wta_28",
+        2
+      ],
+      [
+        "react",
+        "wta_28",
+        3
+      ],
+      [
+        "react",
+        "wta_28",
+        4
+      ],
+      [
+        "react",
+        "wta_29",
+        0
+      ],
+      [
+        "react",
+        "wta_29",
+        1
+      ],
+      [
+        "react",
+        "wta_29",
+        2
+      ],
+      [
+        "react",
+        "wta_29",
+        3
+      ],
+      [
+        "react",
+        "wta_29",
+        4
+      ],
+      [
+        "react",
+        "wta_30",
+        0
+      ],
+      [
+        "react",
+        "wta_30",
+        1
+      ],
+      [
+        "react",
+        "wta_30",
+        2
+      ],
+      [
+        "react",
+        "wta_30",
+        3
+      ],
+      [
+        "react",
+        "wta_30",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_01",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_01",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_01",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_01",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_01",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_02",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_02",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_02",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_02",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_02",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_03",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_03",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_03",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_03",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_03",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_05",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_05",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_05",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_05",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_05",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_06",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_06",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_06",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_06",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_06",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_07",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_07",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_07",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_07",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_07",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_08",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_08",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_08",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_08",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_08",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_10",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_10",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_10",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_10",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_10",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_11",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_11",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_11",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_11",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_11",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_12",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_12",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_12",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_12",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_12",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_13",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_13",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_13",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_13",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_13",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_14",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_14",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_14",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_14",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_14",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_16",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_16",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_16",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_16",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_16",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_17",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_17",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_17",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_17",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_17",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_18",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_18",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_18",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_18",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_18",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_19",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_19",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_19",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_19",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_19",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_20",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_20",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_20",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_20",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_20",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_21",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_21",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_21",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_21",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_21",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_22",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_22",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_22",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_22",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_22",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_23",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_23",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_23",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_23",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_23",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_24",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_24",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_24",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_24",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_24",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_25",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_25",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_25",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_25",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_25",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_26",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_26",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_26",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_26",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_26",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_27",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_27",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_27",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_27",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_27",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_28",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_28",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_28",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_28",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_28",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_29",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_29",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_29",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_29",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_29",
+        4
+      ],
+      [
+        "text_to_sql",
+        "wta_30",
+        0
+      ],
+      [
+        "text_to_sql",
+        "wta_30",
+        1
+      ],
+      [
+        "text_to_sql",
+        "wta_30",
+        2
+      ],
+      [
+        "text_to_sql",
+        "wta_30",
+        3
+      ],
+      [
+        "text_to_sql",
+        "wta_30",
+        4
+      ]
+    ],
+    "plan_keys_sha256": "0ddcba55ca80f248b685d9e72c35a3957904c35415d5a866a52cc06455d41555",
+    "prompt_keys": {
+      "code_agent": {
+        "sha256": "f3e0116ac3501fbe1bbce1827ceae5e667ac35322ded490ec3d4f54102c482b4",
+        "system": "code_agent",
+        "recorded_sha256": [
+          "f3e0116ac3501fbe1bbce1827ceae5e667ac35322ded490ec3d4f54102c482b4"
+        ],
+        "recorded_in": [
+          "results_spider_wta_1.provenance.json",
+          "results_temp0_parity_c1_bound12_rerun_wta_1.provenance.json",
+          "results_temp0_parity_wta_1.provenance.json"
+        ],
+        "alias_lines_added": false,
+        "prompt_overrides": []
+      },
+      "react": {
+        "sha256": "6ddc10d577bf632b4abf7fe3fce91eefcccd29b65c30be9cd2228a5b58b68f1c",
+        "system": "react",
+        "recorded_sha256": [
+          "6ddc10d577bf632b4abf7fe3fce91eefcccd29b65c30be9cd2228a5b58b68f1c"
+        ],
+        "recorded_in": [
+          "results_spider_wta_1.provenance.json"
+        ],
+        "alias_lines_added": false,
+        "prompt_overrides": []
+      },
+      "text_to_sql": {
+        "sha256": "eeee008f3961a9e068c18bdb36d6a1221ff936de473591abefeab837accce534",
+        "system": "text_to_sql",
+        "recorded_sha256": [
+          "eeee008f3961a9e068c18bdb36d6a1221ff936de473591abefeab837accce534"
+        ],
+        "recorded_in": [
+          "results_spider_wta_1.provenance.json",
+          "results_temp0_parity_wta_1.provenance.json"
+        ],
+        "alias_lines_added": false,
+        "prompt_overrides": []
+      }
+    },
+    "prompt_overrides": {},
+    "sent_calls_by_sha256": {
+      "f3e0116ac3501fbe1bbce1827ceae5e667ac35322ded490ec3d4f54102c482b4": 574,
+      "6ddc10d577bf632b4abf7fe3fce91eefcccd29b65c30be9cd2228a5b58b68f1c": 486,
+      "eeee008f3961a9e068c18bdb36d6a1221ff936de473591abefeab837accce534": 135
+    },
+    "cell_prompt": {
+      "code_agent/wta_01/0": "code_agent",
+      "code_agent/wta_01/1": "code_agent",
+      "code_agent/wta_01/2": "code_agent",
+      "code_agent/wta_01/3": "code_agent",
+      "code_agent/wta_01/4": "code_agent",
+      "code_agent/wta_02/0": "code_agent",
+      "code_agent/wta_02/1": "code_agent",
+      "code_agent/wta_02/2": "code_agent",
+      "code_agent/wta_02/3": "code_agent",
+      "code_agent/wta_02/4": "code_agent",
+      "code_agent/wta_03/0": "code_agent",
+      "code_agent/wta_03/1": "code_agent",
+      "code_agent/wta_03/2": "code_agent",
+      "code_agent/wta_03/3": "code_agent",
+      "code_agent/wta_03/4": "code_agent",
+      "code_agent/wta_05/0": "code_agent",
+      "code_agent/wta_05/1": "code_agent",
+      "code_agent/wta_05/2": "code_agent",
+      "code_agent/wta_05/3": "code_agent",
+      "code_agent/wta_05/4": "code_agent",
+      "code_agent/wta_06/0": "code_agent",
+      "code_agent/wta_06/1": "code_agent",
+      "code_agent/wta_06/2": "code_agent",
+      "code_agent/wta_06/3": "code_agent",
+      "code_agent/wta_06/4": "code_agent",
+      "code_agent/wta_07/0": "code_agent",
+      "code_agent/wta_07/1": "code_agent",
+      "code_agent/wta_07/2": "code_agent",
+      "code_agent/wta_07/3": "code_agent",
+      "code_agent/wta_07/4": "code_agent",
+      "code_agent/wta_08/0": "code_agent",
+      "code_agent/wta_08/1": "code_agent",
+      "code_agent/wta_08/2": "code_agent",
+      "code_agent/wta_08/3": "code_agent",
+      "code_agent/wta_08/4": "code_agent",
+      "code_agent/wta_10/0": "code_agent",
+      "code_agent/wta_10/1": "code_agent",
+      "code_agent/wta_10/2": "code_agent",
+      "code_agent/wta_10/3": "code_agent",
+      "code_agent/wta_10/4": "code_agent",
+      "code_agent/wta_11/0": "code_agent",
+      "code_agent/wta_11/1": "code_agent",
+      "code_agent/wta_11/2": "code_agent",
+      "code_agent/wta_11/3": "code_agent",
+      "code_agent/wta_11/4": "code_agent",
+      "code_agent/wta_12/0": "code_agent",
+      "code_agent/wta_12/1": "code_agent",
+      "code_agent/wta_12/2": "code_agent",
+      "code_agent/wta_12/3": "code_agent",
+      "code_agent/wta_12/4": "code_agent",
+      "code_agent/wta_13/0": "code_agent",
+      "code_agent/wta_13/1": "code_agent",
+      "code_agent/wta_13/2": "code_agent",
+      "code_agent/wta_13/3": "code_agent",
+      "code_agent/wta_13/4": "code_agent",
+      "code_agent/wta_14/0": "code_agent",
+      "code_agent/wta_14/1": "code_agent",
+      "code_agent/wta_14/2": "code_agent",
+      "code_agent/wta_14/3": "code_agent",
+      "code_agent/wta_14/4": "code_agent",
+      "code_agent/wta_16/0": "code_agent",
+      "code_agent/wta_16/1": "code_agent",
+      "code_agent/wta_16/2": "code_agent",
+      "code_agent/wta_16/3": "code_agent",
+      "code_agent/wta_16/4": "code_agent",
+      "code_agent/wta_17/0": "code_agent",
+      "code_agent/wta_17/1": "code_agent",
+      "code_agent/wta_17/2": "code_agent",
+      "code_agent/wta_17/3": "code_agent",
+      "code_agent/wta_17/4": "code_agent",
+      "code_agent/wta_18/0": "code_agent",
+      "code_agent/wta_18/1": "code_agent",
+      "code_agent/wta_18/2": "code_agent",
+      "code_agent/wta_18/3": "code_agent",
+      "code_agent/wta_18/4": "code_agent",
+      "code_agent/wta_19/0": "code_agent",
+      "code_agent/wta_19/1": "code_agent",
+      "code_agent/wta_19/2": "code_agent",
+      "code_agent/wta_19/3": "code_agent",
+      "code_agent/wta_19/4": "code_agent",
+      "code_agent/wta_20/0": "code_agent",
+      "code_agent/wta_20/1": "code_agent",
+      "code_agent/wta_20/2": "code_agent",
+      "code_agent/wta_20/3": "code_agent",
+      "code_agent/wta_20/4": "code_agent",
+      "code_agent/wta_21/0": "code_agent",
+      "code_agent/wta_21/1": "code_agent",
+      "code_agent/wta_21/2": "code_agent",
+      "code_agent/wta_21/3": "code_agent",
+      "code_agent/wta_21/4": "code_agent",
+      "code_agent/wta_22/0": "code_agent",
+      "code_agent/wta_22/1": "code_agent",
+      "code_agent/wta_22/2": "code_agent",
+      "code_agent/wta_22/3": "code_agent",
+      "code_agent/wta_22/4": "code_agent",
+      "code_agent/wta_23/0": "code_agent",
+      "code_agent/wta_23/1": "code_agent",
+      "code_agent/wta_23/2": "code_agent",
+      "code_agent/wta_23/3": "code_agent",
+      "code_agent/wta_23/4": "code_agent",
+      "code_agent/wta_24/0": "code_agent",
+      "code_agent/wta_24/1": "code_agent",
+      "code_agent/wta_24/2": "code_agent",
+      "code_agent/wta_24/3": "code_agent",
+      "code_agent/wta_24/4": "code_agent",
+      "code_agent/wta_25/0": "code_agent",
+      "code_agent/wta_25/1": "code_agent",
+      "code_agent/wta_25/2": "code_agent",
+      "code_agent/wta_25/3": "code_agent",
+      "code_agent/wta_25/4": "code_agent",
+      "code_agent/wta_26/0": "code_agent",
+      "code_agent/wta_26/1": "code_agent",
+      "code_agent/wta_26/2": "code_agent",
+      "code_agent/wta_26/3": "code_agent",
+      "code_agent/wta_26/4": "code_agent",
+      "code_agent/wta_27/0": "code_agent",
+      "code_agent/wta_27/1": "code_agent",
+      "code_agent/wta_27/2": "code_agent",
+      "code_agent/wta_27/3": "code_agent",
+      "code_agent/wta_27/4": "code_agent",
+      "code_agent/wta_28/0": "code_agent",
+      "code_agent/wta_28/1": "code_agent",
+      "code_agent/wta_28/2": "code_agent",
+      "code_agent/wta_28/3": "code_agent",
+      "code_agent/wta_28/4": "code_agent",
+      "code_agent/wta_29/0": "code_agent",
+      "code_agent/wta_29/1": "code_agent",
+      "code_agent/wta_29/2": "code_agent",
+      "code_agent/wta_29/3": "code_agent",
+      "code_agent/wta_29/4": "code_agent",
+      "code_agent/wta_30/0": "code_agent",
+      "code_agent/wta_30/1": "code_agent",
+      "code_agent/wta_30/2": "code_agent",
+      "code_agent/wta_30/3": "code_agent",
+      "code_agent/wta_30/4": "code_agent",
+      "react/wta_01/0": "react",
+      "react/wta_01/1": "react",
+      "react/wta_01/2": "react",
+      "react/wta_01/3": "react",
+      "react/wta_01/4": "react",
+      "react/wta_03/0": "react",
+      "react/wta_03/1": "react",
+      "react/wta_03/2": "react",
+      "react/wta_03/3": "react",
+      "react/wta_03/4": "react",
+      "react/wta_07/0": "react",
+      "react/wta_07/1": "react",
+      "react/wta_07/2": "react",
+      "react/wta_07/3": "react",
+      "react/wta_07/4": "react",
+      "react/wta_11/0": "react",
+      "react/wta_11/1": "react",
+      "react/wta_11/2": "react",
+      "react/wta_11/3": "react",
+      "react/wta_11/4": "react",
+      "react/wta_12/0": "react",
+      "react/wta_12/1": "react",
+      "react/wta_12/2": "react",
+      "react/wta_12/3": "react",
+      "react/wta_12/4": "react",
+      "react/wta_13/0": "react",
+      "react/wta_13/1": "react",
+      "react/wta_13/2": "react",
+      "react/wta_13/3": "react",
+      "react/wta_13/4": "react",
+      "react/wta_18/0": "react",
+      "react/wta_18/1": "react",
+      "react/wta_18/2": "react",
+      "react/wta_18/3": "react",
+      "react/wta_18/4": "react",
+      "react/wta_19/0": "react",
+      "react/wta_19/1": "react",
+      "react/wta_19/2": "react",
+      "react/wta_19/3": "react",
+      "react/wta_19/4": "react",
+      "react/wta_20/0": "react",
+      "react/wta_20/1": "react",
+      "react/wta_20/2": "react",
+      "react/wta_20/3": "react",
+      "react/wta_20/4": "react",
+      "react/wta_21/0": "react",
+      "react/wta_21/1": "react",
+      "react/wta_21/2": "react",
+      "react/wta_21/3": "react",
+      "react/wta_21/4": "react",
+      "react/wta_25/0": "react",
+      "react/wta_25/1": "react",
+      "react/wta_25/2": "react",
+      "react/wta_25/3": "react",
+      "react/wta_25/4": "react",
+      "react/wta_26/0": "react",
+      "react/wta_26/1": "react",
+      "react/wta_26/2": "react",
+      "react/wta_26/3": "react",
+      "react/wta_26/4": "react",
+      "react/wta_27/0": "react",
+      "react/wta_27/1": "react",
+      "react/wta_27/2": "react",
+      "react/wta_27/3": "react",
+      "react/wta_27/4": "react",
+      "react/wta_28/0": "react",
+      "react/wta_28/1": "react",
+      "react/wta_28/2": "react",
+      "react/wta_28/3": "react",
+      "react/wta_28/4": "react",
+      "react/wta_29/0": "react",
+      "react/wta_29/1": "react",
+      "react/wta_29/2": "react",
+      "react/wta_29/3": "react",
+      "react/wta_29/4": "react",
+      "react/wta_30/0": "react",
+      "react/wta_30/1": "react",
+      "react/wta_30/2": "react",
+      "react/wta_30/3": "react",
+      "react/wta_30/4": "react",
+      "text_to_sql/wta_01/0": "text_to_sql",
+      "text_to_sql/wta_01/1": "text_to_sql",
+      "text_to_sql/wta_01/2": "text_to_sql",
+      "text_to_sql/wta_01/3": "text_to_sql",
+      "text_to_sql/wta_01/4": "text_to_sql",
+      "text_to_sql/wta_02/0": "text_to_sql",
+      "text_to_sql/wta_02/1": "text_to_sql",
+      "text_to_sql/wta_02/2": "text_to_sql",
+      "text_to_sql/wta_02/3": "text_to_sql",
+      "text_to_sql/wta_02/4": "text_to_sql",
+      "text_to_sql/wta_03/0": "text_to_sql",
+      "text_to_sql/wta_03/1": "text_to_sql",
+      "text_to_sql/wta_03/2": "text_to_sql",
+      "text_to_sql/wta_03/3": "text_to_sql",
+      "text_to_sql/wta_03/4": "text_to_sql",
+      "text_to_sql/wta_05/0": "text_to_sql",
+      "text_to_sql/wta_05/1": "text_to_sql",
+      "text_to_sql/wta_05/2": "text_to_sql",
+      "text_to_sql/wta_05/3": "text_to_sql",
+      "text_to_sql/wta_05/4": "text_to_sql",
+      "text_to_sql/wta_06/0": "text_to_sql",
+      "text_to_sql/wta_06/1": "text_to_sql",
+      "text_to_sql/wta_06/2": "text_to_sql",
+      "text_to_sql/wta_06/3": "text_to_sql",
+      "text_to_sql/wta_06/4": "text_to_sql",
+      "text_to_sql/wta_07/0": "text_to_sql",
+      "text_to_sql/wta_07/1": "text_to_sql",
+      "text_to_sql/wta_07/2": "text_to_sql",
+      "text_to_sql/wta_07/3": "text_to_sql",
+      "text_to_sql/wta_07/4": "text_to_sql",
+      "text_to_sql/wta_08/0": "text_to_sql",
+      "text_to_sql/wta_08/1": "text_to_sql",
+      "text_to_sql/wta_08/2": "text_to_sql",
+      "text_to_sql/wta_08/3": "text_to_sql",
+      "text_to_sql/wta_08/4": "text_to_sql",
+      "text_to_sql/wta_10/0": "text_to_sql",
+      "text_to_sql/wta_10/1": "text_to_sql",
+      "text_to_sql/wta_10/2": "text_to_sql",
+      "text_to_sql/wta_10/3": "text_to_sql",
+      "text_to_sql/wta_10/4": "text_to_sql",
+      "text_to_sql/wta_11/0": "text_to_sql",
+      "text_to_sql/wta_11/1": "text_to_sql",
+      "text_to_sql/wta_11/2": "text_to_sql",
+      "text_to_sql/wta_11/3": "text_to_sql",
+      "text_to_sql/wta_11/4": "text_to_sql",
+      "text_to_sql/wta_12/0": "text_to_sql",
+      "text_to_sql/wta_12/1": "text_to_sql",
+      "text_to_sql/wta_12/2": "text_to_sql",
+      "text_to_sql/wta_12/3": "text_to_sql",
+      "text_to_sql/wta_12/4": "text_to_sql",
+      "text_to_sql/wta_13/0": "text_to_sql",
+      "text_to_sql/wta_13/1": "text_to_sql",
+      "text_to_sql/wta_13/2": "text_to_sql",
+      "text_to_sql/wta_13/3": "text_to_sql",
+      "text_to_sql/wta_13/4": "text_to_sql",
+      "text_to_sql/wta_14/0": "text_to_sql",
+      "text_to_sql/wta_14/1": "text_to_sql",
+      "text_to_sql/wta_14/2": "text_to_sql",
+      "text_to_sql/wta_14/3": "text_to_sql",
+      "text_to_sql/wta_14/4": "text_to_sql",
+      "text_to_sql/wta_16/0": "text_to_sql",
+      "text_to_sql/wta_16/1": "text_to_sql",
+      "text_to_sql/wta_16/2": "text_to_sql",
+      "text_to_sql/wta_16/3": "text_to_sql",
+      "text_to_sql/wta_16/4": "text_to_sql",
+      "text_to_sql/wta_17/0": "text_to_sql",
+      "text_to_sql/wta_17/1": "text_to_sql",
+      "text_to_sql/wta_17/2": "text_to_sql",
+      "text_to_sql/wta_17/3": "text_to_sql",
+      "text_to_sql/wta_17/4": "text_to_sql",
+      "text_to_sql/wta_18/0": "text_to_sql",
+      "text_to_sql/wta_18/1": "text_to_sql",
+      "text_to_sql/wta_18/2": "text_to_sql",
+      "text_to_sql/wta_18/3": "text_to_sql",
+      "text_to_sql/wta_18/4": "text_to_sql",
+      "text_to_sql/wta_19/0": "text_to_sql",
+      "text_to_sql/wta_19/1": "text_to_sql",
+      "text_to_sql/wta_19/2": "text_to_sql",
+      "text_to_sql/wta_19/3": "text_to_sql",
+      "text_to_sql/wta_19/4": "text_to_sql",
+      "text_to_sql/wta_20/0": "text_to_sql",
+      "text_to_sql/wta_20/1": "text_to_sql",
+      "text_to_sql/wta_20/2": "text_to_sql",
+      "text_to_sql/wta_20/3": "text_to_sql",
+      "text_to_sql/wta_20/4": "text_to_sql",
+      "text_to_sql/wta_21/0": "text_to_sql",
+      "text_to_sql/wta_21/1": "text_to_sql",
+      "text_to_sql/wta_21/2": "text_to_sql",
+      "text_to_sql/wta_21/3": "text_to_sql",
+      "text_to_sql/wta_21/4": "text_to_sql",
+      "text_to_sql/wta_22/0": "text_to_sql",
+      "text_to_sql/wta_22/1": "text_to_sql",
+      "text_to_sql/wta_22/2": "text_to_sql",
+      "text_to_sql/wta_22/3": "text_to_sql",
+      "text_to_sql/wta_22/4": "text_to_sql",
+      "text_to_sql/wta_23/0": "text_to_sql",
+      "text_to_sql/wta_23/1": "text_to_sql",
+      "text_to_sql/wta_23/2": "text_to_sql",
+      "text_to_sql/wta_23/3": "text_to_sql",
+      "text_to_sql/wta_23/4": "text_to_sql",
+      "text_to_sql/wta_24/0": "text_to_sql",
+      "text_to_sql/wta_24/1": "text_to_sql",
+      "text_to_sql/wta_24/2": "text_to_sql",
+      "text_to_sql/wta_24/3": "text_to_sql",
+      "text_to_sql/wta_24/4": "text_to_sql",
+      "text_to_sql/wta_25/0": "text_to_sql",
+      "text_to_sql/wta_25/1": "text_to_sql",
+      "text_to_sql/wta_25/2": "text_to_sql",
+      "text_to_sql/wta_25/3": "text_to_sql",
+      "text_to_sql/wta_25/4": "text_to_sql",
+      "text_to_sql/wta_26/0": "text_to_sql",
+      "text_to_sql/wta_26/1": "text_to_sql",
+      "text_to_sql/wta_26/2": "text_to_sql",
+      "text_to_sql/wta_26/3": "text_to_sql",
+      "text_to_sql/wta_26/4": "text_to_sql",
+      "text_to_sql/wta_27/0": "text_to_sql",
+      "text_to_sql/wta_27/1": "text_to_sql",
+      "text_to_sql/wta_27/2": "text_to_sql",
+      "text_to_sql/wta_27/3": "text_to_sql",
+      "text_to_sql/wta_27/4": "text_to_sql",
+      "text_to_sql/wta_28/0": "text_to_sql",
+      "text_to_sql/wta_28/1": "text_to_sql",
+      "text_to_sql/wta_28/2": "text_to_sql",
+      "text_to_sql/wta_28/3": "text_to_sql",
+      "text_to_sql/wta_28/4": "text_to_sql",
+      "text_to_sql/wta_29/0": "text_to_sql",
+      "text_to_sql/wta_29/1": "text_to_sql",
+      "text_to_sql/wta_29/2": "text_to_sql",
+      "text_to_sql/wta_29/3": "text_to_sql",
+      "text_to_sql/wta_29/4": "text_to_sql",
+      "text_to_sql/wta_30/0": "text_to_sql",
+      "text_to_sql/wta_30/1": "text_to_sql",
+      "text_to_sql/wta_30/2": "text_to_sql",
+      "text_to_sql/wta_30/3": "text_to_sql",
+      "text_to_sql/wta_30/4": "text_to_sql"
+    },
+    "timeout_note": "per_query_timeout_s bounds text_to_sql's SQL only; code_agent exec has no wall-clock bound",
+    "sqlite_vs_recorded": "The recorded runs did not record their SQLite version. Their one MEDIAN query failed with 'no such function', so they ran without MEDIAN. This batch's SQLite is in `sqlite` (`functions` says which of MEDIAN, PERCENTILE and CORR it has); every reported text_to_sql cell is re-run on it (reason vi).",
+    "code_agent_tool_description": {
+      "choice": "row count only, called the register (the frame's table name is not stated)",
+      "kept_sentence": "Variables persist across run_python and final_answer calls for this query."
+    }
+  }
+}

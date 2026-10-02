@@ -1,6 +1,6 @@
 system,metric,value_pct,numerator,denominator
 text_to_sql,silent_wrong,7.4,10,135
 network,silent_wrong,7.4,10,135
-react,silent_wrong,14.8,20,135
-code_agent,silent_wrong,14.8,20,135
+react,silent_wrong,11.1,15,135
+code_agent,silent_wrong,20.7,28,135
 planner,silent_wrong,22.2,30,135

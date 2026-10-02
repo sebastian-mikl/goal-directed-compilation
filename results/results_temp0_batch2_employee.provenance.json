@@ -1,0 +1,3745 @@
+{
+  "timestamp_utc": "2026-10-01T18:29:38.340742Z",
+  "model": "claude-sonnet-4-5",
+  "emission_model": "claude-sonnet-4-5",
+  "contract_version": "s49",
+  "temperature": 0,
+  "repetitions": [
+    0,
+    1,
+    2
+  ],
+  "bounds": {
+    "react_max_iters": 15,
+    "code_max_retries": 12,
+    "per_query_timeout_s": 60
+  },
+  "pricing": {
+    "claude-sonnet-4-5": {
+      "input": 3.0,
+      "output": 15.0
+    },
+    "claude-haiku-4-5": {
+      "input": 1.0,
+      "output": 5.0
+    }
+  },
+  "cache": {
+    "enabled": true,
+    "control": "ephemeral on last system block (caches tools+system)",
+    "multipliers": {
+      "cache_write": 1.25,
+      "cache_read": 0.1
+    },
+    "min_cacheable_tokens": 1024,
+    "prefix_sizes": [
+      {
+        "system": "network",
+        "system_chars": 7439,
+        "tool_chars": 0,
+        "est_tokens": 1859,
+        "min_cacheable": 1024,
+        "below_min": false
+      },
+      {
+        "system": "planner",
+        "system_chars": 2398,
+        "tool_chars": 0,
+        "est_tokens": 599,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "react",
+        "system_chars": 1807,
+        "tool_chars": 2477,
+        "est_tokens": 1070,
+        "min_cacheable": 1024,
+        "below_min": false
+      },
+      {
+        "system": "code_agent",
+        "system_chars": 1903,
+        "tool_chars": 634,
+        "est_tokens": 633,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "text_to_sql",
+        "system_chars": 1794,
+        "tool_chars": 338,
+        "est_tokens": 532,
+        "min_cacheable": 1024,
+        "below_min": true
+      }
+    ],
+    "note": "uniform infra optimization applied identically to all 5 systems; lowers $ but NOT raw token / call counts. Paper cost metrics = calls + RAW tokens (cache-blind); cost_usd_cached is the practical bill."
+  },
+  "corpus_path": "eval_corpus_employee.json",
+  "corpus_sha256": "8bff6b7a10240592abab3dc143f6f6df20cb781e7b2c6026d27d53f04588b9c0",
+  "gold_path": "evidence/gold/gold_employee.json",
+  "gold_sha256": "ec792226110c258cc82fe68c0dc746a547e4b04c59404f2b56d180be244ce297",
+  "comparator_version": "s48",
+  "network_prompt_version": "s48",
+  "refuse_unsupported": false,
+  "git_commit": "8605f521f4d106509b79ca49f0f8fc439dc2fd3f",
+  "lib_versions": {
+    "anthropic": "0.120.2",
+    "pandas": "3.0.5",
+    "numpy": "2.5.1",
+    "python": "3.14.6",
+    "sqlite": "3.53.4",
+    "sqlite3_module": null
+  },
+  "prompts": {
+    "code_agent": "You answer an analytical query over a pandas DataFrame `df` (150-row register).\nUse run_python to compute. ALWAYS store your answer in `result = ...` (a DataFrame,\nSeries, or scalar) \u2014 do NOT use print(). A compact summary of `result` is returned to you.\nOnce you have verified the answer is correct, call final_answer with code that sets `result`.\nBe efficient \u2014 at most a few attempts.\n\nIf the query genuinely cannot be answered from this data, STOP with a plain-text reply\nexplaining you cannot, instead of fabricating a result.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: An employee directory. Each row is an employee, with their department, role, employment status, work location, compensation, and tenure.\n\nCOLUMN MEANINGS (advisory):\n  - 'Role': The employee's role band (e.g. IC, Manager, Director, VP).\n  - 'Status': Employment status (e.g. Active, On Leave, Terminated, Sabbatical).\n  - 'Annual Salary': Gross annual base salary.\n  - 'Bonus Target': Target annual bonus amount for the employee.\n  - 'Tenure (Years)': Number of years the employee has been with the organisation.\n  - 'Performance Score': Most recent performance review rating, 1.0 (lowest) to 5.0 (highest).\n  - 'Market Rate': External market benchmark salary for the employee's role.\n  - 'Equity Grant Value': Current value of the employee's equity grant.\n  - 'Time in Current Role (Years)': Number of years the employee has held their current role (always <= Tenure (Years)).\n  - 'Manager ID': The Employee ID of this employee's line manager.\n\nBUSINESS RULES (authoritative \u2014 these terms have a fixed meaning):\n  - 'current': 'Status' in ['Active', 'On Leave', 'Sabbatical']\n\nREGISTER COLUMNS (verbatim):\n'Employee ID', 'Name', 'Department', 'Role', 'Status', 'Location', 'Annual Salary', 'Bonus Target', 'Tenure (Years)', 'Manager ID', 'Performance Score', 'Market Rate', 'Equity Grant Value', 'Time in Current Role (Years)'\n",
+    "react": "You answer an analytical query over a tabular register using exactly five tools (declarative\nprimitives, the same the Network uses): filter, select (project), aggregate, compute, order\n(sort + optional limit). Start from a frame named \"register\"; each tool reads a frame and produces\na new named frame \"f0\",\"f1\",\u2026 Call final_answer with the name of the frame that IS the answer\n(a 1x1 frame for a scalar; a multi-row frame for a list).\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: An employee directory. Each row is an employee, with their department, role, employment status, work location, compensation, and tenure.\n\nCOLUMN MEANINGS (advisory):\n  - 'Role': The employee's role band (e.g. IC, Manager, Director, VP).\n  - 'Status': Employment status (e.g. Active, On Leave, Terminated, Sabbatical).\n  - 'Annual Salary': Gross annual base salary.\n  - 'Bonus Target': Target annual bonus amount for the employee.\n  - 'Tenure (Years)': Number of years the employee has been with the organisation.\n  - 'Performance Score': Most recent performance review rating, 1.0 (lowest) to 5.0 (highest).\n  - 'Market Rate': External market benchmark salary for the employee's role.\n  - 'Equity Grant Value': Current value of the employee's equity grant.\n  - 'Time in Current Role (Years)': Number of years the employee has held their current role (always <= Tenure (Years)).\n  - 'Manager ID': The Employee ID of this employee's line manager.\n\nBUSINESS RULES (authoritative \u2014 these terms have a fixed meaning):\n  - 'current': 'Status' in ['Active', 'On Leave', 'Sabbatical']\n\nREGISTER COLUMNS (verbatim):\n'Employee ID', 'Name', 'Department', 'Role', 'Status', 'Location', 'Annual Salary', 'Bonus Target', 'Tenure (Years)', 'Manager ID', 'Performance Score', 'Market Rate', 'Equity Grant Value', 'Time in Current Role (Years)'\n",
+    "text_to_sql": "You answer an analytical query over a single sqlite table `register` (150 rows).\nEmit EXACTLY ONE SELECT statement via the run_sql tool. Quote column names with\nspaces / parens like \"Unit Price (Net)\". No commentary outside the tool call.\n\nIf the query genuinely cannot be answered from this table, reply with plain text\nexplaining you cannot, instead of emitting SQL.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: An employee directory. Each row is an employee, with their department, role, employment status, work location, compensation, and tenure.\n\nCOLUMN MEANINGS (advisory):\n  - 'Role': The employee's role band (e.g. IC, Manager, Director, VP).\n  - 'Status': Employment status (e.g. Active, On Leave, Terminated, Sabbatical).\n  - 'Annual Salary': Gross annual base salary.\n  - 'Bonus Target': Target annual bonus amount for the employee.\n  - 'Tenure (Years)': Number of years the employee has been with the organisation.\n  - 'Performance Score': Most recent performance review rating, 1.0 (lowest) to 5.0 (highest).\n  - 'Market Rate': External market benchmark salary for the employee's role.\n  - 'Equity Grant Value': Current value of the employee's equity grant.\n  - 'Time in Current Role (Years)': Number of years the employee has held their current role (always <= Tenure (Years)).\n  - 'Manager ID': The Employee ID of this employee's line manager.\n\nBUSINESS RULES (authoritative \u2014 these terms have a fixed meaning):\n  - 'current': 'Status' in ['Active', 'On Leave', 'Sabbatical']\n\nTABLE COLUMNS (verbatim \u2014 sqlite identifiers, quote when they contain spaces/parens):\n'Employee ID', 'Name', 'Department', 'Role', 'Status', 'Location', 'Annual Salary', 'Bonus Target', 'Tenure (Years)', 'Manager ID', 'Performance Score', 'Market Rate', 'Equity Grant Value', 'Time in Current Role (Years)'\n"
+  },
+  "env": {
+    "ANTHROPIC_API_KEY_present": true
+  },
+  "batch2": {
+    "script": "scripts/rerun_temp0_batch2.py",
+    "arm": "recorded",
+    "domain": "employee",
+    "git": [
+      {
+        "commit": "8605f521f4d106509b79ca49f0f8fc439dc2fd3f",
+        "tracked_changes": false
+      },
+      {
+        "commit": "12861723df2ec8ab919fda90dbdb01607892c3bc",
+        "tracked_changes": false
+      },
+      {
+        "commit": "12861723df2ec8ab919fda90dbdb01607892c3bc",
+        "tracked_changes": true
+      },
+      {
+        "commit": "5bf429e68e232033135c68272635234b2c55423e",
+        "tracked_changes": false
+      }
+    ],
+    "fixed_code": {
+      "checks": {
+        "engine: one arithmetic grammar for plan search and executor": true,
+        "engine: stable total-order sort": true,
+        "engine: executed step checked against its planned state": true,
+        "engine: typed refusal of an undeclared aggregate": true,
+        "code_agent: one namespace per episode": true,
+        "code_agent: labelled index kept": true,
+        "code_agent: tool description states the frame": true,
+        "code_agent: tool description says variables persist": true
+      },
+      "contract_version": "s49",
+      "sqlite": {
+        "sqlite_version": "3.53.4",
+        "sqlite3_module_version": null,
+        "functions": {
+          "median": true,
+          "percentile": true,
+          "corr": false
+        }
+      },
+      "sha256": {
+        "evidence/eval_run/adapters/__init__.py": "bee6bd0657183d148956da890071a9fc569b044ededb91aaed4b9d609a2090b6",
+        "evidence/eval_run/adapters/base.py": "fcb786c6d28ce9e93e1688844e40f983d0cc92f8c4d1100b98815847bbde4199",
+        "evidence/eval_run/adapters/code_agent.py": "121afebffe585a080fc696299e7a5f3b78114a7537e3444d723e08c3dd7e742c",
+        "evidence/eval_run/adapters/network.py": "82152f88b1e194f33fce414b422599eeb82b4ee56d4dfb5c2f15066912003d10",
+        "evidence/eval_run/adapters/planner_upfront.py": "df95bb1c4887a1b3ba1d707d4148f02d9e460c7c3ffca8db0bbf39a53a8853bd",
+        "evidence/eval_run/adapters/react.py": "49f7e8b9595238844cb8d1f5efc392f5601311b72e3faa070e4071a87211f5a1",
+        "evidence/eval_run/adapters/text_to_sql.py": "16aa4c540e4191c54ff8cbd45e4855f771a5798b802510cf192c53698d22d72a",
+        "evidence/eval_run/harness.py": "93308ae4cd76c5923cef3aa7d4d43d9dd14f6bd2084e91fb1d323126ea6afc88",
+        "evidence/eval_run/tools_code.py": "9814a30fc737267b72838475e78d9a090cd740ed65dafdbabb26aa62d51b0304",
+        "evidence/eval_run/tools_decl.py": "b1b71828bbba5566d36985fc1b767812469b7d495cff579053a25f4cd5229e1a",
+        "evidence/eval_run/tools_sql.py": "0c8d7004e4df33ab2a50095dd1ed758543c52bd589eb2c87236df34e6e1f3f3b",
+        "gdc/primitives.py": "720241fd4a99c05dd0990bc281a1515e175b7c0420daa1c01a09592249dba22d",
+        "planner/__init__.py": "27a4257e36206eb93f2ad90e7f955745462ef81f7b2173120c33cb730958e223",
+        "planner/contract.py": "988406820a84bd4ec95cd4dd77e5702d70ef9215c5227b2af622997fe1fba82e",
+        "planner/declaration_probe.py": "36deb1d134190ef9d2fd2caa26cc8e267da6923c9c9425679b13944d4a8d1845",
+        "planner/integrate.py": "bc1116262cb7c89c69a9c8d71d87cd1d47a62401dda8597b22bb0c105c87c11a",
+        "planner/llm.py": "4098ec47604c136b2da528d31ff8233609d8dda2a8a80a2e434350dd847dd4dc",
+        "planner/operators.py": "b69fe46663e4a08b49f82613c09f43bea55071f6fb5e7117b3ac58ff3dd4b374",
+        "planner/order.py": "f57d869e24d62904ab27d1cd391e2b56e720456e6978de813d3a57727b1279a2",
+        "planner/probe.py": "ee85ceb2f4b9173d0137e09849ddcb261c92ad5c6987973c1a9d5ef9084e89d8",
+        "planner/schema_bridge.py": "2e90ab7077de1a4823e35ec5d775fbe7080ca4884180d600037abe0c392d6fbc",
+        "planner/search.py": "6abdde4cef65d6f33828d5a309d9923eddc07b80561efaf36dd4e3e1566c56fd",
+        "planner/state.py": "e5b03aa0d4091075f461d99f43557d30d8d30b50fc0a96e9e5635b8baa78dad2"
+      }
+    },
+    "plan_sha256": [
+      "e651c0094edd5a78f9e020d3a7952af6147242693873641d406a1bc9af3e2049"
+    ],
+    "plan_keys": [
+      [
+        "code_agent",
+        "hv_01",
+        0
+      ],
+      [
+        "code_agent",
+        "hv_01",
+        1
+      ],
+      [
+        "code_agent",
+        "hv_01",
+        2
+      ],
+      [
+        "code_agent",
+        "hv_02",
+        0
+      ],
+      [
+        "code_agent",
+        "hv_02",
+        1
+      ],
+      [
+        "code_agent",
+        "hv_02",
+        2
+      ],
+      [
+        "code_agent",
+        "hv_03",
+        0
+      ],
+      [
+        "code_agent",
+        "hv_03",
+        1
+      ],
+      [
+        "code_agent",
+        "hv_03",
+        2
+      ],
+      [
+        "code_agent",
+        "hv_04",
+        0
+      ],
+      [
+        "code_agent",
+        "hv_04",
+        1
+      ],
+      [
+        "code_agent",
+        "hv_04",
+        2
+      ],
+      [
+        "code_agent",
+        "hv_05",
+        0
+      ],
+      [
+        "code_agent",
+        "hv_05",
+        1
+      ],
+      [
+        "code_agent",
+        "hv_05",
+        2
+      ],
+      [
+        "code_agent",
+        "hv_06",
+        0
+      ],
+      [
+        "code_agent",
+        "hv_06",
+        1
+      ],
+      [
+        "code_agent",
+        "hv_06",
+        2
+      ],
+      [
+        "code_agent",
+        "oor_01",
+        0
+      ],
+      [
+        "code_agent",
+        "oor_01",
+        1
+      ],
+      [
+        "code_agent",
+        "oor_01",
+        2
+      ],
+      [
+        "code_agent",
+        "oor_02",
+        0
+      ],
+      [
+        "code_agent",
+        "oor_02",
+        1
+      ],
+      [
+        "code_agent",
+        "oor_02",
+        2
+      ],
+      [
+        "code_agent",
+        "oor_03",
+        0
+      ],
+      [
+        "code_agent",
+        "oor_03",
+        1
+      ],
+      [
+        "code_agent",
+        "oor_03",
+        2
+      ],
+      [
+        "code_agent",
+        "oor_04",
+        0
+      ],
+      [
+        "code_agent",
+        "oor_04",
+        1
+      ],
+      [
+        "code_agent",
+        "oor_04",
+        2
+      ],
+      [
+        "code_agent",
+        "oor_05",
+        0
+      ],
+      [
+        "code_agent",
+        "oor_05",
+        1
+      ],
+      [
+        "code_agent",
+        "oor_05",
+        2
+      ],
+      [
+        "code_agent",
+        "oor_06",
+        0
+      ],
+      [
+        "code_agent",
+        "oor_06",
+        1
+      ],
+      [
+        "code_agent",
+        "oor_06",
+        2
+      ],
+      [
+        "code_agent",
+        "oor_07",
+        0
+      ],
+      [
+        "code_agent",
+        "oor_07",
+        1
+      ],
+      [
+        "code_agent",
+        "oor_07",
+        2
+      ],
+      [
+        "code_agent",
+        "oor_08",
+        0
+      ],
+      [
+        "code_agent",
+        "oor_08",
+        1
+      ],
+      [
+        "code_agent",
+        "oor_08",
+        2
+      ],
+      [
+        "code_agent",
+        "oor_09",
+        0
+      ],
+      [
+        "code_agent",
+        "oor_09",
+        1
+      ],
+      [
+        "code_agent",
+        "oor_09",
+        2
+      ],
+      [
+        "code_agent",
+        "oor_10",
+        0
+      ],
+      [
+        "code_agent",
+        "oor_10",
+        1
+      ],
+      [
+        "code_agent",
+        "oor_10",
+        2
+      ],
+      [
+        "code_agent",
+        "t1_01",
+        0
+      ],
+      [
+        "code_agent",
+        "t1_01",
+        1
+      ],
+      [
+        "code_agent",
+        "t1_01",
+        2
+      ],
+      [
+        "code_agent",
+        "t1_02",
+        0
+      ],
+      [
+        "code_agent",
+        "t1_02",
+        1
+      ],
+      [
+        "code_agent",
+        "t1_02",
+        2
+      ],
+      [
+        "code_agent",
+        "t1_03",
+        0
+      ],
+      [
+        "code_agent",
+        "t1_03",
+        1
+      ],
+      [
+        "code_agent",
+        "t1_03",
+        2
+      ],
+      [
+        "code_agent",
+        "t1_04",
+        0
+      ],
+      [
+        "code_agent",
+        "t1_04",
+        1
+      ],
+      [
+        "code_agent",
+        "t1_04",
+        2
+      ],
+      [
+        "code_agent",
+        "t1_05",
+        0
+      ],
+      [
+        "code_agent",
+        "t1_05",
+        1
+      ],
+      [
+        "code_agent",
+        "t1_05",
+        2
+      ],
+      [
+        "code_agent",
+        "t1_06",
+        0
+      ],
+      [
+        "code_agent",
+        "t1_06",
+        1
+      ],
+      [
+        "code_agent",
+        "t1_06",
+        2
+      ],
+      [
+        "code_agent",
+        "t1_07",
+        0
+      ],
+      [
+        "code_agent",
+        "t1_07",
+        1
+      ],
+      [
+        "code_agent",
+        "t1_07",
+        2
+      ],
+      [
+        "code_agent",
+        "t1_08",
+        0
+      ],
+      [
+        "code_agent",
+        "t1_08",
+        1
+      ],
+      [
+        "code_agent",
+        "t1_08",
+        2
+      ],
+      [
+        "code_agent",
+        "t1_09",
+        0
+      ],
+      [
+        "code_agent",
+        "t1_09",
+        1
+      ],
+      [
+        "code_agent",
+        "t1_09",
+        2
+      ],
+      [
+        "code_agent",
+        "t1_10",
+        0
+      ],
+      [
+        "code_agent",
+        "t1_10",
+        1
+      ],
+      [
+        "code_agent",
+        "t1_10",
+        2
+      ],
+      [
+        "code_agent",
+        "t1_11",
+        0
+      ],
+      [
+        "code_agent",
+        "t1_11",
+        1
+      ],
+      [
+        "code_agent",
+        "t1_11",
+        2
+      ],
+      [
+        "code_agent",
+        "t1_12",
+        0
+      ],
+      [
+        "code_agent",
+        "t1_12",
+        1
+      ],
+      [
+        "code_agent",
+        "t1_12",
+        2
+      ],
+      [
+        "code_agent",
+        "t1_13",
+        0
+      ],
+      [
+        "code_agent",
+        "t1_13",
+        1
+      ],
+      [
+        "code_agent",
+        "t1_13",
+        2
+      ],
+      [
+        "code_agent",
+        "t1_14",
+        0
+      ],
+      [
+        "code_agent",
+        "t1_14",
+        1
+      ],
+      [
+        "code_agent",
+        "t1_14",
+        2
+      ],
+      [
+        "code_agent",
+        "t1_15",
+        0
+      ],
+      [
+        "code_agent",
+        "t1_15",
+        1
+      ],
+      [
+        "code_agent",
+        "t1_15",
+        2
+      ],
+      [
+        "code_agent",
+        "t2_01",
+        0
+      ],
+      [
+        "code_agent",
+        "t2_01",
+        1
+      ],
+      [
+        "code_agent",
+        "t2_01",
+        2
+      ],
+      [
+        "code_agent",
+        "t2_02",
+        0
+      ],
+      [
+        "code_agent",
+        "t2_02",
+        1
+      ],
+      [
+        "code_agent",
+        "t2_02",
+        2
+      ],
+      [
+        "code_agent",
+        "t2_03",
+        0
+      ],
+      [
+        "code_agent",
+        "t2_03",
+        1
+      ],
+      [
+        "code_agent",
+        "t2_03",
+        2
+      ],
+      [
+        "code_agent",
+        "t2_04",
+        0
+      ],
+      [
+        "code_agent",
+        "t2_04",
+        1
+      ],
+      [
+        "code_agent",
+        "t2_04",
+        2
+      ],
+      [
+        "code_agent",
+        "t2_05",
+        0
+      ],
+      [
+        "code_agent",
+        "t2_05",
+        1
+      ],
+      [
+        "code_agent",
+        "t2_05",
+        2
+      ],
+      [
+        "code_agent",
+        "t2_06",
+        0
+      ],
+      [
+        "code_agent",
+        "t2_06",
+        1
+      ],
+      [
+        "code_agent",
+        "t2_06",
+        2
+      ],
+      [
+        "code_agent",
+        "t2_07",
+        0
+      ],
+      [
+        "code_agent",
+        "t2_07",
+        1
+      ],
+      [
+        "code_agent",
+        "t2_07",
+        2
+      ],
+      [
+        "code_agent",
+        "t2_08",
+        0
+      ],
+      [
+        "code_agent",
+        "t2_08",
+        1
+      ],
+      [
+        "code_agent",
+        "t2_08",
+        2
+      ],
+      [
+        "code_agent",
+        "t2_09",
+        0
+      ],
+      [
+        "code_agent",
+        "t2_09",
+        1
+      ],
+      [
+        "code_agent",
+        "t2_09",
+        2
+      ],
+      [
+        "code_agent",
+        "t2_10",
+        0
+      ],
+      [
+        "code_agent",
+        "t2_10",
+        1
+      ],
+      [
+        "code_agent",
+        "t2_10",
+        2
+      ],
+      [
+        "code_agent",
+        "t2_11",
+        0
+      ],
+      [
+        "code_agent",
+        "t2_11",
+        1
+      ],
+      [
+        "code_agent",
+        "t2_11",
+        2
+      ],
+      [
+        "code_agent",
+        "t2_12",
+        0
+      ],
+      [
+        "code_agent",
+        "t2_12",
+        1
+      ],
+      [
+        "code_agent",
+        "t2_12",
+        2
+      ],
+      [
+        "code_agent",
+        "t2_13",
+        0
+      ],
+      [
+        "code_agent",
+        "t2_13",
+        1
+      ],
+      [
+        "code_agent",
+        "t2_13",
+        2
+      ],
+      [
+        "code_agent",
+        "t2_14",
+        0
+      ],
+      [
+        "code_agent",
+        "t2_14",
+        1
+      ],
+      [
+        "code_agent",
+        "t2_14",
+        2
+      ],
+      [
+        "code_agent",
+        "t2_15",
+        0
+      ],
+      [
+        "code_agent",
+        "t2_15",
+        1
+      ],
+      [
+        "code_agent",
+        "t2_15",
+        2
+      ],
+      [
+        "code_agent",
+        "t3_01",
+        0
+      ],
+      [
+        "code_agent",
+        "t3_01",
+        1
+      ],
+      [
+        "code_agent",
+        "t3_01",
+        2
+      ],
+      [
+        "code_agent",
+        "t3_02",
+        0
+      ],
+      [
+        "code_agent",
+        "t3_02",
+        1
+      ],
+      [
+        "code_agent",
+        "t3_02",
+        2
+      ],
+      [
+        "code_agent",
+        "t3_03",
+        0
+      ],
+      [
+        "code_agent",
+        "t3_03",
+        1
+      ],
+      [
+        "code_agent",
+        "t3_03",
+        2
+      ],
+      [
+        "code_agent",
+        "t3_04",
+        0
+      ],
+      [
+        "code_agent",
+        "t3_04",
+        1
+      ],
+      [
+        "code_agent",
+        "t3_04",
+        2
+      ],
+      [
+        "code_agent",
+        "t3_05",
+        0
+      ],
+      [
+        "code_agent",
+        "t3_05",
+        1
+      ],
+      [
+        "code_agent",
+        "t3_05",
+        2
+      ],
+      [
+        "code_agent",
+        "t3_06",
+        0
+      ],
+      [
+        "code_agent",
+        "t3_06",
+        1
+      ],
+      [
+        "code_agent",
+        "t3_06",
+        2
+      ],
+      [
+        "code_agent",
+        "t3_07",
+        0
+      ],
+      [
+        "code_agent",
+        "t3_07",
+        1
+      ],
+      [
+        "code_agent",
+        "t3_07",
+        2
+      ],
+      [
+        "code_agent",
+        "t3_08",
+        0
+      ],
+      [
+        "code_agent",
+        "t3_08",
+        1
+      ],
+      [
+        "code_agent",
+        "t3_08",
+        2
+      ],
+      [
+        "code_agent",
+        "t3_09",
+        0
+      ],
+      [
+        "code_agent",
+        "t3_09",
+        1
+      ],
+      [
+        "code_agent",
+        "t3_09",
+        2
+      ],
+      [
+        "code_agent",
+        "t3_10",
+        0
+      ],
+      [
+        "code_agent",
+        "t3_10",
+        1
+      ],
+      [
+        "code_agent",
+        "t3_10",
+        2
+      ],
+      [
+        "code_agent",
+        "t3_11",
+        0
+      ],
+      [
+        "code_agent",
+        "t3_11",
+        1
+      ],
+      [
+        "code_agent",
+        "t3_11",
+        2
+      ],
+      [
+        "code_agent",
+        "t3_12",
+        0
+      ],
+      [
+        "code_agent",
+        "t3_12",
+        1
+      ],
+      [
+        "code_agent",
+        "t3_12",
+        2
+      ],
+      [
+        "code_agent",
+        "t3_13",
+        0
+      ],
+      [
+        "code_agent",
+        "t3_13",
+        1
+      ],
+      [
+        "code_agent",
+        "t3_13",
+        2
+      ],
+      [
+        "code_agent",
+        "t3_14",
+        0
+      ],
+      [
+        "code_agent",
+        "t3_14",
+        1
+      ],
+      [
+        "code_agent",
+        "t3_14",
+        2
+      ],
+      [
+        "code_agent",
+        "t3_15",
+        0
+      ],
+      [
+        "code_agent",
+        "t3_15",
+        1
+      ],
+      [
+        "code_agent",
+        "t3_15",
+        2
+      ],
+      [
+        "code_agent",
+        "t4_01",
+        0
+      ],
+      [
+        "code_agent",
+        "t4_01",
+        1
+      ],
+      [
+        "code_agent",
+        "t4_01",
+        2
+      ],
+      [
+        "code_agent",
+        "t4_02",
+        0
+      ],
+      [
+        "code_agent",
+        "t4_02",
+        1
+      ],
+      [
+        "code_agent",
+        "t4_02",
+        2
+      ],
+      [
+        "code_agent",
+        "t4_03",
+        0
+      ],
+      [
+        "code_agent",
+        "t4_03",
+        1
+      ],
+      [
+        "code_agent",
+        "t4_03",
+        2
+      ],
+      [
+        "code_agent",
+        "t4_04",
+        0
+      ],
+      [
+        "code_agent",
+        "t4_04",
+        1
+      ],
+      [
+        "code_agent",
+        "t4_04",
+        2
+      ],
+      [
+        "code_agent",
+        "t4_05",
+        0
+      ],
+      [
+        "code_agent",
+        "t4_05",
+        1
+      ],
+      [
+        "code_agent",
+        "t4_05",
+        2
+      ],
+      [
+        "code_agent",
+        "t4_06",
+        0
+      ],
+      [
+        "code_agent",
+        "t4_06",
+        1
+      ],
+      [
+        "code_agent",
+        "t4_06",
+        2
+      ],
+      [
+        "code_agent",
+        "t4_07",
+        0
+      ],
+      [
+        "code_agent",
+        "t4_07",
+        1
+      ],
+      [
+        "code_agent",
+        "t4_07",
+        2
+      ],
+      [
+        "code_agent",
+        "t4_08",
+        0
+      ],
+      [
+        "code_agent",
+        "t4_08",
+        1
+      ],
+      [
+        "code_agent",
+        "t4_08",
+        2
+      ],
+      [
+        "code_agent",
+        "t4_09",
+        0
+      ],
+      [
+        "code_agent",
+        "t4_09",
+        1
+      ],
+      [
+        "code_agent",
+        "t4_09",
+        2
+      ],
+      [
+        "code_agent",
+        "t4_10",
+        0
+      ],
+      [
+        "code_agent",
+        "t4_10",
+        1
+      ],
+      [
+        "code_agent",
+        "t4_10",
+        2
+      ],
+      [
+        "code_agent",
+        "t4_11",
+        0
+      ],
+      [
+        "code_agent",
+        "t4_11",
+        1
+      ],
+      [
+        "code_agent",
+        "t4_11",
+        2
+      ],
+      [
+        "code_agent",
+        "t4_12",
+        0
+      ],
+      [
+        "code_agent",
+        "t4_12",
+        1
+      ],
+      [
+        "code_agent",
+        "t4_12",
+        2
+      ],
+      [
+        "code_agent",
+        "t4_13",
+        0
+      ],
+      [
+        "code_agent",
+        "t4_13",
+        1
+      ],
+      [
+        "code_agent",
+        "t4_13",
+        2
+      ],
+      [
+        "code_agent",
+        "t4_14",
+        0
+      ],
+      [
+        "code_agent",
+        "t4_14",
+        1
+      ],
+      [
+        "code_agent",
+        "t4_14",
+        2
+      ],
+      [
+        "code_agent",
+        "t4_15",
+        0
+      ],
+      [
+        "code_agent",
+        "t4_15",
+        1
+      ],
+      [
+        "code_agent",
+        "t4_15",
+        2
+      ],
+      [
+        "code_agent",
+        "t5_01",
+        0
+      ],
+      [
+        "code_agent",
+        "t5_01",
+        1
+      ],
+      [
+        "code_agent",
+        "t5_01",
+        2
+      ],
+      [
+        "code_agent",
+        "t5_02",
+        0
+      ],
+      [
+        "code_agent",
+        "t5_02",
+        1
+      ],
+      [
+        "code_agent",
+        "t5_02",
+        2
+      ],
+      [
+        "code_agent",
+        "t5_03",
+        0
+      ],
+      [
+        "code_agent",
+        "t5_03",
+        1
+      ],
+      [
+        "code_agent",
+        "t5_03",
+        2
+      ],
+      [
+        "code_agent",
+        "t5_04",
+        0
+      ],
+      [
+        "code_agent",
+        "t5_04",
+        1
+      ],
+      [
+        "code_agent",
+        "t5_04",
+        2
+      ],
+      [
+        "code_agent",
+        "t5_05",
+        0
+      ],
+      [
+        "code_agent",
+        "t5_05",
+        1
+      ],
+      [
+        "code_agent",
+        "t5_05",
+        2
+      ],
+      [
+        "code_agent",
+        "t5_06",
+        0
+      ],
+      [
+        "code_agent",
+        "t5_06",
+        1
+      ],
+      [
+        "code_agent",
+        "t5_06",
+        2
+      ],
+      [
+        "code_agent",
+        "t5_07",
+        0
+      ],
+      [
+        "code_agent",
+        "t5_07",
+        1
+      ],
+      [
+        "code_agent",
+        "t5_07",
+        2
+      ],
+      [
+        "code_agent",
+        "t5_08",
+        0
+      ],
+      [
+        "code_agent",
+        "t5_08",
+        1
+      ],
+      [
+        "code_agent",
+        "t5_08",
+        2
+      ],
+      [
+        "code_agent",
+        "t5_09",
+        0
+      ],
+      [
+        "code_agent",
+        "t5_09",
+        1
+      ],
+      [
+        "code_agent",
+        "t5_09",
+        2
+      ],
+      [
+        "code_agent",
+        "t5_10",
+        0
+      ],
+      [
+        "code_agent",
+        "t5_10",
+        1
+      ],
+      [
+        "code_agent",
+        "t5_10",
+        2
+      ],
+      [
+        "code_agent",
+        "t5_11",
+        0
+      ],
+      [
+        "code_agent",
+        "t5_11",
+        1
+      ],
+      [
+        "code_agent",
+        "t5_11",
+        2
+      ],
+      [
+        "code_agent",
+        "t5_12",
+        0
+      ],
+      [
+        "code_agent",
+        "t5_12",
+        1
+      ],
+      [
+        "code_agent",
+        "t5_12",
+        2
+      ],
+      [
+        "code_agent",
+        "t5_13",
+        0
+      ],
+      [
+        "code_agent",
+        "t5_13",
+        1
+      ],
+      [
+        "code_agent",
+        "t5_13",
+        2
+      ],
+      [
+        "code_agent",
+        "t5_14",
+        0
+      ],
+      [
+        "code_agent",
+        "t5_14",
+        1
+      ],
+      [
+        "code_agent",
+        "t5_14",
+        2
+      ],
+      [
+        "code_agent",
+        "t5_15",
+        0
+      ],
+      [
+        "code_agent",
+        "t5_15",
+        1
+      ],
+      [
+        "code_agent",
+        "t5_15",
+        2
+      ],
+      [
+        "react",
+        "oor_01",
+        0
+      ],
+      [
+        "react",
+        "oor_01",
+        1
+      ],
+      [
+        "react",
+        "oor_01",
+        2
+      ],
+      [
+        "react",
+        "oor_02",
+        0
+      ],
+      [
+        "react",
+        "oor_02",
+        1
+      ],
+      [
+        "react",
+        "oor_02",
+        2
+      ],
+      [
+        "react",
+        "oor_03",
+        0
+      ],
+      [
+        "react",
+        "oor_03",
+        1
+      ],
+      [
+        "react",
+        "oor_03",
+        2
+      ],
+      [
+        "react",
+        "oor_04",
+        0
+      ],
+      [
+        "react",
+        "oor_04",
+        1
+      ],
+      [
+        "react",
+        "oor_04",
+        2
+      ],
+      [
+        "react",
+        "oor_05",
+        0
+      ],
+      [
+        "react",
+        "oor_05",
+        1
+      ],
+      [
+        "react",
+        "oor_05",
+        2
+      ],
+      [
+        "react",
+        "oor_06",
+        0
+      ],
+      [
+        "react",
+        "oor_06",
+        1
+      ],
+      [
+        "react",
+        "oor_06",
+        2
+      ],
+      [
+        "react",
+        "oor_07",
+        0
+      ],
+      [
+        "react",
+        "oor_07",
+        1
+      ],
+      [
+        "react",
+        "oor_07",
+        2
+      ],
+      [
+        "react",
+        "oor_08",
+        0
+      ],
+      [
+        "react",
+        "oor_08",
+        1
+      ],
+      [
+        "react",
+        "oor_08",
+        2
+      ],
+      [
+        "react",
+        "oor_09",
+        0
+      ],
+      [
+        "react",
+        "oor_09",
+        1
+      ],
+      [
+        "react",
+        "oor_09",
+        2
+      ],
+      [
+        "react",
+        "oor_10",
+        0
+      ],
+      [
+        "react",
+        "oor_10",
+        1
+      ],
+      [
+        "react",
+        "oor_10",
+        2
+      ],
+      [
+        "react",
+        "t1_15",
+        0
+      ],
+      [
+        "react",
+        "t1_15",
+        1
+      ],
+      [
+        "react",
+        "t1_15",
+        2
+      ],
+      [
+        "react",
+        "t3_04",
+        0
+      ],
+      [
+        "react",
+        "t3_04",
+        1
+      ],
+      [
+        "react",
+        "t3_04",
+        2
+      ],
+      [
+        "react",
+        "t3_13",
+        0
+      ],
+      [
+        "react",
+        "t3_13",
+        1
+      ],
+      [
+        "react",
+        "t3_13",
+        2
+      ],
+      [
+        "text_to_sql",
+        "hv_01",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hv_01",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hv_01",
+        2
+      ],
+      [
+        "text_to_sql",
+        "hv_02",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hv_02",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hv_02",
+        2
+      ],
+      [
+        "text_to_sql",
+        "hv_03",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hv_03",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hv_03",
+        2
+      ],
+      [
+        "text_to_sql",
+        "hv_04",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hv_04",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hv_04",
+        2
+      ],
+      [
+        "text_to_sql",
+        "hv_05",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hv_05",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hv_05",
+        2
+      ],
+      [
+        "text_to_sql",
+        "hv_06",
+        0
+      ],
+      [
+        "text_to_sql",
+        "hv_06",
+        1
+      ],
+      [
+        "text_to_sql",
+        "hv_06",
+        2
+      ],
+      [
+        "text_to_sql",
+        "oor_01",
+        0
+      ],
+      [
+        "text_to_sql",
+        "oor_01",
+        1
+      ],
+      [
+        "text_to_sql",
+        "oor_01",
+        2
+      ],
+      [
+        "text_to_sql",
+        "oor_02",
+        0
+      ],
+      [
+        "text_to_sql",
+        "oor_02",
+        1
+      ],
+      [
+        "text_to_sql",
+        "oor_02",
+        2
+      ],
+      [
+        "text_to_sql",
+        "oor_03",
+        0
+      ],
+      [
+        "text_to_sql",
+        "oor_03",
+        1
+      ],
+      [
+        "text_to_sql",
+        "oor_03",
+        2
+      ],
+      [
+        "text_to_sql",
+        "oor_04",
+        0
+      ],
+      [
+        "text_to_sql",
+        "oor_04",
+        1
+      ],
+      [
+        "text_to_sql",
+        "oor_04",
+        2
+      ],
+      [
+        "text_to_sql",
+        "oor_05",
+        0
+      ],
+      [
+        "text_to_sql",
+        "oor_05",
+        1
+      ],
+      [
+        "text_to_sql",
+        "oor_05",
+        2
+      ],
+      [
+        "text_to_sql",
+        "oor_06",
+        0
+      ],
+      [
+        "text_to_sql",
+        "oor_06",
+        1
+      ],
+      [
+        "text_to_sql",
+        "oor_06",
+        2
+      ],
+      [
+        "text_to_sql",
+        "oor_07",
+        0
+      ],
+      [
+        "text_to_sql",
+        "oor_07",
+        1
+      ],
+      [
+        "text_to_sql",
+        "oor_07",
+        2
+      ],
+      [
+        "text_to_sql",
+        "oor_08",
+        0
+      ],
+      [
+        "text_to_sql",
+        "oor_08",
+        1
+      ],
+      [
+        "text_to_sql",
+        "oor_08",
+        2
+      ],
+      [
+        "text_to_sql",
+        "oor_09",
+        0
+      ],
+      [
+        "text_to_sql",
+        "oor_09",
+        1
+      ],
+      [
+        "text_to_sql",
+        "oor_09",
+        2
+      ],
+      [
+        "text_to_sql",
+        "oor_10",
+        0
+      ],
+      [
+        "text_to_sql",
+        "oor_10",
+        1
+      ],
+      [
+        "text_to_sql",
+        "oor_10",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t1_01",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t1_01",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t1_01",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t1_02",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t1_02",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t1_02",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t1_03",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t1_03",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t1_03",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t1_04",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t1_04",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t1_04",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t1_05",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t1_05",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t1_05",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t1_06",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t1_06",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t1_06",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t1_07",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t1_07",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t1_07",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t1_08",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t1_08",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t1_08",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t1_09",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t1_09",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t1_09",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t1_10",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t1_10",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t1_10",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t1_11",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t1_11",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t1_11",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t1_12",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t1_12",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t1_12",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t1_13",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t1_13",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t1_13",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t1_14",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t1_14",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t1_14",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t1_15",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t1_15",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t1_15",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t2_01",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t2_01",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t2_01",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t2_02",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t2_02",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t2_02",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t2_03",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t2_03",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t2_03",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t2_04",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t2_04",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t2_04",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t2_05",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t2_05",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t2_05",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t2_06",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t2_06",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t2_06",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t2_07",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t2_07",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t2_07",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t2_08",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t2_08",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t2_08",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t2_09",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t2_09",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t2_09",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t2_10",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t2_10",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t2_10",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t2_11",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t2_11",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t2_11",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t2_12",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t2_12",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t2_12",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t2_13",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t2_13",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t2_13",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t2_14",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t2_14",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t2_14",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t2_15",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t2_15",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t2_15",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t3_01",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t3_01",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t3_01",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t3_02",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t3_02",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t3_02",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t3_03",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t3_03",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t3_03",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t3_04",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t3_04",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t3_04",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t3_05",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t3_05",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t3_05",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t3_06",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t3_06",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t3_06",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t3_07",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t3_07",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t3_07",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t3_08",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t3_08",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t3_08",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t3_09",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t3_09",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t3_09",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t3_10",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t3_10",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t3_10",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t3_11",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t3_11",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t3_11",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t3_12",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t3_12",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t3_12",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t3_13",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t3_13",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t3_13",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t3_14",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t3_14",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t3_14",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t3_15",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t3_15",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t3_15",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t4_01",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t4_01",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t4_01",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t4_02",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t4_02",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t4_02",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t4_03",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t4_03",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t4_03",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t4_04",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t4_04",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t4_04",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t4_05",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t4_05",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t4_05",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t4_06",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t4_06",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t4_06",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t4_07",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t4_07",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t4_07",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t4_08",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t4_08",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t4_08",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t4_09",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t4_09",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t4_09",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t4_10",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t4_10",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t4_10",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t4_11",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t4_11",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t4_11",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t4_12",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t4_12",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t4_12",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t4_13",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t4_13",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t4_13",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t4_14",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t4_14",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t4_14",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t4_15",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t4_15",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t4_15",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t5_01",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t5_01",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t5_01",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t5_02",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t5_02",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t5_02",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t5_03",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t5_03",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t5_03",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t5_04",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t5_04",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t5_04",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t5_05",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t5_05",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t5_05",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t5_06",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t5_06",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t5_06",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t5_07",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t5_07",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t5_07",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t5_08",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t5_08",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t5_08",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t5_09",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t5_09",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t5_09",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t5_10",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t5_10",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t5_10",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t5_11",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t5_11",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t5_11",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t5_12",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t5_12",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t5_12",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t5_13",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t5_13",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t5_13",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t5_14",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t5_14",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t5_14",
+        2
+      ],
+      [
+        "text_to_sql",
+        "t5_15",
+        0
+      ],
+      [
+        "text_to_sql",
+        "t5_15",
+        1
+      ],
+      [
+        "text_to_sql",
+        "t5_15",
+        2
+      ]
+    ],
+    "plan_keys_sha256": "b097d9fd8cdef8b441f3419ed1f3a2b347dd66c9978c775a2216fd42a208d55a",
+    "prompt_keys": {
+      "code_agent": {
+        "sha256": "f32208220a5650b554ab83e48ffb4a74f5192d385ff3fe44c8ef61a356f3a35d",
+        "system": "code_agent",
+        "recorded_sha256": [
+          "f32208220a5650b554ab83e48ffb4a74f5192d385ff3fe44c8ef61a356f3a35d"
+        ],
+        "recorded_in": [
+          "results_employee.provenance.json",
+          "results_employee_parity_code_agent_bound10_rerun.provenance.json",
+          "results_temp0_parity_employee.provenance.json"
+        ],
+        "alias_lines_added": false,
+        "prompt_overrides": []
+      },
+      "react": {
+        "sha256": "28272cc2f9b0e64c89a8b8ef6599daf032b58f61764d003fd424df65dfb3310d",
+        "system": "react",
+        "recorded_sha256": [
+          "28272cc2f9b0e64c89a8b8ef6599daf032b58f61764d003fd424df65dfb3310d"
+        ],
+        "recorded_in": [
+          "results_employee.provenance.json",
+          "results_temp0_parity_employee.provenance.json"
+        ],
+        "alias_lines_added": false,
+        "prompt_overrides": []
+      },
+      "text_to_sql": {
+        "sha256": "aff5b664551bcfdf50befeea40837b0efdd7ecf99fb90cf5ad50cd4e5ebca26b",
+        "system": "text_to_sql",
+        "recorded_sha256": [
+          "aff5b664551bcfdf50befeea40837b0efdd7ecf99fb90cf5ad50cd4e5ebca26b"
+        ],
+        "recorded_in": [
+          "results_employee.provenance.json",
+          "results_temp0_parity_employee.provenance.json"
+        ],
+        "alias_lines_added": false,
+        "prompt_overrides": []
+      }
+    },
+    "prompt_overrides": {},
+    "sent_calls_by_sha256": {
+      "f32208220a5650b554ab83e48ffb4a74f5192d385ff3fe44c8ef61a356f3a35d": 813,
+      "28272cc2f9b0e64c89a8b8ef6599daf032b58f61764d003fd424df65dfb3310d": 132,
+      "aff5b664551bcfdf50befeea40837b0efdd7ecf99fb90cf5ad50cd4e5ebca26b": 273
+    },
+    "cell_prompt": {
+      "code_agent/hv_01/0": "code_agent",
+      "code_agent/hv_01/1": "code_agent",
+      "code_agent/hv_01/2": "code_agent",
+      "code_agent/hv_02/0": "code_agent",
+      "code_agent/hv_02/1": "code_agent",
+      "code_agent/hv_02/2": "code_agent",
+      "code_agent/hv_03/0": "code_agent",
+      "code_agent/hv_03/1": "code_agent",
+      "code_agent/hv_03/2": "code_agent",
+      "code_agent/hv_04/0": "code_agent",
+      "code_agent/hv_04/1": "code_agent",
+      "code_agent/hv_04/2": "code_agent",
+      "code_agent/hv_05/0": "code_agent",
+      "code_agent/hv_05/1": "code_agent",
+      "code_agent/hv_05/2": "code_agent",
+      "code_agent/hv_06/0": "code_agent",
+      "code_agent/hv_06/1": "code_agent",
+      "code_agent/hv_06/2": "code_agent",
+      "code_agent/oor_01/0": "code_agent",
+      "code_agent/oor_01/1": "code_agent",
+      "code_agent/oor_01/2": "code_agent",
+      "code_agent/oor_02/0": "code_agent",
+      "code_agent/oor_02/1": "code_agent",
+      "code_agent/oor_02/2": "code_agent",
+      "code_agent/oor_03/0": "code_agent",
+      "code_agent/oor_03/1": "code_agent",
+      "code_agent/oor_03/2": "code_agent",
+      "code_agent/oor_04/0": "code_agent",
+      "code_agent/oor_04/1": "code_agent",
+      "code_agent/oor_04/2": "code_agent",
+      "code_agent/oor_05/0": "code_agent",
+      "code_agent/oor_05/1": "code_agent",
+      "code_agent/oor_05/2": "code_agent",
+      "code_agent/oor_06/0": "code_agent",
+      "code_agent/oor_06/1": "code_agent",
+      "code_agent/oor_06/2": "code_agent",
+      "code_agent/oor_07/0": "code_agent",
+      "code_agent/oor_07/1": "code_agent",
+      "code_agent/oor_07/2": "code_agent",
+      "code_agent/oor_08/0": "code_agent",
+      "code_agent/oor_08/1": "code_agent",
+      "code_agent/oor_08/2": "code_agent",
+      "code_agent/oor_09/0": "code_agent",
+      "code_agent/oor_09/1": "code_agent",
+      "code_agent/oor_09/2": "code_agent",
+      "code_agent/oor_10/0": "code_agent",
+      "code_agent/oor_10/1": "code_agent",
+      "code_agent/oor_10/2": "code_agent",
+      "code_agent/t1_01/0": "code_agent",
+      "code_agent/t1_01/1": "code_agent",
+      "code_agent/t1_01/2": "code_agent",
+      "code_agent/t1_02/0": "code_agent",
+      "code_agent/t1_02/1": "code_agent",
+      "code_agent/t1_02/2": "code_agent",
+      "code_agent/t1_03/0": "code_agent",
+      "code_agent/t1_03/1": "code_agent",
+      "code_agent/t1_03/2": "code_agent",
+      "code_agent/t1_04/0": "code_agent",
+      "code_agent/t1_04/1": "code_agent",
+      "code_agent/t1_04/2": "code_agent",
+      "code_agent/t1_05/0": "code_agent",
+      "code_agent/t1_05/1": "code_agent",
+      "code_agent/t1_05/2": "code_agent",
+      "code_agent/t1_06/0": "code_agent",
+      "code_agent/t1_06/1": "code_agent",
+      "code_agent/t1_06/2": "code_agent",
+      "code_agent/t1_07/0": "code_agent",
+      "code_agent/t1_07/1": "code_agent",
+      "code_agent/t1_07/2": "code_agent",
+      "code_agent/t1_08/0": "code_agent",
+      "code_agent/t1_08/1": "code_agent",
+      "code_agent/t1_08/2": "code_agent",
+      "code_agent/t1_09/0": "code_agent",
+      "code_agent/t1_09/1": "code_agent",
+      "code_agent/t1_09/2": "code_agent",
+      "code_agent/t1_10/0": "code_agent",
+      "code_agent/t1_10/1": "code_agent",
+      "code_agent/t1_10/2": "code_agent",
+      "code_agent/t1_11/0": "code_agent",
+      "code_agent/t1_11/1": "code_agent",
+      "code_agent/t1_11/2": "code_agent",
+      "code_agent/t1_12/0": "code_agent",
+      "code_agent/t1_12/1": "code_agent",
+      "code_agent/t1_12/2": "code_agent",
+      "code_agent/t1_13/0": "code_agent",
+      "code_agent/t1_13/1": "code_agent",
+      "code_agent/t1_13/2": "code_agent",
+      "code_agent/t1_14/0": "code_agent",
+      "code_agent/t1_14/1": "code_agent",
+      "code_agent/t1_14/2": "code_agent",
+      "code_agent/t1_15/0": "code_agent",
+      "code_agent/t1_15/1": "code_agent",
+      "code_agent/t1_15/2": "code_agent",
+      "code_agent/t2_01/0": "code_agent",
+      "code_agent/t2_01/1": "code_agent",
+      "code_agent/t2_01/2": "code_agent",
+      "code_agent/t2_02/0": "code_agent",
+      "code_agent/t2_02/1": "code_agent",
+      "code_agent/t2_02/2": "code_agent",
+      "code_agent/t2_03/0": "code_agent",
+      "code_agent/t2_03/1": "code_agent",
+      "code_agent/t2_03/2": "code_agent",
+      "code_agent/t2_04/0": "code_agent",
+      "code_agent/t2_04/1": "code_agent",
+      "code_agent/t2_04/2": "code_agent",
+      "code_agent/t2_05/0": "code_agent",
+      "code_agent/t2_05/1": "code_agent",
+      "code_agent/t2_05/2": "code_agent",
+      "code_agent/t2_06/0": "code_agent",
+      "code_agent/t2_06/1": "code_agent",
+      "code_agent/t2_06/2": "code_agent",
+      "code_agent/t2_07/0": "code_agent",
+      "code_agent/t2_07/1": "code_agent",
+      "code_agent/t2_07/2": "code_agent",
+      "code_agent/t2_08/0": "code_agent",
+      "code_agent/t2_08/1": "code_agent",
+      "code_agent/t2_08/2": "code_agent",
+      "code_agent/t2_09/0": "code_agent",
+      "code_agent/t2_09/1": "code_agent",
+      "code_agent/t2_09/2": "code_agent",
+      "code_agent/t2_10/0": "code_agent",
+      "code_agent/t2_10/1": "code_agent",
+      "code_agent/t2_10/2": "code_agent",
+      "code_agent/t2_11/0": "code_agent",
+      "code_agent/t2_11/1": "code_agent",
+      "code_agent/t2_11/2": "code_agent",
+      "code_agent/t2_12/0": "code_agent",
+      "code_agent/t2_12/1": "code_agent",
+      "code_agent/t2_12/2": "code_agent",
+      "code_agent/t2_13/0": "code_agent",
+      "code_agent/t2_13/1": "code_agent",
+      "code_agent/t2_13/2": "code_agent",
+      "code_agent/t2_14/0": "code_agent",
+      "code_agent/t2_14/1": "code_agent",
+      "code_agent/t2_14/2": "code_agent",
+      "code_agent/t2_15/0": "code_agent",
+      "code_agent/t2_15/1": "code_agent",
+      "code_agent/t2_15/2": "code_agent",
+      "code_agent/t3_01/0": "code_agent",
+      "code_agent/t3_01/1": "code_agent",
+      "code_agent/t3_01/2": "code_agent",
+      "code_agent/t3_02/0": "code_agent",
+      "code_agent/t3_02/1": "code_agent",
+      "code_agent/t3_02/2": "code_agent",
+      "code_agent/t3_03/0": "code_agent",
+      "code_agent/t3_03/1": "code_agent",
+      "code_agent/t3_03/2": "code_agent",
+      "code_agent/t3_04/0": "code_agent",
+      "code_agent/t3_04/1": "code_agent",
+      "code_agent/t3_04/2": "code_agent",
+      "code_agent/t3_05/0": "code_agent",
+      "code_agent/t3_05/1": "code_agent",
+      "code_agent/t3_05/2": "code_agent",
+      "code_agent/t3_06/0": "code_agent",
+      "code_agent/t3_06/1": "code_agent",
+      "code_agent/t3_06/2": "code_agent",
+      "code_agent/t3_07/0": "code_agent",
+      "code_agent/t3_07/1": "code_agent",
+      "code_agent/t3_07/2": "code_agent",
+      "code_agent/t3_08/0": "code_agent",
+      "code_agent/t3_08/1": "code_agent",
+      "code_agent/t3_08/2": "code_agent",
+      "code_agent/t3_09/0": "code_agent",
+      "code_agent/t3_09/1": "code_agent",
+      "code_agent/t3_09/2": "code_agent",
+      "code_agent/t3_10/0": "code_agent",
+      "code_agent/t3_10/1": "code_agent",
+      "code_agent/t3_10/2": "code_agent",
+      "code_agent/t3_11/0": "code_agent",
+      "code_agent/t3_11/1": "code_agent",
+      "code_agent/t3_11/2": "code_agent",
+      "code_agent/t3_12/0": "code_agent",
+      "code_agent/t3_12/1": "code_agent",
+      "code_agent/t3_12/2": "code_agent",
+      "code_agent/t3_13/0": "code_agent",
+      "code_agent/t3_13/1": "code_agent",
+      "code_agent/t3_13/2": "code_agent",
+      "code_agent/t3_14/0": "code_agent",
+      "code_agent/t3_14/1": "code_agent",
+      "code_agent/t3_14/2": "code_agent",
+      "code_agent/t3_15/0": "code_agent",
+      "code_agent/t3_15/1": "code_agent",
+      "code_agent/t3_15/2": "code_agent",
+      "code_agent/t4_01/0": "code_agent",
+      "code_agent/t4_01/1": "code_agent",
+      "code_agent/t4_01/2": "code_agent",
+      "code_agent/t4_02/0": "code_agent",
+      "code_agent/t4_02/1": "code_agent",
+      "code_agent/t4_02/2": "code_agent",
+      "code_agent/t4_03/0": "code_agent",
+      "code_agent/t4_03/1": "code_agent",
+      "code_agent/t4_03/2": "code_agent",
+      "code_agent/t4_04/0": "code_agent",
+      "code_agent/t4_04/1": "code_agent",
+      "code_agent/t4_04/2": "code_agent",
+      "code_agent/t4_05/0": "code_agent",
+      "code_agent/t4_05/1": "code_agent",
+      "code_agent/t4_05/2": "code_agent",
+      "code_agent/t4_06/0": "code_agent",
+      "code_agent/t4_06/1": "code_agent",
+      "code_agent/t4_06/2": "code_agent",
+      "code_agent/t4_07/0": "code_agent",
+      "code_agent/t4_07/1": "code_agent",
+      "code_agent/t4_07/2": "code_agent",
+      "code_agent/t4_08/0": "code_agent",
+      "code_agent/t4_08/1": "code_agent",
+      "code_agent/t4_08/2": "code_agent",
+      "code_agent/t4_09/0": "code_agent",
+      "code_agent/t4_09/1": "code_agent",
+      "code_agent/t4_09/2": "code_agent",
+      "code_agent/t4_10/0": "code_agent",
+      "code_agent/t4_10/1": "code_agent",
+      "code_agent/t4_10/2": "code_agent",
+      "code_agent/t4_11/0": "code_agent",
+      "code_agent/t4_11/1": "code_agent",
+      "code_agent/t4_11/2": "code_agent",
+      "code_agent/t4_12/0": "code_agent",
+      "code_agent/t4_12/1": "code_agent",
+      "code_agent/t4_12/2": "code_agent",
+      "code_agent/t4_13/0": "code_agent",
+      "code_agent/t4_13/1": "code_agent",
+      "code_agent/t4_13/2": "code_agent",
+      "code_agent/t4_14/0": "code_agent",
+      "code_agent/t4_14/1": "code_agent",
+      "code_agent/t4_14/2": "code_agent",
+      "code_agent/t4_15/0": "code_agent",
+      "code_agent/t4_15/1": "code_agent",
+      "code_agent/t4_15/2": "code_agent",
+      "code_agent/t5_01/0": "code_agent",
+      "code_agent/t5_01/1": "code_agent",
+      "code_agent/t5_01/2": "code_agent",
+      "code_agent/t5_02/0": "code_agent",
+      "code_agent/t5_02/1": "code_agent",
+      "code_agent/t5_02/2": "code_agent",
+      "code_agent/t5_03/0": "code_agent",
+      "code_agent/t5_03/1": "code_agent",
+      "code_agent/t5_03/2": "code_agent",
+      "code_agent/t5_04/0": "code_agent",
+      "code_agent/t5_04/1": "code_agent",
+      "code_agent/t5_04/2": "code_agent",
+      "code_agent/t5_05/0": "code_agent",
+      "code_agent/t5_05/1": "code_agent",
+      "code_agent/t5_05/2": "code_agent",
+      "code_agent/t5_06/0": "code_agent",
+      "code_agent/t5_06/1": "code_agent",
+      "code_agent/t5_06/2": "code_agent",
+      "code_agent/t5_07/0": "code_agent",
+      "code_agent/t5_07/1": "code_agent",
+      "code_agent/t5_07/2": "code_agent",
+      "code_agent/t5_08/0": "code_agent",
+      "code_agent/t5_08/1": "code_agent",
+      "code_agent/t5_08/2": "code_agent",
+      "code_agent/t5_09/0": "code_agent",
+      "code_agent/t5_09/1": "code_agent",
+      "code_agent/t5_09/2": "code_agent",
+      "code_agent/t5_10/0": "code_agent",
+      "code_agent/t5_10/1": "code_agent",
+      "code_agent/t5_10/2": "code_agent",
+      "code_agent/t5_11/0": "code_agent",
+      "code_agent/t5_11/1": "code_agent",
+      "code_agent/t5_11/2": "code_agent",
+      "code_agent/t5_12/0": "code_agent",
+      "code_agent/t5_12/1": "code_agent",
+      "code_agent/t5_12/2": "code_agent",
+      "code_agent/t5_13/0": "code_agent",
+      "code_agent/t5_13/1": "code_agent",
+      "code_agent/t5_13/2": "code_agent",
+      "code_agent/t5_14/0": "code_agent",
+      "code_agent/t5_14/1": "code_agent",
+      "code_agent/t5_14/2": "code_agent",
+      "code_agent/t5_15/0": "code_agent",
+      "code_agent/t5_15/1": "code_agent",
+      "code_agent/t5_15/2": "code_agent",
+      "react/oor_01/0": "react",
+      "react/oor_01/1": "react",
+      "react/oor_01/2": "react",
+      "react/oor_02/0": "react",
+      "react/oor_02/1": "react",
+      "react/oor_02/2": "react",
+      "react/oor_03/0": "react",
+      "react/oor_03/1": "react",
+      "react/oor_03/2": "react",
+      "react/oor_04/0": "react",
+      "react/oor_04/1": "react",
+      "react/oor_04/2": "react",
+      "react/oor_05/0": "react",
+      "react/oor_05/1": "react",
+      "react/oor_05/2": "react",
+      "react/oor_06/0": "react",
+      "react/oor_06/1": "react",
+      "react/oor_06/2": "react",
+      "react/oor_07/0": "react",
+      "react/oor_07/1": "react",
+      "react/oor_07/2": "react",
+      "react/oor_08/0": "react",
+      "react/oor_08/1": "react",
+      "react/oor_08/2": "react",
+      "react/oor_09/0": "react",
+      "react/oor_09/1": "react",
+      "react/oor_09/2": "react",
+      "react/oor_10/0": "react",
+      "react/oor_10/1": "react",
+      "react/oor_10/2": "react",
+      "react/t1_15/0": "react",
+      "react/t1_15/1": "react",
+      "react/t1_15/2": "react",
+      "react/t3_04/0": "react",
+      "react/t3_04/1": "react",
+      "react/t3_04/2": "react",
+      "react/t3_13/0": "react",
+      "react/t3_13/1": "react",
+      "react/t3_13/2": "react",
+      "text_to_sql/hv_01/0": "text_to_sql",
+      "text_to_sql/hv_01/1": "text_to_sql",
+      "text_to_sql/hv_01/2": "text_to_sql",
+      "text_to_sql/hv_02/0": "text_to_sql",
+      "text_to_sql/hv_02/1": "text_to_sql",
+      "text_to_sql/hv_02/2": "text_to_sql",
+      "text_to_sql/hv_03/0": "text_to_sql",
+      "text_to_sql/hv_03/1": "text_to_sql",
+      "text_to_sql/hv_03/2": "text_to_sql",
+      "text_to_sql/hv_04/0": "text_to_sql",
+      "text_to_sql/hv_04/1": "text_to_sql",
+      "text_to_sql/hv_04/2": "text_to_sql",
+      "text_to_sql/hv_05/0": "text_to_sql",
+      "text_to_sql/hv_05/1": "text_to_sql",
+      "text_to_sql/hv_05/2": "text_to_sql",
+      "text_to_sql/hv_06/0": "text_to_sql",
+      "text_to_sql/hv_06/1": "text_to_sql",
+      "text_to_sql/hv_06/2": "text_to_sql",
+      "text_to_sql/oor_01/0": "text_to_sql",
+      "text_to_sql/oor_01/1": "text_to_sql",
+      "text_to_sql/oor_01/2": "text_to_sql",
+      "text_to_sql/oor_02/0": "text_to_sql",
+      "text_to_sql/oor_02/1": "text_to_sql",
+      "text_to_sql/oor_02/2": "text_to_sql",
+      "text_to_sql/oor_03/0": "text_to_sql",
+      "text_to_sql/oor_03/1": "text_to_sql",
+      "text_to_sql/oor_03/2": "text_to_sql",
+      "text_to_sql/oor_04/0": "text_to_sql",
+      "text_to_sql/oor_04/1": "text_to_sql",
+      "text_to_sql/oor_04/2": "text_to_sql",
+      "text_to_sql/oor_05/0": "text_to_sql",
+      "text_to_sql/oor_05/1": "text_to_sql",
+      "text_to_sql/oor_05/2": "text_to_sql",
+      "text_to_sql/oor_06/0": "text_to_sql",
+      "text_to_sql/oor_06/1": "text_to_sql",
+      "text_to_sql/oor_06/2": "text_to_sql",
+      "text_to_sql/oor_07/0": "text_to_sql",
+      "text_to_sql/oor_07/1": "text_to_sql",
+      "text_to_sql/oor_07/2": "text_to_sql",
+      "text_to_sql/oor_08/0": "text_to_sql",
+      "text_to_sql/oor_08/1": "text_to_sql",
+      "text_to_sql/oor_08/2": "text_to_sql",
+      "text_to_sql/oor_09/0": "text_to_sql",
+      "text_to_sql/oor_09/1": "text_to_sql",
+      "text_to_sql/oor_09/2": "text_to_sql",
+      "text_to_sql/oor_10/0": "text_to_sql",
+      "text_to_sql/oor_10/1": "text_to_sql",
+      "text_to_sql/oor_10/2": "text_to_sql",
+      "text_to_sql/t1_01/0": "text_to_sql",
+      "text_to_sql/t1_01/1": "text_to_sql",
+      "text_to_sql/t1_01/2": "text_to_sql",
+      "text_to_sql/t1_02/0": "text_to_sql",
+      "text_to_sql/t1_02/1": "text_to_sql",
+      "text_to_sql/t1_02/2": "text_to_sql",
+      "text_to_sql/t1_03/0": "text_to_sql",
+      "text_to_sql/t1_03/1": "text_to_sql",
+      "text_to_sql/t1_03/2": "text_to_sql",
+      "text_to_sql/t1_04/0": "text_to_sql",
+      "text_to_sql/t1_04/1": "text_to_sql",
+      "text_to_sql/t1_04/2": "text_to_sql",
+      "text_to_sql/t1_05/0": "text_to_sql",
+      "text_to_sql/t1_05/1": "text_to_sql",
+      "text_to_sql/t1_05/2": "text_to_sql",
+      "text_to_sql/t1_06/0": "text_to_sql",
+      "text_to_sql/t1_06/1": "text_to_sql",
+      "text_to_sql/t1_06/2": "text_to_sql",
+      "text_to_sql/t1_07/0": "text_to_sql",
+      "text_to_sql/t1_07/1": "text_to_sql",
+      "text_to_sql/t1_07/2": "text_to_sql",
+      "text_to_sql/t1_08/0": "text_to_sql",
+      "text_to_sql/t1_08/1": "text_to_sql",
+      "text_to_sql/t1_08/2": "text_to_sql",
+      "text_to_sql/t1_09/0": "text_to_sql",
+      "text_to_sql/t1_09/1": "text_to_sql",
+      "text_to_sql/t1_09/2": "text_to_sql",
+      "text_to_sql/t1_10/0": "text_to_sql",
+      "text_to_sql/t1_10/1": "text_to_sql",
+      "text_to_sql/t1_10/2": "text_to_sql",
+      "text_to_sql/t1_11/0": "text_to_sql",
+      "text_to_sql/t1_11/1": "text_to_sql",
+      "text_to_sql/t1_11/2": "text_to_sql",
+      "text_to_sql/t1_12/0": "text_to_sql",
+      "text_to_sql/t1_12/1": "text_to_sql",
+      "text_to_sql/t1_12/2": "text_to_sql",
+      "text_to_sql/t1_13/0": "text_to_sql",
+      "text_to_sql/t1_13/1": "text_to_sql",
+      "text_to_sql/t1_13/2": "text_to_sql",
+      "text_to_sql/t1_14/0": "text_to_sql",
+      "text_to_sql/t1_14/1": "text_to_sql",
+      "text_to_sql/t1_14/2": "text_to_sql",
+      "text_to_sql/t1_15/0": "text_to_sql",
+      "text_to_sql/t1_15/1": "text_to_sql",
+      "text_to_sql/t1_15/2": "text_to_sql",
+      "text_to_sql/t2_01/0": "text_to_sql",
+      "text_to_sql/t2_01/1": "text_to_sql",
+      "text_to_sql/t2_01/2": "text_to_sql",
+      "text_to_sql/t2_02/0": "text_to_sql",
+      "text_to_sql/t2_02/1": "text_to_sql",
+      "text_to_sql/t2_02/2": "text_to_sql",
+      "text_to_sql/t2_03/0": "text_to_sql",
+      "text_to_sql/t2_03/1": "text_to_sql",
+      "text_to_sql/t2_03/2": "text_to_sql",
+      "text_to_sql/t2_04/0": "text_to_sql",
+      "text_to_sql/t2_04/1": "text_to_sql",
+      "text_to_sql/t2_04/2": "text_to_sql",
+      "text_to_sql/t2_05/0": "text_to_sql",
+      "text_to_sql/t2_05/1": "text_to_sql",
+      "text_to_sql/t2_05/2": "text_to_sql",
+      "text_to_sql/t2_06/0": "text_to_sql",
+      "text_to_sql/t2_06/1": "text_to_sql",
+      "text_to_sql/t2_06/2": "text_to_sql",
+      "text_to_sql/t2_07/0": "text_to_sql",
+      "text_to_sql/t2_07/1": "text_to_sql",
+      "text_to_sql/t2_07/2": "text_to_sql",
+      "text_to_sql/t2_08/0": "text_to_sql",
+      "text_to_sql/t2_08/1": "text_to_sql",
+      "text_to_sql/t2_08/2": "text_to_sql",
+      "text_to_sql/t2_09/0": "text_to_sql",
+      "text_to_sql/t2_09/1": "text_to_sql",
+      "text_to_sql/t2_09/2": "text_to_sql",
+      "text_to_sql/t2_10/0": "text_to_sql",
+      "text_to_sql/t2_10/1": "text_to_sql",
+      "text_to_sql/t2_10/2": "text_to_sql",
+      "text_to_sql/t2_11/0": "text_to_sql",
+      "text_to_sql/t2_11/1": "text_to_sql",
+      "text_to_sql/t2_11/2": "text_to_sql",
+      "text_to_sql/t2_12/0": "text_to_sql",
+      "text_to_sql/t2_12/1": "text_to_sql",
+      "text_to_sql/t2_12/2": "text_to_sql",
+      "text_to_sql/t2_13/0": "text_to_sql",
+      "text_to_sql/t2_13/1": "text_to_sql",
+      "text_to_sql/t2_13/2": "text_to_sql",
+      "text_to_sql/t2_14/0": "text_to_sql",
+      "text_to_sql/t2_14/1": "text_to_sql",
+      "text_to_sql/t2_14/2": "text_to_sql",
+      "text_to_sql/t2_15/0": "text_to_sql",
+      "text_to_sql/t2_15/1": "text_to_sql",
+      "text_to_sql/t2_15/2": "text_to_sql",
+      "text_to_sql/t3_01/0": "text_to_sql",
+      "text_to_sql/t3_01/1": "text_to_sql",
+      "text_to_sql/t3_01/2": "text_to_sql",
+      "text_to_sql/t3_02/0": "text_to_sql",
+      "text_to_sql/t3_02/1": "text_to_sql",
+      "text_to_sql/t3_02/2": "text_to_sql",
+      "text_to_sql/t3_03/0": "text_to_sql",
+      "text_to_sql/t3_03/1": "text_to_sql",
+      "text_to_sql/t3_03/2": "text_to_sql",
+      "text_to_sql/t3_04/0": "text_to_sql",
+      "text_to_sql/t3_04/1": "text_to_sql",
+      "text_to_sql/t3_04/2": "text_to_sql",
+      "text_to_sql/t3_05/0": "text_to_sql",
+      "text_to_sql/t3_05/1": "text_to_sql",
+      "text_to_sql/t3_05/2": "text_to_sql",
+      "text_to_sql/t3_06/0": "text_to_sql",
+      "text_to_sql/t3_06/1": "text_to_sql",
+      "text_to_sql/t3_06/2": "text_to_sql",
+      "text_to_sql/t3_07/0": "text_to_sql",
+      "text_to_sql/t3_07/1": "text_to_sql",
+      "text_to_sql/t3_07/2": "text_to_sql",
+      "text_to_sql/t3_08/0": "text_to_sql",
+      "text_to_sql/t3_08/1": "text_to_sql",
+      "text_to_sql/t3_08/2": "text_to_sql",
+      "text_to_sql/t3_09/0": "text_to_sql",
+      "text_to_sql/t3_09/1": "text_to_sql",
+      "text_to_sql/t3_09/2": "text_to_sql",
+      "text_to_sql/t3_10/0": "text_to_sql",
+      "text_to_sql/t3_10/1": "text_to_sql",
+      "text_to_sql/t3_10/2": "text_to_sql",
+      "text_to_sql/t3_11/0": "text_to_sql",
+      "text_to_sql/t3_11/1": "text_to_sql",
+      "text_to_sql/t3_11/2": "text_to_sql",
+      "text_to_sql/t3_12/0": "text_to_sql",
+      "text_to_sql/t3_12/1": "text_to_sql",
+      "text_to_sql/t3_12/2": "text_to_sql",
+      "text_to_sql/t3_13/0": "text_to_sql",
+      "text_to_sql/t3_13/1": "text_to_sql",
+      "text_to_sql/t3_13/2": "text_to_sql",
+      "text_to_sql/t3_14/0": "text_to_sql",
+      "text_to_sql/t3_14/1": "text_to_sql",
+      "text_to_sql/t3_14/2": "text_to_sql",
+      "text_to_sql/t3_15/0": "text_to_sql",
+      "text_to_sql/t3_15/1": "text_to_sql",
+      "text_to_sql/t3_15/2": "text_to_sql",
+      "text_to_sql/t4_01/0": "text_to_sql",
+      "text_to_sql/t4_01/1": "text_to_sql",
+      "text_to_sql/t4_01/2": "text_to_sql",
+      "text_to_sql/t4_02/0": "text_to_sql",
+      "text_to_sql/t4_02/1": "text_to_sql",
+      "text_to_sql/t4_02/2": "text_to_sql",
+      "text_to_sql/t4_03/0": "text_to_sql",
+      "text_to_sql/t4_03/1": "text_to_sql",
+      "text_to_sql/t4_03/2": "text_to_sql",
+      "text_to_sql/t4_04/0": "text_to_sql",
+      "text_to_sql/t4_04/1": "text_to_sql",
+      "text_to_sql/t4_04/2": "text_to_sql",
+      "text_to_sql/t4_05/0": "text_to_sql",
+      "text_to_sql/t4_05/1": "text_to_sql",
+      "text_to_sql/t4_05/2": "text_to_sql",
+      "text_to_sql/t4_06/0": "text_to_sql",
+      "text_to_sql/t4_06/1": "text_to_sql",
+      "text_to_sql/t4_06/2": "text_to_sql",
+      "text_to_sql/t4_07/0": "text_to_sql",
+      "text_to_sql/t4_07/1": "text_to_sql",
+      "text_to_sql/t4_07/2": "text_to_sql",
+      "text_to_sql/t4_08/0": "text_to_sql",
+      "text_to_sql/t4_08/1": "text_to_sql",
+      "text_to_sql/t4_08/2": "text_to_sql",
+      "text_to_sql/t4_09/0": "text_to_sql",
+      "text_to_sql/t4_09/1": "text_to_sql",
+      "text_to_sql/t4_09/2": "text_to_sql",
+      "text_to_sql/t4_10/0": "text_to_sql",
+      "text_to_sql/t4_10/1": "text_to_sql",
+      "text_to_sql/t4_10/2": "text_to_sql",
+      "text_to_sql/t4_11/0": "text_to_sql",
+      "text_to_sql/t4_11/1": "text_to_sql",
+      "text_to_sql/t4_11/2": "text_to_sql",
+      "text_to_sql/t4_12/0": "text_to_sql",
+      "text_to_sql/t4_12/1": "text_to_sql",
+      "text_to_sql/t4_12/2": "text_to_sql",
+      "text_to_sql/t4_13/0": "text_to_sql",
+      "text_to_sql/t4_13/1": "text_to_sql",
+      "text_to_sql/t4_13/2": "text_to_sql",
+      "text_to_sql/t4_14/0": "text_to_sql",
+      "text_to_sql/t4_14/1": "text_to_sql",
+      "text_to_sql/t4_14/2": "text_to_sql",
+      "text_to_sql/t4_15/0": "text_to_sql",
+      "text_to_sql/t4_15/1": "text_to_sql",
+      "text_to_sql/t4_15/2": "text_to_sql",
+      "text_to_sql/t5_01/0": "text_to_sql",
+      "text_to_sql/t5_01/1": "text_to_sql",
+      "text_to_sql/t5_01/2": "text_to_sql",
+      "text_to_sql/t5_02/0": "text_to_sql",
+      "text_to_sql/t5_02/1": "text_to_sql",
+      "text_to_sql/t5_02/2": "text_to_sql",
+      "text_to_sql/t5_03/0": "text_to_sql",
+      "text_to_sql/t5_03/1": "text_to_sql",
+      "text_to_sql/t5_03/2": "text_to_sql",
+      "text_to_sql/t5_04/0": "text_to_sql",
+      "text_to_sql/t5_04/1": "text_to_sql",
+      "text_to_sql/t5_04/2": "text_to_sql",
+      "text_to_sql/t5_05/0": "text_to_sql",
+      "text_to_sql/t5_05/1": "text_to_sql",
+      "text_to_sql/t5_05/2": "text_to_sql",
+      "text_to_sql/t5_06/0": "text_to_sql",
+      "text_to_sql/t5_06/1": "text_to_sql",
+      "text_to_sql/t5_06/2": "text_to_sql",
+      "text_to_sql/t5_07/0": "text_to_sql",
+      "text_to_sql/t5_07/1": "text_to_sql",
+      "text_to_sql/t5_07/2": "text_to_sql",
+      "text_to_sql/t5_08/0": "text_to_sql",
+      "text_to_sql/t5_08/1": "text_to_sql",
+      "text_to_sql/t5_08/2": "text_to_sql",
+      "text_to_sql/t5_09/0": "text_to_sql",
+      "text_to_sql/t5_09/1": "text_to_sql",
+      "text_to_sql/t5_09/2": "text_to_sql",
+      "text_to_sql/t5_10/0": "text_to_sql",
+      "text_to_sql/t5_10/1": "text_to_sql",
+      "text_to_sql/t5_10/2": "text_to_sql",
+      "text_to_sql/t5_11/0": "text_to_sql",
+      "text_to_sql/t5_11/1": "text_to_sql",
+      "text_to_sql/t5_11/2": "text_to_sql",
+      "text_to_sql/t5_12/0": "text_to_sql",
+      "text_to_sql/t5_12/1": "text_to_sql",
+      "text_to_sql/t5_12/2": "text_to_sql",
+      "text_to_sql/t5_13/0": "text_to_sql",
+      "text_to_sql/t5_13/1": "text_to_sql",
+      "text_to_sql/t5_13/2": "text_to_sql",
+      "text_to_sql/t5_14/0": "text_to_sql",
+      "text_to_sql/t5_14/1": "text_to_sql",
+      "text_to_sql/t5_14/2": "text_to_sql",
+      "text_to_sql/t5_15/0": "text_to_sql",
+      "text_to_sql/t5_15/1": "text_to_sql",
+      "text_to_sql/t5_15/2": "text_to_sql"
+    },
+    "timeout_note": "per_query_timeout_s bounds text_to_sql's SQL only; code_agent exec has no wall-clock bound",
+    "sqlite_vs_recorded": "The recorded runs did not record their SQLite version. Their one MEDIAN query failed with 'no such function', so they ran without MEDIAN. This batch's SQLite is in `sqlite` (`functions` says which of MEDIAN, PERCENTILE and CORR it has); every reported text_to_sql cell is re-run on it (reason vi).",
+    "code_agent_tool_description": {
+      "choice": "row count only, called the register (the frame's table name is not stated)",
+      "kept_sentence": "Variables persist across run_python and final_answer calls for this query."
+    }
+  }
+}
