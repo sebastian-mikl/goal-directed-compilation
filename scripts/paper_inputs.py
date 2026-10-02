@@ -50,6 +50,14 @@ GOLD = {dom: json.loads(cfg["gold"].read_text()) for dom, cfg in DOMAIN_CONFIGS.
         if cfg["gold"].exists()}   # a public checkout may lack a withheld domain
 HAS_RISK = "risk" in GOLD
 
+
+def scored(rows: list, gold: dict) -> list:
+    """The rows a reported set scores: those whose question has a gold record. A question
+    dropped from scoring (employee oor_03, D11) is in no gold, so no reported set holds its
+    recorded cells; they stay in the results files."""
+    return [r for r in rows if r.get("qid") in gold]
+
+
 # risk: T1-T4, house_vocab and algebra_boundary from RISK_OFF_FILE; T5 from
 # RISK_T5_FILES (results_t5 for network/planner/react, the live fill for
 # code_agent/text_to_sql). results_t5 also holds non-T5 rows; they are not read.

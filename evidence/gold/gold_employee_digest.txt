@@ -263,9 +263,6 @@ AUTHORING NOTES (conventions applied):
 [oor_02] (out_of_range)  Who is likely to leave the company in the next year?
     GOLD: REFUSE — requires prediction
 
-[oor_03] (out_of_range)  Compare our salaries to industry benchmarks.
-    GOLD: REFUSE — no verified external benchmark data; ambiguous comparison
-
 [oor_04] (out_of_range)  What's the full reporting chain above each VP?
     GOLD: REFUSE — Manager ID links are cyclic: every VP's chain loops and no employee lacks a manager, so no chain exists
 

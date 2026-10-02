@@ -3,7 +3,7 @@
     "domain": "employee_directory",
     "purpose": "Second-domain evaluation corpus, built to the same rigor as the synthetic-domain benchmark (T1-T5 tiers, independently-authored gold, house_vocab + out_of_range supplementary tiers).",
     "authoring_note": "Questions are phrased as an HR analyst would ask, NOT as engine-shaped goal specs. The 'intent' field is the unambiguous specification the INDEPENDENT gold script (evidence/gold/build_gold_employee.py) implements (plain pandas, zero imports from the engine). T5 thresholds were verified against the real augmented probe_domain/employees.pkl data before being finalized, not guessed -- see this session's threshold-verification work.",
-    "corpus_size_note": "91 queries, not 93: two originally-drafted house_vocab queries ('typical bonus for managers' and 'way more than market rate') were DROPPED after verification against real data found them genuinely undefined -- 'managers' splits into two non-overlapping populations with materially different answers (Role==Manager: 29 people, constant $19,500 bonus; generic supervisory staff: 98 people spanning all 4 roles, mean $25,469), and 'way more than market rate' has no natural gap in the salary_variance distribution to anchor a threshold on. This mirrors eval_corpus.json's own precedent of dropping hv_01/hv_04 for an undefined term ('exposure')."
+    "corpus_size_note": "91 queries, not 93: two originally-drafted house_vocab queries ('typical bonus for managers' and 'way more than market rate') were DROPPED after verification against real data found them genuinely undefined -- 'managers' splits into two non-overlapping populations with materially different answers (Role==Manager: 29 people, constant $19,500 bonus; generic supervisory staff: 98 people spanning all 4 roles, mean $25,469), and 'way more than market rate' has no natural gap in the salary_variance distribution to anchor a threshold on. This mirrors eval_corpus.json's own precedent of dropping hv_01/hv_04 for an undefined term ('exposure'). On 2026-10-01 oor_03 ('Compare our salaries to industry benchmarks.') was dropped from scoring (decision D11): it has a defensible answering reading (Market Rate, which schema.json describes as the 'External market benchmark salary for the employee's role'), so a refusal is not the only correct behaviour. 90 queries; out_of_range is 9."
   },
   "queries": [
     {
@@ -987,17 +987,6 @@
       "intent": "OUT OF RANGE: requires predictive modeling, not expressible as filter/select/aggregate/compute over the current data.",
       "expected_behavior": "honest refusal / unreachable",
       "reason": "requires prediction"
-    },
-    {
-      "id": "oor_03",
-      "tier": "out_of_range",
-      "ops": [
-        "unsupported_fn"
-      ],
-      "question": "Compare our salaries to industry benchmarks.",
-      "intent": "OUT OF RANGE: 'industry benchmarks' means verified external cross-company survey data, which this schema does not have. Market Rate is this analysis's own internal per-role comparator (synthetic, company-specific), not sourced/verified external survey data -- treating it as 'industry benchmarks' is an interpretive substitution the query does not authorize, and the query also doesn't specify what comparison/statistic is wanted even if it were.",
-      "expected_behavior": "honest refusal / unreachable",
-      "reason": "no verified external benchmark data; ambiguous comparison"
     },
     {
       "id": "oor_04",

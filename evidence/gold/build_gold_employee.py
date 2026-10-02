@@ -4,13 +4,14 @@ second-domain benchmark, mirroring evidence/gold/build_gold.py's discipline.
 
 HARD RULE: this script imports ONLY pandas + stdlib. ZERO imports from gdc/,
 network/, contract, primitives, or any engine module — otherwise the eval is circular.
-It reads eval_corpus_employee.json (the frozen 91-query corpus), probe_domain/
+It reads eval_corpus_employee.json (the frozen corpus, 90 queries since D11 dropped
+oor_03 on 2026-10-01: it has a defensible answering reading), probe_domain/
 employees.pkl, and probe_domain/schema.json (used ONLY to ground the logical->actual
 column map).
 
 Each answerable query has its OWN explicit pandas block implementing its `intent`
 (NO generic interpreter — that would risk rebuilding the engine's logic and a single
-shared bug). 81 answerable (T1-T4 + house_vocab) get a computed result; 10
+shared bug). 81 answerable (T1-T5 + house_vocab) get a computed result; 9
 out_of_range are recorded as {expected_behavior:"refuse", value:null}.
 
 Outputs: evidence/gold/gold_employee.json (one normalized record per id) + evidence/
@@ -345,9 +346,9 @@ def main():
         if not ok:
             FLAGS.append(f"SANITY {name}: {detail}")
 
-    chk("ids_present", len(gold) == 91, f"{len(gold)}/91")
+    chk("ids_present", len(gold) == 90, f"{len(gold)}/90")        # D11 (2026-10-01): oor_03 dropped
     chk("81_answer", len(answers) == 81, f"{len(answers)} answers")
-    chk("10_refuse", len(refusals) == 10, f"{len(refusals)} refusals")
+    chk("9_refuse", len(refusals) == 9, f"{len(refusals)} refusals")  # was 10; -oor_03 (D11)
     for qid in [f"t5_{i:02d}" for i in range(1, 16)]:
         k = 5 if qid in ("t5_02", "t5_07") else 3
         chk(f"{qid}_topk", gold[qid]["row_count"] <= k, f"{gold[qid]['row_count']} <= {k}")

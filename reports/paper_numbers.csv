@@ -115,11 +115,11 @@ Table1,employee,network,house_vocab,strict,silent_wrong,0.0,0,18,results_employe
 Table1,employee,network,house_vocab,strict,refused_should_answer,0.0,0,18,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,house_vocab,strict,crash,0.0,0,18,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,house_vocab,strict,timeout,0.0,0,18,results_employee.jsonl REPLAY current engine,s48
-Table1,employee,network,out_of_range,strict,accuracy,50.0,15,30,results_employee.jsonl REPLAY current engine,s48
-Table1,employee,network,out_of_range,strict,silent_wrong,50.0,15,30,results_employee.jsonl REPLAY current engine,s48
-Table1,employee,network,out_of_range,strict,refused_should_answer,0.0,0,30,results_employee.jsonl REPLAY current engine,s48
-Table1,employee,network,out_of_range,strict,crash,0.0,0,30,results_employee.jsonl REPLAY current engine,s48
-Table1,employee,network,out_of_range,strict,timeout,0.0,0,30,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,network,out_of_range,strict,accuracy,55.6,15,27,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,network,out_of_range,strict,silent_wrong,44.4,12,27,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,network,out_of_range,strict,refused_should_answer,0.0,0,27,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,network,out_of_range,strict,crash,0.0,0,27,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,network,out_of_range,strict,timeout,0.0,0,27,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T1_single_op,strict,accuracy,93.3,42,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T1_single_op,strict,silent_wrong,6.7,3,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T1_single_op,strict,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
@@ -150,11 +150,11 @@ Table1,employee,planner,house_vocab,strict,silent_wrong,16.7,3,18,results_employ
 Table1,employee,planner,house_vocab,strict,refused_should_answer,0.0,0,18,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,house_vocab,strict,crash,0.0,0,18,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,house_vocab,strict,timeout,0.0,0,18,results_employee.jsonl REPLAY current engine,s48
-Table1,employee,planner,out_of_range,strict,accuracy,6.7,2,30,results_employee.jsonl REPLAY current engine,s48
-Table1,employee,planner,out_of_range,strict,silent_wrong,93.3,28,30,results_employee.jsonl REPLAY current engine,s48
-Table1,employee,planner,out_of_range,strict,refused_should_answer,0.0,0,30,results_employee.jsonl REPLAY current engine,s48
-Table1,employee,planner,out_of_range,strict,crash,0.0,0,30,results_employee.jsonl REPLAY current engine,s48
-Table1,employee,planner,out_of_range,strict,timeout,0.0,0,30,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,planner,out_of_range,strict,accuracy,7.4,2,27,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,planner,out_of_range,strict,silent_wrong,92.6,25,27,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,planner,out_of_range,strict,refused_should_answer,0.0,0,27,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,planner,out_of_range,strict,crash,0.0,0,27,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,planner,out_of_range,strict,timeout,0.0,0,27,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,react,T1_single_op,strict,accuracy,93.3,42,45,results_employee.jsonl rescored s48,s48
 Table1,employee,react,T1_single_op,strict,silent_wrong,6.7,3,45,results_employee.jsonl rescored s48,s48
 Table1,employee,react,T1_single_op,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48,s48
@@ -185,11 +185,11 @@ Table1,employee,react,house_vocab,strict,silent_wrong,0.0,0,18,results_employee.
 Table1,employee,react,house_vocab,strict,refused_should_answer,0.0,0,18,results_employee.jsonl rescored s48,s48
 Table1,employee,react,house_vocab,strict,crash,0.0,0,18,results_employee.jsonl rescored s48,s48
 Table1,employee,react,house_vocab,strict,timeout,0.0,0,18,results_employee.jsonl rescored s48,s48
-Table1,employee,react,out_of_range,strict,accuracy,50.0,15,30,results_employee.jsonl rescored s48,s48
-Table1,employee,react,out_of_range,strict,silent_wrong,50.0,15,30,results_employee.jsonl rescored s48,s48
-Table1,employee,react,out_of_range,strict,refused_should_answer,0.0,0,30,results_employee.jsonl rescored s48,s48
-Table1,employee,react,out_of_range,strict,crash,0.0,0,30,results_employee.jsonl rescored s48,s48
-Table1,employee,react,out_of_range,strict,timeout,0.0,0,30,results_employee.jsonl rescored s48,s48
+Table1,employee,react,out_of_range,strict,accuracy,55.6,15,27,results_employee.jsonl rescored s48,s48
+Table1,employee,react,out_of_range,strict,silent_wrong,44.4,12,27,results_employee.jsonl rescored s48,s48
+Table1,employee,react,out_of_range,strict,refused_should_answer,0.0,0,27,results_employee.jsonl rescored s48,s48
+Table1,employee,react,out_of_range,strict,crash,0.0,0,27,results_employee.jsonl rescored s48,s48
+Table1,employee,react,out_of_range,strict,timeout,0.0,0,27,results_employee.jsonl rescored s48,s48
 Table1,employee,code_agent,T1_single_op,strict,accuracy,100.0,45,45,results_employee.jsonl rescored s48,s48
 Table1,employee,code_agent,T1_single_op,strict,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48,s48
 Table1,employee,code_agent,T1_single_op,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48,s48
@@ -220,11 +220,11 @@ Table1,employee,code_agent,house_vocab,strict,silent_wrong,0.0,0,18,results_empl
 Table1,employee,code_agent,house_vocab,strict,refused_should_answer,0.0,0,18,results_employee.jsonl rescored s48,s48
 Table1,employee,code_agent,house_vocab,strict,crash,0.0,0,18,results_employee.jsonl rescored s48,s48
 Table1,employee,code_agent,house_vocab,strict,timeout,0.0,0,18,results_employee.jsonl rescored s48,s48
-Table1,employee,code_agent,out_of_range,strict,accuracy,50.0,15,30,results_employee.jsonl rescored s48,s48
-Table1,employee,code_agent,out_of_range,strict,silent_wrong,30.0,9,30,results_employee.jsonl rescored s48,s48
-Table1,employee,code_agent,out_of_range,strict,refused_should_answer,0.0,0,30,results_employee.jsonl rescored s48,s48
-Table1,employee,code_agent,out_of_range,strict,crash,0.0,0,30,results_employee.jsonl rescored s48,s48
-Table1,employee,code_agent,out_of_range,strict,timeout,20.0,6,30,results_employee.jsonl rescored s48,s48
+Table1,employee,code_agent,out_of_range,strict,accuracy,55.6,15,27,results_employee.jsonl rescored s48,s48
+Table1,employee,code_agent,out_of_range,strict,silent_wrong,25.9,7,27,results_employee.jsonl rescored s48,s48
+Table1,employee,code_agent,out_of_range,strict,refused_should_answer,0.0,0,27,results_employee.jsonl rescored s48,s48
+Table1,employee,code_agent,out_of_range,strict,crash,0.0,0,27,results_employee.jsonl rescored s48,s48
+Table1,employee,code_agent,out_of_range,strict,timeout,18.5,5,27,results_employee.jsonl rescored s48,s48
 Table1,employee,text_to_sql,T1_single_op,strict,accuracy,93.3,42,45,results_employee.jsonl rescored s48,s48
 Table1,employee,text_to_sql,T1_single_op,strict,silent_wrong,6.7,3,45,results_employee.jsonl rescored s48,s48
 Table1,employee,text_to_sql,T1_single_op,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48,s48
@@ -255,11 +255,11 @@ Table1,employee,text_to_sql,house_vocab,strict,silent_wrong,0.0,0,18,results_emp
 Table1,employee,text_to_sql,house_vocab,strict,refused_should_answer,0.0,0,18,results_employee.jsonl rescored s48,s48
 Table1,employee,text_to_sql,house_vocab,strict,crash,0.0,0,18,results_employee.jsonl rescored s48,s48
 Table1,employee,text_to_sql,house_vocab,strict,timeout,0.0,0,18,results_employee.jsonl rescored s48,s48
-Table1,employee,text_to_sql,out_of_range,strict,accuracy,60.0,18,30,results_employee.jsonl rescored s48,s48
-Table1,employee,text_to_sql,out_of_range,strict,silent_wrong,40.0,12,30,results_employee.jsonl rescored s48,s48
-Table1,employee,text_to_sql,out_of_range,strict,refused_should_answer,0.0,0,30,results_employee.jsonl rescored s48,s48
-Table1,employee,text_to_sql,out_of_range,strict,crash,0.0,0,30,results_employee.jsonl rescored s48,s48
-Table1,employee,text_to_sql,out_of_range,strict,timeout,0.0,0,30,results_employee.jsonl rescored s48,s48
+Table1,employee,text_to_sql,out_of_range,strict,accuracy,66.7,18,27,results_employee.jsonl rescored s48,s48
+Table1,employee,text_to_sql,out_of_range,strict,silent_wrong,33.3,9,27,results_employee.jsonl rescored s48,s48
+Table1,employee,text_to_sql,out_of_range,strict,refused_should_answer,0.0,0,27,results_employee.jsonl rescored s48,s48
+Table1,employee,text_to_sql,out_of_range,strict,crash,0.0,0,27,results_employee.jsonl rescored s48,s48
+Table1,employee,text_to_sql,out_of_range,strict,timeout,0.0,0,27,results_employee.jsonl rescored s48,s48
 Table2,employee,network,in_contract_answer,strict,accuracy,98.8,240,243,network REPLAY,s48
 Table2,employee,network,in_contract_answer,strict,silent_wrong,0.0,0,243,network REPLAY,s48
 Table2,employee,network,in_contract_answer,strict,refused_should_answer,1.2,3,243,network REPLAY,s48
@@ -301,10 +301,10 @@ Table5,spider_pooled,network,out_of_scope_register,strict,declined,37.0,85,230,P
 Table5,spider_pooled,network,out_of_scope_register,strict,silent_wrong,63.0,145,230,PhaseR s40off REPLAY current engine,s48
 Table5,spider_pooled,network,out_of_scope_register,strict,crash,0.0,0,230,PhaseR s40off REPLAY current engine,s48
 Table5,spider_pooled,network,out_of_scope_register,strict,timeout,0.0,0,230,PhaseR s40off REPLAY current engine,s48
-Table5,employee,network,out_of_range,strict,declined,50.0,15,30,network REPLAY,s48
-Table5,employee,network,out_of_range,strict,silent_wrong,50.0,15,30,network REPLAY,s48
-Table5,employee,network,out_of_range,strict,crash,0.0,0,30,network REPLAY,s48
-Table5,employee,network,out_of_range,strict,timeout,0.0,0,30,network REPLAY,s48
+Table5,employee,network,out_of_range,strict,declined,55.6,15,27,network REPLAY,s48
+Table5,employee,network,out_of_range,strict,silent_wrong,44.4,12,27,network REPLAY,s48
+Table5,employee,network,out_of_range,strict,crash,0.0,0,27,network REPLAY,s48
+Table5,employee,network,out_of_range,strict,timeout,0.0,0,27,network REPLAY,s48
 Table5,wta_1,planner,out_of_scope_register,strict,declined,42.5,34,80,recorded REPLAY current engine,s48
 Table5,wta_1,planner,out_of_scope_register,strict,silent_wrong,57.5,46,80,recorded REPLAY current engine,s48
 Table5,wta_1,planner,out_of_scope_register,strict,crash,0.0,0,80,recorded REPLAY current engine,s48
@@ -321,10 +321,10 @@ Table5,spider_pooled,planner,out_of_scope_register,strict,declined,48.3,111,230,
 Table5,spider_pooled,planner,out_of_scope_register,strict,silent_wrong,51.7,119,230,recorded REPLAY current engine,s48
 Table5,spider_pooled,planner,out_of_scope_register,strict,crash,0.0,0,230,recorded REPLAY current engine,s48
 Table5,spider_pooled,planner,out_of_scope_register,strict,timeout,0.0,0,230,recorded REPLAY current engine,s48
-Table5,employee,planner,out_of_range,strict,declined,6.7,2,30,planner REPLAY,s48
-Table5,employee,planner,out_of_range,strict,silent_wrong,93.3,28,30,planner REPLAY,s48
-Table5,employee,planner,out_of_range,strict,crash,0.0,0,30,planner REPLAY,s48
-Table5,employee,planner,out_of_range,strict,timeout,0.0,0,30,planner REPLAY,s48
+Table5,employee,planner,out_of_range,strict,declined,7.4,2,27,planner REPLAY,s48
+Table5,employee,planner,out_of_range,strict,silent_wrong,92.6,25,27,planner REPLAY,s48
+Table5,employee,planner,out_of_range,strict,crash,0.0,0,27,planner REPLAY,s48
+Table5,employee,planner,out_of_range,strict,timeout,0.0,0,27,planner REPLAY,s48
 Table5,wta_1,react,out_of_scope_register,strict,declined,10.0,8,80,recorded rescored s48,s48
 Table5,wta_1,react,out_of_scope_register,strict,silent_wrong,71.2,57,80,recorded rescored s48,s48
 Table5,wta_1,react,out_of_scope_register,strict,crash,0.0,0,80,recorded rescored s48,s48
@@ -341,10 +341,10 @@ Table5,spider_pooled,react,out_of_scope_register,strict,declined,44.3,102,230,re
 Table5,spider_pooled,react,out_of_scope_register,strict,silent_wrong,48.7,112,230,recorded rescored s48,s48
 Table5,spider_pooled,react,out_of_scope_register,strict,crash,0.0,0,230,recorded rescored s48,s48
 Table5,spider_pooled,react,out_of_scope_register,strict,timeout,7.0,16,230,recorded rescored s48,s48
-Table5,employee,react,out_of_range,strict,declined,50.0,15,30,recorded rescored s48,s48
-Table5,employee,react,out_of_range,strict,silent_wrong,50.0,15,30,recorded rescored s48,s48
-Table5,employee,react,out_of_range,strict,crash,0.0,0,30,recorded rescored s48,s48
-Table5,employee,react,out_of_range,strict,timeout,0.0,0,30,recorded rescored s48,s48
+Table5,employee,react,out_of_range,strict,declined,55.6,15,27,recorded rescored s48,s48
+Table5,employee,react,out_of_range,strict,silent_wrong,44.4,12,27,recorded rescored s48,s48
+Table5,employee,react,out_of_range,strict,crash,0.0,0,27,recorded rescored s48,s48
+Table5,employee,react,out_of_range,strict,timeout,0.0,0,27,recorded rescored s48,s48
 Table5,wta_1,code_agent,out_of_scope_register,strict,declined,1.2,1,80,recorded rescored s48,s48
 Table5,wta_1,code_agent,out_of_scope_register,strict,silent_wrong,45.0,36,80,recorded rescored s48,s48
 Table5,wta_1,code_agent,out_of_scope_register,strict,crash,0.0,0,80,recorded rescored s48,s48
@@ -361,10 +361,10 @@ Table5,spider_pooled,code_agent,out_of_scope_register,strict,declined,38.3,88,23
 Table5,spider_pooled,code_agent,out_of_scope_register,strict,silent_wrong,19.1,44,230,recorded rescored s48,s48
 Table5,spider_pooled,code_agent,out_of_scope_register,strict,crash,0.0,0,230,recorded rescored s48,s48
 Table5,spider_pooled,code_agent,out_of_scope_register,strict,timeout,42.6,98,230,recorded rescored s48,s48
-Table5,employee,code_agent,out_of_range,strict,declined,50.0,15,30,recorded rescored s48,s48
-Table5,employee,code_agent,out_of_range,strict,silent_wrong,30.0,9,30,recorded rescored s48,s48
-Table5,employee,code_agent,out_of_range,strict,crash,0.0,0,30,recorded rescored s48,s48
-Table5,employee,code_agent,out_of_range,strict,timeout,20.0,6,30,recorded rescored s48,s48
+Table5,employee,code_agent,out_of_range,strict,declined,55.6,15,27,recorded rescored s48,s48
+Table5,employee,code_agent,out_of_range,strict,silent_wrong,25.9,7,27,recorded rescored s48,s48
+Table5,employee,code_agent,out_of_range,strict,crash,0.0,0,27,recorded rescored s48,s48
+Table5,employee,code_agent,out_of_range,strict,timeout,18.5,5,27,recorded rescored s48,s48
 Table5,wta_1,text_to_sql,out_of_scope_register,strict,declined,21.2,17,80,recorded rescored s48,s48
 Table5,wta_1,text_to_sql,out_of_scope_register,strict,silent_wrong,78.8,63,80,recorded rescored s48,s48
 Table5,wta_1,text_to_sql,out_of_scope_register,strict,crash,0.0,0,80,recorded rescored s48,s48
@@ -381,7 +381,7 @@ Table5,spider_pooled,text_to_sql,out_of_scope_register,strict,declined,50.0,115,
 Table5,spider_pooled,text_to_sql,out_of_scope_register,strict,silent_wrong,50.0,115,230,recorded rescored s48,s48
 Table5,spider_pooled,text_to_sql,out_of_scope_register,strict,crash,0.0,0,230,recorded rescored s48,s48
 Table5,spider_pooled,text_to_sql,out_of_scope_register,strict,timeout,0.0,0,230,recorded rescored s48,s48
-Table5,employee,text_to_sql,out_of_range,strict,declined,60.0,18,30,recorded rescored s48,s48
-Table5,employee,text_to_sql,out_of_range,strict,silent_wrong,40.0,12,30,recorded rescored s48,s48
-Table5,employee,text_to_sql,out_of_range,strict,crash,0.0,0,30,recorded rescored s48,s48
-Table5,employee,text_to_sql,out_of_range,strict,timeout,0.0,0,30,recorded rescored s48,s48
+Table5,employee,text_to_sql,out_of_range,strict,declined,66.7,18,27,recorded rescored s48,s48
+Table5,employee,text_to_sql,out_of_range,strict,silent_wrong,33.3,9,27,recorded rescored s48,s48
+Table5,employee,text_to_sql,out_of_range,strict,crash,0.0,0,27,recorded rescored s48,s48
+Table5,employee,text_to_sql,out_of_range,strict,timeout,0.0,0,27,recorded rescored s48,s48

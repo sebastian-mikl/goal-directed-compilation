@@ -29,8 +29,8 @@ employee,house_vocab,planner,83.3,16.7,15,18
 employee,house_vocab,react,100.0,0.0,18,18
 employee,house_vocab,code_agent,100.0,0.0,18,18
 employee,house_vocab,text_to_sql,100.0,0.0,18,18
-employee,out_of_range,network,50.0,50.0,15,30
-employee,out_of_range,planner,6.7,93.3,2,30
-employee,out_of_range,react,50.0,50.0,15,30
-employee,out_of_range,code_agent,50.0,30.0,15,30
-employee,out_of_range,text_to_sql,60.0,40.0,18,30
+employee,out_of_range,network,55.6,44.4,15,27
+employee,out_of_range,planner,7.4,92.6,2,27
+employee,out_of_range,react,55.6,44.4,15,27
+employee,out_of_range,code_agent,55.6,25.9,15,27
+employee,out_of_range,text_to_sql,66.7,33.3,18,27

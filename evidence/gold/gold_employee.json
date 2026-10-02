@@ -7746,16 +7746,6 @@
     "row_count": 0,
     "complexity_ops": null
   },
-  "oor_03": {
-    "id": "oor_03",
-    "tier": "out_of_range",
-    "result_kind": null,
-    "ordered": false,
-    "value": null,
-    "expected_behavior": "refuse",
-    "row_count": 0,
-    "complexity_ops": null
-  },
   "oor_04": {
     "id": "oor_04",
     "tier": "out_of_range",
