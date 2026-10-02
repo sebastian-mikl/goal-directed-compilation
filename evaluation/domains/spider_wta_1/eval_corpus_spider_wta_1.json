@@ -307,15 +307,18 @@
     },
     {
       "id": "wta_26",
-      "tier": "out_of_scope_register",
+      "tier": "out_of_contract_aggregate",
+      "architectural_gap": [
+        "set_operation"
+      ],
       "tables": [
         "matches"
       ],
       "question": "List the names of all winners who played in both 2013 and 2016.",
       "gold_sql": "SELECT winner_name FROM matches WHERE YEAR  =  2013 INTERSECT SELECT winner_name FROM matches WHERE YEAR  =  2016",
-      "expected_behavior": "refuse",
-      "reason": "requires a multi-table join or set operation (INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.",
-      "sql_structure": "multi_or_compound"
+      "expected_behavior": "answer",
+      "sql_structure": "multi_or_compound",
+      "retier_note": "2026-10-01 (decision D7): in scope = answerable from the data provided. The gold SQL is a single-table INTERSECT over the register (matches), so the question is answerable and in scope; INTERSECT is outside the four-operator vocabulary, so it is out_of_contract_aggregate (beyond the vocabulary), not out_of_scope_register. Was: expected_behavior refuse, reason 'requires a multi-table join or set operation (INTERSECT)'."
     },
     {
       "id": "wta_27",

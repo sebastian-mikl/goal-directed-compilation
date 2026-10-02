@@ -52,15 +52,15 @@ Fig1/Fig2/Table3,spider_pooled,text_to_sql,in_contract_answer,tolerant,timeout,0
 Fig3/Fig4,wta_1,network,answer,strict,correct,100.0,55,55,PhaseR REPLAY current engine,s48
 Fig3/Fig4,wta_1,network,answer,strict,silent_wrong,0.0,0,55,PhaseR REPLAY current engine,s48
 Fig3/Fig4,wta_1,network,answer,strict,refused_should_answer,0.0,0,55,PhaseR REPLAY current engine,s48
-Fig3/Fig4,wta_1,network,out_of_contract_aggregate,strict,correct,0.0,0,15,PhaseR REPLAY current engine,s48
-Fig3/Fig4,wta_1,network,out_of_contract_aggregate,strict,silent_wrong,66.7,10,15,PhaseR REPLAY current engine,s48
-Fig3/Fig4,wta_1,network,out_of_contract_aggregate,strict,refused_should_answer,33.3,5,15,PhaseR REPLAY current engine,s48
-Fig3/Fig4,wta_1,network,out_of_scope_register_s40off,strict,correct,18.8,15,80,PhaseR REPLAY current engine,s48
-Fig3/Fig4,wta_1,network,out_of_scope_register_s40off,strict,silent_wrong,81.2,65,80,PhaseR REPLAY current engine,s48
-Fig3/Fig4,wta_1,network,out_of_scope_register_s40off,strict,refused_should_answer,0.0,0,80,PhaseR REPLAY current engine,s48
-Fig3/Fig4,wta_1,network,out_of_scope_register_s40on,strict,correct,30.0,24,80,PhaseR REPLAY current engine,s48
-Fig3/Fig4,wta_1,network,out_of_scope_register_s40on,strict,silent_wrong,70.0,56,80,PhaseR REPLAY current engine,s48
-Fig3/Fig4,wta_1,network,out_of_scope_register_s40on,strict,refused_should_answer,0.0,0,80,PhaseR REPLAY current engine,s48
+Fig3/Fig4,wta_1,network,out_of_contract_aggregate,strict,correct,0.0,0,20,PhaseR REPLAY current engine,s48
+Fig3/Fig4,wta_1,network,out_of_contract_aggregate,strict,silent_wrong,50.0,10,20,PhaseR REPLAY current engine,s48
+Fig3/Fig4,wta_1,network,out_of_contract_aggregate,strict,refused_should_answer,50.0,10,20,PhaseR REPLAY current engine,s48
+Fig3/Fig4,wta_1,network,out_of_scope_register_s40off,strict,correct,13.3,10,75,PhaseR REPLAY current engine,s48
+Fig3/Fig4,wta_1,network,out_of_scope_register_s40off,strict,silent_wrong,86.7,65,75,PhaseR REPLAY current engine,s48
+Fig3/Fig4,wta_1,network,out_of_scope_register_s40off,strict,refused_should_answer,0.0,0,75,PhaseR REPLAY current engine,s48
+Fig3/Fig4,wta_1,network,out_of_scope_register_s40on,strict,correct,30.7,23,75,PhaseR REPLAY current engine,s48
+Fig3/Fig4,wta_1,network,out_of_scope_register_s40on,strict,silent_wrong,69.3,52,75,PhaseR REPLAY current engine,s48
+Fig3/Fig4,wta_1,network,out_of_scope_register_s40on,strict,refused_should_answer,0.0,0,75,PhaseR REPLAY current engine,s48
 Fig3/Fig4,world_1,network,answer,strict,correct,90.0,45,50,PhaseR REPLAY current engine,s48
 Fig3/Fig4,world_1,network,answer,strict,silent_wrong,10.0,5,50,PhaseR REPLAY current engine,s48
 Fig3/Fig4,world_1,network,answer,strict,refused_should_answer,0.0,0,50,PhaseR REPLAY current engine,s48
@@ -285,10 +285,10 @@ Table2,employee,text_to_sql,in_contract_answer,strict,silent_wrong,12.3,30,243,r
 Table2,employee,text_to_sql,in_contract_answer,strict,refused_should_answer,0.0,0,243,recorded rescored s48,s48
 Table2,employee,text_to_sql,in_contract_answer,strict,crash,0.0,0,243,recorded rescored s48,s48
 Table2,employee,text_to_sql,in_contract_answer,strict,timeout,0.0,0,243,recorded rescored s48,s48
-Table5,wta_1,network,out_of_scope_register,strict,declined,18.8,15,80,PhaseR s40off REPLAY current engine,s48
-Table5,wta_1,network,out_of_scope_register,strict,silent_wrong,81.2,65,80,PhaseR s40off REPLAY current engine,s48
-Table5,wta_1,network,out_of_scope_register,strict,crash,0.0,0,80,PhaseR s40off REPLAY current engine,s48
-Table5,wta_1,network,out_of_scope_register,strict,timeout,0.0,0,80,PhaseR s40off REPLAY current engine,s48
+Table5,wta_1,network,out_of_scope_register,strict,declined,13.3,10,75,PhaseR s40off REPLAY current engine,s48
+Table5,wta_1,network,out_of_scope_register,strict,silent_wrong,86.7,65,75,PhaseR s40off REPLAY current engine,s48
+Table5,wta_1,network,out_of_scope_register,strict,crash,0.0,0,75,PhaseR s40off REPLAY current engine,s48
+Table5,wta_1,network,out_of_scope_register,strict,timeout,0.0,0,75,PhaseR s40off REPLAY current engine,s48
 Table5,world_1,network,out_of_scope_register,strict,declined,53.3,40,75,PhaseR s40off REPLAY current engine,s48
 Table5,world_1,network,out_of_scope_register,strict,silent_wrong,46.7,35,75,PhaseR s40off REPLAY current engine,s48
 Table5,world_1,network,out_of_scope_register,strict,crash,0.0,0,75,PhaseR s40off REPLAY current engine,s48
@@ -297,18 +297,18 @@ Table5,bike_1,network,out_of_scope_register,strict,declined,40.0,30,75,PhaseR s4
 Table5,bike_1,network,out_of_scope_register,strict,silent_wrong,60.0,45,75,PhaseR s40off REPLAY current engine,s48
 Table5,bike_1,network,out_of_scope_register,strict,crash,0.0,0,75,PhaseR s40off REPLAY current engine,s48
 Table5,bike_1,network,out_of_scope_register,strict,timeout,0.0,0,75,PhaseR s40off REPLAY current engine,s48
-Table5,spider_pooled,network,out_of_scope_register,strict,declined,37.0,85,230,PhaseR s40off REPLAY current engine,s48
-Table5,spider_pooled,network,out_of_scope_register,strict,silent_wrong,63.0,145,230,PhaseR s40off REPLAY current engine,s48
-Table5,spider_pooled,network,out_of_scope_register,strict,crash,0.0,0,230,PhaseR s40off REPLAY current engine,s48
-Table5,spider_pooled,network,out_of_scope_register,strict,timeout,0.0,0,230,PhaseR s40off REPLAY current engine,s48
+Table5,spider_pooled,network,out_of_scope_register,strict,declined,35.6,80,225,PhaseR s40off REPLAY current engine,s48
+Table5,spider_pooled,network,out_of_scope_register,strict,silent_wrong,64.4,145,225,PhaseR s40off REPLAY current engine,s48
+Table5,spider_pooled,network,out_of_scope_register,strict,crash,0.0,0,225,PhaseR s40off REPLAY current engine,s48
+Table5,spider_pooled,network,out_of_scope_register,strict,timeout,0.0,0,225,PhaseR s40off REPLAY current engine,s48
 Table5,employee,network,out_of_range,strict,declined,55.6,15,27,network REPLAY,s48
 Table5,employee,network,out_of_range,strict,silent_wrong,44.4,12,27,network REPLAY,s48
 Table5,employee,network,out_of_range,strict,crash,0.0,0,27,network REPLAY,s48
 Table5,employee,network,out_of_range,strict,timeout,0.0,0,27,network REPLAY,s48
-Table5,wta_1,planner,out_of_scope_register,strict,declined,42.5,34,80,recorded REPLAY current engine,s48
-Table5,wta_1,planner,out_of_scope_register,strict,silent_wrong,57.5,46,80,recorded REPLAY current engine,s48
-Table5,wta_1,planner,out_of_scope_register,strict,crash,0.0,0,80,recorded REPLAY current engine,s48
-Table5,wta_1,planner,out_of_scope_register,strict,timeout,0.0,0,80,recorded REPLAY current engine,s48
+Table5,wta_1,planner,out_of_scope_register,strict,declined,38.7,29,75,recorded REPLAY current engine,s48
+Table5,wta_1,planner,out_of_scope_register,strict,silent_wrong,61.3,46,75,recorded REPLAY current engine,s48
+Table5,wta_1,planner,out_of_scope_register,strict,crash,0.0,0,75,recorded REPLAY current engine,s48
+Table5,wta_1,planner,out_of_scope_register,strict,timeout,0.0,0,75,recorded REPLAY current engine,s48
 Table5,world_1,planner,out_of_scope_register,strict,declined,52.0,39,75,recorded REPLAY current engine,s48
 Table5,world_1,planner,out_of_scope_register,strict,silent_wrong,48.0,36,75,recorded REPLAY current engine,s48
 Table5,world_1,planner,out_of_scope_register,strict,crash,0.0,0,75,recorded REPLAY current engine,s48
@@ -317,18 +317,18 @@ Table5,bike_1,planner,out_of_scope_register,strict,declined,50.7,38,75,recorded 
 Table5,bike_1,planner,out_of_scope_register,strict,silent_wrong,49.3,37,75,recorded REPLAY current engine,s48
 Table5,bike_1,planner,out_of_scope_register,strict,crash,0.0,0,75,recorded REPLAY current engine,s48
 Table5,bike_1,planner,out_of_scope_register,strict,timeout,0.0,0,75,recorded REPLAY current engine,s48
-Table5,spider_pooled,planner,out_of_scope_register,strict,declined,48.3,111,230,recorded REPLAY current engine,s48
-Table5,spider_pooled,planner,out_of_scope_register,strict,silent_wrong,51.7,119,230,recorded REPLAY current engine,s48
-Table5,spider_pooled,planner,out_of_scope_register,strict,crash,0.0,0,230,recorded REPLAY current engine,s48
-Table5,spider_pooled,planner,out_of_scope_register,strict,timeout,0.0,0,230,recorded REPLAY current engine,s48
+Table5,spider_pooled,planner,out_of_scope_register,strict,declined,47.1,106,225,recorded REPLAY current engine,s48
+Table5,spider_pooled,planner,out_of_scope_register,strict,silent_wrong,52.9,119,225,recorded REPLAY current engine,s48
+Table5,spider_pooled,planner,out_of_scope_register,strict,crash,0.0,0,225,recorded REPLAY current engine,s48
+Table5,spider_pooled,planner,out_of_scope_register,strict,timeout,0.0,0,225,recorded REPLAY current engine,s48
 Table5,employee,planner,out_of_range,strict,declined,7.4,2,27,planner REPLAY,s48
 Table5,employee,planner,out_of_range,strict,silent_wrong,92.6,25,27,planner REPLAY,s48
 Table5,employee,planner,out_of_range,strict,crash,0.0,0,27,planner REPLAY,s48
 Table5,employee,planner,out_of_range,strict,timeout,0.0,0,27,planner REPLAY,s48
-Table5,wta_1,react,out_of_scope_register,strict,declined,10.0,8,80,recorded rescored s48,s48
-Table5,wta_1,react,out_of_scope_register,strict,silent_wrong,71.2,57,80,recorded rescored s48,s48
-Table5,wta_1,react,out_of_scope_register,strict,crash,0.0,0,80,recorded rescored s48,s48
-Table5,wta_1,react,out_of_scope_register,strict,timeout,18.8,15,80,recorded rescored s48,s48
+Table5,wta_1,react,out_of_scope_register,strict,declined,10.7,8,75,recorded rescored s48,s48
+Table5,wta_1,react,out_of_scope_register,strict,silent_wrong,70.7,53,75,recorded rescored s48,s48
+Table5,wta_1,react,out_of_scope_register,strict,crash,0.0,0,75,recorded rescored s48,s48
+Table5,wta_1,react,out_of_scope_register,strict,timeout,18.7,14,75,recorded rescored s48,s48
 Table5,world_1,react,out_of_scope_register,strict,declined,37.3,28,75,recorded rescored s48,s48
 Table5,world_1,react,out_of_scope_register,strict,silent_wrong,62.7,47,75,recorded rescored s48,s48
 Table5,world_1,react,out_of_scope_register,strict,crash,0.0,0,75,recorded rescored s48,s48
@@ -337,18 +337,18 @@ Table5,bike_1,react,out_of_scope_register,strict,declined,88.0,66,75,recorded re
 Table5,bike_1,react,out_of_scope_register,strict,silent_wrong,10.7,8,75,recorded rescored s48,s48
 Table5,bike_1,react,out_of_scope_register,strict,crash,0.0,0,75,recorded rescored s48,s48
 Table5,bike_1,react,out_of_scope_register,strict,timeout,1.3,1,75,recorded rescored s48,s48
-Table5,spider_pooled,react,out_of_scope_register,strict,declined,44.3,102,230,recorded rescored s48,s48
-Table5,spider_pooled,react,out_of_scope_register,strict,silent_wrong,48.7,112,230,recorded rescored s48,s48
-Table5,spider_pooled,react,out_of_scope_register,strict,crash,0.0,0,230,recorded rescored s48,s48
-Table5,spider_pooled,react,out_of_scope_register,strict,timeout,7.0,16,230,recorded rescored s48,s48
+Table5,spider_pooled,react,out_of_scope_register,strict,declined,45.3,102,225,recorded rescored s48,s48
+Table5,spider_pooled,react,out_of_scope_register,strict,silent_wrong,48.0,108,225,recorded rescored s48,s48
+Table5,spider_pooled,react,out_of_scope_register,strict,crash,0.0,0,225,recorded rescored s48,s48
+Table5,spider_pooled,react,out_of_scope_register,strict,timeout,6.7,15,225,recorded rescored s48,s48
 Table5,employee,react,out_of_range,strict,declined,55.6,15,27,recorded rescored s48,s48
 Table5,employee,react,out_of_range,strict,silent_wrong,44.4,12,27,recorded rescored s48,s48
 Table5,employee,react,out_of_range,strict,crash,0.0,0,27,recorded rescored s48,s48
 Table5,employee,react,out_of_range,strict,timeout,0.0,0,27,recorded rescored s48,s48
-Table5,wta_1,code_agent,out_of_scope_register,strict,declined,1.2,1,80,recorded rescored s48,s48
-Table5,wta_1,code_agent,out_of_scope_register,strict,silent_wrong,45.0,36,80,recorded rescored s48,s48
-Table5,wta_1,code_agent,out_of_scope_register,strict,crash,0.0,0,80,recorded rescored s48,s48
-Table5,wta_1,code_agent,out_of_scope_register,strict,timeout,53.8,43,80,recorded rescored s48,s48
+Table5,wta_1,code_agent,out_of_scope_register,strict,declined,1.3,1,75,recorded rescored s48,s48
+Table5,wta_1,code_agent,out_of_scope_register,strict,silent_wrong,41.3,31,75,recorded rescored s48,s48
+Table5,wta_1,code_agent,out_of_scope_register,strict,crash,0.0,0,75,recorded rescored s48,s48
+Table5,wta_1,code_agent,out_of_scope_register,strict,timeout,57.3,43,75,recorded rescored s48,s48
 Table5,world_1,code_agent,out_of_scope_register,strict,declined,46.7,35,75,recorded rescored s48,s48
 Table5,world_1,code_agent,out_of_scope_register,strict,silent_wrong,10.7,8,75,recorded rescored s48,s48
 Table5,world_1,code_agent,out_of_scope_register,strict,crash,0.0,0,75,recorded rescored s48,s48
@@ -357,18 +357,18 @@ Table5,bike_1,code_agent,out_of_scope_register,strict,declined,69.3,52,75,record
 Table5,bike_1,code_agent,out_of_scope_register,strict,silent_wrong,0.0,0,75,recorded rescored s48,s48
 Table5,bike_1,code_agent,out_of_scope_register,strict,crash,0.0,0,75,recorded rescored s48,s48
 Table5,bike_1,code_agent,out_of_scope_register,strict,timeout,30.7,23,75,recorded rescored s48,s48
-Table5,spider_pooled,code_agent,out_of_scope_register,strict,declined,38.3,88,230,recorded rescored s48,s48
-Table5,spider_pooled,code_agent,out_of_scope_register,strict,silent_wrong,19.1,44,230,recorded rescored s48,s48
-Table5,spider_pooled,code_agent,out_of_scope_register,strict,crash,0.0,0,230,recorded rescored s48,s48
-Table5,spider_pooled,code_agent,out_of_scope_register,strict,timeout,42.6,98,230,recorded rescored s48,s48
+Table5,spider_pooled,code_agent,out_of_scope_register,strict,declined,39.1,88,225,recorded rescored s48,s48
+Table5,spider_pooled,code_agent,out_of_scope_register,strict,silent_wrong,17.3,39,225,recorded rescored s48,s48
+Table5,spider_pooled,code_agent,out_of_scope_register,strict,crash,0.0,0,225,recorded rescored s48,s48
+Table5,spider_pooled,code_agent,out_of_scope_register,strict,timeout,43.6,98,225,recorded rescored s48,s48
 Table5,employee,code_agent,out_of_range,strict,declined,55.6,15,27,recorded rescored s48,s48
 Table5,employee,code_agent,out_of_range,strict,silent_wrong,25.9,7,27,recorded rescored s48,s48
 Table5,employee,code_agent,out_of_range,strict,crash,0.0,0,27,recorded rescored s48,s48
 Table5,employee,code_agent,out_of_range,strict,timeout,18.5,5,27,recorded rescored s48,s48
-Table5,wta_1,text_to_sql,out_of_scope_register,strict,declined,21.2,17,80,recorded rescored s48,s48
-Table5,wta_1,text_to_sql,out_of_scope_register,strict,silent_wrong,78.8,63,80,recorded rescored s48,s48
-Table5,wta_1,text_to_sql,out_of_scope_register,strict,crash,0.0,0,80,recorded rescored s48,s48
-Table5,wta_1,text_to_sql,out_of_scope_register,strict,timeout,0.0,0,80,recorded rescored s48,s48
+Table5,wta_1,text_to_sql,out_of_scope_register,strict,declined,22.7,17,75,recorded rescored s48,s48
+Table5,wta_1,text_to_sql,out_of_scope_register,strict,silent_wrong,77.3,58,75,recorded rescored s48,s48
+Table5,wta_1,text_to_sql,out_of_scope_register,strict,crash,0.0,0,75,recorded rescored s48,s48
+Table5,wta_1,text_to_sql,out_of_scope_register,strict,timeout,0.0,0,75,recorded rescored s48,s48
 Table5,world_1,text_to_sql,out_of_scope_register,strict,declined,48.0,36,75,recorded rescored s48,s48
 Table5,world_1,text_to_sql,out_of_scope_register,strict,silent_wrong,52.0,39,75,recorded rescored s48,s48
 Table5,world_1,text_to_sql,out_of_scope_register,strict,crash,0.0,0,75,recorded rescored s48,s48
@@ -377,10 +377,10 @@ Table5,bike_1,text_to_sql,out_of_scope_register,strict,declined,82.7,62,75,recor
 Table5,bike_1,text_to_sql,out_of_scope_register,strict,silent_wrong,17.3,13,75,recorded rescored s48,s48
 Table5,bike_1,text_to_sql,out_of_scope_register,strict,crash,0.0,0,75,recorded rescored s48,s48
 Table5,bike_1,text_to_sql,out_of_scope_register,strict,timeout,0.0,0,75,recorded rescored s48,s48
-Table5,spider_pooled,text_to_sql,out_of_scope_register,strict,declined,50.0,115,230,recorded rescored s48,s48
-Table5,spider_pooled,text_to_sql,out_of_scope_register,strict,silent_wrong,50.0,115,230,recorded rescored s48,s48
-Table5,spider_pooled,text_to_sql,out_of_scope_register,strict,crash,0.0,0,230,recorded rescored s48,s48
-Table5,spider_pooled,text_to_sql,out_of_scope_register,strict,timeout,0.0,0,230,recorded rescored s48,s48
+Table5,spider_pooled,text_to_sql,out_of_scope_register,strict,declined,51.1,115,225,recorded rescored s48,s48
+Table5,spider_pooled,text_to_sql,out_of_scope_register,strict,silent_wrong,48.9,110,225,recorded rescored s48,s48
+Table5,spider_pooled,text_to_sql,out_of_scope_register,strict,crash,0.0,0,225,recorded rescored s48,s48
+Table5,spider_pooled,text_to_sql,out_of_scope_register,strict,timeout,0.0,0,225,recorded rescored s48,s48
 Table5,employee,text_to_sql,out_of_range,strict,declined,66.7,18,27,recorded rescored s48,s48
 Table5,employee,text_to_sql,out_of_range,strict,silent_wrong,33.3,9,27,recorded rescored s48,s48
 Table5,employee,text_to_sql,out_of_range,strict,crash,0.0,0,27,recorded rescored s48,s48

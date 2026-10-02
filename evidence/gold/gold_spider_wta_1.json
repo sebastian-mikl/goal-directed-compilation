@@ -326,13 +326,31 @@
   },
   "wta_26": {
     "id": "wta_26",
-    "tier": "out_of_scope_register",
-    "architectural_gap": null,
-    "result_kind": null,
+    "tier": "out_of_contract_aggregate",
+    "architectural_gap": [
+      "set_operation"
+    ],
+    "result_kind": "table",
     "ordered": false,
-    "value": null,
-    "expected_behavior": "refuse",
-    "row_count": 0
+    "value": [
+      {
+        "winner_name": "Angelique Kerber"
+      },
+      {
+        "winner_name": "Petra Kvitova"
+      },
+      {
+        "winner_name": "Sara Errani"
+      },
+      {
+        "winner_name": "Serena Williams"
+      },
+      {
+        "winner_name": "Victoria Azarenka"
+      }
+    ],
+    "expected_behavior": "answer",
+    "row_count": 5
   },
   "wta_27": {
     "id": "wta_27",

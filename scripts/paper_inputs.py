@@ -127,7 +127,8 @@ def network_cells(dom: str) -> list:
     out = []
     for s40 in ("off", "on"):
         fn = spider_file(dom, "network", s40)
-        out += [(fn, r) for r in retier(load(fn), GOLD[dom]) if r.get("system") == "network"]
+        out += [(fn, r) for r in retier(load(fn), GOLD[dom]) if r.get("system") == "network"
+                and (s40 == "off" or r.get("tier") == "out_of_scope_register")]   # s40on: that tier only (D7: wta_26)
     return out
 
 

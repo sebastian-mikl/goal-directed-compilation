@@ -56,7 +56,7 @@ GOLD DIGEST -- wta_1 (Spider third-party gold, executed verbatim against the rea
     SQL: SELECT YEAR FROM matches GROUP BY YEAR ORDER BY count(*) DESC LIMIT 1
     GOLD (scalar, ordered=False, rows=1): 2016
 
-[wta_15] (group_by)  Find the name and rank points of the winner who won the most times.
+[wta_15] (out_of_contract_aggregate)  Find the name and rank points of the winner who won the most times.
     SQL: SELECT winner_name ,  winner_rank_points FROM matches GROUP BY winner_name ORDER BY count(*) DESC LIMIT 1
     GOLD (ordered_list, ordered=True, rows=1): [{"winner_name": "Angelique Kerber", "winner_rank_points": 3715}]
 
@@ -100,9 +100,9 @@ GOLD DIGEST -- wta_1 (Spider third-party gold, executed verbatim against the rea
     SQL: SELECT count(*) ,  hand FROM players GROUP BY hand
     GOLD: REFUSE -- targets table(s) ['players'] -- this domain's single-table register only exposes 'matches' (matching this project's register.pkl/employees.pkl convention); the data this question needs is not visible to the system, not just unreachable via a join.
 
-[wta_26] (out_of_scope_register)  List the names of all winners who played in both 2013 and 2016.
+[wta_26] (out_of_contract_aggregate)  List the names of all winners who played in both 2013 and 2016.
     SQL: SELECT winner_name FROM matches WHERE YEAR  =  2013 INTERSECT SELECT winner_name FROM matches WHERE YEAR  =  2016
-    GOLD: REFUSE -- requires a multi-table join or set operation (INTERSECT); planner/'s 4 operators (filter, select, aggregate, compute) have no join or set-operation primitive.
+    GOLD (table, ordered=False, rows=5): [{"winner_name": "Angelique Kerber"}, {"winner_name": "Petra Kvitova"}, {"winner_name": "Sara Errani"}, {"winner_name": "Serena Williams"}, {"winner_name": "Victoria Azarenka"}]
 
 [wta_27] (out_of_scope_register)  What are the country code and first name of the players who won in both tourney WTA Championships and Australian Open?
     SQL: SELECT T1.country_code ,  T1.first_name FROM players AS T1 JOIN matches AS T2 ON T1.player_id  =  T2.winner_id WHERE T2.tourney_name  =  'WTA Championships' INTERSECT SELECT T1.country_code ,  T1.first_name FROM players AS T1 JOIN matches AS T2 ON T1.player_id  =  T2.winner_id WHERE T2.tourney_name  =  'Australian Open'

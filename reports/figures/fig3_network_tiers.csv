@@ -1,7 +1,7 @@
 domain,tier,correct_pct,silent_wrong_pct,refused_pct
 wta_1,answer,100.0,0.0,0.0
-wta_1,out_of_scope_register_s40off,18.8,81.2,0.0
-wta_1,out_of_contract_aggregate,0.0,66.7,33.3
+wta_1,out_of_scope_register_s40off,13.3,86.7,0.0
+wta_1,out_of_contract_aggregate,0.0,50.0,50.0
 world_1,answer,90.0,10.0,0.0
 world_1,out_of_scope_register_s40off,53.3,46.7,0.0
 world_1,out_of_contract_aggregate,0.0,0.0,100.0
