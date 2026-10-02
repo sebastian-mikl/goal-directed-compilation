@@ -150,6 +150,16 @@ Python 3.12 or later (checked on 3.12.13 and 3.14.6).
 `portability_live.py`, which also imports a module, `oracles`, that is not in this
 repository); those are not installed by either requirements file.
 
+## Rebuilding the gold keys
+
+`evidence/gold/build_gold_employee.py` rebuilds the employee gold from the files in this
+repository (it reproduces `gold_employee.json` and its digest byte for byte). The three
+Spider builders execute Spider's own gold SQL against Spider's SQLite databases, which are
+not part of this release: download Spider from https://yale-lily.github.io/spider and copy
+`wta_1.sqlite` and `world_1.sqlite` to `spider/` and `bike_1.sqlite` to `database/bike_1/`
+before running them. Without the database a builder prints where it expects the file, exits
+non-zero and writes nothing.
+
 ## Running the tests
 
 ```bash

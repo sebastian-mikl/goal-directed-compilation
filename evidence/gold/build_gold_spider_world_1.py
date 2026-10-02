@@ -33,6 +33,10 @@ FLAGS: list[str] = []
 
 
 def main() -> None:
+    if not SQLITE.exists():
+        sys.exit(f"{SQLITE} not found. The Spider database files are not part of this release: "
+                 f"download Spider (https://yale-lily.github.io/spider) and copy {SQLITE.name} to "
+                 f"{SQLITE.parent}/. Nothing was written; the committed gold is unchanged.")
     corpus = json.loads(CORPUS.read_text())
     queries = corpus["queries"]
 
