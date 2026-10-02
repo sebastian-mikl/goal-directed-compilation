@@ -1,0 +1,522 @@
+O2 analysis (comparator s48, tie-tolerant s48t; ties ['bike_06', 'world_13']); 880 cells, 875 scored (5 dropped by D11: employee oor_03); 2 scored cell(s) whose strict re-score differs from the run-time verdict.
+Model qwen3-coder-16k:30b-a3b-q4_K_M (Ollama alias of qwen3-coder:30b-a3b-q4_K_M, num_ctx 16384), temperature 0, seed 0, S40-off, GDC prompt s48. Scoring tree (the development tree at 5bf429e plus the decisions patch; engine 50ef511db567); run tree engine 62a267bd08cb.
+Engine hashes DIFFER in evidence/eval_run/adapters/code_agent.py, evidence/eval_run/tools_code.py: every GDC and planner cell replayed on the scoring tree; replayed 350 of 350 scored GDC/planner cells, 350 equal to the recorded result and status, 0 different; strict verdict on the replay differs from the strict verdict on the recorded result in 0.
+Intervals: question-cluster bootstrap, 10,000 resamples, stratified by database, percentile 95%; one seed, so a cell is a question. D8 classes on the decline tiers (declined = explicit + typed; failed separate).
+
+  o2_employee_in_contract                       accuracy               network        67.9%  [ 58.0,  77.8]  55/81 cells, 81 questions
+  o2_employee_in_contract                       accuracy               planner        69.1%  [ 59.3,  79.0]  56/81 cells, 81 questions
+  o2_employee_in_contract                       accuracy               react          40.7%  [ 29.6,  51.9]  33/81 cells, 81 questions
+  o2_employee_in_contract                       accuracy               code_agent     81.5%  [ 72.8,  88.9]  66/81 cells, 81 questions
+  o2_employee_in_contract                       accuracy               text_to_sql    74.1%  [ 64.2,  82.8]  60/81 cells, 81 questions
+  o2_employee_in_contract                       silent_error           network         2.5%  [  0.0,   6.2]  2/81 cells, 81 questions
+  o2_employee_in_contract                       silent_error           planner         1.2%  [  0.0,   3.7]  1/81 cells, 81 questions
+  o2_employee_in_contract                       silent_error           react          33.3%  [ 23.5,  43.2]  27/81 cells, 81 questions
+  o2_employee_in_contract                       silent_error           code_agent     12.3%  [  6.2,  19.8]  10/81 cells, 81 questions
+  o2_employee_in_contract                       silent_error           text_to_sql    21.0%  [ 12.3,  30.9]  17/81 cells, 81 questions
+  o2_employee_in_contract                       refused_should_answer  network        29.6%  [ 19.8,  39.5]  24/81 cells, 81 questions
+  o2_employee_in_contract                       refused_should_answer  planner        29.6%  [ 19.8,  39.5]  24/81 cells, 81 questions
+  o2_employee_in_contract                       refused_should_answer  react          16.1%  [  8.6,  24.7]  13/81 cells, 81 questions
+  o2_employee_in_contract                       refused_should_answer  code_agent      4.9%  [  1.2,   9.9]  4/81 cells, 81 questions
+  o2_employee_in_contract                       refused_should_answer  text_to_sql     4.9%  [  1.2,   9.9]  4/81 cells, 81 questions
+  o2_employee_in_contract                       timeout                network         0.0%  [  0.0,   0.0]  0/81 cells, 81 questions
+  o2_employee_in_contract                       timeout                planner         0.0%  [  0.0,   0.0]  0/81 cells, 81 questions
+  o2_employee_in_contract                       timeout                react           9.9%  [  3.7,  17.3]  8/81 cells, 81 questions
+  o2_employee_in_contract                       timeout                code_agent      1.2%  [  0.0,   3.7]  1/81 cells, 81 questions
+  o2_employee_in_contract                       timeout                text_to_sql     0.0%  [  0.0,   0.0]  0/81 cells, 81 questions
+  o2_employee_out_of_range                      answer_anyway          network        66.7%  [ 33.3, 100.0]  6/9 cells, 9 questions
+  o2_employee_out_of_range                      answer_anyway          planner        66.7%  [ 33.3,  88.9]  6/9 cells, 9 questions
+  o2_employee_out_of_range                      answer_anyway          react          77.8%  [ 44.4, 100.0]  7/9 cells, 9 questions
+  o2_employee_out_of_range                      answer_anyway          code_agent     88.9%  [ 66.7, 100.0]  8/9 cells, 9 questions
+  o2_employee_out_of_range                      answer_anyway          text_to_sql    44.4%  [ 11.1,  77.8]  4/9 cells, 9 questions
+  o2_employee_out_of_range                      declined               network        11.1%  [  0.0,  33.3]  1/9 cells, 9 questions
+  o2_employee_out_of_range                      declined               planner        33.3%  [ 11.1,  66.7]  3/9 cells, 9 questions
+  o2_employee_out_of_range                      declined               react          11.1%  [  0.0,  33.3]  1/9 cells, 9 questions
+  o2_employee_out_of_range                      declined               code_agent      0.0%  [  0.0,   0.0]  0/9 cells, 9 questions
+  o2_employee_out_of_range                      declined               text_to_sql    55.6%  [ 22.2,  88.9]  5/9 cells, 9 questions
+  o2_employee_out_of_range                      failed                 network        22.2%  [  0.0,  55.6]  2/9 cells, 9 questions
+  o2_employee_out_of_range                      failed                 planner         0.0%  [  0.0,   0.0]  0/9 cells, 9 questions
+  o2_employee_out_of_range                      failed                 react           0.0%  [  0.0,   0.0]  0/9 cells, 9 questions
+  o2_employee_out_of_range                      failed                 code_agent      0.0%  [  0.0,   0.0]  0/9 cells, 9 questions
+  o2_employee_out_of_range                      failed                 text_to_sql     0.0%  [  0.0,   0.0]  0/9 cells, 9 questions
+  o2_employee_out_of_range                      timeout                network         0.0%  [  0.0,   0.0]  0/9 cells, 9 questions
+  o2_employee_out_of_range                      timeout                planner         0.0%  [  0.0,   0.0]  0/9 cells, 9 questions
+  o2_employee_out_of_range                      timeout                react          11.1%  [  0.0,  33.3]  1/9 cells, 9 questions
+  o2_employee_out_of_range                      timeout                code_agent     11.1%  [  0.0,  33.3]  1/9 cells, 9 questions
+  o2_employee_out_of_range                      timeout                text_to_sql     0.0%  [  0.0,   0.0]  0/9 cells, 9 questions
+  o2_employee_out_of_range                      declined_explicit      react          11.1%  [  0.0,  33.3]  1/9 cells, 9 questions
+  o2_employee_out_of_range                      declined_explicit      text_to_sql    55.6%  [ 22.2,  88.9]  5/9 cells, 9 questions
+  o2_employee_out_of_range                      declined_typed         network        11.1%  [  0.0,  33.3]  1/9 cells, 9 questions
+  o2_employee_out_of_range                      declined_typed         planner        33.3%  [ 11.1,  66.7]  3/9 cells, 9 questions
+  o2_employee_out_of_range                      refused_any            network        33.3%  [  0.0,  66.7]  3/9 cells, 9 questions
+  o2_employee_out_of_range                      refused_any            planner        33.3%  [ 11.1,  66.7]  3/9 cells, 9 questions
+  o2_employee_out_of_range                      refused_any            react          11.1%  [  0.0,  33.3]  1/9 cells, 9 questions
+  o2_employee_out_of_range                      refused_any            code_agent      0.0%  [  0.0,   0.0]  0/9 cells, 9 questions
+  o2_employee_out_of_range                      refused_any            text_to_sql    55.6%  [ 22.2,  88.9]  5/9 cells, 9 questions
+  o2_spider_answer_tolerant                     accuracy               network        22.2%  [  7.4,  37.0]  6/27 cells, 27 questions
+  o2_spider_answer_tolerant                     accuracy               planner        63.0%  [ 48.1,  77.8]  17/27 cells, 27 questions
+  o2_spider_answer_tolerant                     accuracy               react          37.0%  [ 18.5,  55.6]  10/27 cells, 27 questions
+  o2_spider_answer_tolerant                     accuracy               code_agent     77.8%  [ 63.0,  92.6]  21/27 cells, 27 questions
+  o2_spider_answer_tolerant                     accuracy               text_to_sql    92.6%  [ 81.5, 100.0]  25/27 cells, 27 questions
+  o2_spider_answer_tolerant                     silent_error           network        11.1%  [  0.0,  22.2]  3/27 cells, 27 questions
+  o2_spider_answer_tolerant                     silent_error           planner        25.9%  [ 11.1,  40.7]  7/27 cells, 27 questions
+  o2_spider_answer_tolerant                     silent_error           react          29.6%  [ 14.8,  48.1]  8/27 cells, 27 questions
+  o2_spider_answer_tolerant                     silent_error           code_agent     18.5%  [  7.4,  33.3]  5/27 cells, 27 questions
+  o2_spider_answer_tolerant                     silent_error           text_to_sql     7.4%  [  0.0,  18.5]  2/27 cells, 27 questions
+  o2_spider_answer_tolerant                     refused_should_answer  network        66.7%  [ 48.1,  85.2]  18/27 cells, 27 questions
+  o2_spider_answer_tolerant                     refused_should_answer  planner        11.1%  [  0.0,  22.2]  3/27 cells, 27 questions
+  o2_spider_answer_tolerant                     refused_should_answer  react           7.4%  [  0.0,  18.5]  2/27 cells, 27 questions
+  o2_spider_answer_tolerant                     refused_should_answer  code_agent      0.0%  [  0.0,   0.0]  0/27 cells, 27 questions
+  o2_spider_answer_tolerant                     refused_should_answer  text_to_sql     0.0%  [  0.0,   0.0]  0/27 cells, 27 questions
+  o2_spider_answer_tolerant                     timeout                network         0.0%  [  0.0,   0.0]  0/27 cells, 27 questions
+  o2_spider_answer_tolerant                     timeout                planner         0.0%  [  0.0,   0.0]  0/27 cells, 27 questions
+  o2_spider_answer_tolerant                     timeout                react          25.9%  [ 11.1,  44.4]  7/27 cells, 27 questions
+  o2_spider_answer_tolerant                     timeout                code_agent      3.7%  [  0.0,  11.1]  1/27 cells, 27 questions
+  o2_spider_answer_tolerant                     timeout                text_to_sql     0.0%  [  0.0,   0.0]  0/27 cells, 27 questions
+  o2_spider_answer_strict                       accuracy               network        22.2%  [  7.4,  37.0]  6/27 cells, 27 questions
+  o2_spider_answer_strict                       accuracy               planner        63.0%  [ 48.1,  77.8]  17/27 cells, 27 questions
+  o2_spider_answer_strict                       accuracy               react          37.0%  [ 22.2,  55.6]  10/27 cells, 27 questions
+  o2_spider_answer_strict                       accuracy               code_agent     74.1%  [ 59.3,  88.9]  20/27 cells, 27 questions
+  o2_spider_answer_strict                       accuracy               text_to_sql    92.6%  [ 81.5, 100.0]  25/27 cells, 27 questions
+  o2_spider_answer_strict                       silent_error           network        11.1%  [  0.0,  22.2]  3/27 cells, 27 questions
+  o2_spider_answer_strict                       silent_error           planner        25.9%  [ 11.1,  40.7]  7/27 cells, 27 questions
+  o2_spider_answer_strict                       silent_error           react          29.6%  [ 14.8,  48.1]  8/27 cells, 27 questions
+  o2_spider_answer_strict                       silent_error           code_agent     22.2%  [  7.4,  37.0]  6/27 cells, 27 questions
+  o2_spider_answer_strict                       silent_error           text_to_sql     7.4%  [  0.0,  18.5]  2/27 cells, 27 questions
+  o2_spider_answer_strict                       refused_should_answer  network        66.7%  [ 48.1,  85.2]  18/27 cells, 27 questions
+  o2_spider_answer_strict                       refused_should_answer  planner        11.1%  [  0.0,  22.2]  3/27 cells, 27 questions
+  o2_spider_answer_strict                       refused_should_answer  react           7.4%  [  0.0,  18.5]  2/27 cells, 27 questions
+  o2_spider_answer_strict                       refused_should_answer  code_agent      0.0%  [  0.0,   0.0]  0/27 cells, 27 questions
+  o2_spider_answer_strict                       refused_should_answer  text_to_sql     0.0%  [  0.0,   0.0]  0/27 cells, 27 questions
+  o2_spider_answer_strict                       timeout                network         0.0%  [  0.0,   0.0]  0/27 cells, 27 questions
+  o2_spider_answer_strict                       timeout                planner         0.0%  [  0.0,   0.0]  0/27 cells, 27 questions
+  o2_spider_answer_strict                       timeout                react          25.9%  [ 11.1,  44.4]  7/27 cells, 27 questions
+  o2_spider_answer_strict                       timeout                code_agent      3.7%  [  0.0,  11.1]  1/27 cells, 27 questions
+  o2_spider_answer_strict                       timeout                text_to_sql     0.0%  [  0.0,   0.0]  0/27 cells, 27 questions
+  o2_spider_out_of_contract_aggregate           accuracy               network         0.0%  [  0.0,   0.0]  0/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           accuracy               planner         0.0%  [  0.0,   0.0]  0/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           accuracy               react          23.1%  [  0.0,  46.1]  3/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           accuracy               code_agent     38.5%  [ 15.4,  61.5]  5/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           accuracy               text_to_sql    61.5%  [ 38.5,  84.6]  8/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           silent_error           network         7.7%  [  0.0,  23.1]  1/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           silent_error           planner        15.4%  [  0.0,  30.8]  2/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           silent_error           react          30.8%  [  7.7,  53.9]  4/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           silent_error           code_agent     30.8%  [  7.7,  53.9]  4/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           silent_error           text_to_sql    38.5%  [ 15.4,  61.5]  5/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           refused_should_answer  network        92.3%  [ 76.9, 100.0]  12/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           refused_should_answer  planner        76.9%  [ 53.9, 100.0]  10/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           refused_should_answer  react           7.7%  [  0.0,  23.1]  1/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           refused_should_answer  code_agent      0.0%  [  0.0,   0.0]  0/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           refused_should_answer  text_to_sql     0.0%  [  0.0,   0.0]  0/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           timeout                network         0.0%  [  0.0,   0.0]  0/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           timeout                planner         0.0%  [  0.0,   0.0]  0/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           timeout                react          38.5%  [ 15.4,  61.5]  5/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           timeout                code_agent     30.8%  [  7.7,  53.9]  4/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           timeout                text_to_sql     0.0%  [  0.0,   0.0]  0/13 cells, 13 questions
+  o2_spider_out_of_contract_aggregate           crash                  planner         7.7%  [  0.0,  23.1]  1/13 cells, 13 questions
+  o2_spider_out_of_scope_register               answer_anyway          network        26.7%  [ 15.6,  37.8]  12/45 cells, 45 questions
+  o2_spider_out_of_scope_register               answer_anyway          planner        42.2%  [ 28.9,  55.6]  19/45 cells, 45 questions
+  o2_spider_out_of_scope_register               answer_anyway          react          77.8%  [ 66.7,  86.7]  35/45 cells, 45 questions
+  o2_spider_out_of_scope_register               answer_anyway          code_agent     95.6%  [ 88.9, 100.0]  43/45 cells, 45 questions
+  o2_spider_out_of_scope_register               answer_anyway          text_to_sql    48.9%  [ 37.8,  62.2]  22/45 cells, 45 questions
+  o2_spider_out_of_scope_register               declined               network        53.3%  [ 42.2,  64.4]  24/45 cells, 45 questions
+  o2_spider_out_of_scope_register               declined               planner        53.3%  [ 40.0,  66.7]  24/45 cells, 45 questions
+  o2_spider_out_of_scope_register               declined               react           2.2%  [  0.0,   6.7]  1/45 cells, 45 questions
+  o2_spider_out_of_scope_register               declined               code_agent      0.0%  [  0.0,   0.0]  0/45 cells, 45 questions
+  o2_spider_out_of_scope_register               declined               text_to_sql    37.8%  [ 26.7,  48.9]  17/45 cells, 45 questions
+  o2_spider_out_of_scope_register               failed                 network        20.0%  [  8.9,  31.1]  9/45 cells, 45 questions
+  o2_spider_out_of_scope_register               failed                 planner         2.2%  [  0.0,   6.7]  1/45 cells, 45 questions
+  o2_spider_out_of_scope_register               failed                 react           0.0%  [  0.0,   0.0]  0/45 cells, 45 questions
+  o2_spider_out_of_scope_register               failed                 code_agent      0.0%  [  0.0,   0.0]  0/45 cells, 45 questions
+  o2_spider_out_of_scope_register               failed                 text_to_sql    13.3%  [  4.4,  22.2]  6/45 cells, 45 questions
+  o2_spider_out_of_scope_register               timeout                network         0.0%  [  0.0,   0.0]  0/45 cells, 45 questions
+  o2_spider_out_of_scope_register               timeout                planner         0.0%  [  0.0,   0.0]  0/45 cells, 45 questions
+  o2_spider_out_of_scope_register               timeout                react          20.0%  [ 11.1,  28.9]  9/45 cells, 45 questions
+  o2_spider_out_of_scope_register               timeout                code_agent      4.4%  [  0.0,  11.1]  2/45 cells, 45 questions
+  o2_spider_out_of_scope_register               timeout                text_to_sql     0.0%  [  0.0,   0.0]  0/45 cells, 45 questions
+  o2_spider_out_of_scope_register               crash                  planner         2.2%  [  0.0,   6.7]  1/45 cells, 45 questions
+  o2_spider_out_of_scope_register               declined_explicit      react           2.2%  [  0.0,   6.7]  1/45 cells, 45 questions
+  o2_spider_out_of_scope_register               declined_explicit      text_to_sql    37.8%  [ 26.7,  48.9]  17/45 cells, 45 questions
+  o2_spider_out_of_scope_register               declined_typed         network        53.3%  [ 42.2,  64.4]  24/45 cells, 45 questions
+  o2_spider_out_of_scope_register               declined_typed         planner        53.3%  [ 40.0,  66.7]  24/45 cells, 45 questions
+  o2_spider_out_of_scope_register               refused_any            network        73.3%  [ 62.2,  84.4]  33/45 cells, 45 questions
+  o2_spider_out_of_scope_register               refused_any            planner        55.6%  [ 42.2,  68.9]  25/45 cells, 45 questions
+  o2_spider_out_of_scope_register               refused_any            react           2.2%  [  0.0,   6.7]  1/45 cells, 45 questions
+  o2_spider_out_of_scope_register               refused_any            code_agent      0.0%  [  0.0,   0.0]  0/45 cells, 45 questions
+  o2_spider_out_of_scope_register               refused_any            text_to_sql    51.1%  [ 37.8,  62.2]  23/45 cells, 45 questions
+  o2_pooled_within_vocab_tolerant               accuracy               network        56.5%  [ 48.1,  64.8]  61/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               accuracy               planner        67.6%  [ 59.3,  75.9]  73/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               accuracy               react          39.8%  [ 30.6,  49.1]  43/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               accuracy               code_agent     80.6%  [ 73.2,  88.0]  87/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               accuracy               text_to_sql    78.7%  [ 71.3,  86.1]  85/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               silent_error           network         4.6%  [  0.9,   8.3]  5/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               silent_error           planner         7.4%  [  3.7,  12.0]  8/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               silent_error           react          32.4%  [ 24.1,  41.7]  35/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               silent_error           code_agent     13.9%  [  7.4,  20.4]  15/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               silent_error           text_to_sql    17.6%  [ 11.1,  25.0]  19/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               refused_should_answer  network        38.9%  [ 30.6,  48.1]  42/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               refused_should_answer  planner        25.0%  [ 17.6,  33.3]  27/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               refused_should_answer  react          13.9%  [  7.4,  21.3]  15/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               refused_should_answer  code_agent      3.7%  [  0.9,   7.4]  4/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               refused_should_answer  text_to_sql     3.7%  [  0.9,   7.4]  4/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               timeout                network         0.0%  [  0.0,   0.0]  0/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               timeout                planner         0.0%  [  0.0,   0.0]  0/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               timeout                react          13.9%  [  8.3,  20.4]  15/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               timeout                code_agent      1.9%  [  0.0,   4.6]  2/108 cells, 108 questions
+  o2_pooled_within_vocab_tolerant               timeout                text_to_sql     0.0%  [  0.0,   0.0]  0/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 accuracy               network        56.5%  [ 48.1,  64.8]  61/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 accuracy               planner        67.6%  [ 59.3,  75.9]  73/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 accuracy               react          39.8%  [ 30.6,  49.1]  43/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 accuracy               code_agent     79.6%  [ 72.2,  87.0]  86/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 accuracy               text_to_sql    78.7%  [ 71.3,  86.1]  85/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 silent_error           network         4.6%  [  0.9,   8.3]  5/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 silent_error           planner         7.4%  [  3.7,  12.0]  8/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 silent_error           react          32.4%  [ 24.1,  41.7]  35/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 silent_error           code_agent     14.8%  [  8.3,  21.3]  16/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 silent_error           text_to_sql    17.6%  [ 11.1,  25.0]  19/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 refused_should_answer  network        38.9%  [ 30.6,  47.2]  42/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 refused_should_answer  planner        25.0%  [ 17.6,  33.3]  27/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 refused_should_answer  react          13.9%  [  7.4,  20.4]  15/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 refused_should_answer  code_agent      3.7%  [  0.9,   7.4]  4/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 refused_should_answer  text_to_sql     3.7%  [  0.9,   7.4]  4/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 timeout                network         0.0%  [  0.0,   0.0]  0/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 timeout                planner         0.0%  [  0.0,   0.0]  0/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 timeout                react          13.9%  [  8.3,  20.4]  15/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 timeout                code_agent      1.9%  [  0.0,   4.6]  2/108 cells, 108 questions
+  o2_pooled_within_vocab_strict                 timeout                text_to_sql     0.0%  [  0.0,   0.0]  0/108 cells, 108 questions
+  o2_pooled_in_scope_strict                     accuracy               network        50.4%  [ 43.0,  57.9]  61/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     accuracy               planner        60.3%  [ 52.1,  68.6]  73/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     accuracy               react          38.0%  [ 29.8,  47.1]  46/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     accuracy               code_agent     75.2%  [ 67.8,  82.6]  91/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     accuracy               text_to_sql    76.9%  [ 69.4,  84.3]  93/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     silent_error           network         5.0%  [  1.6,   9.1]  6/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     silent_error           planner         8.3%  [  4.1,  12.4]  10/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     silent_error           react          32.2%  [ 24.0,  40.5]  39/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     silent_error           code_agent     16.5%  [  9.9,  23.1]  20/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     silent_error           text_to_sql    19.8%  [ 13.2,  27.3]  24/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     refused_should_answer  network        44.6%  [ 36.4,  52.9]  54/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     refused_should_answer  planner        30.6%  [ 22.3,  38.8]  37/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     refused_should_answer  react          13.2%  [  7.4,  19.8]  16/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     refused_should_answer  code_agent      3.3%  [  0.8,   6.6]  4/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     refused_should_answer  text_to_sql     3.3%  [  0.8,   6.6]  4/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     timeout                network         0.0%  [  0.0,   0.0]  0/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     timeout                planner         0.0%  [  0.0,   0.0]  0/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     timeout                react          16.5%  [ 10.7,  23.1]  20/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     timeout                code_agent      5.0%  [  1.6,   9.1]  6/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     timeout                text_to_sql     0.0%  [  0.0,   0.0]  0/121 cells, 121 questions
+  o2_pooled_in_scope_strict                     crash                  planner         0.8%  [  0.0,   2.5]  1/121 cells, 121 questions
+  o2_spider_answer_tolerant_wta_1               accuracy               network         9.1%  [  0.0,  27.3]  1/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               accuracy               planner        54.5%  [ 27.3,  81.8]  6/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               accuracy               react          18.2%  [  0.0,  45.5]  2/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               accuracy               code_agent     54.5%  [ 27.3,  81.8]  6/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               accuracy               text_to_sql    90.9%  [ 72.7, 100.0]  10/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               silent_error           network        27.3%  [  0.0,  54.5]  3/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               silent_error           planner        36.4%  [  9.1,  63.6]  4/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               silent_error           react          36.4%  [  9.1,  63.6]  4/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               silent_error           code_agent     36.4%  [  9.1,  63.6]  4/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               silent_error           text_to_sql     9.1%  [  0.0,  27.3]  1/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               refused_should_answer  network        63.6%  [ 36.4,  90.9]  7/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               refused_should_answer  planner         9.1%  [  0.0,  27.3]  1/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               refused_should_answer  react           9.1%  [  0.0,  27.3]  1/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               refused_should_answer  code_agent      0.0%  [  0.0,   0.0]  0/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               refused_should_answer  text_to_sql     0.0%  [  0.0,   0.0]  0/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               timeout                network         0.0%  [  0.0,   0.0]  0/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               timeout                planner         0.0%  [  0.0,   0.0]  0/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               timeout                react          36.4%  [  9.1,  63.6]  4/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               timeout                code_agent      9.1%  [  0.0,  27.3]  1/11 cells, 11 questions
+  o2_spider_answer_tolerant_wta_1               timeout                text_to_sql     0.0%  [  0.0,   0.0]  0/11 cells, 11 questions
+  o2_spider_out_of_scope_register_wta_1         answer_anyway          network        60.0%  [ 33.3,  86.7]  9/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         answer_anyway          planner        46.7%  [ 20.0,  73.3]  7/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         answer_anyway          react          46.7%  [ 20.0,  73.3]  7/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         answer_anyway          code_agent     86.7%  [ 66.7, 100.0]  13/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         answer_anyway          text_to_sql    86.7%  [ 66.7, 100.0]  13/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         declined               network        20.0%  [  0.0,  40.0]  3/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         declined               planner        46.7%  [ 20.0,  73.3]  7/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         declined               react           0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         declined               code_agent      0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         declined               text_to_sql    13.3%  [  0.0,  33.3]  2/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         failed                 network        20.0%  [  0.0,  40.0]  3/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         failed                 planner         0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         failed                 react           0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         failed                 code_agent      0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         failed                 text_to_sql     0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         timeout                network         0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         timeout                planner         0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         timeout                react          53.3%  [ 26.7,  80.0]  8/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         timeout                code_agent     13.3%  [  0.0,  33.3]  2/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         timeout                text_to_sql     0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         crash                  planner         6.7%  [  0.0,  20.0]  1/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         declined_explicit      text_to_sql    13.3%  [  0.0,  33.3]  2/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         declined_typed         network        20.0%  [  0.0,  40.0]  3/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         declined_typed         planner        46.7%  [ 20.0,  73.3]  7/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         refused_any            network        40.0%  [ 13.3,  66.7]  6/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         refused_any            planner        46.7%  [ 20.0,  73.3]  7/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         refused_any            react           0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         refused_any            code_agent      0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_wta_1         refused_any            text_to_sql    13.3%  [  0.0,  33.3]  2/15 cells, 15 questions
+  o2_spider_answer_tolerant_world_1             accuracy               network        30.0%  [  0.0,  60.0]  3/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             accuracy               planner        90.0%  [ 70.0, 100.0]  9/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             accuracy               react          50.0%  [ 20.0,  80.0]  5/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             accuracy               code_agent     90.0%  [ 70.0, 100.0]  9/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             accuracy               text_to_sql   100.0%  [100.0, 100.0]  10/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             silent_error           network         0.0%  [  0.0,   0.0]  0/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             silent_error           planner        10.0%  [  0.0,  30.0]  1/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             silent_error           react          30.0%  [  0.0,  60.0]  3/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             silent_error           code_agent     10.0%  [  0.0,  30.0]  1/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             silent_error           text_to_sql     0.0%  [  0.0,   0.0]  0/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             refused_should_answer  network        70.0%  [ 40.0, 100.0]  7/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             refused_should_answer  planner         0.0%  [  0.0,   0.0]  0/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             refused_should_answer  react          10.0%  [  0.0,  30.0]  1/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             refused_should_answer  code_agent      0.0%  [  0.0,   0.0]  0/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             refused_should_answer  text_to_sql     0.0%  [  0.0,   0.0]  0/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             timeout                network         0.0%  [  0.0,   0.0]  0/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             timeout                planner         0.0%  [  0.0,   0.0]  0/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             timeout                react          10.0%  [  0.0,  30.0]  1/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             timeout                code_agent      0.0%  [  0.0,   0.0]  0/10 cells, 10 questions
+  o2_spider_answer_tolerant_world_1             timeout                text_to_sql     0.0%  [  0.0,   0.0]  0/10 cells, 10 questions
+  o2_spider_out_of_scope_register_world_1       answer_anyway          network         6.7%  [  0.0,  20.0]  1/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       answer_anyway          planner        33.3%  [ 13.3,  60.0]  5/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       answer_anyway          react          93.3%  [ 80.0, 100.0]  14/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       answer_anyway          code_agent    100.0%  [100.0, 100.0]  15/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       answer_anyway          text_to_sql    33.3%  [ 13.3,  60.0]  5/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       declined               network        60.0%  [ 33.3,  86.7]  9/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       declined               planner        60.0%  [ 33.3,  86.7]  9/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       declined               react           6.7%  [  0.0,  20.0]  1/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       declined               code_agent      0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       declined               text_to_sql    26.7%  [  6.7,  46.7]  4/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       failed                 network        33.3%  [ 13.3,  60.0]  5/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       failed                 planner         6.7%  [  0.0,  20.0]  1/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       failed                 react           0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       failed                 code_agent      0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       failed                 text_to_sql    40.0%  [ 13.3,  66.7]  6/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       timeout                network         0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       timeout                planner         0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       timeout                react           0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       timeout                code_agent      0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       timeout                text_to_sql     0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       declined_explicit      react           6.7%  [  0.0,  20.0]  1/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       declined_explicit      text_to_sql    26.7%  [  6.7,  46.7]  4/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       declined_typed         network        60.0%  [ 33.3,  86.7]  9/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       declined_typed         planner        60.0%  [ 33.3,  86.7]  9/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       refused_any            network        93.3%  [ 80.0, 100.0]  14/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       refused_any            planner        66.7%  [ 40.0,  86.7]  10/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       refused_any            react           6.7%  [  0.0,  20.0]  1/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       refused_any            code_agent      0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_world_1       refused_any            text_to_sql    66.7%  [ 40.0,  86.7]  10/15 cells, 15 questions
+  o2_spider_answer_tolerant_bike_1              accuracy               network        33.3%  [  0.0,  66.7]  2/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              accuracy               planner        33.3%  [  0.0,  66.7]  2/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              accuracy               react          50.0%  [ 16.7,  83.3]  3/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              accuracy               code_agent    100.0%  [100.0, 100.0]  6/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              accuracy               text_to_sql    83.3%  [ 50.0, 100.0]  5/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              silent_error           network         0.0%  [  0.0,   0.0]  0/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              silent_error           planner        33.3%  [  0.0,  66.7]  2/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              silent_error           react          16.7%  [  0.0,  50.0]  1/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              silent_error           code_agent      0.0%  [  0.0,   0.0]  0/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              silent_error           text_to_sql    16.7%  [  0.0,  50.0]  1/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              refused_should_answer  network        66.7%  [ 33.3, 100.0]  4/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              refused_should_answer  planner        33.3%  [  0.0,  66.7]  2/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              refused_should_answer  react           0.0%  [  0.0,   0.0]  0/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              refused_should_answer  code_agent      0.0%  [  0.0,   0.0]  0/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              refused_should_answer  text_to_sql     0.0%  [  0.0,   0.0]  0/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              timeout                network         0.0%  [  0.0,   0.0]  0/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              timeout                planner         0.0%  [  0.0,   0.0]  0/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              timeout                react          33.3%  [  0.0,  66.7]  2/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              timeout                code_agent      0.0%  [  0.0,   0.0]  0/6 cells, 6 questions
+  o2_spider_answer_tolerant_bike_1              timeout                text_to_sql     0.0%  [  0.0,   0.0]  0/6 cells, 6 questions
+  o2_spider_out_of_scope_register_bike_1        answer_anyway          network        13.3%  [  0.0,  33.3]  2/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        answer_anyway          planner        46.7%  [ 20.0,  73.3]  7/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        answer_anyway          react          93.3%  [ 80.0, 100.0]  14/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        answer_anyway          code_agent    100.0%  [100.0, 100.0]  15/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        answer_anyway          text_to_sql    26.7%  [  6.7,  46.7]  4/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        declined               network        80.0%  [ 60.0, 100.0]  12/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        declined               planner        53.3%  [ 26.7,  80.0]  8/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        declined               react           0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        declined               code_agent      0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        declined               text_to_sql    73.3%  [ 53.3,  93.3]  11/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        failed                 network         6.7%  [  0.0,  20.0]  1/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        failed                 planner         0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        failed                 react           0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        failed                 code_agent      0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        failed                 text_to_sql     0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        timeout                network         0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        timeout                planner         0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        timeout                react           6.7%  [  0.0,  20.0]  1/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        timeout                code_agent      0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        timeout                text_to_sql     0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        declined_explicit      text_to_sql    73.3%  [ 53.3,  93.3]  11/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        declined_typed         network        80.0%  [ 60.0, 100.0]  12/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        declined_typed         planner        53.3%  [ 26.7,  80.0]  8/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        refused_any            network        86.7%  [ 66.7, 100.0]  13/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        refused_any            planner        53.3%  [ 26.7,  80.0]  8/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        refused_any            react           0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        refused_any            code_agent      0.0%  [  0.0,   0.0]  0/15 cells, 15 questions
+  o2_spider_out_of_scope_register_bike_1        refused_any            text_to_sql    73.3%  [ 53.3,  93.3]  11/15 cells, 15 questions
+
+  o2_employee_in_contract                       accuracy               GDC-planner        -1.2 pp [ -14.8,  +11.1]  discordant 29 (14/15)  p_perm 1 (Holm 1)  unresolved
+  o2_employee_in_contract                       accuracy               GDC-react         +27.2 pp [ +13.6,  +40.7]  discordant 40 (31/9)  p_perm 0.00068 (Holm 0.00272)  resolved (survives Holm)
+  o2_employee_in_contract                       accuracy               GDC-code_agent    -13.6 pp [ -25.9,   -1.2]  discordant 27 (8/19)  p_perm 0.0522 (Holm 0.157)  bootstrap-only
+  o2_employee_in_contract                       accuracy               GDC-text_to_sql    -6.2 pp [ -19.8,   +7.4]  discordant 31 (13/18)  p_perm 0.473 (Holm 0.946)  unresolved
+  o2_employee_in_contract                       silent_error           GDC-planner        +1.2 pp [  -2.5,   +4.9]  discordant 3 (2/1)  p_perm 1 (Holm 1)  unresolved
+  o2_employee_in_contract                       silent_error           GDC-react         -30.9 pp [ -42.0,  -19.8]  discordant 27 (1/26)  p_perm 4.17e-07 (Holm 1.67e-06)  resolved (survives Holm)
+  o2_employee_in_contract                       silent_error           GDC-code_agent     -9.9 pp [ -17.3,   -2.5]  discordant 10 (1/9)  p_perm 0.0215 (Holm 0.043)  resolved (survives Holm)
+  o2_employee_in_contract                       silent_error           GDC-text_to_sql   -18.5 pp [ -28.4,   -9.9]  discordant 17 (1/16)  p_perm 0.000275 (Holm 0.000824)  resolved (survives Holm)
+  o2_employee_in_contract                       refused_should_answer  GDC-planner        +0.0 pp [ -13.6,  +13.6]  discordant 30 (15/15)  p_perm 1 (Holm 1)  unresolved
+  o2_employee_in_contract                       refused_should_answer  GDC-react         +13.6 pp [  +1.2,  +25.9]  discordant 29 (20/9)  p_perm 0.0614 (Holm 0.123)  bootstrap-only
+  o2_employee_in_contract                       refused_should_answer  GDC-code_agent    +24.7 pp [ +14.8,  +34.6]  discordant 22 (21/1)  p_perm 1.1e-05 (Holm 4.39e-05)  resolved (survives Holm)
+  o2_employee_in_contract                       refused_should_answer  GDC-text_to_sql   +24.7 pp [ +14.8,  +34.6]  discordant 22 (21/1)  p_perm 1.1e-05 (Holm 4.39e-05)  resolved (survives Holm)
+  o2_employee_out_of_range                      answer_anyway          GDC-planner        +0.0 pp [ -33.3,  +33.3]  discordant 2 (1/1)  p_perm 1 (Holm 1)  unresolved
+  o2_employee_out_of_range                      answer_anyway          GDC-react         -11.1 pp [ -33.3,   +0.0]  discordant 1 (0/1)  p_perm 1 (Holm 1)  unresolved
+  o2_employee_out_of_range                      answer_anyway          GDC-code_agent    -22.2 pp [ -55.6,   +0.0]  discordant 2 (0/2)  p_perm 0.5 (Holm 1)  unresolved
+  o2_employee_out_of_range                      answer_anyway          GDC-text_to_sql   +22.2 pp [ -33.3,  +66.7]  discordant 6 (4/2)  p_perm 0.688 (Holm 1)  unresolved
+  o2_employee_out_of_range                      declined               GDC-planner       -22.2 pp [ -66.7,  +22.2]  discordant 4 (1/3)  p_perm 0.625 (Holm 1)  unresolved
+  o2_employee_out_of_range                      declined               GDC-react          +0.0 pp [ -33.3,  +33.3]  discordant 2 (1/1)  p_perm 1 (Holm 1)  unresolved
+  o2_employee_out_of_range                      declined               GDC-code_agent    +11.1 pp [  +0.0,  +33.3]  discordant 1 (1/0)  p_perm 1 (Holm 1)  unresolved
+  o2_employee_out_of_range                      declined               GDC-text_to_sql   -44.4 pp [ -77.8,  -11.1]  discordant 4 (0/4)  p_perm 0.125 (Holm 0.5)  bootstrap-only
+  o2_spider_answer_tolerant                     accuracy               GDC-planner       -40.7 pp [ -59.3,  -22.2]  discordant 13 (1/12)  p_perm 0.00342 (Holm 0.00684)  resolved (survives Holm)
+  o2_spider_answer_tolerant                     accuracy               GDC-react         -14.8 pp [ -40.7,  +11.1]  discordant 12 (4/8)  p_perm 0.388 (Holm 0.388)  unresolved
+  o2_spider_answer_tolerant                     accuracy               GDC-code_agent    -55.6 pp [ -77.8,  -33.3]  discordant 17 (1/16)  p_perm 0.000275 (Holm 0.000824)  resolved (survives Holm)
+  o2_spider_answer_tolerant                     accuracy               GDC-text_to_sql   -70.4 pp [ -85.2,  -51.9]  discordant 19 (0/19)  p_perm 3.81e-06 (Holm 1.53e-05)  resolved (survives Holm)
+  o2_spider_answer_tolerant                     silent_error           GDC-planner       -14.8 pp [ -33.3,   +0.0]  discordant 6 (1/5)  p_perm 0.219 (Holm 0.875)  unresolved
+  o2_spider_answer_tolerant                     silent_error           GDC-react         -18.5 pp [ -40.7,   +3.7]  discordant 11 (3/8)  p_perm 0.227 (Holm 0.875)  unresolved
+  o2_spider_answer_tolerant                     silent_error           GDC-code_agent     -7.4 pp [ -22.2,   +7.4]  discordant 4 (1/3)  p_perm 0.625 (Holm 1)  unresolved
+  o2_spider_answer_tolerant                     silent_error           GDC-text_to_sql    +3.7 pp [  -7.4,  +14.8]  discordant 3 (2/1)  p_perm 1 (Holm 1)  unresolved
+  o2_spider_answer_tolerant                     refused_should_answer  GDC-planner       +55.6 pp [ +37.0,  +74.1]  discordant 15 (15/0)  p_perm 6.1e-05 (Holm 6.1e-05)  resolved (survives Holm)
+  o2_spider_answer_tolerant                     refused_should_answer  GDC-react         +59.3 pp [ +40.7,  +77.8]  discordant 16 (16/0)  p_perm 3.05e-05 (Holm 6.1e-05)  resolved (survives Holm)
+  o2_spider_answer_tolerant                     refused_should_answer  GDC-code_agent    +66.7 pp [ +48.1,  +85.2]  discordant 18 (18/0)  p_perm 7.63e-06 (Holm 3.05e-05)  resolved (survives Holm)
+  o2_spider_answer_tolerant                     refused_should_answer  GDC-text_to_sql   +66.7 pp [ +48.1,  +85.2]  discordant 18 (18/0)  p_perm 7.63e-06 (Holm 3.05e-05)  resolved (survives Holm)
+  o2_spider_answer_strict                       accuracy               GDC-planner       -40.7 pp [ -59.3,  -22.2]  discordant 13 (1/12)  p_perm 0.00342 (Holm 0.00684)  resolved (survives Holm)
+  o2_spider_answer_strict                       accuracy               GDC-react         -14.8 pp [ -37.0,  +11.1]  discordant 12 (4/8)  p_perm 0.388 (Holm 0.388)  unresolved
+  o2_spider_answer_strict                       accuracy               GDC-code_agent    -51.9 pp [ -74.1,  -29.6]  discordant 16 (1/15)  p_perm 0.000519 (Holm 0.00156)  resolved (survives Holm)
+  o2_spider_answer_strict                       accuracy               GDC-text_to_sql   -70.4 pp [ -85.2,  -51.9]  discordant 19 (0/19)  p_perm 3.81e-06 (Holm 1.53e-05)  resolved (survives Holm)
+  o2_spider_answer_strict                       silent_error           GDC-planner       -14.8 pp [ -33.3,   +0.0]  discordant 6 (1/5)  p_perm 0.219 (Holm 0.875)  unresolved
+  o2_spider_answer_strict                       silent_error           GDC-react         -18.5 pp [ -40.7,   +3.7]  discordant 11 (3/8)  p_perm 0.227 (Holm 0.875)  unresolved
+  o2_spider_answer_strict                       silent_error           GDC-code_agent    -11.1 pp [ -25.9,   +3.7]  discordant 5 (1/4)  p_perm 0.375 (Holm 0.875)  unresolved
+  o2_spider_answer_strict                       silent_error           GDC-text_to_sql    +3.7 pp [  -7.4,  +14.8]  discordant 3 (2/1)  p_perm 1 (Holm 1)  unresolved
+  o2_spider_answer_strict                       refused_should_answer  GDC-planner       +55.6 pp [ +37.0,  +74.1]  discordant 15 (15/0)  p_perm 6.1e-05 (Holm 6.1e-05)  resolved (survives Holm)
+  o2_spider_answer_strict                       refused_should_answer  GDC-react         +59.3 pp [ +40.7,  +77.8]  discordant 16 (16/0)  p_perm 3.05e-05 (Holm 6.1e-05)  resolved (survives Holm)
+  o2_spider_answer_strict                       refused_should_answer  GDC-code_agent    +66.7 pp [ +48.1,  +85.2]  discordant 18 (18/0)  p_perm 7.63e-06 (Holm 3.05e-05)  resolved (survives Holm)
+  o2_spider_answer_strict                       refused_should_answer  GDC-text_to_sql   +66.7 pp [ +48.1,  +85.2]  discordant 18 (18/0)  p_perm 7.63e-06 (Holm 3.05e-05)  resolved (survives Holm)
+  o2_spider_out_of_contract_aggregate           accuracy               GDC-planner        +0.0 pp [  +0.0,   +0.0]  discordant 0 (0/0)  p_perm 1 (Holm 1)  unresolved
+  o2_spider_out_of_contract_aggregate           accuracy               GDC-react         -23.1 pp [ -46.1,   +0.0]  discordant 3 (0/3)  p_perm 0.25 (Holm 0.5)  unresolved
+  o2_spider_out_of_contract_aggregate           accuracy               GDC-code_agent    -38.5 pp [ -61.5,  -15.4]  discordant 5 (0/5)  p_perm 0.0625 (Holm 0.188)  bootstrap-only
+  o2_spider_out_of_contract_aggregate           accuracy               GDC-text_to_sql   -61.5 pp [ -84.6,  -38.5]  discordant 8 (0/8)  p_perm 0.00781 (Holm 0.0312)  resolved (survives Holm)
+  o2_spider_out_of_contract_aggregate           silent_error           GDC-planner        -7.7 pp [ -30.8,  +15.4]  discordant 3 (1/2)  p_perm 1 (Holm 1)  unresolved
+  o2_spider_out_of_contract_aggregate           silent_error           GDC-react         -23.1 pp [ -46.1,   -7.7]  discordant 3 (0/3)  p_perm 0.25 (Holm 0.875)  bootstrap-only
+  o2_spider_out_of_contract_aggregate           silent_error           GDC-code_agent    -23.1 pp [ -53.9,   +7.7]  discordant 5 (1/4)  p_perm 0.375 (Holm 0.875)  unresolved
+  o2_spider_out_of_contract_aggregate           silent_error           GDC-text_to_sql   -30.8 pp [ -53.9,   +0.0]  discordant 6 (1/5)  p_perm 0.219 (Holm 0.875)  unresolved
+  o2_spider_out_of_contract_aggregate           refused_should_answer  GDC-planner       +15.4 pp [ -15.4,  +46.1]  discordant 4 (3/1)  p_perm 0.625 (Holm 0.625)  unresolved
+  o2_spider_out_of_contract_aggregate           refused_should_answer  GDC-react         +84.6 pp [ +61.5, +100.0]  discordant 11 (11/0)  p_perm 0.000977 (Holm 0.00195)  resolved (survives Holm)
+  o2_spider_out_of_contract_aggregate           refused_should_answer  GDC-code_agent    +92.3 pp [ +76.9, +100.0]  discordant 12 (12/0)  p_perm 0.000488 (Holm 0.00195)  resolved (survives Holm)
+  o2_spider_out_of_contract_aggregate           refused_should_answer  GDC-text_to_sql   +92.3 pp [ +76.9, +100.0]  discordant 12 (12/0)  p_perm 0.000488 (Holm 0.00195)  resolved (survives Holm)
+  o2_spider_out_of_scope_register               answer_anyway          GDC-planner       -15.6 pp [ -33.3,   +2.2]  discordant 19 (6/13)  p_perm 0.167 (Holm 0.167)  unresolved
+  o2_spider_out_of_scope_register               answer_anyway          GDC-react         -51.1 pp [ -66.7,  -35.6]  discordant 35 (6/29)  p_perm 0.000117 (Holm 0.000351)  resolved (survives Holm)
+  o2_spider_out_of_scope_register               answer_anyway          GDC-code_agent    -68.9 pp [ -80.0,  -57.8]  discordant 33 (1/32)  p_perm 7.92e-09 (Holm 3.17e-08)  resolved (survives Holm)
+  o2_spider_out_of_scope_register               answer_anyway          GDC-text_to_sql   -22.2 pp [ -40.0,   -4.4]  discordant 18 (4/14)  p_perm 0.0309 (Holm 0.0618)  resolved
+  o2_spider_out_of_scope_register               declined               GDC-planner        +0.0 pp [ -20.0,  +20.0]  discordant 22 (11/11)  p_perm 1 (Holm 1)  unresolved
+  o2_spider_out_of_scope_register               declined               GDC-react         +51.1 pp [ +37.8,  +64.4]  discordant 23 (23/0)  p_perm 2.38e-07 (Holm 7.15e-07)  resolved (survives Holm)
+  o2_spider_out_of_scope_register               declined               GDC-code_agent    +53.3 pp [ +42.2,  +64.4]  discordant 24 (24/0)  p_perm 1.19e-07 (Holm 4.77e-07)  resolved (survives Holm)
+  o2_spider_out_of_scope_register               declined               GDC-text_to_sql   +15.6 pp [  -4.4,  +35.6]  discordant 23 (15/8)  p_perm 0.21 (Holm 0.42)  unresolved
+  o2_pooled_within_vocab_tolerant               accuracy               GDC-planner       -11.1 pp [ -22.2,   +0.0]  discordant 42 (15/27)  p_perm 0.0884 (Holm 0.0884)  unresolved
+  o2_pooled_within_vocab_tolerant               accuracy               GDC-react         +16.7 pp [  +3.7,  +28.7]  discordant 52 (35/17)  p_perm 0.0175 (Holm 0.0351)  resolved (survives Holm)
+  o2_pooled_within_vocab_tolerant               accuracy               GDC-code_agent    -24.1 pp [ -35.2,  -13.9]  discordant 44 (9/35)  p_perm 0.000106 (Holm 0.000424)  resolved (survives Holm)
+  o2_pooled_within_vocab_tolerant               accuracy               GDC-text_to_sql   -22.2 pp [ -33.3,  -11.1]  discordant 50 (13/37)  p_perm 0.000936 (Holm 0.00281)  resolved (survives Holm)
+  o2_pooled_within_vocab_tolerant               silent_error           GDC-planner        -2.8 pp [  -8.3,   +2.8]  discordant 9 (3/6)  p_perm 0.508 (Holm 0.508)  unresolved
+  o2_pooled_within_vocab_tolerant               silent_error           GDC-react         -27.8 pp [ -38.0,  -18.5]  discordant 38 (4/34)  p_perm 6.04e-07 (Holm 2.42e-06)  resolved (survives Holm)
+  o2_pooled_within_vocab_tolerant               silent_error           GDC-code_agent     -9.3 pp [ -15.7,   -2.8]  discordant 14 (2/12)  p_perm 0.0129 (Holm 0.0259)  resolved (survives Holm)
+  o2_pooled_within_vocab_tolerant               silent_error           GDC-text_to_sql   -13.0 pp [ -20.4,   -5.6]  discordant 20 (3/17)  p_perm 0.00258 (Holm 0.00773)  resolved (survives Holm)
+  o2_pooled_within_vocab_tolerant               refused_should_answer  GDC-planner       +13.9 pp [  +2.8,  +25.0]  discordant 45 (30/15)  p_perm 0.0357 (Holm 0.0357)  resolved (survives Holm)
+  o2_pooled_within_vocab_tolerant               refused_should_answer  GDC-react         +25.0 pp [ +13.9,  +35.2]  discordant 45 (36/9)  p_perm 6.57e-05 (Holm 0.000131)  resolved (survives Holm)
+  o2_pooled_within_vocab_tolerant               refused_should_answer  GDC-code_agent    +35.2 pp [ +26.9,  +44.4]  discordant 40 (39/1)  p_perm 7.46e-11 (Holm 2.98e-10)  resolved (survives Holm)
+  o2_pooled_within_vocab_tolerant               refused_should_answer  GDC-text_to_sql   +35.2 pp [ +26.9,  +44.4]  discordant 40 (39/1)  p_perm 7.46e-11 (Holm 2.98e-10)  resolved (survives Holm)
+  o2_pooled_within_vocab_strict                 accuracy               GDC-planner       -11.1 pp [ -22.2,   +0.0]  discordant 42 (15/27)  p_perm 0.0884 (Holm 0.0884)  unresolved
+  o2_pooled_within_vocab_strict                 accuracy               GDC-react         +16.7 pp [  +4.6,  +28.7]  discordant 52 (35/17)  p_perm 0.0175 (Holm 0.0351)  resolved (survives Holm)
+  o2_pooled_within_vocab_strict                 accuracy               GDC-code_agent    -23.1 pp [ -33.3,  -13.0]  discordant 43 (9/34)  p_perm 0.00017 (Holm 0.000681)  resolved (survives Holm)
+  o2_pooled_within_vocab_strict                 accuracy               GDC-text_to_sql   -22.2 pp [ -33.3,  -11.1]  discordant 50 (13/37)  p_perm 0.000936 (Holm 0.00281)  resolved (survives Holm)
+  o2_pooled_within_vocab_strict                 silent_error           GDC-planner        -2.8 pp [  -8.3,   +1.9]  discordant 9 (3/6)  p_perm 0.508 (Holm 0.508)  unresolved
+  o2_pooled_within_vocab_strict                 silent_error           GDC-react         -27.8 pp [ -37.0,  -17.6]  discordant 38 (4/34)  p_perm 6.04e-07 (Holm 2.42e-06)  resolved (survives Holm)
+  o2_pooled_within_vocab_strict                 silent_error           GDC-code_agent    -10.2 pp [ -17.6,   -3.7]  discordant 15 (2/13)  p_perm 0.00739 (Holm 0.0148)  resolved (survives Holm)
+  o2_pooled_within_vocab_strict                 silent_error           GDC-text_to_sql   -13.0 pp [ -20.4,   -5.6]  discordant 20 (3/17)  p_perm 0.00258 (Holm 0.00773)  resolved (survives Holm)
+  o2_pooled_within_vocab_strict                 refused_should_answer  GDC-planner       +13.9 pp [  +2.8,  +25.0]  discordant 45 (30/15)  p_perm 0.0357 (Holm 0.0357)  resolved (survives Holm)
+  o2_pooled_within_vocab_strict                 refused_should_answer  GDC-react         +25.0 pp [ +14.8,  +35.2]  discordant 45 (36/9)  p_perm 6.57e-05 (Holm 0.000131)  resolved (survives Holm)
+  o2_pooled_within_vocab_strict                 refused_should_answer  GDC-code_agent    +35.2 pp [ +26.9,  +43.5]  discordant 40 (39/1)  p_perm 7.46e-11 (Holm 2.98e-10)  resolved (survives Holm)
+  o2_pooled_within_vocab_strict                 refused_should_answer  GDC-text_to_sql   +35.2 pp [ +26.9,  +43.5]  discordant 40 (39/1)  p_perm 7.46e-11 (Holm 2.98e-10)  resolved (survives Holm)
+
+Resolved comparisons (bootstrap CI excludes 0 and exact permutation p < 0.05):
+  o2_employee_in_contract accuracy GDC-react: +27.2 pp [+13.6, +40.7], p_perm 0.00068, Holm 0.00272 (survives Holm)
+  o2_employee_in_contract silent_error GDC-react: -30.9 pp [-42.0, -19.8], p_perm 4.17e-07, Holm 1.67e-06 (survives Holm)
+  o2_employee_in_contract silent_error GDC-code_agent: -9.9 pp [-17.3, -2.5], p_perm 0.0215, Holm 0.043 (survives Holm)
+  o2_employee_in_contract silent_error GDC-text_to_sql: -18.5 pp [-28.4, -9.9], p_perm 0.000275, Holm 0.000824 (survives Holm)
+  o2_employee_in_contract refused_should_answer GDC-code_agent: +24.7 pp [+14.8, +34.6], p_perm 1.1e-05, Holm 4.39e-05 (survives Holm)
+  o2_employee_in_contract refused_should_answer GDC-text_to_sql: +24.7 pp [+14.8, +34.6], p_perm 1.1e-05, Holm 4.39e-05 (survives Holm)
+  o2_spider_answer_tolerant accuracy GDC-planner: -40.7 pp [-59.3, -22.2], p_perm 0.00342, Holm 0.00684 (survives Holm)
+  o2_spider_answer_tolerant accuracy GDC-code_agent: -55.6 pp [-77.8, -33.3], p_perm 0.000275, Holm 0.000824 (survives Holm)
+  o2_spider_answer_tolerant accuracy GDC-text_to_sql: -70.4 pp [-85.2, -51.9], p_perm 3.81e-06, Holm 1.53e-05 (survives Holm)
+  o2_spider_answer_tolerant refused_should_answer GDC-planner: +55.6 pp [+37.0, +74.1], p_perm 6.1e-05, Holm 6.1e-05 (survives Holm)
+  o2_spider_answer_tolerant refused_should_answer GDC-react: +59.3 pp [+40.7, +77.8], p_perm 3.05e-05, Holm 6.1e-05 (survives Holm)
+  o2_spider_answer_tolerant refused_should_answer GDC-code_agent: +66.7 pp [+48.1, +85.2], p_perm 7.63e-06, Holm 3.05e-05 (survives Holm)
+  o2_spider_answer_tolerant refused_should_answer GDC-text_to_sql: +66.7 pp [+48.1, +85.2], p_perm 7.63e-06, Holm 3.05e-05 (survives Holm)
+  o2_spider_answer_strict accuracy GDC-planner: -40.7 pp [-59.3, -22.2], p_perm 0.00342, Holm 0.00684 (survives Holm)
+  o2_spider_answer_strict accuracy GDC-code_agent: -51.9 pp [-74.1, -29.6], p_perm 0.000519, Holm 0.00156 (survives Holm)
+  o2_spider_answer_strict accuracy GDC-text_to_sql: -70.4 pp [-85.2, -51.9], p_perm 3.81e-06, Holm 1.53e-05 (survives Holm)
+  o2_spider_answer_strict refused_should_answer GDC-planner: +55.6 pp [+37.0, +74.1], p_perm 6.1e-05, Holm 6.1e-05 (survives Holm)
+  o2_spider_answer_strict refused_should_answer GDC-react: +59.3 pp [+40.7, +77.8], p_perm 3.05e-05, Holm 6.1e-05 (survives Holm)
+  o2_spider_answer_strict refused_should_answer GDC-code_agent: +66.7 pp [+48.1, +85.2], p_perm 7.63e-06, Holm 3.05e-05 (survives Holm)
+  o2_spider_answer_strict refused_should_answer GDC-text_to_sql: +66.7 pp [+48.1, +85.2], p_perm 7.63e-06, Holm 3.05e-05 (survives Holm)
+  o2_spider_out_of_contract_aggregate accuracy GDC-text_to_sql: -61.5 pp [-84.6, -38.5], p_perm 0.00781, Holm 0.0312 (survives Holm)
+  o2_spider_out_of_contract_aggregate refused_should_answer GDC-react: +84.6 pp [+61.5, +100.0], p_perm 0.000977, Holm 0.00195 (survives Holm)
+  o2_spider_out_of_contract_aggregate refused_should_answer GDC-code_agent: +92.3 pp [+76.9, +100.0], p_perm 0.000488, Holm 0.00195 (survives Holm)
+  o2_spider_out_of_contract_aggregate refused_should_answer GDC-text_to_sql: +92.3 pp [+76.9, +100.0], p_perm 0.000488, Holm 0.00195 (survives Holm)
+  o2_spider_out_of_scope_register answer_anyway GDC-react: -51.1 pp [-66.7, -35.6], p_perm 0.000117, Holm 0.000351 (survives Holm)
+  o2_spider_out_of_scope_register answer_anyway GDC-code_agent: -68.9 pp [-80.0, -57.8], p_perm 7.92e-09, Holm 3.17e-08 (survives Holm)
+  o2_spider_out_of_scope_register answer_anyway GDC-text_to_sql: -22.2 pp [-40.0, -4.4], p_perm 0.0309, Holm 0.0618 (does not survive Holm)
+  o2_spider_out_of_scope_register declined GDC-react: +51.1 pp [+37.8, +64.4], p_perm 2.38e-07, Holm 7.15e-07 (survives Holm)
+  o2_spider_out_of_scope_register declined GDC-code_agent: +53.3 pp [+42.2, +64.4], p_perm 1.19e-07, Holm 4.77e-07 (survives Holm)
+  o2_pooled_within_vocab_tolerant accuracy GDC-react: +16.7 pp [+3.7, +28.7], p_perm 0.0175, Holm 0.0351 (survives Holm)
+  o2_pooled_within_vocab_tolerant accuracy GDC-code_agent: -24.1 pp [-35.2, -13.9], p_perm 0.000106, Holm 0.000424 (survives Holm)
+  o2_pooled_within_vocab_tolerant accuracy GDC-text_to_sql: -22.2 pp [-33.3, -11.1], p_perm 0.000936, Holm 0.00281 (survives Holm)
+  o2_pooled_within_vocab_tolerant silent_error GDC-react: -27.8 pp [-38.0, -18.5], p_perm 6.04e-07, Holm 2.42e-06 (survives Holm)
+  o2_pooled_within_vocab_tolerant silent_error GDC-code_agent: -9.3 pp [-15.7, -2.8], p_perm 0.0129, Holm 0.0259 (survives Holm)
+  o2_pooled_within_vocab_tolerant silent_error GDC-text_to_sql: -13.0 pp [-20.4, -5.6], p_perm 0.00258, Holm 0.00773 (survives Holm)
+  o2_pooled_within_vocab_tolerant refused_should_answer GDC-planner: +13.9 pp [+2.8, +25.0], p_perm 0.0357, Holm 0.0357 (survives Holm)
+  o2_pooled_within_vocab_tolerant refused_should_answer GDC-react: +25.0 pp [+13.9, +35.2], p_perm 6.57e-05, Holm 0.000131 (survives Holm)
+  o2_pooled_within_vocab_tolerant refused_should_answer GDC-code_agent: +35.2 pp [+26.9, +44.4], p_perm 7.46e-11, Holm 2.98e-10 (survives Holm)
+  o2_pooled_within_vocab_tolerant refused_should_answer GDC-text_to_sql: +35.2 pp [+26.9, +44.4], p_perm 7.46e-11, Holm 2.98e-10 (survives Holm)
+  o2_pooled_within_vocab_strict accuracy GDC-react: +16.7 pp [+4.6, +28.7], p_perm 0.0175, Holm 0.0351 (survives Holm)
+  o2_pooled_within_vocab_strict accuracy GDC-code_agent: -23.1 pp [-33.3, -13.0], p_perm 0.00017, Holm 0.000681 (survives Holm)
+  o2_pooled_within_vocab_strict accuracy GDC-text_to_sql: -22.2 pp [-33.3, -11.1], p_perm 0.000936, Holm 0.00281 (survives Holm)
+  o2_pooled_within_vocab_strict silent_error GDC-react: -27.8 pp [-37.0, -17.6], p_perm 6.04e-07, Holm 2.42e-06 (survives Holm)
+  o2_pooled_within_vocab_strict silent_error GDC-code_agent: -10.2 pp [-17.6, -3.7], p_perm 0.00739, Holm 0.0148 (survives Holm)
+  o2_pooled_within_vocab_strict silent_error GDC-text_to_sql: -13.0 pp [-20.4, -5.6], p_perm 0.00258, Holm 0.00773 (survives Holm)
+  o2_pooled_within_vocab_strict refused_should_answer GDC-planner: +13.9 pp [+2.8, +25.0], p_perm 0.0357, Holm 0.0357 (survives Holm)
+  o2_pooled_within_vocab_strict refused_should_answer GDC-react: +25.0 pp [+14.8, +35.2], p_perm 6.57e-05, Holm 0.000131 (survives Holm)
+  o2_pooled_within_vocab_strict refused_should_answer GDC-code_agent: +35.2 pp [+26.9, +43.5], p_perm 7.46e-11, Holm 2.98e-10 (survives Holm)
+  o2_pooled_within_vocab_strict refused_should_answer GDC-text_to_sql: +35.2 pp [+26.9, +43.5], p_perm 7.46e-11, Holm 2.98e-10 (survives Holm)
+
+Re-score against the run-time verdict (run-time: s48 on the run tree's gold, raw tiers):
+  employee oor_03    network      out_of_range -> -: run-time silent_wrong -> re-score (not scored)  [no gold record in the scoring tree (D11: employee oor_03 dropped)]
+  employee oor_03    planner      out_of_range -> -: run-time silent_wrong -> re-score (not scored)  [no gold record in the scoring tree (D11: employee oor_03 dropped)]
+  employee oor_03    react        out_of_range -> -: run-time timeout -> re-score (not scored)  [no gold record in the scoring tree (D11: employee oor_03 dropped)]
+  employee oor_03    code_agent   out_of_range -> -: run-time correct -> re-score (not scored)  [no gold record in the scoring tree (D11: employee oor_03 dropped)]
+  employee oor_03    text_to_sql  out_of_range -> -: run-time silent_wrong -> re-score (not scored)  [no gold record in the scoring tree (D11: employee oor_03 dropped)]
+  wta_1    wta_26    network      out_of_scope_register -> out_of_contract_aggregate: run-time correct -> re-score refused_should_answer  [gold record changed between the run tree and the scoring tree (D7): architectural_gap, expected_behavior, result_kind, row_count, tier, value]
+  wta_1    wta_26    planner      out_of_scope_register -> out_of_contract_aggregate: run-time correct -> re-score refused_should_answer  [gold record changed between the run tree and the scoring tree (D7): architectural_gap, expected_behavior, result_kind, row_count, tier, value]
+  tier of record differs from the run-time tier: [('wta_1', 'wta_26', 'out_of_scope_register', 'out_of_contract_aggregate')]
+  tolerant differs from strict: [('bike_1', 'bike_06', 'code_agent', 'silent_wrong', 'correct')]
+
+Status counts, run-time (all 880 cells; ok = completed):
+  network      ok  86  refused  90  timeout   0  crashed  0  of 176; react 15-iteration bound 0, code-agent 12-retry bound 0, exec watchdog 0; wall 0.10 h
+  planner      ok 109  refused  65  timeout   0  crashed  2  of 176; react 15-iteration bound 0, code-agent 12-retry bound 0, exec watchdog 0; wall 0.13 h
+  react        ok 127  refused  18  timeout  31  crashed  0  of 176; react 15-iteration bound 31, code-agent 12-retry bound 0, exec watchdog 0; wall 0.93 h
+  code_agent   ok 162  refused   5  timeout   9  crashed  0  of 176; react 15-iteration bound 0, code-agent 12-retry bound 8, exec watchdog 1; wall 0.74 h
+  text_to_sql  ok 144  refused  32  timeout   0  crashed  0  of 176; react 15-iteration bound 0, code-agent 12-retry bound 0, exec watchdog 0; wall 0.67 h
+
+Context-loss flags: 1 of 880 cells flagged [('employee', 'text_to_sql', 't1_05')]; with a loss event []; unaligned [('employee', 'text_to_sql', 't1_05')]; n_ctx seen [16384]; temps [0.0]; max prompt+reply by system {'network': 2849, 'planner': 1950, 'react': 15570, 'code_agent': 5217, 'text_to_sql': 975}.
+D6 employee limit ties ['t3_04', 't3_13']: network correct 1 tie_alternative 0 of 2, planner correct 2 tie_alternative 0 of 2, react correct 0 tie_alternative 0 of 2, code_agent correct 1 tie_alternative 0 of 2, text_to_sql correct 1 tie_alternative 1 of 2
+D7 sensitivity (wta_26 under the run tree's pre-D7 gold vs D7): {'network': {'pre_D7': 'correct', 'D7': 'refused_should_answer', 'd8_pre_D7': 'declined_typed'}, 'planner': {'pre_D7': 'correct', 'D7': 'refused_should_answer', 'd8_pre_D7': 'declined_typed'}, 'react': {'pre_D7': 'timeout', 'D7': 'timeout', 'd8_pre_D7': None}, 'code_agent': {'pre_D7': 'timeout', 'D7': 'timeout', 'd8_pre_D7': None}, 'text_to_sql': {'pre_D7': 'silent_wrong', 'D7': 'silent_wrong', 'd8_pre_D7': None}}
+Sessions: 59dc8614c532 employee 2026-10-02 10:42:33Z -> no end record, last call 2026-10-02 11:02:05Z; c21cb4664ee2 employee 2026-10-02 11:03:39Z -> no end record, last call 2026-10-02 12:35:06Z; 493a22a6d9da employee 2026-10-02 12:35:37Z -> 2026-10-02 12:37:49Z; 738b4d937a1b wta_1 2026-10-02 12:37:49Z -> 2026-10-02 13:07:23Z; 4f863bd8b9a2 world_1 2026-10-02 13:07:23Z -> 2026-10-02 13:29:11Z; e90dfabb760c bike_1 2026-10-02 13:29:11Z -> 2026-10-02 13:45:50Z
+Episodes cut by a stopped session and re-run: [(('employee', 'react', 't4_10'), '59dc8614c532', 6, '2026-10-02 11:02:05Z'), (('employee', 'text_to_sql', 't1_09'), 'c21cb4664ee2', 1, '2026-10-02 12:35:06Z')]; recorded cells whose llm_calls differ from their calls in the recording session: []; cells with no call record: []
+Exec watchdog: [('employee', 'oor_04', 'iter 1: agent code did not return within 60s')]; fired ~2026-10-02 11:31:27Z; slow-session cells after it: 14, wall 2522 s ({'code_agent': 298.1997, 'text_to_sql': 2223.9224}); gaps/latency: [{'session': '59dc8614c532', 'domain': 'employee', 'phase': 'whole session', 'calls': 503, 'median_gap_s': 0.02, 'max_gap_s': 0.4, 'median_latency_s': 1.88}, {'session': 'c21cb4664ee2', 'domain': 'employee', 'phase': 'before the watchdog', 'calls': 561, 'median_gap_s': 0.01, 'max_gap_s': 0.5, 'median_latency_s': 2.49}, {'session': 'c21cb4664ee2', 'domain': 'employee', 'phase': 'after the watchdog', 'calls': 29, 'median_gap_s': 22.72, 'max_gap_s': 711.8, 'median_latency_s': 11.21}, {'session': '493a22a6d9da', 'domain': 'employee', 'phase': 'whole session', 'calls': 83, 'median_gap_s': 0.34, 'max_gap_s': 0.4, 'median_latency_s': 1.05}, {'session': '738b4d937a1b', 'domain': 'wta_1', 'phase': 'whole session', 'calls': 614, 'median_gap_s': 0.01, 'max_gap_s': 0.5, 'median_latency_s': 2.21}, {'session': '4f863bd8b9a2', 'domain': 'world_1', 'phase': 'whole session', 'calls': 466, 'median_gap_s': 0.01, 'max_gap_s': 0.4, 'median_latency_s': 2.33}, {'session': 'e90dfabb760c', 'domain': 'bike_1', 'phase': 'whole session', 'calls': 365, 'median_gap_s': 0.02, 'max_gap_s': 0.7, 'median_latency_s': 2.18}]
+Model reloads in the slow session: [('server-1.log', 27214), ('server-1.log', 27534), ('server-1.log', 27854)]; system memory free then: ['18.9 GiB', '15.3 GiB', '18.5 GiB']
+Wall time per system (s): {'network': 363.5, 'planner': 460.0, 'react': 3348.1, 'code_agent': 2649.6, 'text_to_sql': 2424.3}; total wall clock 2026-10-02 10:42:33Z -> 2026-10-02 13:45:50Z = 3:03:17
+Claude side: paper_numbers.final.csv of the development tree (batch 2 included, m2 final build), sha256 44cdd08b953e7675
+Ollama evidence: the live Ollama logs, read for the disclosure facts
+dotenv calls blocked: 0

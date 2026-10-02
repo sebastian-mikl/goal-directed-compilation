@@ -162,6 +162,10 @@ reports/                      paper_numbers.csv (locked numbers every
 heldout/                      The pre-registered held-out Spider run: see
                                heldout/README_RELEASE.md.
 
+local_model/                  The run of the five systems on an open-weights
+                               model through Ollama: scripts, patch, recorded
+                               cells, scored outputs (local_model/README.md).
+
 scripts/                      Pipeline scripts (rescore, replay, build
                                numbers, build figures, statistics) and the
                                analysis, re-run and live-run scripts used
@@ -317,5 +321,7 @@ are released under the same licence, not under MIT:
   `evidence/tests/test_refuse_out_of_scope_toggle.py` (one Spider question).
 - `heldout/`: the same kinds of file for the two held-out databases
   (`heldout/NOTICE.md` lists them).
+- `local_model/results/` and `local_model/analysis/`: the recorded open-weights cells, which quote
+  the Spider questions and table values, and the scores computed from them.
 
 The employee domain is synthetic and was written for this repository.

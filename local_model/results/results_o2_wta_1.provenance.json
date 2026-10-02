@@ -1,0 +1,317 @@
+{
+  "timestamp_utc": "2026-10-02T12:37:49.638115Z",
+  "model": "qwen3-coder-16k:30b-a3b-q4_K_M",
+  "emission_model": "qwen3-coder-16k:30b-a3b-q4_K_M",
+  "contract_version": "s49",
+  "temperature": 0,
+  "repetitions": [
+    0
+  ],
+  "bounds": {
+    "react_max_iters": 15,
+    "code_max_retries": 12,
+    "per_query_timeout_s": 60
+  },
+  "pricing": {
+    "claude-sonnet-4-5": {
+      "input": 3.0,
+      "output": 15.0
+    },
+    "claude-haiku-4-5": {
+      "input": 1.0,
+      "output": 5.0
+    },
+    "qwen3-coder-16k:30b-a3b-q4_K_M": {
+      "input": 0.0,
+      "output": 0.0
+    }
+  },
+  "cache": {
+    "enabled": true,
+    "control": "ephemeral on last system block (caches tools+system)",
+    "multipliers": {
+      "cache_write": 1.25,
+      "cache_read": 0.1
+    },
+    "min_cacheable_tokens": 1024,
+    "prefix_sizes": [
+      {
+        "system": "network",
+        "system_chars": 7214,
+        "tool_chars": 0,
+        "est_tokens": 1803,
+        "min_cacheable": 1024,
+        "below_min": false
+      },
+      {
+        "system": "planner",
+        "system_chars": 1746,
+        "tool_chars": 0,
+        "est_tokens": 436,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "react",
+        "system_chars": 1155,
+        "tool_chars": 2477,
+        "est_tokens": 907,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "code_agent",
+        "system_chars": 1251,
+        "tool_chars": 634,
+        "est_tokens": 470,
+        "min_cacheable": 1024,
+        "below_min": true
+      },
+      {
+        "system": "text_to_sql",
+        "system_chars": 1142,
+        "tool_chars": 338,
+        "est_tokens": 369,
+        "min_cacheable": 1024,
+        "below_min": true
+      }
+    ],
+    "note": "uniform infra optimization applied identically to all 5 systems; lowers $ but NOT raw token / call counts. Paper cost metrics = calls + RAW tokens (cache-blind); cost_usd_cached is the practical bill."
+  },
+  "corpus_path": "tree/eval_corpus_spider_wta_1.json",
+  "corpus_sha256": "fd7dfd389bba4ec8b5b48ff3a72cb9da00e180d2de3023b14c67fd5a8263f74a",
+  "gold_path": "tree/evidence/gold/gold_spider_wta_1.json",
+  "gold_sha256": "c1228120320a1f5a6c0db26fc3e1a4129431a1983a8fd38b36fb6a03f90b21ba",
+  "comparator_version": "s48",
+  "network_prompt_version": "s48",
+  "refuse_unsupported": false,
+  "git_commit": "<unknown>",
+  "lib_versions": {
+    "anthropic": "0.120.2",
+    "pandas": "3.0.5",
+    "numpy": "2.5.1",
+    "python": "3.14.6",
+    "sqlite": "3.53.4",
+    "sqlite3_module": null
+  },
+  "prompts": {
+    "network": "You translate an analytical request over a tabular dataset (see the\nschema below) into a declarative GOAL plus a separate ORDER spec.\n\nThe GOAL is the SHAPE of the result relation (a set of rows \u2014 UNORDERED). The ORDER spec is\nPRESENTATION ONLY (ranking / top-N) and lives OUTSIDE the goal.\n\nBase columns:\n  - best_of: numeric [match: numeric_compare]\n  - draw_size: numeric [match: numeric_compare]\n  - loser_age: numeric [match: numeric_compare]\n  - loser_entry: text [match: exact]\n  - loser_hand: categorical [match: exact]  (values: L, R)\n  - loser_ht: numeric [match: numeric_compare]\n  - loser_id: id [match: exact]\n  - loser_ioc: text [match: exact]\n  - loser_name: text [match: contains]\n  - loser_rank: numeric [match: numeric_compare]\n  - loser_rank_points: numeric [match: numeric_compare]\n  - loser_seed: numeric [match: numeric_compare]\n  - match_num: numeric [match: numeric_compare]\n  - minutes: numeric [match: numeric_compare]\n  - round: categorical [match: exact]  (values: BR, F, QF, R16, R32, RR, SF)\n  - score: text [match: exact]\n  - surface: categorical [match: exact]  (values: Clay, Grass, Hard)\n  - tourney_date: date [match: date_compare]\n  - tourney_id: text [match: exact]\n  - tourney_level: categorical [match: exact]  (values: G, I, P, W)\n  - tourney_name: text [match: exact]\n  - winner_age: numeric [match: numeric_compare]\n  - winner_entry: text [match: exact]\n  - winner_hand: categorical [match: exact]  (values: L, R)\n  - winner_ht: numeric [match: numeric_compare]\n  - winner_id: id [match: exact]\n  - winner_ioc: text [match: exact]\n  - winner_name: text [match: contains]\n  - winner_rank: numeric [match: numeric_compare]\n  - winner_rank_points: numeric [match: numeric_compare]\n  - winner_seed: numeric [match: numeric_compare]\n  - year: numeric [match: numeric_compare]\nCONTEXT (advisory \u2014 background for interpreting the request; NOT enforced rules):\n  A women's tennis (WTA) database. players lists individual athletes; matches logs individual tournament matches (winner/loser detail per match); rankings is a historical weekly ranking snapshot per player.\n\nReturn ONLY a JSON object: {\"goal\": {...}, \"order\": {...}}.\n\n\"goal\":\n  \"columns\": [\"<name>\", ...]                  result columns (derived names allowed)\n  \"grain\":   \"row\"  OR  {\"grouped_by\": [\"<col>\", ...]}\n  \"where\":   [{\"col\": \"<c>\", \"op\": \"==|!=|<|<=|>|>=|in|contains\", \"val\": <value>}, ...]\n  \"derive\":  [{\"name\": \"<new>\", \"expr\": \"<expr>\"}, ...]\n             expr is \"fn(col)\" for an aggregate (fn \u2208 sum/avg/count/min/max/count_distinct),\n             or \"colA <op> colB\" for a computed column (op \u2208 + - * /).\n             \"how many DISTINCT / unique / different <col>\" is count_distinct(col) \u2014\n             plain count(col) counts ROWS, not distinct values.\n\n\"order\" (presentation; NEVER put ordering inside the goal):\n  \"order_by\": [{\"col\": \"<result col>\", \"dir\": \"asc|desc\"}, ...]   (may be empty)\n  \"limit\":    <int>  or  null\n\nCONTRACT (violations make it invalid \u2014 do not emit them):\n  - NO ordering/sorting/ranking/top-k inside the goal. Ranking goes ONLY in \"order\".\n  - At MOST ONE aggregate derive entry.\n  - A GLOBAL aggregate over all rows uses grain {\"grouped_by\": []}, not \"row\".\n    (grain \"row\" cannot carry an aggregate; any aggregate requires grouped grain.)\n  - A SCALAR AGGREGATE query \u2014 \"the highest / lowest / largest / smallest / max / min /\n    total / average / count of <column>\" \u2014 has as its output EXACTLY ONE derived aggregate\n    field, at the query's grain (global grain {\"grouped_by\": []} when ungrouped). Put only\n    that derived field in \"columns\"; do NOT also list the underlying raw <column>, nor any\n    other per-row column (title, id, owner, \u2026) \u2014 a row-grain column cannot coexist with a\n    global or grouped aggregate in one output, so the goal becomes unreachable. max and min\n    are scalar aggregates exactly like sum / average / count (they are NOT a request to\n    return the row).\n  - DISTINCT \u2014 ROW SELECTION: \"the N entries with the highest / lowest <column>\" is NOT an\n    aggregate. List the requested columns at row grain and put the ranking in \"order\"\n    (order_by <column> desc/asc, limit N), never in the goal.\n  - IMPLICIT RANKING \u2014 asking for an attribute OF the single best/worst entity\n    (\"the <attribute> of the oldest/largest/cheapest <entity>\", \"which <entity> has\n    the highest <metric>\") IS a top-1 ranking: emit \"order\" with order_by on the\n    deciding column (desc for highest/most, asc for lowest/least/fewest) and\n    limit 1, exactly as if the request said \"top 1\" \u2014 never a plain unordered\n    listing. This rule RECOGNIZES that a ranking is required at all; the next rule\n    governs the goal's output once any order_by exists. GUARDS: a request for the\n    VALUE of a maximum/minimum itself (\"the highest <column>\") stays a SCALAR\n    AGGREGATE (rule above) \u2014 no order, no limit; and a superlative that does not\n    single out one entity (\"most <rows> are <X>\", share comparisons) is NOT a\n    ranking \u2014 do not add order or limit there.\n  - \"top N\" with no stated direction means the N LARGEST \u2014 emit dir \"desc\" unless\n    the request says lowest/smallest/least/fewest/ascending.\n  - EVERY \"order_by\" column must be part of the goal's OUTPUT: either listed in\n    \"columns\" or introduced as a \"derive\" name. This INCLUDES a ranking column the\n    request does not ask to be displayed \u2014 \"the <entity> with the highest <metric>\"\n    outputs the entity column but ranks by <metric>, so <metric> must ALSO appear in\n    \"columns\" (or in \"derive\" when it is computed). An order_by column missing from\n    the goal's output violates the contract: the request is refused, never repaired.\n  - Use only the base columns plus names introduced in \"derive\".\n  - STAGED FILTERS \u2014 a request that derives a quantity and then RESTRICTS rows by it\n    (\"keep only positive-gap entries\", \"for entries with a negative buffer\", \"where\n    the gap exceeds X\") contributes a \"where\" conjunct on that DERIVED name, exactly\n    like a filter on a base column. Emit one conjunct per such restriction. This is\n    REQUIRED even when the derived column is not itself reported: a row-membership\n    filter that never reaches the output still selects which rows the aggregate sees,\n    so dropping it silently changes the answer. A multi-stage request (\"derive A,\n    keep A>0, then derive B, and for B<0 report avg(B) per G\") yields BOTH conjuncts\n    \u2014 A>0 AND B<0 \u2014 not just the one feeding the reported value. Every derived\n    quantity must be consumed by something: a where conjunct, another derive, the\n    group key, order_by, or \"columns\". A derive consumed by nothing means a\n    restriction was dropped \u2014 the request is refused rather than answered wrongly.\n\nFILTER VALUES: when a column lists `(values: ...)`, a filter on it must use one of\nthose EXACT values (op \"==\" or \"in\"), or op \"contains\" for a [match: contains] column.\nDo NOT invent a value that is not in the list.\n\nRULES (authoritative \u2014 these definitions are enforced):\n  - Respect each column's [match: ...]: use op \"contains\" for contains-matched columns (e.g. loser_name), and an exact listed value (\"==\" or \"in\") for categoricals.\n\nReturn JSON only \u2014 no prose, no code fences.",
+    "planner": "You answer an analytical query over a tabular register. Emit a JSON object with one key, \"plan\",\nwhose value is a LIST of step dicts. Each step is one of these operations applied to a NAMED\nframe (start name: \"register\"). Each step produces a new named frame \"f0\",\"f1\",\u2026 for the next.\n\nThe 5 step ops (mirrors the Network's primitives + one ordering step):\n  - {\"op\":\"filter\",\"input\":\"<frame>\",\"predicates\":[{\"col\":\"...\",\"op\":\"==/!=/</<=/>/>=/in/contains\",\"value\":...}]}\n  - {\"op\":\"select\",\"input\":\"<frame>\",\"columns\":[\"...\"]}                         # project columns\n  - {\"op\":\"compute\",\"input\":\"<frame>\",\"new_col\":\"...\",\"expr\":\"ColA OP ColB\"}    # +,-,*,/\n  - {\"op\":\"aggregate\",\"input\":\"<frame>\",\"group_by\":[]|[\"col\"],\"value_col\":\"...\",\"agg\":\"sum|mean|count|min|max\"}\n  - {\"op\":\"order\",\"input\":\"<frame>\",\"order_by\":[{\"col\":\"...\",\"dir\":\"asc|desc\"}],\"limit\":<int>?}\n\nAt the end, your last step's output frame IS the final answer. ALSO include a \"final_frame\" key\nnaming that frame (e.g. \"f3\"). NO commentary outside the JSON.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: A women's tennis (WTA) database. players lists individual athletes; matches logs individual tournament matches (winner/loser detail per match); rankings is a historical weekly ranking snapshot per player.\n\nREGISTER COLUMNS (verbatim):\n'best_of', 'draw_size', 'loser_age', 'loser_entry', 'loser_hand', 'loser_ht', 'loser_id', 'loser_ioc', 'loser_name', 'loser_rank', 'loser_rank_points', 'loser_seed', 'match_num', 'minutes', 'round', 'score', 'surface', 'tourney_date', 'tourney_id', 'tourney_level', 'tourney_name', 'winner_age', 'winner_entry', 'winner_hand', 'winner_ht', 'winner_id', 'winner_ioc', 'winner_name', 'winner_rank', 'winner_rank_points', 'winner_seed', 'year'\n",
+    "react": "You answer an analytical query over a tabular register using exactly five tools (declarative\nprimitives, the same the Network uses): filter, select (project), aggregate, compute, order\n(sort + optional limit). Start from a frame named \"register\"; each tool reads a frame and produces\na new named frame \"f0\",\"f1\",\u2026 Call final_answer with the name of the frame that IS the answer\n(a 1x1 frame for a scalar; a multi-row frame for a list).\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: A women's tennis (WTA) database. players lists individual athletes; matches logs individual tournament matches (winner/loser detail per match); rankings is a historical weekly ranking snapshot per player.\n\nREGISTER COLUMNS (verbatim):\n'best_of', 'draw_size', 'loser_age', 'loser_entry', 'loser_hand', 'loser_ht', 'loser_id', 'loser_ioc', 'loser_name', 'loser_rank', 'loser_rank_points', 'loser_seed', 'match_num', 'minutes', 'round', 'score', 'surface', 'tourney_date', 'tourney_id', 'tourney_level', 'tourney_name', 'winner_age', 'winner_entry', 'winner_hand', 'winner_ht', 'winner_id', 'winner_ioc', 'winner_name', 'winner_rank', 'winner_rank_points', 'winner_seed', 'year'\n",
+    "code_agent": "You answer an analytical query over a pandas DataFrame `df` (278-row register).\nUse run_python to compute. ALWAYS store your answer in `result = ...` (a DataFrame,\nSeries, or scalar) \u2014 do NOT use print(). A compact summary of `result` is returned to you.\nOnce you have verified the answer is correct, call final_answer with code that sets `result`.\nBe efficient \u2014 at most a few attempts.\n\nIf the query genuinely cannot be answered from this data, STOP with a plain-text reply\nexplaining you cannot, instead of fabricating a result.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: A women's tennis (WTA) database. players lists individual athletes; matches logs individual tournament matches (winner/loser detail per match); rankings is a historical weekly ranking snapshot per player.\n\nREGISTER COLUMNS (verbatim):\n'best_of', 'draw_size', 'loser_age', 'loser_entry', 'loser_hand', 'loser_ht', 'loser_id', 'loser_ioc', 'loser_name', 'loser_rank', 'loser_rank_points', 'loser_seed', 'match_num', 'minutes', 'round', 'score', 'surface', 'tourney_date', 'tourney_id', 'tourney_level', 'tourney_name', 'winner_age', 'winner_entry', 'winner_hand', 'winner_ht', 'winner_id', 'winner_ioc', 'winner_name', 'winner_rank', 'winner_rank_points', 'winner_seed', 'year'\n",
+    "text_to_sql": "You answer an analytical query over a single sqlite table `register` (278 rows).\nEmit EXACTLY ONE SELECT statement via the run_sql tool. Quote column names with\nspaces / parens like \"Unit Price (Net)\". No commentary outside the tool call.\n\nIf the query genuinely cannot be answered from this table, reply with plain text\nexplaining you cannot, instead of emitting SQL.\n\nREGISTER SCHEMA + DOMAIN CONTEXT:\nDOMAIN: A women's tennis (WTA) database. players lists individual athletes; matches logs individual tournament matches (winner/loser detail per match); rankings is a historical weekly ranking snapshot per player.\n\nTABLE COLUMNS (verbatim \u2014 sqlite identifiers, quote when they contain spaces/parens):\n'best_of', 'draw_size', 'loser_age', 'loser_entry', 'loser_hand', 'loser_ht', 'loser_id', 'loser_ioc', 'loser_name', 'loser_rank', 'loser_rank_points', 'loser_seed', 'match_num', 'minutes', 'round', 'score', 'surface', 'tourney_date', 'tourney_id', 'tourney_level', 'tourney_name', 'winner_age', 'winner_entry', 'winner_hand', 'winner_ht', 'winner_id', 'winner_ioc', 'winner_name', 'winner_rank', 'winner_rank_points', 'winner_seed', 'year'\n",
+    "_shared_briefing": "DOMAIN: A women's tennis (WTA) database. players lists individual athletes; matches logs individual tournament matches (winner/loser detail per match); rankings is a historical weekly ranking snapshot per player."
+  },
+  "env": {
+    "ANTHROPIC_API_KEY_present": false
+  },
+  "o2_local_model": [
+    {
+      "kind": "O2.c full run, wta_1",
+      "timestamp_utc": "2026-10-02T12:37:49.616015+00:00",
+      "source_commit": "8605f521f4d106509b79ca49f0f8fc439dc2fd3f",
+      "source": "git archive of public-release HEAD into OUT/tree",
+      "local_model_patch_sha256": "d31146271a58c7d40cdda5e452fbc888b230750e991ac4a5d867935aa4867ef0",
+      "driver_sha256": {
+        "full.py": "71418d2464b0fb4f2d9fe1f02e80467724f3efac0b238554483a3ad7b1b34d1c",
+        "o2common.py": "ae3608fbb5df1b002cb2a508f98d1a25a02cb1a454d8cd155a65696c23951a67",
+        "localguard.py": "beb587744c98ac01edbd1eb44a62efc74490cd5f1f38bbe730eddadfbc1c2067"
+      },
+      "ollama": {
+        "ollama_version": "0.35.0",
+        "model": "qwen3-coder-16k:30b-a3b-q4_K_M",
+        "alias": "qwen3-coder-16k:30b-a3b-q4_K_M",
+        "digest": "0cd7939d89a809a290e57e7b8e6ba624656a6f8653bf54ed8a2cb29f3b3a2df0",
+        "num_ctx": 16384,
+        "modelfile_temperature": "0.7",
+        "weights_blob_sha256": "1194192cf2a187eb02722edcc3f77b11d21f537048ce04b67ccf8ba78863006a",
+        "base_model": "qwen3-coder:30b-a3b-q4_K_M",
+        "base_digest": "06c1097efce0431c2045fe7b2e5108366e43bee1b4603a7aded8f21689e90bca",
+        "base_weights_blob_sha256": "1194192cf2a187eb02722edcc3f77b11d21f537048ce04b67ccf8ba78863006a",
+        "size_bytes": 18556700444,
+        "details": {
+          "parent_model": "qwen3-coder:30b-a3b-q4_K_M",
+          "format": "gguf",
+          "family": "qwen3moe",
+          "families": [
+            "qwen3moe"
+          ],
+          "parameter_size": "30.5B",
+          "quantization_level": "Q4_K_M"
+        },
+        "parameters": "repeat_penalty                 1.05\nstop                           \"<|im_start|>\"\nstop                           \"<|im_end|>\"\nstop                           \"<|endoftext|>\"\ntemperature                    0.7\ntop_k                          20\ntop_p                          0.8\nnum_ctx                        16384",
+        "model_context_length": 262144,
+        "loaded_runner": {
+          "context_length": 16384,
+          "size": 20357861864,
+          "size_vram": 17966573812
+        },
+        "loaded_models": [
+          "qwen3-coder-16k:30b-a3b-q4_K_M"
+        ],
+        "endpoint": "http://localhost:11434/v1/messages"
+      },
+      "host": {
+        "machine": "arm64",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "python": "3.14.6"
+      },
+      "model": "qwen3-coder-16k:30b-a3b-q4_K_M",
+      "temperature": 0,
+      "bounds": {
+        "react_max_iters": 15,
+        "code_max_retries": 12,
+        "per_query_timeout_s": 60
+      },
+      "use_cache": true,
+      "goal_prompt_version": "s48",
+      "comparator_version": "s48",
+      "toggles": {
+        "REFUSE_UNSUPPORTED": false,
+        "REFUSE_OUT_OF_SCOPE_DATA": false,
+        "DECLINE_AFFORDANCE": false,
+        "s40": "off"
+      },
+      "sqlite": {
+        "sqlite_version": "3.53.4",
+        "sqlite3_module_version": null,
+        "functions": {
+          "median": true,
+          "percentile": true,
+          "corr": false
+        }
+      },
+      "guard": {
+        "client_base_url": "http://localhost:11434",
+        "ANTHROPIC_API_KEY_present": false,
+        "dotenv_attempts_blocked": [
+          "load_dotenv"
+        ]
+      },
+      "session": "738b4d937a1b",
+      "preflight": {
+        "guard_self_test": {
+          "dns_api.anthropic.com": "blocked",
+          "connect_nonlocal_ip": "blocked",
+          "httpx_hook_api.anthropic.com": "blocked",
+          "client_base_url": "http://localhost:11434",
+          "ANTHROPIC_API_KEY_present": false
+        },
+        "tree_files": 2408,
+        "tree_manifest_sha256": "fe831df09cee304acd7f22d2e554b551b2a0f92e85aae54ce000c01d65c227ec",
+        "scope_sha256": "2cadfdb85d7350d3196109882ebe0059e87e86437b39215dc16ce9581f824670",
+        "smoke_dir": "smoke_ctx16k",
+        "smoke_criteria": {
+          "c1": true,
+          "c2": true,
+          "c3": true,
+          "context_lost_calls": 0,
+          "calls": 72,
+          "aligned": true,
+          "n_ctx": [
+            16384
+          ],
+          "temps": [
+            0.0
+          ],
+          "model": "qwen3-coder-16k:30b-a3b-q4_K_M",
+          "max_prompt_by_system": {
+            "network": 1927,
+            "planner": 673,
+            "react": 5129,
+            "code_agent": 3849,
+            "text_to_sql": 753
+          },
+          "cells_truncated": []
+        },
+        "context_length": 16384
+      },
+      "server_log_offset": 202157,
+      "started_epoch": 1790944669.628643,
+      "qids": [
+        "wta_01",
+        "wta_02",
+        "wta_03",
+        "wta_04",
+        "wta_05",
+        "wta_06",
+        "wta_07",
+        "wta_08",
+        "wta_09",
+        "wta_10",
+        "wta_11",
+        "wta_12",
+        "wta_13",
+        "wta_14",
+        "wta_15",
+        "wta_16",
+        "wta_17",
+        "wta_18",
+        "wta_19",
+        "wta_20",
+        "wta_21",
+        "wta_22",
+        "wta_23",
+        "wta_24",
+        "wta_25",
+        "wta_26",
+        "wta_27",
+        "wta_28",
+        "wta_29",
+        "wta_30"
+      ],
+      "seeds": [
+        0
+      ],
+      "finished_epoch": 1790946443.306081,
+      "server_log_offset_end": 1556352,
+      "summary": {
+        "ran": 150,
+        "skipped": 0,
+        "aborted": false,
+        "abort": null
+      },
+      "ollama_after": {
+        "ollama_version": "0.35.0",
+        "model": "qwen3-coder-16k:30b-a3b-q4_K_M",
+        "alias": "qwen3-coder-16k:30b-a3b-q4_K_M",
+        "digest": "0cd7939d89a809a290e57e7b8e6ba624656a6f8653bf54ed8a2cb29f3b3a2df0",
+        "num_ctx": 16384,
+        "modelfile_temperature": "0.7",
+        "weights_blob_sha256": "1194192cf2a187eb02722edcc3f77b11d21f537048ce04b67ccf8ba78863006a",
+        "base_model": "qwen3-coder:30b-a3b-q4_K_M",
+        "base_digest": "06c1097efce0431c2045fe7b2e5108366e43bee1b4603a7aded8f21689e90bca",
+        "base_weights_blob_sha256": "1194192cf2a187eb02722edcc3f77b11d21f537048ce04b67ccf8ba78863006a",
+        "size_bytes": 18556700444,
+        "details": {
+          "parent_model": "qwen3-coder:30b-a3b-q4_K_M",
+          "format": "gguf",
+          "family": "qwen3moe",
+          "families": [
+            "qwen3moe"
+          ],
+          "parameter_size": "30.5B",
+          "quantization_level": "Q4_K_M"
+        },
+        "parameters": "repeat_penalty                 1.05\nstop                           \"<|im_start|>\"\nstop                           \"<|im_end|>\"\nstop                           \"<|endoftext|>\"\ntemperature                    0.7\ntop_k                          20\ntop_p                          0.8\nnum_ctx                        16384",
+        "model_context_length": 262144,
+        "loaded_runner": {
+          "context_length": 16384,
+          "size": 20357861864,
+          "size_vram": 17966573812
+        },
+        "loaded_models": [
+          "qwen3-coder-16k:30b-a3b-q4_K_M"
+        ],
+        "endpoint": "http://localhost:11434/v1/messages"
+      },
+      "guard_after": {
+        "requests_to_localhost_11434": 698,
+        "dotenv_attempts_blocked": [
+          "load_dotenv"
+        ],
+        "violations_log_nonempty": false
+      }
+    }
+  ]
+}

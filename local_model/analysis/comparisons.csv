@@ -1,0 +1,89 @@
+set,rule,metric,alt,gdc_pct,alt_pct,diff_pp,ci_lo_pp,ci_hi_pp,excludes_0,n_questions,n_discordant_q,q_gdc_higher,q_alt_higher,p_sign,p_perm,discordant_by_database_gdc_higher/alt_higher,p_perm_holm,verdict,resolved_after_holm
+o2_employee_in_contract,strict,accuracy,planner,67.9,69.14,-1.23,-14.81,11.11,False,81,29,14,15,1,1,employee:14/15,1,unresolved,False
+o2_employee_in_contract,strict,accuracy,react,67.9,40.74,27.16,13.58,40.74,True,81,40,31,9,0.000679548,0.000679548,employee:31/9,0.00271819,resolved,True
+o2_employee_in_contract,strict,accuracy,code_agent,67.9,81.48,-13.58,-25.93,-1.23,True,81,27,8,19,0.052239,0.052239,employee:8/19,0.156717,bootstrap-only,False
+o2_employee_in_contract,strict,accuracy,text_to_sql,67.9,74.07,-6.17,-19.75,7.41,False,81,31,13,18,0.47313,0.47313,employee:13/18,0.946259,unresolved,False
+o2_employee_in_contract,strict,silent_error,planner,2.47,1.23,1.23,-2.47,4.94,False,81,3,2,1,1,1,employee:2/1,1,unresolved,False
+o2_employee_in_contract,strict,silent_error,react,2.47,33.33,-30.86,-41.98,-19.75,True,81,27,1,26,4.17233e-07,4.17233e-07,employee:1/26,1.66893e-06,resolved,True
+o2_employee_in_contract,strict,silent_error,code_agent,2.47,12.35,-9.88,-17.28,-2.47,True,81,10,1,9,0.0214844,0.0214844,employee:1/9,0.0429688,resolved,True
+o2_employee_in_contract,strict,silent_error,text_to_sql,2.47,20.99,-18.52,-28.4,-9.88,True,81,17,1,16,0.000274658,0.000274658,employee:1/16,0.000823975,resolved,True
+o2_employee_in_contract,strict,refused_should_answer,planner,29.63,29.63,0,-13.58,13.58,False,81,30,15,15,1,1,employee:15/15,1,unresolved,False
+o2_employee_in_contract,strict,refused_should_answer,react,29.63,16.05,13.58,1.23,25.93,True,81,29,20,9,0.0614283,0.0614283,employee:20/9,0.122857,bootstrap-only,False
+o2_employee_in_contract,strict,refused_should_answer,code_agent,29.63,4.94,24.69,14.81,34.57,True,81,22,21,1,1.09673e-05,1.09673e-05,employee:21/1,4.3869e-05,resolved,True
+o2_employee_in_contract,strict,refused_should_answer,text_to_sql,29.63,4.94,24.69,14.81,34.57,True,81,22,21,1,1.09673e-05,1.09673e-05,employee:21/1,4.3869e-05,resolved,True
+o2_employee_out_of_range,strict+D8,answer_anyway,planner,66.67,66.67,0,-33.33,33.33,False,9,2,1,1,1,1,employee:1/1,1,unresolved,False
+o2_employee_out_of_range,strict+D8,answer_anyway,react,66.67,77.78,-11.11,-33.33,0,False,9,1,0,1,1,1,employee:0/1,1,unresolved,False
+o2_employee_out_of_range,strict+D8,answer_anyway,code_agent,66.67,88.89,-22.22,-55.56,0,False,9,2,0,2,0.5,0.5,employee:0/2,1,unresolved,False
+o2_employee_out_of_range,strict+D8,answer_anyway,text_to_sql,66.67,44.44,22.22,-33.33,66.67,False,9,6,4,2,0.6875,0.6875,employee:4/2,1,unresolved,False
+o2_employee_out_of_range,strict+D8,declined,planner,11.11,33.33,-22.22,-66.67,22.22,False,9,4,1,3,0.625,0.625,employee:1/3,1,unresolved,False
+o2_employee_out_of_range,strict+D8,declined,react,11.11,11.11,0,-33.33,33.33,False,9,2,1,1,1,1,employee:1/1,1,unresolved,False
+o2_employee_out_of_range,strict+D8,declined,code_agent,11.11,0,11.11,0,33.33,False,9,1,1,0,1,1,employee:1/0,1,unresolved,False
+o2_employee_out_of_range,strict+D8,declined,text_to_sql,11.11,55.56,-44.44,-77.78,-11.11,True,9,4,0,4,0.125,0.125,employee:0/4,0.5,bootstrap-only,False
+o2_spider_answer_tolerant,tolerant,accuracy,planner,22.22,62.96,-40.74,-59.26,-22.22,True,27,13,1,12,0.00341797,0.00341797,bike_1:1/1 world_1:0/6 wta_1:0/5,0.00683594,resolved,True
+o2_spider_answer_tolerant,tolerant,accuracy,react,22.22,37.04,-14.81,-40.74,11.11,False,27,12,4,8,0.387695,0.387695,bike_1:1/2 world_1:2/4 wta_1:1/2,0.387695,unresolved,False
+o2_spider_answer_tolerant,tolerant,accuracy,code_agent,22.22,77.78,-55.56,-77.78,-33.33,True,27,17,1,16,0.000274658,0.000274658,bike_1:0/4 world_1:1/7 wta_1:0/5,0.000823975,resolved,True
+o2_spider_answer_tolerant,tolerant,accuracy,text_to_sql,22.22,92.59,-70.37,-85.19,-51.85,True,27,19,0,19,3.8147e-06,3.8147e-06,bike_1:0/3 world_1:0/7 wta_1:0/9,1.52588e-05,resolved,True
+o2_spider_answer_tolerant,tolerant,silent_error,planner,11.11,25.93,-14.81,-33.33,0,False,27,6,1,5,0.21875,0.21875,bike_1:0/2 world_1:0/1 wta_1:1/2,0.875,unresolved,False
+o2_spider_answer_tolerant,tolerant,silent_error,react,11.11,29.63,-18.52,-40.74,3.7,False,27,11,3,8,0.226562,0.226562,bike_1:0/1 world_1:0/3 wta_1:3/4,0.875,unresolved,False
+o2_spider_answer_tolerant,tolerant,silent_error,code_agent,11.11,18.52,-7.41,-22.22,7.41,False,27,4,1,3,0.625,0.625,bike_1:0/0 world_1:0/1 wta_1:1/2,1,unresolved,False
+o2_spider_answer_tolerant,tolerant,silent_error,text_to_sql,11.11,7.41,3.7,-7.41,14.81,False,27,3,2,1,1,1,bike_1:0/1 world_1:0/0 wta_1:2/0,1,unresolved,False
+o2_spider_answer_tolerant,tolerant,refused_should_answer,planner,66.67,11.11,55.56,37.04,74.07,True,27,15,15,0,6.10352e-05,6.10352e-05,bike_1:2/0 world_1:7/0 wta_1:6/0,6.10352e-05,resolved,True
+o2_spider_answer_tolerant,tolerant,refused_should_answer,react,66.67,7.41,59.26,40.74,77.78,True,27,16,16,0,3.05176e-05,3.05176e-05,bike_1:4/0 world_1:6/0 wta_1:6/0,6.10352e-05,resolved,True
+o2_spider_answer_tolerant,tolerant,refused_should_answer,code_agent,66.67,0,66.67,48.15,85.19,True,27,18,18,0,7.62939e-06,7.62939e-06,bike_1:4/0 world_1:7/0 wta_1:7/0,3.05176e-05,resolved,True
+o2_spider_answer_tolerant,tolerant,refused_should_answer,text_to_sql,66.67,0,66.67,48.15,85.19,True,27,18,18,0,7.62939e-06,7.62939e-06,bike_1:4/0 world_1:7/0 wta_1:7/0,3.05176e-05,resolved,True
+o2_spider_answer_strict,strict,accuracy,planner,22.22,62.96,-40.74,-59.26,-22.22,True,27,13,1,12,0.00341797,0.00341797,bike_1:1/1 world_1:0/6 wta_1:0/5,0.00683594,resolved,True
+o2_spider_answer_strict,strict,accuracy,react,22.22,37.04,-14.81,-37.04,11.11,False,27,12,4,8,0.387695,0.387695,bike_1:1/2 world_1:2/4 wta_1:1/2,0.387695,unresolved,False
+o2_spider_answer_strict,strict,accuracy,code_agent,22.22,74.07,-51.85,-74.07,-29.63,True,27,16,1,15,0.000518799,0.000518799,bike_1:0/3 world_1:1/7 wta_1:0/5,0.0015564,resolved,True
+o2_spider_answer_strict,strict,accuracy,text_to_sql,22.22,92.59,-70.37,-85.19,-51.85,True,27,19,0,19,3.8147e-06,3.8147e-06,bike_1:0/3 world_1:0/7 wta_1:0/9,1.52588e-05,resolved,True
+o2_spider_answer_strict,strict,silent_error,planner,11.11,25.93,-14.81,-33.33,0,False,27,6,1,5,0.21875,0.21875,bike_1:0/2 world_1:0/1 wta_1:1/2,0.875,unresolved,False
+o2_spider_answer_strict,strict,silent_error,react,11.11,29.63,-18.52,-40.74,3.7,False,27,11,3,8,0.226562,0.226562,bike_1:0/1 world_1:0/3 wta_1:3/4,0.875,unresolved,False
+o2_spider_answer_strict,strict,silent_error,code_agent,11.11,22.22,-11.11,-25.93,3.7,False,27,5,1,4,0.375,0.375,bike_1:0/1 world_1:0/1 wta_1:1/2,0.875,unresolved,False
+o2_spider_answer_strict,strict,silent_error,text_to_sql,11.11,7.41,3.7,-7.41,14.81,False,27,3,2,1,1,1,bike_1:0/1 world_1:0/0 wta_1:2/0,1,unresolved,False
+o2_spider_answer_strict,strict,refused_should_answer,planner,66.67,11.11,55.56,37.04,74.07,True,27,15,15,0,6.10352e-05,6.10352e-05,bike_1:2/0 world_1:7/0 wta_1:6/0,6.10352e-05,resolved,True
+o2_spider_answer_strict,strict,refused_should_answer,react,66.67,7.41,59.26,40.74,77.78,True,27,16,16,0,3.05176e-05,3.05176e-05,bike_1:4/0 world_1:6/0 wta_1:6/0,6.10352e-05,resolved,True
+o2_spider_answer_strict,strict,refused_should_answer,code_agent,66.67,0,66.67,48.15,85.19,True,27,18,18,0,7.62939e-06,7.62939e-06,bike_1:4/0 world_1:7/0 wta_1:7/0,3.05176e-05,resolved,True
+o2_spider_answer_strict,strict,refused_should_answer,text_to_sql,66.67,0,66.67,48.15,85.19,True,27,18,18,0,7.62939e-06,7.62939e-06,bike_1:4/0 world_1:7/0 wta_1:7/0,3.05176e-05,resolved,True
+o2_spider_out_of_contract_aggregate,strict,accuracy,planner,0,0,0,0,0,False,13,0,0,0,1,1,bike_1:0/0 world_1:0/0 wta_1:0/0,1,unresolved,False
+o2_spider_out_of_contract_aggregate,strict,accuracy,react,0,23.08,-23.08,-46.15,0,False,13,3,0,3,0.25,0.25,bike_1:0/1 world_1:0/1 wta_1:0/1,0.5,unresolved,False
+o2_spider_out_of_contract_aggregate,strict,accuracy,code_agent,0,38.46,-38.46,-61.54,-15.38,True,13,5,0,5,0.0625,0.0625,bike_1:0/3 world_1:0/1 wta_1:0/1,0.1875,bootstrap-only,False
+o2_spider_out_of_contract_aggregate,strict,accuracy,text_to_sql,0,61.54,-61.54,-84.62,-38.46,True,13,8,0,8,0.0078125,0.0078125,bike_1:0/4 world_1:0/3 wta_1:0/1,0.03125,resolved,True
+o2_spider_out_of_contract_aggregate,strict,silent_error,planner,7.69,15.38,-7.69,-30.77,15.38,False,13,3,1,2,1,1,bike_1:0/1 world_1:1/0 wta_1:0/1,1,unresolved,False
+o2_spider_out_of_contract_aggregate,strict,silent_error,react,7.69,30.77,-23.08,-46.15,-7.69,True,13,3,0,3,0.25,0.25,bike_1:0/1 world_1:0/2 wta_1:0/0,0.875,bootstrap-only,False
+o2_spider_out_of_contract_aggregate,strict,silent_error,code_agent,7.69,30.77,-23.08,-53.85,7.69,False,13,5,1,4,0.375,0.375,bike_1:0/0 world_1:1/2 wta_1:0/2,0.875,unresolved,False
+o2_spider_out_of_contract_aggregate,strict,silent_error,text_to_sql,7.69,38.46,-30.77,-53.85,0,False,13,6,1,5,0.21875,0.21875,bike_1:0/0 world_1:1/2 wta_1:0/3,0.875,unresolved,False
+o2_spider_out_of_contract_aggregate,strict,refused_should_answer,planner,92.31,76.92,15.38,-15.38,46.15,False,13,4,3,1,0.625,0.625,bike_1:1/0 world_1:1/1 wta_1:1/0,0.625,unresolved,False
+o2_spider_out_of_contract_aggregate,strict,refused_should_answer,react,92.31,7.69,84.62,61.54,100,True,13,11,11,0,0.000976562,0.000976562,bike_1:3/0 world_1:4/0 wta_1:4/0,0.00195312,resolved,True
+o2_spider_out_of_contract_aggregate,strict,refused_should_answer,code_agent,92.31,0,92.31,76.92,100,True,13,12,12,0,0.000488281,0.000488281,bike_1:4/0 world_1:4/0 wta_1:4/0,0.00195312,resolved,True
+o2_spider_out_of_contract_aggregate,strict,refused_should_answer,text_to_sql,92.31,0,92.31,76.92,100,True,13,12,12,0,0.000488281,0.000488281,bike_1:4/0 world_1:4/0 wta_1:4/0,0.00195312,resolved,True
+o2_spider_out_of_scope_register,strict+D8,answer_anyway,planner,26.67,42.22,-15.56,-33.33,2.22,False,45,19,6,13,0.167068,0.167068,bike_1:1/6 world_1:0/4 wta_1:5/3,0.167068,unresolved,False
+o2_spider_out_of_scope_register,strict+D8,answer_anyway,react,26.67,77.78,-51.11,-66.67,-35.56,True,45,35,6,29,0.000116842,0.000116842,bike_1:0/12 world_1:0/13 wta_1:6/4,0.000350526,resolved,True
+o2_spider_out_of_scope_register,strict+D8,answer_anyway,code_agent,26.67,95.56,-68.89,-80,-57.78,True,45,33,1,32,7.91624e-09,7.91624e-09,bike_1:0/13 world_1:0/14 wta_1:1/5,3.1665e-08,resolved,True
+o2_spider_out_of_scope_register,strict+D8,answer_anyway,text_to_sql,26.67,48.89,-22.22,-40,-4.44,True,45,18,4,14,0.0308838,0.0308838,bike_1:2/4 world_1:1/5 wta_1:1/5,0.0617676,resolved,False
+o2_spider_out_of_scope_register,strict+D8,declined,planner,53.33,53.33,0,-20,20,False,45,22,11,11,1,1,bike_1:6/2 world_1:2/2 wta_1:3/7,1,unresolved,False
+o2_spider_out_of_scope_register,strict+D8,declined,react,53.33,2.22,51.11,37.78,64.44,True,45,23,23,0,2.38419e-07,2.38419e-07,bike_1:12/0 world_1:8/0 wta_1:3/0,7.15256e-07,resolved,True
+o2_spider_out_of_scope_register,strict+D8,declined,code_agent,53.33,0,53.33,42.22,64.44,True,45,24,24,0,1.19209e-07,1.19209e-07,bike_1:12/0 world_1:9/0 wta_1:3/0,4.76837e-07,resolved,True
+o2_spider_out_of_scope_register,strict+D8,declined,text_to_sql,53.33,37.78,15.56,-4.44,35.56,False,45,23,15,8,0.21004,0.21004,bike_1:4/3 world_1:8/3 wta_1:3/2,0.420079,unresolved,False
+o2_pooled_within_vocab_tolerant,tolerant,accuracy,planner,56.48,67.59,-11.11,-22.22,0,False,108,42,15,27,0.0884295,0.0884295,bike_1:1/1 employee:14/15 world_1:0/6 wta_1:0/5,0.0884295,unresolved,False
+o2_pooled_within_vocab_tolerant,tolerant,accuracy,react,56.48,39.81,16.67,3.7,28.7,True,108,52,35,17,0.0175332,0.0175332,bike_1:1/2 employee:31/9 world_1:2/4 wta_1:1/2,0.0350665,resolved,True
+o2_pooled_within_vocab_tolerant,tolerant,accuracy,code_agent,56.48,80.56,-24.07,-35.19,-13.89,True,108,44,9,35,0.000106045,0.000106045,bike_1:0/4 employee:8/19 world_1:1/7 wta_1:0/5,0.000424179,resolved,True
+o2_pooled_within_vocab_tolerant,tolerant,accuracy,text_to_sql,56.48,78.7,-22.22,-33.33,-11.11,True,108,50,13,37,0.000936223,0.000936223,bike_1:0/3 employee:13/18 world_1:0/7 wta_1:0/9,0.00280867,resolved,True
+o2_pooled_within_vocab_tolerant,tolerant,silent_error,planner,4.63,7.41,-2.78,-8.33,2.78,False,108,9,3,6,0.507812,0.507812,bike_1:0/2 employee:2/1 world_1:0/1 wta_1:1/2,0.507812,unresolved,False
+o2_pooled_within_vocab_tolerant,tolerant,silent_error,react,4.63,32.41,-27.78,-37.96,-18.5,True,108,38,4,34,6.03854e-07,6.03854e-07,bike_1:0/1 employee:1/26 world_1:0/3 wta_1:3/4,2.41541e-06,resolved,True
+o2_pooled_within_vocab_tolerant,tolerant,silent_error,code_agent,4.63,13.89,-9.26,-15.74,-2.78,True,108,14,2,12,0.0129395,0.0129395,bike_1:0/0 employee:1/9 world_1:0/1 wta_1:1/2,0.0258789,resolved,True
+o2_pooled_within_vocab_tolerant,tolerant,silent_error,text_to_sql,4.63,17.59,-12.96,-20.37,-5.56,True,108,20,3,17,0.00257683,0.00257683,bike_1:0/1 employee:1/16 world_1:0/0 wta_1:2/0,0.00773048,resolved,True
+o2_pooled_within_vocab_tolerant,tolerant,refused_should_answer,planner,38.89,25,13.89,2.78,25,True,108,45,30,15,0.0356978,0.0356978,bike_1:2/0 employee:15/15 world_1:7/0 wta_1:6/0,0.0356978,resolved,True
+o2_pooled_within_vocab_tolerant,tolerant,refused_should_answer,react,38.89,13.89,25,13.89,35.19,True,108,45,36,9,6.57466e-05,6.57466e-05,bike_1:4/0 employee:20/9 world_1:6/0 wta_1:6/0,0.000131493,resolved,True
+o2_pooled_within_vocab_tolerant,tolerant,refused_should_answer,code_agent,38.89,3.7,35.19,26.85,44.44,True,108,40,39,1,7.45786e-11,7.45786e-11,bike_1:4/0 employee:21/1 world_1:7/0 wta_1:7/0,2.98314e-10,resolved,True
+o2_pooled_within_vocab_tolerant,tolerant,refused_should_answer,text_to_sql,38.89,3.7,35.19,26.85,44.44,True,108,40,39,1,7.45786e-11,7.45786e-11,bike_1:4/0 employee:21/1 world_1:7/0 wta_1:7/0,2.98314e-10,resolved,True
+o2_pooled_within_vocab_strict,strict,accuracy,planner,56.48,67.59,-11.11,-22.22,0,False,108,42,15,27,0.0884295,0.0884295,bike_1:1/1 employee:14/15 world_1:0/6 wta_1:0/5,0.0884295,unresolved,False
+o2_pooled_within_vocab_strict,strict,accuracy,react,56.48,39.81,16.67,4.63,28.7,True,108,52,35,17,0.0175332,0.0175332,bike_1:1/2 employee:31/9 world_1:2/4 wta_1:1/2,0.0350665,resolved,True
+o2_pooled_within_vocab_strict,strict,accuracy,code_agent,56.48,79.63,-23.15,-33.33,-12.96,True,108,43,9,34,0.000170155,0.000170155,bike_1:0/3 employee:8/19 world_1:1/7 wta_1:0/5,0.000680621,resolved,True
+o2_pooled_within_vocab_strict,strict,accuracy,text_to_sql,56.48,78.7,-22.22,-33.33,-11.11,True,108,50,13,37,0.000936223,0.000936223,bike_1:0/3 employee:13/18 world_1:0/7 wta_1:0/9,0.00280867,resolved,True
+o2_pooled_within_vocab_strict,strict,silent_error,planner,4.63,7.41,-2.78,-8.33,1.85,False,108,9,3,6,0.507812,0.507812,bike_1:0/2 employee:2/1 world_1:0/1 wta_1:1/2,0.507812,unresolved,False
+o2_pooled_within_vocab_strict,strict,silent_error,react,4.63,32.41,-27.78,-37.04,-17.59,True,108,38,4,34,6.03854e-07,6.03854e-07,bike_1:0/1 employee:1/26 world_1:0/3 wta_1:3/4,2.41541e-06,resolved,True
+o2_pooled_within_vocab_strict,strict,silent_error,code_agent,4.63,14.81,-10.19,-17.59,-3.7,True,108,15,2,13,0.00738525,0.00738525,bike_1:0/1 employee:1/9 world_1:0/1 wta_1:1/2,0.0147705,resolved,True
+o2_pooled_within_vocab_strict,strict,silent_error,text_to_sql,4.63,17.59,-12.96,-20.37,-5.56,True,108,20,3,17,0.00257683,0.00257683,bike_1:0/1 employee:1/16 world_1:0/0 wta_1:2/0,0.00773048,resolved,True
+o2_pooled_within_vocab_strict,strict,refused_should_answer,planner,38.89,25,13.89,2.78,25,True,108,45,30,15,0.0356978,0.0356978,bike_1:2/0 employee:15/15 world_1:7/0 wta_1:6/0,0.0356978,resolved,True
+o2_pooled_within_vocab_strict,strict,refused_should_answer,react,38.89,13.89,25,14.81,35.19,True,108,45,36,9,6.57466e-05,6.57466e-05,bike_1:4/0 employee:20/9 world_1:6/0 wta_1:6/0,0.000131493,resolved,True
+o2_pooled_within_vocab_strict,strict,refused_should_answer,code_agent,38.89,3.7,35.19,26.85,43.52,True,108,40,39,1,7.45786e-11,7.45786e-11,bike_1:4/0 employee:21/1 world_1:7/0 wta_1:7/0,2.98314e-10,resolved,True
+o2_pooled_within_vocab_strict,strict,refused_should_answer,text_to_sql,38.89,3.7,35.19,26.85,43.52,True,108,40,39,1,7.45786e-11,7.45786e-11,bike_1:4/0 employee:21/1 world_1:7/0 wta_1:7/0,2.98314e-10,resolved,True

@@ -1,0 +1,155 @@
+--- a/gdc/config.py	2026-10-01 18:26:28
++++ b/gdc/config.py	2026-10-02 10:27:47
+@@ -21,8 +21,10 @@
+ # Per-call model tiering. Call 1 (the GDC goal emission) needs the stronger
+ # model; Call 3 (verify/interpret) is cheaper. Each is overridable by env var.
+ # MODEL_CALL1 is the one the paper cites (Appendix B: "Model").
+-_DEFAULT_STRONG = "claude-sonnet-4-5"
+-_DEFAULT_CHEAP  = "claude-haiku-4-5"
++# O2 open-weights replication: every call runs on the local model (Ollama alias of
++# qwen3-coder:30b-a3b-q4_K_M with num_ctx 16384; same weights).
++_DEFAULT_STRONG = "qwen3-coder-16k:30b-a3b-q4_K_M"
++_DEFAULT_CHEAP  = "qwen3-coder-16k:30b-a3b-q4_K_M"
+ MODEL_CALL1 = os.getenv("MODEL_CALL1", _DEFAULT_STRONG)   # goal emission (Call 1)
+ MODEL_CALL2 = os.getenv("MODEL_CALL2", _DEFAULT_STRONG)
+ MODEL_CALL3 = os.getenv("MODEL_CALL3", _DEFAULT_CHEAP)
+@@ -30,7 +32,10 @@
+ WORKSPACE   = Path("workspace")
+ ENVIRONMENT = Path("environment")   # read-only source data; never cleared
+ 
+-CLIENT = Anthropic() if os.getenv("ANTHROPIC_API_KEY") else None
++# O2: the Anthropic-compatible endpoint of the local Ollama server, dummy key.
++LOCAL_BASE_URL = "http://localhost:11434"
++LOCAL_API_KEY  = "ollama-local-dummy-key"
++CLIENT = Anthropic(base_url=LOCAL_BASE_URL, api_key=LOCAL_API_KEY)
+ 
+ 
+ def init_logger(debug: bool = False) -> None:
+--- a/evidence/eval_run/pricing.py	2026-10-01 18:26:28
++++ b/evidence/eval_run/pricing.py	2026-10-02 10:27:47
+@@ -11,6 +11,9 @@
+ PRICING_USD_PER_MTOK: dict[str, dict[str, float]] = {
+     "claude-sonnet-4-5": {"input": 3.00, "output": 15.00},
+     "claude-haiku-4-5":  {"input": 1.00, "output": 5.00},
++    # O2 open-weights replication: local Ollama inference, no per-token charge (alias of
++    # qwen3-coder:30b-a3b-q4_K_M with num_ctx 16384).
++    "qwen3-coder-16k:30b-a3b-q4_K_M": {"input": 0.0, "output": 0.0},
+ }
+ 
+ # Prompt-caching multipliers, applied to the model's base INPUT rate (S21a).
+--- a/evidence/eval_run/tools_code.py
++++ b/evidence/eval_run/tools_code.py
+@@ -9,10 +9,18 @@
+ from __future__ import annotations
+ 
+ import ast
++import threading
+ 
+ import pandas as pd
+ 
+ 
++class CodeTimeout(Exception):
++    """Agent code did not return within its wall-clock bound. The executing thread
++    is abandoned, not killed (Python has no safe way to kill a running thread), so
++    it may still be mutating `ns` after this raises. The caller must end the
++    episode rather than issue another run_python call against the same `ns`."""
++
++
+ def code_tools(n_rows: int) -> list[dict]:
+     """The two tool definitions for a register of `n_rows` rows. They precede
+     `system` in the cached prefix, so they depend on nothing but the domain's row
+@@ -66,20 +74,46 @@
+         return frame
+ 
+ 
+-def run_code(code: str, ns: dict):
++def run_code(code: str, ns: dict, timeout_s: float | None = None):
+     """Exec agent code in the episode namespace `ns` (from new_namespace), which the
+     caller keeps for the whole episode. Returns (summary_text, result_obj|None).
+ 
+     The object is whatever `result` holds after this call. If this call did not
+     assign it, that is an earlier call's value (perhaps changed in place since),
+     and the summary says so: the model never reads an earlier answer as this
+-    call's. A call that raises returns no object, whatever `result` held."""
++    call's. A call that raises returns no object, whatever `result` held.
++
++    `timeout_s`: wall-clock bound on the exec itself (agent code can loop forever;
++    None, the default, runs unbounded as before this bound existed). Past the
++    bound this raises CodeTimeout instead of returning — the caller must treat the
++    episode as over, since the abandoned thread may still be writing to `ns`."""
+     before = ns.get("result")
+     try:
+         tree = ast.parse(code, "<agent>")
+-        exec(compile(tree, "<agent>", "exec"), ns)
+     except Exception as exc:                       # noqa: BLE001 — feed errors back
+         return f"error: {type(exc).__name__}: {exc}", None
++    if timeout_s is None:
++        try:
++            exec(compile(tree, "<agent>", "exec"), ns)
++        except Exception as exc:                   # noqa: BLE001 — feed errors back
++            return f"error: {type(exc).__name__}: {exc}", None
++    else:
++        outcome: dict = {}
++
++        def _target():
++            try:
++                exec(compile(tree, "<agent>", "exec"), ns)
++            except Exception as exc:                # noqa: BLE001
++                outcome["exc"] = exc
++
++        thread = threading.Thread(target=_target, daemon=True)
++        thread.start()
++        thread.join(timeout_s)
++        if thread.is_alive():
++            raise CodeTimeout(f"agent code did not return within {timeout_s:.0f}s")
++        if "exc" in outcome:
++            exc = outcome["exc"]
++            return f"error: {type(exc).__name__}: {exc}", None
+     result = ns.get("result")
+     if result is None:
+         return "ran OK but `result` was not set.", None
+--- a/evidence/eval_run/adapters/code_agent.py
++++ b/evidence/eval_run/adapters/code_agent.py
+@@ -1,15 +1,16 @@
+ """Code-agent adapter — the LLM writes & runs Python (pandas) over the
+-dataframe. Bounded by max_retries (each retry is a tool call). Treated as a
+-recorded failure (status=timeout) when the bound is hit without a result.
+-One namespace per episode: what a run_python call defines, `result` included, is
+-visible to every later call and to final_answer.
++dataframe. Bounded by max_retries (each retry is a tool call) and by timeout_s,
++a wall-clock bound on each run_python exec (agent code can loop forever).
++Either is treated as a recorded failure (status=timeout) when hit without a
++result. One namespace per episode: what a run_python call defines, `result`
++included, is visible to every later call and to final_answer.
+ """
+ from __future__ import annotations
+ 
+ import time
+ 
+ from ..briefing import render_briefing
+-from ..tools_code import code_tools, new_namespace, run_code
++from ..tools_code import CodeTimeout, code_tools, new_namespace, run_code
+ from ..types import REFUSAL
+ from .base import Adapter, df_to_result, is_decline_text, is_transport_error, new_result
+ 
+@@ -93,7 +94,19 @@
+             terminal = False
+             for tu in tool_uses:
+                 code = dict(tu.input).get("code", "")
+-                summary, value = run_code(code, ns)
++                try:
++                    summary, value = run_code(code, ns, timeout_s=self.timeout_s)
++                except CodeTimeout as exc:
++                    # the executing thread is abandoned, still possibly writing to
++                    # ns — the episode must end here, not reuse ns in another call
++                    trace.append({"tool": tu.name, "code": code, "summary": f"error: {exc}"})
++                    rec["status"] = "timeout"
++                    rec["result"] = REFUSAL
++                    rec["error"] = f"iter {it}: {exc}"
++                    rec["artifact"] = {"kind": "code_agent", "trace": trace,
++                                       "iters": attempts, "last_text": last_text}
++                    rec["wall_time_s"] = time.perf_counter() - t0
++                    return rec
+                 content = str(summary)[:4000]
+                 # the full code, and the summary exactly as the model saw it
+                 trace.append({"tool": tu.name, "code": code, "summary": content})
