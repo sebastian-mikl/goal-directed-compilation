@@ -97,7 +97,7 @@ if [ "$LIVE" = "1" ]; then
     exit 1
   fi
   echo
-  echo "[1/5] LIVE — Spider domains:"
+  echo "[1/6] LIVE — Spider domains:"
   echo "  python scripts/run_full_spider_eval.py"
   echo "  (prints its own cost estimate before making any call; see its"
   echo "  docstring for exact scope — 85 queries x 5 systems x 5 seeds)"
@@ -106,30 +106,33 @@ if [ "$LIVE" = "1" ]; then
   echo "      re-emission is a deliberate, separate, costed action."
   echo
 else
-  echo "[1/5] LIVE step skipped (offline reproduction from released"
+  echo "[1/6] LIVE step skipped (offline reproduction from released"
   echo "      emissions). Pass --live for live-run guidance."
   echo
 fi
 
-echo "[2/5] Rescoring recorded results under the current comparator ..."
+echo "[2/6] Rescoring recorded results under the current comparator (diagnostic; writes nothing) ..."
 "$PY" scripts/rescore_all.py
 echo
 
-echo "[3/5] Replaying recorded GDC goals through the current engine ..."
+echo "[3/6] Replaying recorded GDC goals through the current engine (diagnostic; writes nothing) ..."
 "$PY" scripts/replay_goals.py
 echo
 
-echo "[4/5] Building locked numbers -> reports/paper_numbers.csv ..."
+echo "[4/6] Building locked numbers -> reports/paper_numbers.csv ..."
 PARITY_TEMP0=1 "$PY" scripts/build_paper_numbers.py
 echo
 
-echo "[5/5] Building figures + tables -> reports/figures/ ..."
+echo "[5/6] Building figures + tables -> reports/figures/ ..."
 "$PY" scripts/make_paper_figures.py
+echo
+echo "[6/6] Question-clustered statistics (employee and Spider) -> reports/stats/ ..."
+"$PY" scripts/question_clustered_stats.py
 echo
 
 echo "================================================================"
-echo "Done. reports/paper_numbers.csv and reports/figures/ regenerated"
-echo "for employee + Spider. paper_numbers.csv has no risk-domain rows:"
-echo "risk is reported in the paper but its data is not in this release"
+echo "Done. reports/paper_numbers.csv, reports/figures/ and reports/stats/"
+echo "regenerated for employee + Spider. paper_numbers.csv has no risk-domain"
+echo "rows: risk is reported in the paper but its data is not in this release"
 echo "(see README.md)."
 echo "================================================================"

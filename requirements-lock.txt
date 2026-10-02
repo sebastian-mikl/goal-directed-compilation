@@ -1,6 +1,6 @@
 # Exact versions that regenerate every file ./run_all.sh writes byte for byte
 # (reports/paper_numbers.csv, paper_numbers.engine.json, the figure CSV slices, the
-# .md/.tex tables and the figure PNGs) and pass the test suite.
+# .md/.tex tables, the figure PNGs and reports/stats/) and pass the test suite.
 # Checked on CPython 3.14.6 and 3.12.13, macOS arm64, 2 Oct 2026. numpy 2.5.3 needs
 # Python >= 3.12.
 # Install: python -m pip install -r requirements-lock.txt

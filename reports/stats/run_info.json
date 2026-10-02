@@ -1,0 +1,13 @@
+{
+ "engine_sha256": "2ef059df8ff443236150be214c18f10eb36c6bfd1862f8ebb5f34e3a2bab7bf6",
+ "csv_sha256": "6a5ec510f6fb0b413c19ee9d4ac29aa31f64c8ff351b9694b4f82268750c1417",
+ "batch2_present": [
+  "results_temp0_batch2_bike_1.jsonl",
+  "results_temp0_batch2_employee.jsonl",
+  "results_temp0_batch2_world_1.jsonl",
+  "results_temp0_batch2_wta_1.jsonl"
+ ],
+ "n_boot": 10000,
+ "base_seed": 20261001,
+ "script_sha256": "be3a091323a59f914c67eeea135a5363e23e5782fd71ae811f13506a4d9b1158"
+}

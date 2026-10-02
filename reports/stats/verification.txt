@@ -1,0 +1,61 @@
+Every outcome-class count and denominator below equals the builder's emitted row and reports/paper_numbers.csv (the script exits before this file otherwise).
+OK  spider_answer_strict           network      n=135  correct=120 refused_should_answer=5 silent_wrong=10
+OK  spider_answer_strict           planner      n=135  correct=103 refused_should_answer=2 silent_wrong=30
+OK  spider_answer_strict           react        n=135  correct=120 silent_wrong=15
+OK  spider_answer_strict           code_agent   n=135  correct=107 silent_wrong=28
+OK  spider_answer_strict           text_to_sql  n=135  correct=125 silent_wrong=10
+OK  spider_answer_tolerant         network      n=135  correct=125 refused_should_answer=5 silent_wrong=5
+OK  spider_answer_tolerant         planner      n=135  correct=108 refused_should_answer=2 silent_wrong=25
+OK  spider_answer_tolerant         react        n=135  correct=125 silent_wrong=10
+OK  spider_answer_tolerant         code_agent   n=135  correct=112 silent_wrong=23
+OK  spider_answer_tolerant         text_to_sql  n=135  correct=125 silent_wrong=10
+OK  employee_in_contract           network      n=243  correct=240 refused_should_answer=3
+OK  employee_in_contract           planner      n=243  correct=218 silent_wrong=25
+OK  employee_in_contract           react        n=243  correct=216 silent_wrong=27
+OK  employee_in_contract           code_agent   n=243  correct=212 silent_wrong=31
+OK  employee_in_contract           text_to_sql  n=243  correct=211 silent_wrong=32
+OK  employee_T4                    network      n=45   correct=45
+OK  employee_T4                    planner      n=45   correct=26 silent_wrong=19
+OK  employee_T4                    react        n=45   correct=21 silent_wrong=24
+OK  employee_T4                    code_agent   n=45   correct=19 silent_wrong=26
+OK  employee_T4                    text_to_sql  n=45   correct=21 silent_wrong=24
+OK  employee_in_contract_tolerant  network      n=243  correct=240 refused_should_answer=3
+OK  employee_in_contract_tolerant  planner      n=243  correct=218 silent_wrong=25
+OK  employee_in_contract_tolerant  react        n=243  correct=216 silent_wrong=27
+OK  employee_in_contract_tolerant  code_agent   n=243  correct=215 silent_wrong=28
+OK  employee_in_contract_tolerant  text_to_sql  n=243  correct=214 silent_wrong=29
+OK  employee_T3_strict             network      n=45   correct=45
+OK  employee_T3_strict             planner      n=45   correct=45
+OK  employee_T3_strict             react        n=45   correct=45
+OK  employee_T3_strict             code_agent   n=45   correct=41 silent_wrong=4
+OK  employee_T3_strict             text_to_sql  n=45   correct=42 silent_wrong=3
+OK  employee_T3_tolerant           network      n=45   correct=45
+OK  employee_T3_tolerant           planner      n=45   correct=45
+OK  employee_T3_tolerant           react        n=45   correct=45
+OK  employee_T3_tolerant           code_agent   n=45   correct=44 silent_wrong=1
+OK  employee_T3_tolerant           text_to_sql  n=45   correct=45
+OK  decline_spider_oosr_wta_1      network      n=75   correct=10 silent_wrong=65 declined_explicit=0 declined_typed=10
+OK  decline_spider_oosr_wta_1      planner      n=75   correct=12 failed=17 silent_wrong=46 declined_explicit=2 declined_typed=10
+OK  decline_spider_oosr_wta_1      react        n=75   correct=9 silent_wrong=64 timeout=2 declined_explicit=9 declined_typed=0
+OK  decline_spider_oosr_wta_1      code_agent   n=75   correct=5 silent_wrong=66 timeout=4 declined_explicit=5 declined_typed=0
+OK  decline_spider_oosr_wta_1      text_to_sql  n=75   correct=15 failed=5 silent_wrong=55 declined_explicit=15 declined_typed=0
+OK  decline_spider_oosr_world_1    network      n=75   correct=40 silent_wrong=35 declined_explicit=0 declined_typed=40
+OK  decline_spider_oosr_world_1    planner      n=75   correct=29 failed=10 silent_wrong=36 declined_explicit=23 declined_typed=6
+OK  decline_spider_oosr_world_1    react        n=75   correct=42 silent_wrong=33 declined_explicit=42 declined_typed=0
+OK  decline_spider_oosr_world_1    code_agent   n=75   correct=62 silent_wrong=13 declined_explicit=62 declined_typed=0
+OK  decline_spider_oosr_world_1    text_to_sql  n=75   correct=25 failed=10 silent_wrong=40 declined_explicit=25 declined_typed=0
+OK  decline_spider_oosr_bike_1     network      n=75   correct=30 silent_wrong=45 declined_explicit=0 declined_typed=30
+OK  decline_spider_oosr_bike_1     planner      n=75   correct=35 failed=3 silent_wrong=37 declined_explicit=20 declined_typed=15
+OK  decline_spider_oosr_bike_1     react        n=75   correct=67 silent_wrong=8 declined_explicit=67 declined_typed=0
+OK  decline_spider_oosr_bike_1     code_agent   n=75   correct=60 silent_wrong=10 timeout=5 declined_explicit=60 declined_typed=0
+OK  decline_spider_oosr_bike_1     text_to_sql  n=75   correct=65 silent_wrong=10 declined_explicit=65 declined_typed=0
+OK  decline_spider_oosr_pooled     network      n=225  correct=80 silent_wrong=145 declined_explicit=0 declined_typed=80
+OK  decline_spider_oosr_pooled     planner      n=225  correct=76 failed=30 silent_wrong=119 declined_explicit=45 declined_typed=31
+OK  decline_spider_oosr_pooled     react        n=225  correct=118 silent_wrong=105 timeout=2 declined_explicit=118 declined_typed=0
+OK  decline_spider_oosr_pooled     code_agent   n=225  correct=127 silent_wrong=89 timeout=9 declined_explicit=127 declined_typed=0
+OK  decline_spider_oosr_pooled     text_to_sql  n=225  correct=105 failed=15 silent_wrong=105 declined_explicit=105 declined_typed=0
+OK  decline_employee_oor           network      n=27   correct=15 silent_wrong=12 declined_explicit=0 declined_typed=15
+OK  decline_employee_oor           planner      n=27   correct=2 silent_wrong=25 declined_explicit=0 declined_typed=2
+OK  decline_employee_oor           react        n=27   correct=15 silent_wrong=12 declined_explicit=15 declined_typed=0
+OK  decline_employee_oor           code_agent   n=27   correct=15 silent_wrong=12 declined_explicit=15 declined_typed=0
+OK  decline_employee_oor           text_to_sql  n=27   correct=18 failed=3 silent_wrong=6 declined_explicit=18 declined_typed=0
