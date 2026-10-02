@@ -1,42 +1,64 @@
 #!/usr/bin/env python
-"""Generate publication figures + tables FROM reports/paper_numbers.csv (locked,
-comparator s47 / scorer s47t). Nothing is hardcoded — every value is read from the
-CSV so the figures cannot drift from the authoritative numbers.
+"""Render the paper's data figures, and the auxiliary tables, from reports/paper_numbers.csv.
 
-Outputs under reports/figures/ (PNG-only):
-  fig1_accuracy.png                      + fig1_accuracy.csv
-  fig2_silent_error.png                  + fig2_silent_error.csv
-  fig1_2_combined.png                    (paired accuracy vs silent-error)
-  fig3_network_tiers.png                 + fig3_network_tiers.csv
-  fig4_s40_refusal.png                   + fig4_s40_refusal.csv
-  table1_synthetic.{md,tex}              + table1_synthetic.csv
-  table2_crossdomain.{md,tex}
-  table3_spider_incontract.{md,tex}
+Every plotted value is one row of the numbers CSV, named by its full key
+(fig_table, domain, system, tier_group, scoring, metric). A key that matches no row
+stops the run, and the CSV may not hold one key twice. No plotted value, cell count
+or comparator version is typed in here: all of them are read from the CSV. Every
+value a figure plots is written to <out>/figures_manifest.csv with the key it came
+from, its numerator/denominator, comparator and source, so a caption can be checked
+against the manifest line by line.
 
-Style: Okabe-Ito colorblind-safe palette; NETWORK highlighted in a single
-consistent deep blue (#0072B2) across every figure; baselines muted gray.
+Paper figure -> file (md links reports/figures/<file>; tex \\graphicspath{figures/}):
+  Figure 4  fig2_silent_error_tolerant.png  Spider in-scope silent-error, tie-tolerant
+  Figure 5  fig1_accuracy.png               Spider in-scope accuracy, strict
+  Figure 6  fig2_silent_error.png           Spider in-scope silent-error, strict
+  Figure 7  fig4_s40_refusal.png            GDC out-of-scope-register refusal accuracy,
+                                            table-coverage instruction off vs on
+  Figure 8  fig8_cost_frontier.png          risk: accuracy and silent-error vs $/query
+Figure 1 (pipeline.png) and Figure 3 (spider_data_scope.png) are diagrams with no
+data in them and are not drawn here. There is no Figure 2.
+
+Also drawn (not in the paper; --no-extras skips them): fig1_2_combined,
+fig3_network_tiers, fig_strict_vs_tolerant_silent, fig6_haiku_robustness.
+
+Risk figures (Figure 8, fig6_haiku_robustness) and the risk tables are skipped when
+the CSV holds no risk rows, as in the public release, which withholds the risk
+domain, or when --no-risk is given. Their data slices carry `_risk` in the file
+name so the withheld-path patterns catch them.
+
+Usage:
+  python scripts/make_paper_figures.py [--csv reports/paper_numbers.csv]
+         [--out reports/figures] [--risk-group in_contract_within_vocab]
+         [--no-extras] [--no-tables] [--no-risk]
 """
 from __future__ import annotations
+
+import argparse
 import csv
+import math
+import sys
 from pathlib import Path
+
 import matplotlib
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-from matplotlib.patches import Patch
+import matplotlib.pyplot as plt                      # noqa: E402
+import matplotlib.ticker as mticker                  # noqa: E402
+from matplotlib.patches import Patch                 # noqa: E402
+from matplotlib.text import Text                     # noqa: E402
+from matplotlib.transforms import Bbox               # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
-CSV = ROOT / "reports" / "paper_numbers.csv"
-OUT = ROOT / "reports" / "figures"; OUT.mkdir(parents=True, exist_ok=True)
-SRC = "source: reports/paper_numbers.csv  ·  comparator s47 (strict)"
 
 # ── palette (Okabe-Ito subset; validated colorblind-safe) ───────────────────
-NETWORK = "#0072B2"      # deep blue — network's signature, every figure
-BASELINE = "#b8b8b8"     # muted gray — baselines
+NETWORK = "#0072B2"      # deep blue: GDC in every figure
+BASELINE = "#b8b8b8"     # muted gray: baselines
 OUTCOME = {"correct": "#009E73", "silent_wrong": "#D55E00", "refused": "#56B4E9"}
 S40 = {"off": "#b8b8b8", "on": "#0072B2"}
 INK, MUTED = "#1a1a1a", "#5a5a5a"
+F8_GRAY, F8_LABEL_GRAY = "#B0B0B0", "#4D4D4D"     # Figure 8 markers / labels
 
-plt.rcParams.update({
+BASE_RC = {
     "font.family": "sans-serif", "font.sans-serif": ["DejaVu Sans"],
     "font.size": 10, "axes.titlesize": 11, "axes.labelsize": 10,
     "axes.spines.top": False, "axes.spines.right": False,
@@ -45,462 +67,750 @@ plt.rcParams.update({
     "grid.color": "#e8e8e8", "grid.linewidth": 0.8,
     "xtick.color": INK, "ytick.color": INK, "text.color": INK,
     "figure.dpi": 150,
-})
+}
+# Figure 8 is drawn on matplotlib's default style with these changes (the style of
+# the paper's Figure 8 since 30 Aug).
+FIG8_RC = {"font.size": 13, "axes.spines.top": False, "axes.spines.right": False}
+
 LABELS = {"network": "GDC", "planner": "planner", "react": "react",
           "code_agent": "code-agent", "text_to_sql": "text-to-SQL"}
+SYS_ALL = ["network", "planner", "react", "code_agent", "text_to_sql"]
 
-# ── CSV access ──────────────────────────────────────────────────────────────
-ROWS = list(csv.DictReader(open(CSV, encoding="utf-8")))
-def q(**kw):
-    return [r for r in ROWS if all(r.get(k) == v for k, v in kw.items())]
-def maybe(**kw):
-    """The row matching `kw`, or None. Several matches raise: a query must name the
-    one row it means (risk has three Table2/CostFrontier groups; taking the first
-    match plotted the 465-cell group where the caption quotes the 415)."""
-    r = q(**kw)
-    if len(r) > 1:
-        raise LookupError(f"{len(r)} rows of {CSV.name} match {kw}")
-    return r[0] if r else None
-def one(**kw):
-    r = maybe(**kw)
-    if r is None:
-        raise LookupError(f"no row of {CSV.name} matches {kw}")
-    return r
-def val(**kw):
-    r = one(**kw); return float(r["value_pct"]), int(r["numerator"]), int(r["denominator"])
+# The paper's name for the tau(q) answer tier. The CSV's tier_group keeps the
+# builder's identifier (in_contract_answer); only the rendered text uses this.
+SCOPE = "in-scope"
 
-# The risk domain's data is withheld from the public release; every risk-derived
-# figure/table below is guarded by HAS_RISK so this script completes cleanly for
-# employee + Spider when it is absent.
-HAS_RISK = bool(q(domain="risk"))
-if not HAS_RISK:
-    print("[note] risk domain data not included in this release — skipping "
-          "table1_risk, the cost frontier (fig5/table4) and Haiku robustness (fig6/table5).")
+KEY = ("fig_table", "domain", "system", "tier_group", "scoring", "metric")
 
-# Which risk in-contract set the cross-domain table and the cost frontier (fig5,
-# table4) plot. Since the 30 Sep reclassification paper_numbers.csv carries three:
-# in_contract_answer (465 cells, algebra_boundary included), in_contract_within_vocab
-# (the original 415) and in_contract_beyond_vocab (50). The paper's Figure 8 caption
-# and Table 4 quote the 415-cell numbers, so that is the set plotted.
-RISK_IN_CONTRACT_GROUP = "in_contract_within_vocab"
-# risk's fifty boundary cells: tier out_of_range before the reclassification,
-# algebra_boundary since (the gold tier of record, the tier_group the builder
-# emits). The paper's Table 1a still labels that row out-of-range.
-RISK_BOUNDARY_TIER = ("algebra_boundary", "algebra-boundary")
 
-def footnote(fig, extra="", base=None):
-    fig.text(0.005, 0.005, ((base if base is not None else SRC) + extra), fontsize=6.2, color=MUTED, ha="left", va="bottom")
+# ════════════════════════════ the numbers CSV ════════════════════════════════
+class Numbers:
+    def __init__(self, path: Path):
+        self.path = Path(path)
+        with open(self.path, encoding="utf-8") as fh:
+            self.rows = list(csv.DictReader(fh))
+        self.by_key: dict[tuple, dict] = {}
+        for r in self.rows:
+            k = tuple(r[c] for c in KEY)
+            if k in self.by_key:
+                raise LookupError(f"{self.path.name}: key {dict(zip(KEY, k))} appears twice")
+            self.by_key[k] = r
+        self.label = f"reports/{self.path.name}"
 
-def save(fig, name):
-    # PNG-only output (PDF save removed — preview PNGs are the deliverable).
-    fig.savefig(OUT / f"{name}.png", bbox_inches="tight", dpi=200)
+    def row(self, sel: dict) -> dict:
+        k = tuple(sel[c] for c in KEY)          # every key column must be named
+        try:
+            return self.by_key[k]
+        except KeyError:
+            raise LookupError(f"no row of {self.path.name} has key {sel}") from None
+
+    def value(self, sel: dict) -> float:
+        v = self.row(sel)["value_pct"]
+        if v in ("", None):
+            raise LookupError(f"row {sel} of {self.path.name} has no value")
+        return float(v)
+
+    def has_domain(self, domain: str) -> bool:
+        return any(r["domain"] == domain for r in self.rows)
+
+    # partial-key helpers, used only by the tables
+    def q(self, **kw):
+        return [r for r in self.rows if all(r.get(k) == v for k, v in kw.items())]
+
+    def maybe(self, **kw):
+        r = self.q(**kw)
+        if len(r) > 1:
+            raise LookupError(f"{len(r)} rows of {self.path.name} match {kw}")
+        return r[0] if r else None
+
+    def one(self, **kw):
+        r = self.maybe(**kw)
+        if r is None:
+            raise LookupError(f"no row of {self.path.name} matches {kw}")
+        return r
+
+    def val(self, **kw):
+        r = self.one(**kw)
+        return float(r["value_pct"]), int(r["numerator"]), int(r["denominator"])
+
+    def versions(self) -> tuple[str, str]:
+        """(strict, tolerant) comparator versions, read from the CSV. The tolerant
+        version is the comparator of the tolerant rows; the strict one is the
+        comparator every other strict row carries. (The builder labels the strict
+        rows of the Spider five-system block with the tolerant scorer's version.)"""
+        tol = {r["comparator"] for r in self.rows if r["scoring"] == "tolerant"}
+        if len(tol) != 1:
+            raise LookupError(f"tolerant rows carry comparators {sorted(tol)}")
+        (t,) = tol
+        strict = {r["comparator"] for r in self.rows if r["scoring"] == "strict"} - tol
+        if len(strict) != 1:
+            raise LookupError(f"strict rows carry comparators {sorted(strict)}")
+        (s,) = strict
+        if t != s + "t":
+            raise LookupError(f"tolerant comparator {t} is not strict {s} + 't'")
+        return s, t
+
+
+# ════════════════════════════ named selections ═══════════════════════════════
+def S(fig_table, domain, system, tier_group, scoring, metric) -> dict:
+    return dict(fig_table=fig_table, domain=domain, system=system,
+                tier_group=tier_group, scoring=scoring, metric=metric)
+
+
+def spider_in_scope(system, scoring, metric):
+    """Spider answer tier pooled over wta_1/world_1/bike_1 (Figures 4-6)."""
+    return S("Fig1/Fig2/Table3", "spider_pooled", system, "in_contract_answer", scoring, metric)
+
+
+SPIDER_DOMAINS = ["wta_1", "world_1", "bike_1"]
+
+
+def gdc_spider_tier(domain, tier_group, metric):
+    """GDC per Spider database and tier (Figure 7, fig3_network_tiers)."""
+    return S("Fig3/Fig4", domain, "network", tier_group, "strict", metric)
+
+
+def oos_register(domain, instruction):
+    """GDC refusal accuracy on the out-of-scope-register tier, table-coverage
+    instruction `off` or `on` (Figure 7)."""
+    return gdc_spider_tier(domain, f"out_of_scope_register_s40{instruction}", "correct")
+
+
+# Risk in-scope sets the CSV carries (Table2 and CostFrontier). Figure 8 plots one.
+RISK_GROUPS = {
+    "in_contract_within_vocab": "within GDC's vocabulary (T1-T5, house-vocab)",
+    "in_contract_answer": "every in-scope tier (within + algebra_boundary)",
+    "in_contract_beyond_vocab": "beyond GDC's vocabulary (algebra_boundary)",
+}
+# The paper's Figure 8 caption quotes the within-vocabulary set.
+RISK_GROUP_DEFAULT = "in_contract_within_vocab"
+
+
+def risk_cost(system, metric, group):
+    return S("CostFrontier", "risk", system, group, "strict", metric)
+
+
+def risk_outcome(system, metric, group):
+    return S("Table2", "risk", system, group, "strict", metric)
+
+
+H_TIERS = [("T1_single_op", "T1"), ("T2_two_ops", "T2"), ("T3_three_ops", "T3"),
+           ("T4_business_rule_multi_op", "T4"), ("T5_high_complexity", "T5"), ("house_vocab", "hv")]
+
+
+def haiku_panel(model, system, tier, metric):
+    return S(f"Haiku_{model}", "risk", system, tier, "strict", metric)
+
+
+# ════════════════════════════ manifest ═══════════════════════════════════════
+class Manifest:
+    """Fetches each plotted row and records it beside the figure that plots it."""
+    FIELDS = ["figure", "file", "panel", "series", *KEY, "value_pct", "numerator",
+              "denominator", "comparator", "source"]
+
+    def __init__(self, nums: Numbers):
+        self.nums, self.records = nums, []
+
+    def take(self, figure, file, panel, series, sel) -> dict:
+        r = self.nums.row(sel)
+        if r["value_pct"] in ("", None):
+            raise LookupError(f"{figure}: row {sel} has no value")
+        self.records.append({"figure": figure, "file": file, "panel": panel, "series": series,
+                             **{c: r[c] for c in KEY}, "value_pct": r["value_pct"],
+                             "numerator": r["numerator"], "denominator": r["denominator"],
+                             "comparator": r["comparator"], "source": r["source"]})
+        return r
+
+    def write(self, out: Path):
+        risk = [x for x in self.records if x["domain"] == "risk"]
+        rest = [x for x in self.records if x["domain"] != "risk"]
+        for name, recs in (("figures_manifest.csv", rest), ("figures_manifest_risk.csv", risk)):
+            if not recs:
+                continue
+            with open(out / name, "w", newline="", encoding="utf-8") as fh:
+                w = csv.DictWriter(fh, fieldnames=self.FIELDS)
+                w.writeheader()
+                w.writerows(recs)
+
+
+def fv(r):
+    return float(r["value_pct"])
+
+
+def common_denominator(rows, what):
+    dens = {r["denominator"] for r in rows}
+    if len(dens) != 1:
+        raise LookupError(f"{what}: rows have different denominators {sorted(dens)}")
+    return int(dens.pop())
+
+
+def write_slice(out, name, header, records):
+    with open(out / f"{name}.csv", "w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(header)
+        w.writerows(records)
+
+
+def footnote(fig, text):
+    fig.text(0.005, 0.005, text, fontsize=6.2, color=MUTED, ha="left", va="bottom")
+
+
+def save(fig, out, name, **kw):
+    fig.savefig(out / f"{name}.png", **({"bbox_inches": "tight", "dpi": 200} | kw))
     plt.close(fig)
 
-def write_slice(name, header, records):
-    with open(OUT / f"{name}.csv", "w", newline="", encoding="utf-8") as fh:
-        w = csv.writer(fh); w.writerow(header); w.writerows(records)
 
-# in-contract systems ordered by strict Spider accuracy desc (network 2nd, tie broken by silent-error)
-SPIDER_ORDER = ["text_to_sql", "network", "react", "code_agent", "planner"]
+# ════════════════════════════ Spider in-scope bars (Figures 4-6) ═════════════
+# Bars run by strict accuracy, highest first; ties by strict silent-error, lowest
+# first; then this list's order. All three Spider figures use the one order.
+SPIDER_TIEBREAK = ["text_to_sql", "network", "react", "code_agent", "planner"]
 
-def bars_one_metric(ax, metric, ylabel, title, scoring="strict"):
-    slice_rec = []
-    xs, heights, colors = [], [], []
-    for i, s in enumerate(SPIDER_ORDER):
-        v, n, d = val(fig_table="Fig1/Fig2/Table3", system=s, metric=metric, scoring=scoring)
-        xs.append(i); heights.append(v)
-        colors.append(NETWORK if s == "network" else BASELINE)
-        slice_rec.append([s, metric, v, n, d])
-    bars = ax.bar(xs, heights, width=0.66, color=colors,
-                  edgecolor=[("#004c77" if s == "network" else "#9a9a9a") for s in SPIDER_ORDER],
-                  linewidth=1.0, zorder=3)
-    for x, h, s in zip(xs, heights, SPIDER_ORDER):
+
+def spider_order(nums):
+    key = []
+    for i, s in enumerate(SPIDER_TIEBREAK):
+        a = nums.value(spider_in_scope(s, "strict", "accuracy"))
+        w = nums.value(spider_in_scope(s, "strict", "silent_wrong"))
+        key.append((-a, w, i, s))
+    return [k[-1] for k in sorted(key)]
+
+
+def spider_bars(ax, man, figure, file, scoring, metric, ylabel, title_fmt, order, panel=""):
+    rows = [man.take(figure, file, panel, s, spider_in_scope(s, scoring, metric)) for s in order]
+    n = common_denominator(rows, f"{figure} {metric} {scoring}")
+    heights = [fv(r) for r in rows]
+    xs = list(range(len(order)))
+    ax.bar(xs, heights, width=0.66,
+           color=[NETWORK if s == "network" else BASELINE for s in order],
+           edgecolor=[("#004c77" if s == "network" else "#9a9a9a") for s in order],
+           linewidth=1.0, zorder=3)
+    for x, h, s in zip(xs, heights, order):
         ax.text(x, h + 1.3, f"{h:.1f}", ha="center", va="bottom",
                 fontsize=9, fontweight=("bold" if s == "network" else "normal"),
                 color=(NETWORK if s == "network" else INK))
-    ax.set_xticks(xs); ax.set_xticklabels([LABELS[s] for s in SPIDER_ORDER], rotation=0)
-    ax.set_ylim(0, max(heights) * 1.18)
-    ax.set_ylabel(ylabel); ax.set_title(title, fontweight="bold")
-    return slice_rec
+    ax.set_xticks(xs)
+    ax.set_xticklabels([LABELS[s] for s in order], rotation=0)
+    ax.set_ylim(0, max(heights) * 1.18 if max(heights) > 0 else 1)
+    ax.set_ylabel(ylabel)
+    ax.set_title(title_fmt.format(n=n), fontweight="bold")
+    return [[s, metric, fv(r), int(r["numerator"]), int(r["denominator"])] for s, r in zip(order, rows)]
 
-# ── FIGURE 1 — in-contract accuracy ─────────────────────────────────────────
-fig, ax = plt.subplots(figsize=(6.4, 3.9))
-rec = bars_one_metric(ax, "accuracy", "in-contract accuracy (%)",
-                      "Spider in-contract accuracy (pooled, 135 cells)")
-footnote(fig, base="source: reports/paper_numbers.csv  ·  strict scoring")
-save(fig, "fig1_accuracy"); write_slice("fig1_accuracy", ["system", "metric", "value_pct", "numerator", "denominator"], rec)
 
-# ── FIGURE 2 — silent-error rate (THESIS) ───────────────────────────────────
-fig, ax = plt.subplots(figsize=(6.4, 3.9))
-rec = bars_one_metric(ax, "silent_wrong", "silent-error rate (%)",
-                      "Spider in-contract silent-error (pooled, 135 cells)")
-footnote(fig, "   ·  lower is better", base="source: reports/paper_numbers.csv  ·  strict scoring")
-save(fig, "fig2_silent_error"); write_slice("fig2_silent_error", ["system", "metric", "value_pct", "numerator", "denominator"], rec)
+def fig_spider(nums, man, out, figure, file, scoring, metric, ylabel, title_fmt, foot):
+    fig, ax = plt.subplots(figsize=(6.4, 3.9))
+    rec = spider_bars(ax, man, figure, file, scoring, metric, ylabel, title_fmt, spider_order(nums))
+    footnote(fig, foot)
+    save(fig, out, file)
+    write_slice(out, file, ["system", "metric", "value_pct", "numerator", "denominator"], rec)
 
-# ── FIGURE 2 (tolerant companion) — s47t tie-tolerant silent-error ───────────
-fig, ax = plt.subplots(figsize=(6.4, 3.9))
-rec = bars_one_metric(ax, "silent_wrong", "silent-error rate (%)",
-                      "Spider in-contract silent-error, tie-tolerant scoring", scoring="tolerant")
-footnote(fig, "   ·  lower is better", base="source: reports/paper_numbers.csv  ·  strict scoring is the comparator; tie-tolerant scoring is applied")
-save(fig, "fig2_silent_error_tolerant")
-write_slice("fig2_silent_error_tolerant", ["system", "metric", "value_pct", "numerator", "denominator"], rec)
 
-# ── FIGURE 1+2 combined (paired) ────────────────────────────────────────────
-fig, (axa, axb) = plt.subplots(1, 2, figsize=(10.2, 3.9))
-bars_one_metric(axa, "accuracy", "accuracy (%)", "Accuracy (higher better)")
-bars_one_metric(axb, "silent_wrong", "silent-error (%)", "Silent-error (lower better)")
-for ax in (axa, axb):
-    for lab in ax.get_xticklabels():
-        lab.set_rotation(18); lab.set_ha("right")
-fig.suptitle("Spider in-contract: accuracy vs silent-error, 5 systems (135 cells, s47)",
-             fontweight="bold", fontsize=11)
-fig.subplots_adjust(bottom=0.22, top=0.86, wspace=0.22)
-footnote(fig)
-save(fig, "fig1_2_combined")
+def fig4_tolerant(nums, man, out):
+    fig_spider(nums, man, out, "Figure 4", "fig2_silent_error_tolerant", "tolerant", "silent_wrong",
+               "silent-error rate (%)", f"Spider {SCOPE} silent-error, tie-tolerant scoring",
+               f"source: {nums.label}  ·  tie-tolerant scoring   ·  lower is better")
 
-# ── FIGURE 3 — network per-tier per Spider domain (outcome split) ───────────
-DOMAINS = ["wta_1", "world_1", "bike_1"]
-TIERS = [("answer", "answer"), ("out_of_scope_register_s40off", "out-of-scope\n(instruction off)"),
-         ("out_of_contract_aggregate", "out-of-contract\n(boundary)")]
-fig, axes = plt.subplots(1, 3, figsize=(10.6, 4.1), sharey=True)
-f3rec = []
-for ax, dom in zip(axes, DOMAINS):
-    xs = range(len(TIERS))
-    corr = [val(fig_table="Fig3/Fig4", domain=dom, tier_group=tg, metric="correct")[0] for tg, _ in TIERS]
-    sil = [val(fig_table="Fig3/Fig4", domain=dom, tier_group=tg, metric="silent_wrong")[0] for tg, _ in TIERS]
-    ref = [val(fig_table="Fig3/Fig4", domain=dom, tier_group=tg, metric="refused_should_answer")[0] for tg, _ in TIERS]
-    ax.bar(xs, corr, 0.62, color=OUTCOME["correct"], zorder=3, label="correct")
-    ax.bar(xs, sil, 0.62, bottom=corr, color=OUTCOME["silent_wrong"], zorder=3, label="silent-wrong")
-    ax.bar(xs, ref, 0.62, bottom=[c + s for c, s in zip(corr, sil)], color=OUTCOME["refused"], zorder=3, label="refused")
-    for x, (tg, _) in zip(xs, TIERS):
-        c = corr[x]
-        if c >= 8: ax.text(x, c / 2, f"{c:.0f}", ha="center", va="center", color="white", fontsize=8, fontweight="bold")
-        f3rec.append([dom, tg, corr[x], sil[x], ref[x]])
-    ax.set_xticks(list(xs)); ax.set_xticklabels([lab for _, lab in TIERS], fontsize=8.5)
-    ax.set_title(dom, fontweight="bold"); ax.set_ylim(0, 108)
-    if dom == "wta_1": ax.set_ylabel("GDC outcome share (%)")
-axes[0].legend(handles=[Patch(color=OUTCOME["correct"], label="correct  (answer, or correct refusal on boundary tiers)"),
-                        Patch(color=OUTCOME["silent_wrong"], label="silent-wrong  (confident wrong answer)"),
-                        Patch(color=OUTCOME["refused"], label="refused  (honest decline; 0% correct on out-of-contract is by design)")],
-               loc="upper center", bbox_to_anchor=(1.75, -0.13), ncol=1, frameon=False, fontsize=8.2)
-fig.suptitle("GDC outcome composition by tier, per Spider domain", fontweight="bold", fontsize=11.5, y=1.0)
-fig.subplots_adjust(bottom=0.30)
-footnote(fig)
-save(fig, "fig3_network_tiers")
-write_slice("fig3_network_tiers", ["domain", "tier", "correct_pct", "silent_wrong_pct", "refused_pct"], f3rec)
 
-# ── FIGURE 4 — S40 off vs on, out_of_scope refusal accuracy ──────────────────
-fig, ax = plt.subplots(figsize=(6.6, 3.9))
-w = 0.36; f4rec = []
-for i, dom in enumerate(DOMAINS):
-    off, no, do = val(fig_table="Fig3/Fig4", domain=dom, tier_group="out_of_scope_register_s40off", metric="correct")
-    on, non, don = val(fig_table="Fig3/Fig4", domain=dom, tier_group="out_of_scope_register_s40on", metric="correct")
-    b1 = ax.bar(i - w / 2, off, w, color=S40["off"], edgecolor="#9a9a9a", linewidth=0.8, zorder=3)
-    b2 = ax.bar(i + w / 2, on, w, color=S40["on"], edgecolor="#004c77", linewidth=0.8, zorder=3)
-    ax.text(i - w / 2, off + 1.3, f"{off:.1f}", ha="center", va="bottom", fontsize=8.5, color=INK)
-    ax.text(i + w / 2, on + 1.3, f"{on:.1f}", ha="center", va="bottom", fontsize=8.5, color=NETWORK, fontweight="bold")
-    ax.annotate(f"+{on-off:.1f}", xy=(i, max(off, on) + 7), ha="center", fontsize=8.5, color=MUTED)
-    f4rec.append([dom, off, on, round(on - off, 1)])
-brief = {"wta_1": "phantom-table\nbriefing", "world_1": "phantom-table\nbriefing", "bike_1": "honest single-\ntable briefing"}
-ax.set_xticks(range(len(DOMAINS)))
-ax.set_xticklabels([f"{d}\n{brief[d]}" for d in DOMAINS], fontsize=8.2)
-ax.set_ylabel("out-of-scope refusal accuracy (%)"); ax.set_ylim(0, 90)
-ax.set_title("Out-of-scope refusal: table-coverage instruction off vs on, per Spider domain", fontweight="bold")
-ax.legend([Patch(color=S40["off"]), Patch(color=S40["on"])], ["instruction off", "instruction on"], frameon=False, loc="upper left")
-fig.subplots_adjust(bottom=0.30)
-footnote(fig, base="source: reports/paper_numbers.csv  ·  strict scoring")
-save(fig, "fig4_s40_refusal")
-write_slice("fig4_s40_refusal", ["domain", "s40off_pct", "s40on_pct", "lift_pts"], f4rec)
+def fig5_accuracy(nums, man, out):
+    fig_spider(nums, man, out, "Figure 5", "fig1_accuracy", "strict", "accuracy",
+               f"{SCOPE} accuracy (%)", f"Spider {SCOPE} accuracy (pooled, {{n}} cells)",
+               f"source: {nums.label}  ·  strict scoring")
 
-# ── FIGURE (strict vs tolerant silent-error) — Spider in-contract, 5 systems ──
-# Paired bars: strict s47 vs tie-tolerant s47t silent-error per system. Makes the
-# GDC 11.1%→3.7% ranking-tie gap (§5.2) visible; GDC's tolerant bar is lowest of five.
-STRICT_C = "#b8b8b8"     # muted gray — strict (as-scored)
-TOL_C = "#0072B2"        # deep blue — tolerant, GDC's signature color
-fig, ax = plt.subplots(figsize=(7.0, 4.0))
-w = 0.38; fSTrec = []
-for i, s in enumerate(SPIDER_ORDER):
-    strict = val(fig_table="Fig1/Fig2/Table3", system=s, metric="silent_wrong", scoring="strict")[0]
-    tol = val(fig_table="Fig1/Fig2/Table3", system=s, metric="silent_wrong", scoring="tolerant")[0]
-    is_gdc = s == "network"
-    ax.bar(i - w / 2, strict, w, color=STRICT_C, edgecolor="#9a9a9a", linewidth=0.8, zorder=3)
-    ax.bar(i + w / 2, tol, w, color=TOL_C, edgecolor="#004c77", linewidth=0.8, zorder=3)
-    ax.text(i - w / 2, strict + 0.5, f"{strict:.1f}", ha="center", va="bottom", fontsize=8.2, color=INK)
-    ax.text(i + w / 2, tol + 0.5, f"{tol:.1f}", ha="center", va="bottom", fontsize=8.2,
-            color=NETWORK, fontweight=("bold" if is_gdc else "normal"))
-    fSTrec.append([s, strict, tol])
-xt = list(range(len(SPIDER_ORDER)))
-ax.set_xticks(xt)
-ax.set_xticklabels([(LABELS[s] + "\n(tie-driven)" if s == "network" else LABELS[s]) for s in SPIDER_ORDER])
-for lab, s in zip(ax.get_xticklabels(), SPIDER_ORDER):
-    if s == "network": lab.set_fontweight("bold"); lab.set_color(NETWORK)
-ax.set_ylabel("in-contract silent-error (%)"); ax.set_ylim(0, max(v[1] for v in fSTrec) * 1.22)
-ax.set_title("Spider in-contract silent-error: strict vs tie-tolerant (135 cells)", fontweight="bold")
-ax.legend([Patch(color=STRICT_C, ec="#9a9a9a"), Patch(color=TOL_C, ec="#004c77")],
-          ["strict (s47)", "tie-tolerant (s47t)"], frameon=False, loc="upper left")
-fig.subplots_adjust(bottom=0.20)
-footnote(fig, "   ·  s47 vs s47t  ·  lower is better  ·  GDC gap = 2 ranking-tie questions (world_13, bike_06)")
-save(fig, "fig_strict_vs_tolerant_silent")
-write_slice("fig_strict_vs_tolerant_silent", ["system", "silent_strict_pct", "silent_tolerant_pct"], fSTrec)
 
-print("figures written to reports/figures/:")
-for p in sorted(OUT.glob("fig*")):
-    print("  ", p.name)
+def fig6_strict_silent(nums, man, out):
+    fig_spider(nums, man, out, "Figure 6", "fig2_silent_error", "strict", "silent_wrong",
+               "silent-error rate (%)", f"Spider {SCOPE} silent-error (pooled, {{n}} cells)",
+               f"source: {nums.label}  ·  strict scoring   ·  lower is better")
 
-# ════════════════════════════ TABLES (markdown + latex) ═════════════════════
-def emit_table(name, headers, rows, caption, label, align=None):
-    align = align or ("l" + "r" * (len(headers) - 1))
-    md = ["| " + " | ".join(headers) + " |", "|" + "|".join("---" for _ in headers) + "|"]
-    md += ["| " + " | ".join(str(c) for c in r) + " |" for r in rows]
-    (OUT / f"{name}.md").write_text("\n".join(md) + f"\n\n*{caption}*\n")
-    tex = [r"\begin{table}[t]", r"\centering", f"\\caption{{{caption}}}", f"\\label{{{label}}}",
-           f"\\begin{{tabular}}{{{align}}}", r"\toprule",
-           " & ".join(h.replace("%", r"\%").replace("_", r"\_") for h in headers) + r" \\", r"\midrule"]
-    for r in rows:
-        tex.append(" & ".join(str(c).replace("%", r"\%").replace("_", r"\_") for c in r) + r" \\")
-    tex += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
-    (OUT / f"{name}.tex").write_text("\n".join(tex) + "\n")
-    return md
 
-CAP = "Source: reports/paper\\_numbers.csv; comparator s47 (strict)."
-SYS_ALL = ["network", "planner", "react", "code_agent", "text_to_sql"]
+# ════════════════════════════ Figure 7: table-coverage instruction ═══════════
+# Tick text under each database. A description of each database's briefing, not a
+# number; it is not in the CSV.
+BRIEFING = {"wta_1": "phantom-table\nbriefing", "world_1": "phantom-table\nbriefing",
+            "bike_1": "honest single-\ntable briefing"}
 
-# ── Table 1 — risk + employee per-tier (acc / silent), 5 systems ────────────
-SYN_TIERS = [("T1_single_op", "T1"), ("T2_two_ops", "T2"), ("T3_three_ops", "T3"),
-             ("T4_business_rule_multi_op", "T4"), ("T5_high_complexity", "T5"),
-             ("house_vocab", "house-vocab")]
-TIER_ROWS = {"risk": SYN_TIERS + [RISK_BOUNDARY_TIER],
-             "employee": SYN_TIERS + [("out_of_range", "out-of-range")]}
-t1_rows_flat = []
-for dom in (("risk", "employee") if HAS_RISK else ("employee",)):
-    rows_md = []
-    for tg, tlab in TIER_ROWS[dom]:
-        cells = [tlab]
-        for s in SYS_ALL:
-            a = maybe(fig_table="Table1", domain=dom, system=s, tier_group=tg, scoring="strict", metric="accuracy")
-            sw = maybe(fig_table="Table1", domain=dom, system=s, tier_group=tg, scoring="strict", metric="silent_wrong")
-            if a and a["denominator"] not in ("0", "", None):
-                cells.append(f"{a['value_pct']} / {sw['value_pct'] if sw else '-'}")
-            else:
-                cells.append("--")
-            t1_rows_flat.append([dom, tg, s, a["value_pct"] if a else None,
-                                 sw["value_pct"] if sw else None,
-                                 a["numerator"] if a else 0, a["denominator"] if a else 0])
-        rows_md.append(cells)
-    emit_table(f"table1_{dom}", ["tier"] + [LABELS[s] for s in SYS_ALL], rows_md,
-               f"{dom} per-tier accuracy \\% / silent-error \\%, five systems. {CAP}",
-               f"tab:table1_{dom}")
-write_slice("table1_synthetic", ["domain", "tier", "system", "accuracy_pct", "silent_wrong_pct", "numerator", "denominator"], t1_rows_flat)
 
-# ── Table 2 — cross-domain in-contract summary ──────────────────────────────
-def strongest_baseline(get):
-    best = None
-    for s in SYS_ALL:
-        if s == "network": continue
-        a = get(s)
-        if a is None: continue
-        if best is None or a[0] > best[1]: best = (s, a[0])
-    return best
-t2_rows = []
-# risk / employee from Table2; spider from Fig1/2/Table3 (strict)
-for dom, ft, group in (([("risk", "Table2", RISK_IN_CONTRACT_GROUP)] if HAS_RISK else []) +
-                       [("employee", "Table2", "in_contract_answer"),
-                        ("spider_pooled", "Fig1/Fig2/Table3", "in_contract_answer")]):
-    sel = dict(fig_table=ft, domain=dom, tier_group=group, scoring="strict")
-    na, nn, nd = val(system="network", metric="accuracy", **sel)
-    ns = val(system="network", metric="silent_wrong", **sel)[0]
-    def geta(s, sel=sel):
-        r = maybe(system=s, metric="accuracy", **sel)
-        return (float(r["value_pct"]),) if r and r["value_pct"] not in (None, "") else None
-    sb = strongest_baseline(geta)
-    sbs = val(system=sb[0], metric="silent_wrong", **sel)[0]
-    domlab = {"risk": "risk", "employee": "employee", "spider_pooled": "Spider"}[dom] + f" ({nd})"
-    t2_rows.append([domlab, f"{na}", f"{ns}", f"{LABELS[sb[0]]} ({sb[1]} / {sbs})"])
-emit_table("table2_crossdomain", ["domain (cells)", "GDC acc %", "GDC silent %", "strongest baseline (acc / silent)"],
-           t2_rows, f"Cross-domain in-contract: GDC vs the strongest baseline per domain. {CAP}", "tab:crossdomain")
+def fig7_s40(nums, man, out):
+    figure, file = "Figure 7", "fig4_s40_refusal"
+    fig, ax = plt.subplots(figsize=(6.6, 3.9))
+    w, rec, tops = 0.36, [], []
+    for i, dom in enumerate(SPIDER_DOMAINS):
+        r_off = man.take(figure, file, dom, "instruction off", oos_register(dom, "off"))
+        r_on = man.take(figure, file, dom, "instruction on", oos_register(dom, "on"))
+        off, on = fv(r_off), fv(r_on)
+        lift = round(on - off, 1)       # the difference of the two printed values
+        exact = 100 * (int(r_on["numerator"]) / int(r_on["denominator"])
+                       - int(r_off["numerator"]) / int(r_off["denominator"]))
+        ax.bar(i - w / 2, off, w, color=S40["off"], edgecolor="#9a9a9a", linewidth=0.8, zorder=3)
+        ax.bar(i + w / 2, on, w, color=S40["on"], edgecolor="#004c77", linewidth=0.8, zorder=3)
+        ax.text(i - w / 2, off + 1.3, f"{off:.1f}", ha="center", va="bottom", fontsize=8.5, color=INK)
+        ax.text(i + w / 2, on + 1.3, f"{on:.1f}", ha="center", va="bottom", fontsize=8.5,
+                color=NETWORK, fontweight="bold")
+        ax.annotate(f"{lift:+.1f}", xy=(i, max(off, on) + 7), ha="center", fontsize=8.5, color=MUTED)
+        tops.append(max(off, on) + 7)
+        rec.append([dom, off, on, lift, round(exact, 2),
+                    f"{r_off['numerator']}/{r_off['denominator']}", f"{r_on['numerator']}/{r_on['denominator']}"])
+    ax.set_xticks(range(len(SPIDER_DOMAINS)))
+    ax.set_xticklabels([f"{d}\n{BRIEFING[d]}" for d in SPIDER_DOMAINS], fontsize=8.2)
+    ax.set_ylabel("out-of-scope refusal accuracy (%)")
+    ax.set_ylim(0, max(90, 10 * math.ceil((max(tops) + 6) / 10)))
+    ax.set_title("Out-of-scope refusal: table-coverage instruction off vs on, per Spider domain",
+                 fontweight="bold")
+    ax.legend([Patch(color=S40["off"]), Patch(color=S40["on"])], ["instruction off", "instruction on"],
+              frameon=False, loc="upper left")
+    fig.subplots_adjust(bottom=0.30)
+    footnote(fig, f"source: {nums.label}  ·  strict scoring")
+    save(fig, out, file)
+    write_slice(out, file, ["domain", "s40off_pct", "s40on_pct", "lift_pts", "lift_pts_exact",
+                            "s40off_n", "s40on_n"], rec)
 
-# ── Table 3 — Spider in-contract, 5 systems, acc + silent (strict + tolerant) ─
-t3_rows = []
-for s in SPIDER_ORDER:
-    a = val(fig_table="Fig1/Fig2/Table3", system=s, metric="accuracy", scoring="strict")
-    ss = val(fig_table="Fig1/Fig2/Table3", system=s, metric="silent_wrong", scoring="strict")[0]
-    st = val(fig_table="Fig1/Fig2/Table3", system=s, metric="silent_wrong", scoring="tolerant")[0]
-    t3_rows.append([LABELS[s], f"{a[0]}", f"{a[1]}/{a[2]}", f"{ss}", f"{st}"])
-emit_table("table3_spider_incontract",
-           ["system", "accuracy %", "n/N", "silent-error % (strict)", "silent-error % (tolerant)"],
-           t3_rows, f"Spider in-contract, five systems: accuracy and silent-error (strict s47 and tie-tolerant s47t). {CAP}",
-           "tab:spider")
 
-if HAS_RISK:
-    # Everything below is derived from the risk domain only (cost frontier +
-    # Haiku model-robustness). Skipped entirely when risk data is absent.
-    # ── Fig 5 — cost frontier, two panels: accuracy AND silent-error vs cost ─────
-    # A single accuracy-only panel lets GDC's honest T5 refusals (which cost it raw accuracy
-    # but not silent-error) misread as "planner beats GDC" — Table 4 shows GDC leads planner
-    # on silent-error in every domain. Two panels side by side so neither metric is read alone.
-    def cost_of(system, metric):
-        return float(one(fig_table="CostFrontier", system=system, tier_group=RISK_IN_CONTRACT_GROUP,
-                         metric=metric)["value_pct"])
-    def t2_of(system, metric):
-        return float(one(fig_table="Table2", domain="risk", system=system, tier_group=RISK_IN_CONTRACT_GROUP,
-                         metric=metric)["value_pct"])
-    COST_SYS = ["network", "react", "planner", "code_agent", "text_to_sql"]
-    by_sys = {}
-    for s in COST_SYS:
-        by_sys[s] = dict(acc=cost_of(s, "accuracy"), tok=cost_of(s, "mean_tokens_per_query"),
-                          dollar=cost_of(s, "mean_cost_usd_per_query"), calls=cost_of(s, "mean_llm_calls_per_query"),
-                          silent=t2_of(s, "silent_wrong"))
+# ════════════════════════════ Figure 8: risk cost frontier ═══════════════════
+F8_ORDER = ["network", "react", "planner", "code_agent", "text_to_sql"]
 
-    fig, (axL, axR) = plt.subplots(1, 2, figsize=(13.2, 4.8))
-    f5rec = []
+# Preferred label position per system and panel: (dx pt, dy pt, ha, va, leader).
+# Layout only. auto placement tries these first, then CANDIDATES, and takes the
+# first position whose text box stays inside the axes and clear of every marker
+# and every label already placed.
+F8_PREFS = {
+    "acc": {
+        "network": (0, -22, "center", "top", True),
+        "react": (-12, 0, "right", "center", False),
+        "planner": (10, 5, "left", "bottom", False),
+        "code_agent": (0, 14, "center", "bottom", False),
+        "text_to_sql": (10, 0, "left", "center", False),
+    },
+    "silent": {
+        "network": (16, -26, "left", "top", True),
+        "react": (-12, 0, "right", "center", False),
+        "planner": (12, 0, "left", "center", False),
+        "code_agent": (0, 14, "center", "bottom", False),
+        "text_to_sql": (-10, 22, "left", "bottom", True),
+    },
+}
+CANDIDATES = [
+    (12, 6, "left", "bottom", False), (-12, 6, "right", "bottom", False),
+    (12, -6, "left", "top", False), (-12, -6, "right", "top", False),
+    (0, 14, "center", "bottom", False), (0, -14, "center", "top", False),
+    (16, 22, "left", "bottom", True), (-16, 22, "right", "bottom", True),
+    (16, -26, "left", "top", True), (-16, -26, "right", "top", True),
+    (0, 32, "center", "bottom", True), (0, -34, "center", "top", True),
+    (28, 0, "left", "center", True), (-28, 0, "right", "center", True),
+]
+# Axis ranges, widened only when a value falls outside them.
+F8_XLIM, F8_ACC_YLIM, F8_SIL_YLIM = (0.0025, 0.05), (80.0, 101.0), (0.0, 7.5)
 
-    def plot_panel(ax, metric, ylabel, title, lbl_off, ylim, ann_fn):
-        for s in COST_SYS:
-            y = by_sys[s][metric]; dollar = by_sys[s]["dollar"]
-            is_net = s == "network"
-            ax.scatter([dollar], [y], s=190 if is_net else 120, color=NETWORK if is_net else BASELINE,
-                       edgecolor="#004c77" if is_net else "#888888", linewidth=1.4, zorder=4)
-            dx, dy, ha = lbl_off[s]
-            ax.annotate(f"{LABELS[s]} ({by_sys[s]['calls']:g} call{'s' if by_sys[s]['calls'] != 1 else ''}/q, {by_sys[s]['tok']:,.0f} tok/q)",
-                        (dollar, y), textcoords="offset points", xytext=(dx, dy),
-                        ha=ha, fontsize=8, color=(NETWORK if is_net else INK),
-                        fontweight=("bold" if is_net else "normal"))
-        ax.set_xscale("log")
-        ax.set_xlabel("mean cost / query ($, log scale; lower = cheaper)")
-        ax.set_ylabel(ylabel)
-        ax.set_ylim(*ylim); ax.set_xlim(0.0022, 0.075)
-        xticks = [0.0025, 0.005, 0.01, 0.02, 0.04, 0.07]
-        ax.set_xticks(xticks)
-        ax.set_xticklabels([f"${v:.3f}" if v < 0.01 else f"${v:.2f}" for v in xticks])
-        ax.minorticks_off()
-        ax.set_title(title, fontweight="bold")
-        ann_fn(ax)
 
-    # left — accuracy (higher = better). network/planner cluster within ~1.1x $ (log-crowded);
-    # labels stacked to the right of the cluster instead of beside their own points.
-    LBL_ACC = {"network": (55, 10, "left"), "planner": (55, -14, "left"),
-               "text_to_sql": (12, 14, "left"), "code_agent": (0, -30, "center"),
-               "react": (0, 16, "center")}
-    def ann_acc(ax):
-        tok_ratio = by_sys["react"]["tok"] / by_sys["network"]["tok"]
-        usd_ratio = by_sys["react"]["dollar"] / by_sys["network"]["dollar"]
-        acc_gap = by_sys["react"]["acc"] - by_sys["network"]["acc"]
-        ax.annotate(f"GDC within {acc_gap:.1f} points of react's accuracy\nat {tok_ratio:.1f}x fewer tokens / {usd_ratio:.1f}x lower cost",
-                    xy=(by_sys["network"]["dollar"], by_sys["network"]["acc"]), xytext=(0.019, 78),
-                    fontsize=8, color=MUTED, ha="left",
-                    arrowprops=dict(arrowstyle="->", color=MUTED, lw=1, connectionstyle="arc3,rad=0.2"))
-    plot_panel(axL, "acc", "risk in-contract accuracy (%)", "Accuracy vs cost", LBL_ACC, (64, 108), ann_acc)
+def cost_frontier_points(nums, group, man=None, figure="Figure 8", file="fig8_cost_frontier"):
+    """{system: dict(cost, acc, silent)}. Cost from CostFrontier, accuracy and silent-error
+    from Table2, both over `group`. The two tables' accuracy must agree."""
+    take = (lambda panel, s, sel: man.take(figure, file, panel, s, sel)) if man else (lambda p, s, sel: nums.row(sel))
+    pts = {}
+    for s in F8_ORDER:
+        cost = take("x: cost", s, risk_cost(s, "mean_cost_usd_per_query", group))
+        acc = take("left: accuracy", s, risk_outcome(s, "accuracy", group))
+        sil = take("right: silent-error", s, risk_outcome(s, "silent_wrong", group))
+        cf_acc = nums.row(risk_cost(s, "accuracy", group))
+        if (cf_acc["value_pct"], cf_acc["numerator"], cf_acc["denominator"]) != \
+                (acc["value_pct"], acc["numerator"], acc["denominator"]):
+            raise LookupError(f"{figure}: {s} accuracy differs between CostFrontier "
+                              f"({cf_acc['value_pct']} {cf_acc['numerator']}/{cf_acc['denominator']}) and Table2 "
+                              f"({acc['value_pct']} {acc['numerator']}/{acc['denominator']}) for {group}")
+        pts[s] = dict(cost=fv(cost), acc=fv(acc), silent=fv(sil), n=int(acc["denominator"]),
+                      tokens=nums.value(risk_cost(s, "mean_tokens_per_query", group)),
+                      calls=nums.value(risk_cost(s, "mean_llm_calls_per_query", group)))
+    return pts
 
-    # right — silent-error (lower = better; note the axis is flipped in sense from the left
-    # panel, so a system "leading" here sits toward the BOTTOM, not the top). network,
-    # text_to_sql and planner all sit within ~1.2x in $ and 1 point of each other — a three-way
-    # tight, log-crowded cluster; stack their labels to the right in silent-error order, same
-    # technique as the accuracy panel's network/planner cluster, so none collides with the
-    # y-axis, each other, or the frontier line.
-    LBL_SIL = {"network": (55, 34, "left"), "text_to_sql": (55, 12, "left"), "planner": (55, -10, "left"),
-               "code_agent": (0, 16, "center"), "react": (0, -30, "center")}
-    def ann_sil(ax):
-        silent_gap_planner = by_sys["planner"]["silent"] - by_sys["network"]["silent"]
-        ax.annotate(f"GDC {silent_gap_planner:.1f} points lower silent-error than planner\n(ties text-to-SQL at {by_sys['network']['silent']:.1f}%; leads code-agent by "
-                    f"{by_sys['code_agent']['silent'] - by_sys['network']['silent']:.1f} pts)",
-                    xy=(by_sys["code_agent"]["dollar"], by_sys["code_agent"]["silent"]), xytext=(0.0072, 3.7),
-                    fontsize=8, color=MUTED, ha="left",
-                    arrowprops=dict(arrowstyle="->", color=MUTED, lw=1, connectionstyle="arc3,rad=-0.15"))
-    plot_panel(axR, "silent", "risk in-contract silent-error (%)", "Silent-error vs cost", LBL_SIL, (0, 7.5), ann_sil)
 
-    fig.suptitle("Cost frontier, risk in-contract (Sonnet): accuracy and silent-error both plotted against $/query\n"
-                 "because accuracy alone hides that GDC's small accuracy dip vs planner is honest refusal, not a worse answer (Table 4)",
-                 fontsize=9.5, color=MUTED, y=1.03)
-    fig.subplots_adjust(bottom=0.16, wspace=0.28, top=0.86)
-    footnote(fig, "   ·  left: GDC dominates code-agent on both axes, cheaper than react at comparable accuracy, text-to-SQL cheaper at lower accuracy  ·  "
-                  "right: GDC leads planner and code-agent, ties text-to-SQL, react has fewer silent-errors at 12.1x the cost",
-             base="source: reports/paper_numbers.csv  ·  strict scoring")
-    save(fig, "fig5_cost_frontier")
-    for s in COST_SYS:
-        f5rec.append([s, by_sys[s]["acc"], by_sys[s]["silent"], by_sys[s]["tok"], by_sys[s]["dollar"], by_sys[s]["calls"]])
-    write_slice("fig5_cost_frontier", ["system", "accuracy_pct", "silent_wrong_pct", "mean_tokens_per_q", "mean_usd_per_q", "mean_calls_per_q"], f5rec)
+def _widen(lim, values, pad, log=False):
+    lo, hi = lim
+    vmin, vmax = min(values), max(values)
+    if log:
+        if vmin < lo:
+            lo = vmin / (1 + pad)
+        if vmax > hi:
+            hi = vmax * (1 + pad)
+    else:
+        if vmin < lo:
+            lo = math.floor(vmin - pad)
+        if vmax > hi:
+            hi = math.ceil(vmax + pad)
+    return lo, hi
 
-    # ── Fig 5 (clean) — same two panels, axes/gridlines/markers only: no per-point
-    # labels, no annotation callouts, no title, no source footer. GDC stays visually
-    # distinguished (fill color) since that is a data encoding, not text.
-    def plot_panel_clean(ax, metric, ylabel, ylim):
-        for s in COST_SYS:
-            y = by_sys[s][metric]; dollar = by_sys[s]["dollar"]
-            is_net = s == "network"
-            ax.scatter([dollar], [y], s=190 if is_net else 120, color=NETWORK if is_net else BASELINE,
-                       edgecolor="#004c77" if is_net else "#888888", linewidth=1.4, zorder=4)
-        ax.set_xscale("log")
-        ax.set_xlabel("mean cost / query ($, log scale)")
-        ax.set_ylabel(ylabel)
-        ax.set_ylim(*ylim); ax.set_xlim(0.0022, 0.075)
-        xticks = [0.0025, 0.005, 0.01, 0.02, 0.04, 0.07]
-        ax.set_xticks(xticks)
-        ax.set_xticklabels([f"${v:.3f}" if v < 0.01 else f"${v:.2f}" for v in xticks])
-        ax.minorticks_off()
 
-    fig_c, (axLc, axRc) = plt.subplots(1, 2, figsize=(13.2, 4.8))
-    plot_panel_clean(axLc, "acc", "risk in-contract accuracy (%)", (64, 108))
-    plot_panel_clean(axRc, "silent", "risk in-contract silent-error (%)", (0, 7.5))
-    fig_c.subplots_adjust(bottom=0.16, wspace=0.28, top=0.94)
-    save(fig_c, "fig5_cost_frontier_clean")
+def _annotate(ax, name, xy, spec, is_gdc):
+    dx, dy, ha, va, leader = spec
+    color = NETWORK if is_gdc else F8_LABEL_GRAY
+    return ax.annotate(
+        LABELS[name], xy=xy, xytext=(dx, dy), textcoords="offset points", ha=ha, va=va,
+        fontsize=11, color=color, fontweight="bold" if is_gdc else "normal",
+        arrowprops=dict(arrowstyle="-", color=color, linewidth=0.8, shrinkA=3, shrinkB=4) if leader else None,
+        zorder=4)
 
-    # ── Fig 6 — Haiku model-robustness, tier progression (network vs planner) ─────
-    H_TIERS = [("T1_single_op", "T1"), ("T2_two_ops", "T2"), ("T3_three_ops", "T3"),
-               ("T4_business_rule_multi_op", "T4"), ("T5_high_complexity", "T5"), ("house_vocab", "hv")]
-    def hk(model, system, tier, metric):
-        r = maybe(fig_table=f"Haiku_{model}", system=system, tier_group=tier, metric=metric)
-        return float(r["value_pct"]) if r else None
+
+def _text_box(ann, renderer):
+    """The label's text box in display units, without its leader line."""
+    ann.update_positions(renderer)
+    return Text.get_window_extent(ann, renderer)
+
+
+def _place_labels(fig, ax, key, pts, marker_r):
+    """Deterministic greedy placement: GDC first, then F8_ORDER."""
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    axbox = ax.get_window_extent(renderer)
+    obstacles = []
+    for s in F8_ORDER:
+        x, y = ax.transData.transform((pts[s]["cost"], pts[s][key]))
+        r = marker_r[s] * fig.dpi / 72
+        obstacles.append(Bbox([[x - r, y - r], [x + r, y + r]]))
+    placed = []
+    for s in F8_ORDER:
+        xy = (pts[s]["cost"], pts[s][key])
+        tried = [F8_PREFS[key][s]] + [c for c in CANDIDATES if c != F8_PREFS[key][s]]
+        chosen = None
+        for spec in tried:
+            ann = _annotate(ax, s, xy, spec, s == "network")
+            bb = _text_box(ann, renderer).padded(2)
+            inside = (bb.x0 >= axbox.x0 and bb.x1 <= axbox.x1 and bb.y0 >= axbox.y0 and bb.y1 <= axbox.y1)
+            if inside and not any(bb.overlaps(o) for o in obstacles + placed):
+                chosen = bb
+                break
+            ann.remove()
+        if chosen is None:
+            print(f"  warning: Figure 8 {key} panel: no clear spot for {LABELS[s]}; preferred position used",
+                  file=sys.stderr)
+            ann = _annotate(ax, s, xy, F8_PREFS[key][s], s == "network")
+            chosen = _text_box(ann, renderer)
+        placed.append(chosen)
+
+
+def draw_cost_frontier(pts, path, legacy=False):
+    """Two panels against mean $/query (log x): accuracy and silent-error. legacy=True
+    reproduces the 30 Aug render (fixed offsets, draw order, no GDC-on-top) and exists
+    only so a check can compare against that image byte for byte."""
+    with plt.rc_context():
+        matplotlib.rcdefaults()
+        plt.rcParams.update(FIG8_RC)
+        fig, (ax_acc, ax_sil) = plt.subplots(1, 2, figsize=(11, 4.8))
+        size = {s: (170 if s == "network" else 130) for s in F8_ORDER}
+        for ax, key in ((ax_acc, "acc"), (ax_sil, "silent")):
+            for s in F8_ORDER:
+                is_gdc = s == "network"
+                ax.scatter(pts[s]["cost"], pts[s][key], s=size[s], c=NETWORK if is_gdc else F8_GRAY,
+                           edgecolors="black" if is_gdc else ("none" if legacy else "white"),
+                           linewidths=1.3 if (is_gdc or legacy) else 0.8,
+                           zorder=3 if (legacy or not is_gdc) else 5)
+                if legacy:
+                    _annotate(ax, s, (pts[s]["cost"], pts[s][key]), F8_PREFS_LEGACY[key][s], is_gdc)
+            ax.set_xscale("log")
+            ax.set_xlabel("mean cost per query ($, log scale)")
+            ax.grid(True, which="major", axis="both", linestyle="-", linewidth=0.6, alpha=0.35, zorder=0)
+            ax.set_xlim(*(F8_XLIM if legacy else _widen(F8_XLIM, [p["cost"] for p in pts.values()], 0.15, log=True)))
+            ax.xaxis.set_minor_locator(mticker.NullLocator())
+            ax.xaxis.set_major_locator(mticker.FixedLocator([0.003, 0.01, 0.03]))
+            ax.xaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"${x:g}"))
+        ax_acc.set_title("accuracy (higher is better)", fontsize=13, pad=10)
+        ax_acc.set_ylabel("accuracy (%)")
+        ax_acc.set_ylim(*(F8_ACC_YLIM if legacy else _widen(F8_ACC_YLIM, [p["acc"] for p in pts.values()], 2)))
+        ax_sil.set_title("silent-error (lower is better)", fontsize=13, pad=10)
+        ax_sil.set_ylabel("silent-error (%)")
+        ax_sil.set_ylim(*(F8_SIL_YLIM if legacy else _widen(F8_SIL_YLIM, [p["silent"] for p in pts.values()], 1)))
+        fig.tight_layout()
+        if not legacy:
+            marker_r = {s: math.sqrt(size[s]) / 2 + 1 for s in F8_ORDER}
+            _place_labels(fig, ax_acc, "acc", pts, marker_r)
+            _place_labels(fig, ax_sil, "silent", pts, marker_r)
+        fig.savefig(path, dpi=200)
+        plt.close(fig)
+
+
+# The 30 Aug label offsets (scratch_figures/render_fig8.py), for the legacy check only.
+F8_PREFS_LEGACY = {
+    "acc": {"network": (0, -22, "center", "top", True), "react": (-12, 0, "right", "center", False),
+            "planner": (10, 5, "left", "bottom", False), "code_agent": (0, 14, "center", "bottom", False),
+            "text_to_sql": (10, 0, "left", "center", False)},
+    "silent": {"network": (16, -26, "left", "top", True), "react": (-12, 0, "right", "center", False),
+               "planner": (12, 6, "left", "bottom", False), "code_agent": (0, 14, "center", "bottom", False),
+               "text_to_sql": (-12, 13, "left", "bottom", True)},
+}
+
+
+def fig8_cost_frontier(nums, man, out, group, file="fig8_cost_frontier"):
+    pts = cost_frontier_points(nums, group, man, file=file)
+    draw_cost_frontier(pts, out / f"{file}.png")
+    write_slice(out, f"{file}_risk", ["system", "risk_group", "cells", "accuracy_pct", "silent_wrong_pct",
+                                      "mean_usd_per_q", "mean_tokens_per_q", "mean_calls_per_q"],
+                [[s, group, p["n"], p["acc"], p["silent"], p["cost"], p["tokens"], p["calls"]]
+                 for s, p in pts.items()])
+
+
+# ════════════════════════════ extras (not in the paper) ══════════════════════
+def extra_combined(nums, man, out, versions):
+    figure, file = "extra", "fig1_2_combined"
+    order = spider_order(nums)
+    fig, (axa, axb) = plt.subplots(1, 2, figsize=(10.2, 3.9))
+    spider_bars(axa, man, figure, file, "strict", "accuracy", "accuracy (%)", "Accuracy (higher better)",
+                order, panel="accuracy")
+    spider_bars(axb, man, figure, file, "strict", "silent_wrong", "silent-error (%)",
+                "Silent-error (lower better)", order, panel="silent-error")
+    n = common_denominator([nums.row(spider_in_scope(s, "strict", "accuracy")) for s in order], file)
+    for ax in (axa, axb):
+        for lab in ax.get_xticklabels():
+            lab.set_rotation(18)
+            lab.set_ha("right")
+    fig.suptitle(f"Spider {SCOPE}: accuracy vs silent-error, {len(order)} systems ({n} cells, {versions[0]})",
+                 fontweight="bold", fontsize=11)
+    fig.subplots_adjust(bottom=0.22, top=0.86, wspace=0.22)
+    footnote(fig, f"source: {nums.label}  ·  comparator {versions[0]} (strict)")
+    save(fig, out, file)
+
+
+def extra_network_tiers(nums, man, out, versions):
+    figure, file = "extra", "fig3_network_tiers"
+    tiers = [("answer", "answer"), ("out_of_scope_register_s40off", "out-of-scope\n(instr. off)"),
+             ("out_of_contract_aggregate", "aggregate\nboundary")]
+    fig, axes = plt.subplots(1, 3, figsize=(10.6, 4.1), sharey=True)
+    rec = []
+    for ax, dom in zip(axes, SPIDER_DOMAINS):
+        xs = list(range(len(tiers)))
+        get = {m: [fv(man.take(figure, file, dom, f"{tg} {m}", gdc_spider_tier(dom, tg, m))) for tg, _ in tiers]
+               for m in ("correct", "silent_wrong", "refused_should_answer")}
+        corr, sil, ref = get["correct"], get["silent_wrong"], get["refused_should_answer"]
+        ax.bar(xs, corr, 0.62, color=OUTCOME["correct"], zorder=3)
+        ax.bar(xs, sil, 0.62, bottom=corr, color=OUTCOME["silent_wrong"], zorder=3)
+        ax.bar(xs, ref, 0.62, bottom=[c + s for c, s in zip(corr, sil)], color=OUTCOME["refused"], zorder=3)
+        for x, (tg, _) in zip(xs, tiers):
+            if corr[x] >= 8:
+                ax.text(x, corr[x] / 2, f"{corr[x]:.0f}", ha="center", va="center", color="white",
+                        fontsize=8, fontweight="bold")
+            rec.append([dom, tg, corr[x], sil[x], ref[x]])
+        ax.set_xticks(xs)
+        ax.set_xticklabels([lab for _, lab in tiers], fontsize=8.5)
+        ax.set_title(dom, fontweight="bold")
+        ax.set_ylim(0, 108)
+        if ax is axes[0]:
+            ax.set_ylabel("GDC outcome share (%)")
+    axes[0].legend(handles=[Patch(color=OUTCOME["correct"], label="correct  (answer, or correct refusal on boundary tiers)"),
+                            Patch(color=OUTCOME["silent_wrong"], label="silent-wrong  (confident wrong answer)"),
+                            Patch(color=OUTCOME["refused"], label="refused")],
+                   loc="upper center", bbox_to_anchor=(1.75, -0.13), ncol=1, frameon=False, fontsize=8.2)
+    fig.suptitle("GDC outcome composition by tier, per Spider domain", fontweight="bold", fontsize=11.5, y=1.0)
+    fig.subplots_adjust(bottom=0.30)
+    footnote(fig, f"source: {nums.label}  ·  comparator {versions[0]} (strict)")
+    save(fig, out, file)
+    write_slice(out, file, ["domain", "tier", "correct_pct", "silent_wrong_pct", "refused_pct"], rec)
+
+
+def extra_strict_vs_tolerant(nums, man, out, versions):
+    figure, file = "extra", "fig_strict_vs_tolerant_silent"
+    order = spider_order(nums)
+    fig, ax = plt.subplots(figsize=(7.0, 4.0))
+    w, rec = 0.38, []
+    for i, s in enumerate(order):
+        rs = man.take(figure, file, "strict", s, spider_in_scope(s, "strict", "silent_wrong"))
+        rt = man.take(figure, file, "tolerant", s, spider_in_scope(s, "tolerant", "silent_wrong"))
+        strict, tol = fv(rs), fv(rt)
+        ax.bar(i - w / 2, strict, w, color=BASELINE, edgecolor="#9a9a9a", linewidth=0.8, zorder=3)
+        ax.bar(i + w / 2, tol, w, color=NETWORK, edgecolor="#004c77", linewidth=0.8, zorder=3)
+        ax.text(i - w / 2, strict + 0.5, f"{strict:.1f}", ha="center", va="bottom", fontsize=8.2, color=INK)
+        ax.text(i + w / 2, tol + 0.5, f"{tol:.1f}", ha="center", va="bottom", fontsize=8.2,
+                color=NETWORK, fontweight=("bold" if s == "network" else "normal"))
+        rec.append([s, strict, tol, int(rs["numerator"]), int(rt["numerator"]), int(rs["denominator"])])
+    ax.set_xticks(range(len(order)))
+    ax.set_xticklabels([LABELS[s] for s in order])
+    for lab, s in zip(ax.get_xticklabels(), order):
+        if s == "network":
+            lab.set_fontweight("bold")
+            lab.set_color(NETWORK)
+    n = rec[0][-1]
+    ax.set_ylabel(f"{SCOPE} silent-error (%)")
+    ax.set_ylim(0, max(max(r[1], r[2]) for r in rec) * 1.22 or 1)
+    ax.set_title(f"Spider {SCOPE} silent-error: strict vs tie-tolerant ({n} cells)", fontweight="bold")
+    ax.legend([Patch(color=BASELINE, ec="#9a9a9a"), Patch(color=NETWORK, ec="#004c77")],
+              [f"strict ({versions[0]})", f"tie-tolerant ({versions[1]})"], frameon=False, loc="upper left")
+    fig.subplots_adjust(bottom=0.20)
+    gdc = next(r for r in rec if r[0] == "network")
+    footnote(fig, f"source: {nums.label}  ·  {versions[0]} vs {versions[1]}  ·  lower is better  ·  "
+                  f"GDC strict - tolerant = {gdc[3] - gdc[4]} of {n} cells")
+    save(fig, out, file)
+    write_slice(out, file, ["system", "silent_strict_pct", "silent_tolerant_pct", "silent_strict_n",
+                            "silent_tolerant_n", "cells"], rec)
+
+
+def extra_haiku(nums, man, out, versions):
+    figure, file = "extra", "fig6_haiku_robustness"
     xs = list(range(len(H_TIERS)))
     fig, (axa, axb) = plt.subplots(1, 2, figsize=(11, 4.3), sharex=True)
     styles = [("network", "sonnet", NETWORK, "-", "o", "GDC · Sonnet"),
               ("network", "haiku", NETWORK, "--", "o", "GDC · Haiku"),
               ("planner", "sonnet", "#888888", "-", "s", "planner · Sonnet"),
               ("planner", "haiku", "#888888", "--", "s", "planner · Haiku")]
-    f6rec = []
+    rec, sources = [], set()
     for metric, ax, ylab in [("accuracy", axa, "accuracy (%)"), ("silent_wrong", axb, "silent-error (%)")]:
         for sys_, model, color, ls, mk, lab in styles:
-            ys = [hk(model, sys_, t, metric) for t, _ in H_TIERS]
+            rows = [man.take(figure, file, metric, f"{sys_} {model}", haiku_panel(model, sys_, t, metric))
+                    for t, _ in H_TIERS]
+            sources |= {r["source"] for r in rows}
+            ys = [fv(r) for r in rows]
             ax.plot(xs, ys, ls=ls, marker=mk, color=color, linewidth=2, markersize=6,
-                    markerfacecolor=(color if model == "sonnet" else "white"),
-                    markeredgecolor=color, label=lab if metric == "accuracy" else None, zorder=3)
-            if metric == "silent_wrong":
-                for x, t in zip(xs, [t for t, _ in H_TIERS]):
-                    f6rec.append([sys_, model, t, hk(model, sys_, t, "accuracy"), hk(model, sys_, t, "silent_wrong")])
-        ax.set_xticks(xs); ax.set_xticklabels([lab for _, lab in H_TIERS])
-        ax.set_ylabel(ylab); ax.set_title(("Accuracy" if metric == "accuracy" else "Silent-error") +
-                                           " by tier (Sonnet solid, Haiku dashed)", fontsize=10.5, fontweight="bold")
+                    markerfacecolor=(color if model == "sonnet" else "white"), markeredgecolor=color,
+                    label=lab if metric == "accuracy" else None, zorder=3)
+            for (t, _), r in zip(H_TIERS, rows):
+                rec.append([sys_, model, t, metric, fv(r), int(r["numerator"]), int(r["denominator"])])
+        ax.set_xticks(xs)
+        ax.set_xticklabels([lab for _, lab in H_TIERS])
+        ax.set_ylabel(ylab)
+        ax.set_title(("Accuracy" if metric == "accuracy" else "Silent-error") + " by tier (Sonnet solid, Haiku dashed)",
+                     fontsize=10.5, fontweight="bold")
         ax.set_ylim(-4, 104)
-    # annotate the two honest halves on the silent-error panel
-    axb.annotate("GDC robust\non T5 depth", xy=(4, 2.7), xytext=(2.2, 20), fontsize=8, color=NETWORK,
-                 arrowprops=dict(arrowstyle="->", color=NETWORK, lw=1))
-    axb.annotate("GDC's grounding tiers\n(T4, house-vocab) spike\nunder Haiku", xy=(5, 50), xytext=(2.6, 62),
-                 fontsize=8, color="#c25400", arrowprops=dict(arrowstyle="->", color="#c25400", lw=1))
     axa.legend(frameon=False, fontsize=8.2, loc="lower left")
     fig.suptitle("Model robustness under a weaker emitter: risk, GDC vs planner, Sonnet vs Haiku",
                  fontweight="bold", fontsize=11.5)
     fig.subplots_adjust(bottom=0.12, top=0.86, wspace=0.18)
-    footnote(fig, "   ·  Haiku from results_haiku.rescored.jsonl; GDC+planner emissions replayed on the current engine")
-    save(fig, "fig6_haiku_robustness")
-    write_slice("fig6_haiku_robustness", ["system", "model", "tier", "accuracy_pct", "silent_wrong_pct"], f6rec)
+    footnote(fig, f"source: {nums.label}  ·  comparator {versions[0]} (strict)  ·  " + "; ".join(sorted(sources)))
+    save(fig, out, file)
+    write_slice(out, f"{file}_risk", ["system", "model", "tier", "metric", "value_pct", "numerator", "denominator"], rec)
 
-    # ── Table 4 — cost frontier · Table 5 — Haiku per-tier ───────────────────────
-    t4 = [[LABELS[s], cost_of(s, "accuracy"), f"{cost_of(s,'mean_cost_usd_per_query'):.5f}",
-           f"{cost_of(s,'mean_tokens_per_query'):.0f}", f"{cost_of(s,'mean_llm_calls_per_query'):g}"] for s in COST_SYS]
-    emit_table("table4_cost_frontier", ["system", "accuracy %", "mean \\$/query", "mean tokens/query", "mean LLM calls/query"],
-               t4, f"Accuracy vs cost, risk in-contract (Sonnet). GDC dominates code\\_agent on both axes; "
-                   f"cheaper than react at comparable accuracy; text\\_to\\_sql is cheaper at lower accuracy. {CAP}", "tab:cost")
-    t5 = []
-    for tg, tl in H_TIERS:
-        t5.append([tl, f"{hk('sonnet','network',tg,'accuracy')} / {hk('sonnet','network',tg,'silent_wrong')}",
-                   f"{hk('haiku','network',tg,'accuracy')} / {hk('haiku','network',tg,'silent_wrong')}",
-                   f"{hk('sonnet','planner',tg,'accuracy')} / {hk('sonnet','planner',tg,'silent_wrong')}",
-                   f"{hk('haiku','planner',tg,'accuracy')} / {hk('haiku','planner',tg,'silent_wrong')}"])
+
+# ════════════════════════════ tables (markdown + latex) ══════════════════════
+def write_tables(nums, out, versions, risk, risk_group):
+    cap = f"Source: reports/paper\\_numbers.csv; comparator {versions[0]} (strict)."
+    order = spider_order(nums)
+
+    def emit_table(name, headers, rows, caption, label, align=None):
+        align = align or ("l" + "r" * (len(headers) - 1))
+        md = ["| " + " | ".join(headers) + " |", "|" + "|".join("---" for _ in headers) + "|"]
+        md += ["| " + " | ".join(str(c) for c in r) + " |" for r in rows]
+        (out / f"{name}.md").write_text("\n".join(md) + f"\n\n*{caption}*\n")
+        tex = [r"\begin{table}[t]", r"\centering", f"\\caption{{{caption}}}", f"\\label{{{label}}}",
+               f"\\begin{{tabular}}{{{align}}}", r"\toprule",
+               " & ".join(h.replace("%", r"\%").replace("_", r"\_") for h in headers) + r" \\", r"\midrule"]
+        for r in rows:
+            tex.append(" & ".join(str(c).replace("%", r"\%").replace("_", r"\_") for c in r) + r" \\")
+        tex += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
+        (out / f"{name}.tex").write_text("\n".join(tex) + "\n")
+
+    # Table 1: per-tier accuracy / silent-error, five systems
+    syn = [("T1_single_op", "T1"), ("T2_two_ops", "T2"), ("T3_three_ops", "T3"),
+           ("T4_business_rule_multi_op", "T4"), ("T5_high_complexity", "T5"), ("house_vocab", "house-vocab")]
+    tier_rows = {"risk": syn + [("algebra_boundary", "algebra-boundary")],
+                 "employee": syn + [("out_of_range", "out-of-range")]}
+    flat = []
+    for dom in (("risk", "employee") if risk else ("employee",)):
+        rows_md = []
+        for tg, tlab in tier_rows[dom]:
+            cells = [tlab]
+            for s in SYS_ALL:
+                a = nums.maybe(fig_table="Table1", domain=dom, system=s, tier_group=tg, scoring="strict", metric="accuracy")
+                sw = nums.maybe(fig_table="Table1", domain=dom, system=s, tier_group=tg, scoring="strict", metric="silent_wrong")
+                if a and a["denominator"] not in ("0", "", None):
+                    cells.append(f"{a['value_pct']} / {sw['value_pct'] if sw else '-'}")
+                else:
+                    cells.append("--")
+                flat.append([dom, tg, s, a["value_pct"] if a else None, sw["value_pct"] if sw else None,
+                             a["numerator"] if a else 0, a["denominator"] if a else 0])
+            rows_md.append(cells)
+        emit_table(f"table1_{dom}", ["tier"] + [LABELS[s] for s in SYS_ALL], rows_md,
+                   f"{dom} per-tier accuracy \\% / silent-error \\%, five systems. {cap}", f"tab:table1_{dom}")
+    write_slice(out, "table1_synthetic" + ("_risk" if risk else ""),
+                ["domain", "tier", "system", "accuracy_pct", "silent_wrong_pct", "numerator", "denominator"], flat)
+
+    # Table 2: cross-domain in-scope summary, GDC vs the strongest baseline
+    t2 = []
+    doms = ([("risk", "Table2", risk_group)] if risk else []) + \
+        [("employee", "Table2", "in_contract_answer"), ("spider_pooled", "Fig1/Fig2/Table3", "in_contract_answer")]
+    for dom, ft, group in doms:
+        sel = dict(fig_table=ft, domain=dom, tier_group=group, scoring="strict")
+        na, _, nd = nums.val(system="network", metric="accuracy", **sel)
+        ns = nums.val(system="network", metric="silent_wrong", **sel)[0]
+        best = None
+        for s in SYS_ALL:
+            if s == "network":
+                continue
+            r = nums.maybe(system=s, metric="accuracy", **sel)
+            if r and r["value_pct"] not in (None, "") and (best is None or float(r["value_pct"]) > best[1]):
+                best = (s, float(r["value_pct"]))
+        bs = nums.val(system=best[0], metric="silent_wrong", **sel)[0]
+        domlab = {"risk": "risk", "employee": "employee", "spider_pooled": "Spider"}[dom] + f" ({nd})"
+        t2.append([domlab, f"{na}", f"{ns}", f"{LABELS[best[0]]} ({best[1]} / {bs})"])
+    emit_table("table2_crossdomain", ["domain (cells)", "GDC acc %", "GDC silent %", "strongest baseline (acc / silent)"],
+               t2, f"Cross-domain {SCOPE}: GDC vs the strongest baseline per domain. {cap}", "tab:crossdomain")
+
+    # Table 3: Spider in-scope, five systems, strict and tolerant
+    t3 = []
+    for s in order:
+        a = nums.val(fig_table="Fig1/Fig2/Table3", system=s, metric="accuracy", scoring="strict")
+        ss = nums.val(fig_table="Fig1/Fig2/Table3", system=s, metric="silent_wrong", scoring="strict")[0]
+        st = nums.val(fig_table="Fig1/Fig2/Table3", system=s, metric="silent_wrong", scoring="tolerant")[0]
+        t3.append([LABELS[s], f"{a[0]}", f"{a[1]}/{a[2]}", f"{ss}", f"{st}"])
+    emit_table("table3_spider_incontract",
+               ["system", "accuracy %", "n/N", "silent-error % (strict)", "silent-error % (tolerant)"], t3,
+               f"Spider {SCOPE}, five systems: accuracy and silent-error (strict {versions[0]} and tie-tolerant "
+               f"{versions[1]}). {cap}", "tab:spider")
+
+    if not risk:
+        return
+    # Table 4: risk accuracy vs cost; Table 5: Haiku per-tier
+    pts = cost_frontier_points(nums, risk_group)
+    t4 = [[LABELS[s], p["acc"], f"{p['cost']:.5f}", f"{p['tokens']:.0f}", f"{p['calls']:g}"] for s, p in pts.items()]
+    emit_table("table4_cost_frontier", ["system", "accuracy %", "mean \\$/query", "mean tokens/query",
+                                        "mean LLM calls/query"], t4,
+               f"Accuracy vs cost, risk {SCOPE} ({RISK_GROUPS[risk_group]}, Sonnet). {cap}", "tab:cost")
+
+    def hk(model, system, tier, metric):
+        r = nums.row(haiku_panel(model, system, tier, metric))
+        return r["value_pct"]
+    t5 = [[tl] + [f"{hk(m, s, tg, 'accuracy')} / {hk(m, s, tg, 'silent_wrong')}"
+                  for s, m in (("network", "sonnet"), ("network", "haiku"), ("planner", "sonnet"), ("planner", "haiku"))]
+          for tg, tl in H_TIERS]
     emit_table("table5_haiku_robustness", ["tier", "GDC Sonnet", "GDC Haiku", "plan Sonnet", "plan Haiku"], t5,
-               f"Model robustness (risk, acc\\%/silent\\%): GDC+planner emissions replayed on the current engine. T5 shows GDC's "
-               f"depth robustness; T4/house-vocab show its grounding fragility under the weaker model. {CAP}", "tab:haiku")
+               f"Model robustness (risk, acc\\%/silent\\%): GDC and planner emissions replayed on the current "
+               f"engine. {cap}", "tab:haiku")
 
-print("\ntables written to reports/figures/:")
-for p in sorted(OUT.glob("table*")):
-    print("  ", p.name)
-if HAS_RISK:
-    print("added: fig5_cost_frontier, fig6_haiku_robustness, table4_cost_frontier, table5_haiku_robustness")
+
+# ════════════════════════════ main ═══════════════════════════════════════════
+PAPER_FIGURES = [fig4_tolerant, fig5_accuracy, fig6_strict_silent, fig7_s40]
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    ap.add_argument("--csv", type=Path, default=ROOT / "reports" / "paper_numbers.csv")
+    ap.add_argument("--out", type=Path, default=ROOT / "reports" / "figures")
+    ap.add_argument("--risk-group", choices=sorted(RISK_GROUPS), default=RISK_GROUP_DEFAULT,
+                    help="risk in-scope set Figure 8 and Tables 2/4 plot (default: %(default)s)")
+    ap.add_argument("--no-extras", action="store_true", help="skip the figures the paper does not use")
+    ap.add_argument("--no-tables", action="store_true")
+    ap.add_argument("--no-risk", action="store_true", help="skip every risk figure and table")
+    a = ap.parse_args(argv)
+
+    nums = Numbers(a.csv)
+    a.out.mkdir(parents=True, exist_ok=True)
+    versions = nums.versions()
+    risk = nums.has_domain("risk") and not a.no_risk
+    man = Manifest(nums)
+    plt.rcParams.update(BASE_RC)
+
+    for f in PAPER_FIGURES:
+        f(nums, man, a.out)
+    if risk:
+        fig8_cost_frontier(nums, man, a.out, a.risk_group)
+    else:
+        print("risk rows absent or --no-risk: Figure 8 not drawn")
+    if not a.no_extras:
+        extra_combined(nums, man, a.out, versions)
+        extra_network_tiers(nums, man, a.out, versions)
+        extra_strict_vs_tolerant(nums, man, a.out, versions)
+        if risk:
+            extra_haiku(nums, man, a.out, versions)
+    man.write(a.out)
+    if not a.no_tables:
+        write_tables(nums, a.out, versions, risk, a.risk_group)
+    print(f"from {a.csv} (comparators {versions[0]}/{versions[1]}) into {a.out}:")
+    for p in sorted(a.out.glob("*")):
+        if p.suffix in (".png", ".csv", ".md", ".tex") and p.name != "README.md":
+            print("  ", p.name)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

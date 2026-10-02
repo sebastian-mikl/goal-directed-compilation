@@ -6,4 +6,4 @@
 | code-agent | 79.3 | 107/135 | 20.7 | 17.0 |
 | planner | 76.3 | 103/135 | 22.2 | 18.5 |
 
-*Spider in-contract, five systems: accuracy and silent-error (strict s47 and tie-tolerant s47t). Source: reports/paper\_numbers.csv; comparator s47 (strict).*
+*Spider in-scope, five systems: accuracy and silent-error (strict s48 and tie-tolerant s48t). Source: reports/paper\_numbers.csv; comparator s48 (strict).*

@@ -8,4 +8,4 @@
 | house-vocab | 100.0 / 0.0 | 83.3 / 16.7 | 100.0 / 0.0 | 94.4 / 5.6 | 88.9 / 11.1 |
 | out-of-range | 55.6 / 44.4 | 7.4 / 92.6 | 55.6 / 44.4 | 55.6 / 44.4 | 66.7 / 22.2 |
 
-*employee per-tier accuracy \% / silent-error \%, five systems. Source: reports/paper\_numbers.csv; comparator s47 (strict).*
+*employee per-tier accuracy \% / silent-error \%, five systems. Source: reports/paper\_numbers.csv; comparator s48 (strict).*

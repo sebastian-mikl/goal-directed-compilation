@@ -85,4 +85,4 @@ def test_a_query_matching_two_rows_fails(tmp_path):
                and r["metric"] == "accuracy")
     p = _run(tmp_path, rows + [dict(dup)])
     assert p.returncode != 0
-    assert "LookupError" in p.stderr and "rows of paper_numbers.csv match" in p.stderr
+    assert "LookupError" in p.stderr and "appears twice" in p.stderr

@@ -1,4 +1,4 @@
-domain,s40off_pct,s40on_pct,lift_pts
-wta_1,13.3,30.7,17.4
-world_1,53.3,66.7,13.4
-bike_1,40.0,66.7,26.7
+domain,s40off_pct,s40on_pct,lift_pts,lift_pts_exact,s40off_n,s40on_n
+wta_1,13.3,30.7,17.4,17.33,10/75,23/75
+world_1,53.3,66.7,13.4,13.33,40/75,50/75
+bike_1,40.0,66.7,26.7,26.67,30/75,50/75
