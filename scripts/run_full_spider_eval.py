@@ -15,15 +15,16 @@ SCOPE:
 REFUSE_OUT_OF_SCOPE_DATA stays OFF here: this run establishes the toggle-off
 baseline, matching every other system/toggle default in this project.
 
-temperature: network (gdc/llm.py::llm1) and planner_upfront hardcode
+temperature and bounds: network (gdc/llm.py::llm1) and planner_upfront hardcode
 temperature=0 at their own client.messages.create() call sites and do NOT accept
-an override, so passing temperature=None to run_cells() is correct and simply
-never reaches those two adapters. react/code_agent/text_to_sql keep their own
-default (Adapter.temperature=None -> API default).
+an override. react, code_agent and text_to_sql are run here at temperature 0 and
+code_agent at 12 retries (13 calls), the protocol the paper reports. The first
+recorded Spider runs used the API default and 3 retries (the harness defaults);
+the temperature-0 re-runs in results/results_temp0_* replaced those cells, and
+each provenance file records what its run used.
 
-Calls evidence.eval_run.harness.run_cells() DIRECTLY per domain: run.py's CLI
-has known corpus/gold parameterization gaps for non-default domains, while
-run_cells() itself is already fully parameterized.
+Calls evidence.eval_run.harness.run_cells() DIRECTLY per domain, with each
+domain's corpus, gold, register and schema paths.
 
 ONE results/provenance file PER DOMAIN — NOT a single combined file. Sharing one
 file across domains with genuinely different corpus/gold trips harness.py's
@@ -196,7 +197,8 @@ def run_domain(domain: str, cfg: dict, qids: list[str]) -> dict:
     return run_cells(
         qids=qids, seeds=SEEDS, systems=SYSTEMS,
         client_factory=factory, model=MODEL,
-        temperature=None, use_cache=True,
+        temperature=0, use_cache=True,
+        bounds={"react_max_iters": 15, "code_max_retries": 12, "per_query_timeout_s": 60},
         corpus_path=cfg["corpus"], gold_path=cfg["gold"],
         register_path=cfg["register"], schema_path=cfg["schema"],
         results_path=cfg["results"], provenance_path=cfg["provenance"],

@@ -79,31 +79,33 @@ if [ "$LIVE" = "1" ]; then
     echo "ERROR: --live requires ANTHROPIC_API_KEY to be set. Aborting." >&2
     exit 2
   fi
-  echo "--live: this will make real API calls (5 systems x seeds x queries"
-  echo "per domain) and will cost money. Recorded emissions already released"
-  echo "under results/ are NOT needed for a normal reproduction run — only"
-  echo "use --live if you intend to produce fresh emissions from scratch."
+  echo "--live: this PRINTS the commands that make real API calls (5 systems x seeds x"
+  echo "queries per domain) and cost money, and runs none of them. The recorded emissions"
+  echo "already released under results/ are NOT needed for a normal reproduction run; use"
+  echo "these commands only to produce fresh emissions from scratch."
   echo
-  echo "There is no single combined live-run entry point for every domain:"
-  echo "  Spider (wta_1/world_1/bike_1): scripts/run_full_spider_eval.py"
-  echo "  Employee: python -m evidence.eval_run.run (harness.py's DEFAULTS"
-  echo "            point at the withheld risk paths, so pass --results/"
-  echo "            --provenance/--gold/--register/--schema explicitly, or"
-  echo "            drive evidence.eval_run.harness.run_cells() directly —"
-  echo "            see run_full_spider_eval.py for the pattern to follow)."
-  read -r -p "Type 'yes' to print the exact commands and cost estimates: " CONFIRM
+  echo "There is no single combined live-run entry point for every domain."
+  read -r -p "Type 'yes' to print the commands: " CONFIRM
   if [ "$CONFIRM" != "yes" ]; then
     echo "Aborted."
     exit 1
   fi
   echo
-  echo "[1/6] LIVE — Spider domains:"
-  echo "  python scripts/run_full_spider_eval.py"
-  echo "  (prints its own cost estimate before making any call; see its"
-  echo "  docstring for exact scope — 85 queries x 5 systems x 5 seeds)"
-  echo "      Employee domain has no equivalent script in this release; see"
-  echo "      the note above. This wrapper does not run either for you —"
-  echo "      re-emission is a deliberate, separate, costed action."
+  echo "[1/6] LIVE, commands only:"
+  echo "  Spider (wta_1, world_1, bike_1). It prints its wiring check and a cost estimate and"
+  echo "  then runs, as soon as ANTHROPIC_API_KEY is set, over results/results_spider_<db>.jsonl"
+  echo "  (resumable: cells already recorded there are skipped):"
+  echo "    python scripts/run_full_spider_eval.py"
+  echo "  Employee (3 seeds, as reported; a new results file):"
+  echo "    python -m evidence.eval_run.run \\"
+  echo "      --corpus evaluation/domains/employee/eval_corpus_employee.json \\"
+  echo "      --gold evidence/gold/gold_employee.json \\"
+  echo "      --register evaluation/domains/employee/employees.pkl \\"
+  echo "      --schema evaluation/domains/employee/schema.json --seeds 0 1 2 \\"
+  echo "      --results results/results_employee_new.jsonl \\"
+  echo "      --provenance results/results_employee_new.provenance.json"
+  echo "  Both run the reported protocol: temperature 0, code-agent 12 retries (13 calls)."
+  echo "  Re-emission is a deliberate, separate, costed action."
   echo
 else
   echo "[1/6] LIVE step skipped (offline reproduction from released"

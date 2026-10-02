@@ -17,6 +17,15 @@ Usage:
   python -m evidence.eval_run.run --queries t1_07 t4_06
   python -m evidence.eval_run.run --no-cache            # pre-caching baseline
   python -m evidence.eval_run.run --report-only         # re-render the report from results.jsonl
+
+The harness defaults point at the withheld risk domain (corpus, gold, register and schema),
+so a run in this release names its domain's files. The employee domain, as reported (3 seeds):
+  python -m evidence.eval_run.run --corpus evaluation/domains/employee/eval_corpus_employee.json \\
+      --gold evidence/gold/gold_employee.json --register evaluation/domains/employee/employees.pkl \\
+      --schema evaluation/domains/employee/schema.json --seeds 0 1 2 \\
+      --results results/results_employee_new.jsonl --provenance results/results_employee_new.provenance.json
+The reported protocol is temperature 0 and 12 code-agent retries (13 calls); --temperature and
+--code-max-retries default to it here, where the harness's own defaults are the API default and 3.
 """
 from __future__ import annotations
 
@@ -557,6 +566,12 @@ def main():
                     help="S33 downsizing probe: Call-1 goal/plan emission model for the "
                          "network+planner only (default: --model). Overrides EMISSION_MODEL env.")
     ap.add_argument("--no-cache", action="store_true", help="disable prompt caching")
+    ap.add_argument("--corpus", default=str(DEFAULTS["corpus_path"]),
+                    help="corpus json (the default is the withheld risk corpus; see the usage above)")
+    ap.add_argument("--temperature", type=float, default=0.0,
+                    help="sampling temperature of the three baselines (the reported protocol: 0)")
+    ap.add_argument("--code-max-retries", type=int, default=12,
+                    help="code-agent retries (the reported protocol: 12, i.e. 13 calls)")
     ap.add_argument("--results", default=str(DEFAULTS["results_path"]))
     ap.add_argument("--provenance", default=str(DEFAULTS["provenance_path"]))
     ap.add_argument("--report-only", action="store_true",
@@ -597,7 +612,7 @@ def main():
         print("ERROR: the full run is LIVE and needs ANTHROPIC_API_KEY. Aborting.")
         sys.exit(2)
 
-    corpus = load_corpus(DEFAULTS["corpus_path"])
+    corpus = load_corpus(Path(args.corpus))
     qids = select_qids(corpus, queries=args.queries, tiers=args.tiers)
     n_cells = len(qids) * len(args.seeds) * len(args.systems)
     print(f"Full run: {len(args.systems)} systems × {len(args.seeds)} seeds × {len(qids)} queries "
@@ -613,6 +628,9 @@ def main():
         qids=qids, seeds=list(args.seeds), systems=list(args.systems),
         client_factory=factory, model=args.model, emission_model=args.emission_model,
         use_cache=not args.no_cache,
+        temperature=args.temperature,
+        bounds={**DEFAULTS["bounds"], "code_max_retries": args.code_max_retries},
+        corpus_path=Path(args.corpus), gold_path=Path(args.gold),
         results_path=results_path, provenance_path=Path(args.provenance),
         register_path=Path(args.register), schema_path=Path(args.schema),
     )
