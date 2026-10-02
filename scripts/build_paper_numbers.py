@@ -315,24 +315,43 @@ for model, pool_of in ([("sonnet", _sonnet_pool), ("haiku", lambda t: HAIKU)] if
 # emitted, because declined + silent does not sum to 100 for systems that time
 # out. Baseline cells on both tiers were never re-run at temperature 0
 # (parity_overlay: out-of-scope tiers left default) until the second batch.
-_OOS_CLASSES = ("correct", "silent_wrong", "crash", "timeout")
+# D8, one decline rule: `declined` counts explicit decline statements and typed
+# refusals only (paper_inputs.decline_channel); a refusal-scored cell that is neither
+# (an SQL error, an unparseable plan with no decline text, an empty result) is
+# `failed`. declined_explicit + declined_typed = declined, and declined + failed +
+# silent_wrong + crash + timeout = n. Before D8, `declined` was every refusal.
+_OOS_CLASSES = ("declined", "silent_wrong", "crash", "timeout",
+                "declined_explicit", "declined_typed", "failed")
+def oos_class(dom, r, g):
+    """The Table 5 class of one decline-tier cell: the s48 outcome, with `correct`
+    (any refusal) split by decline channel."""
+    o = outcome(dom, r, g)
+    if o != "correct":
+        return o
+    ch = pi.decline_channel(dom, r)[0]
+    return "failed" if ch == "failed" else "declined_" + ch
+def oos_rate(sc, cls):
+    if cls == "declined":
+        return rate([("declined" if v.startswith("declined_") else v) for v in sc], cls)
+    return rate(sc, cls)
 for sysname in SYSTEMS:
     per_dom, used = {}, {}
     for d in SPIDER:
         used[d] = [r for r in _load(pi.spider_file(d, sysname)) if r.get("system") == sysname
                    and GOLD_SPIDER[d].get(r["qid"], {}).get("tier") == "out_of_scope_register"]
-        per_dom[d] = [outcome(d, r, GOLD_SPIDER[d][r["qid"]]) for r in used[d]]
+        per_dom[d] = [oos_class(d, r, GOLD_SPIDER[d][r["qid"]]) for r in used[d]]
     groups = [(d, per_dom[d]) for d in SPIDER] + [("spider_pooled", sum(per_dom.values(), []))]
     used["spider_pooled"] = sum((used[d] for d in SPIDER), [])
     rows, gold, fn = syn_rows("employee", sysname, "out_of_range")
-    groups.append(("employee", score_syn("employee", sysname, rows, gold)))
+    rows = pi.scored(rows, gold)
+    groups.append(("employee", [oos_class("employee", r, gold[r["qid"]]) for r in rows]))
     used["employee"] = rows
     for dom, sc in groups:
         for cls in _OOS_CLASSES:
-            k, n, p = rate(sc, cls)
+            k, n, p = oos_rate(sc, cls)
             emit(fig_table="Table5", domain=dom, system=sysname,
                  tier_group="out_of_range" if dom == "employee" else "out_of_scope_register",
-                 scoring="strict", metric="declined" if cls == "correct" else cls, value_pct=p,
+                 scoring="strict", metric=cls, value_pct=p,
                  numerator=k, denominator=n,
                  source=(f"{sysname} REPLAY" if sysname in pi.REPLAYED else f"recorded rescored {COMPARATOR_VERSION}")
                  + rerun_note(used[dom]) if dom == "employee"
@@ -374,6 +393,7 @@ if PARITY:
     print(f"wrote {prov_out} ({len(provenance_rows())} replaced cells)")
     print("\n" + coverage_report())
 
+print("\nDecline readings (D8):", len(pi.DECLINE_READINGS), "cells read by hand; Table 5 classes use them")
 print("\nSpider in-contract (Fig1/2/Table3) — STRICT vs TOLERANT:")
 for label in ("strict", "tolerant"):
     print(f"  [{label}]")

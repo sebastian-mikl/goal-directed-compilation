@@ -143,15 +143,20 @@ _registers: dict = {}
 
 def replay_network(dom: str, row: dict):
     """(result, status) of the current engine on the row's recorded Goal + OrderSpec."""
+    return _network_replay(dom, row)[:2]
+
+
+def _network_replay(dom: str, row: dict):
+    """(result, status, error label) of the replay; the recorded ones for a row with no Goal."""
     art = row.get("artifact") or {}
-    if not (isinstance(art, dict) and art.get("goal")):
-        return row.get("raw_result"), row.get("status", "completed")  # emission-time refusal
+    if not (isinstance(art, dict) and art.get("goal")):                 # emission-time refusal
+        return row.get("raw_result"), row.get("status", "completed"), row.get("error")
     key = (dom, json.dumps(art["goal"], sort_keys=True), json.dumps(art.get("order") or {}, sort_keys=True))
     if key not in _net_cache:
         ctx = DomainContext.get(dom)
         goal = rebuild_goal(art["goal"]); order = rebuild_order(art.get("order") or {})
-        status, res, _ = run_deterministic(ctx, goal, order)
-        _net_cache[key] = (res, status)
+        status, res, err = run_deterministic(ctx, goal, order)
+        _net_cache[key] = (res, status, err)
     return _net_cache[key]
 
 
@@ -164,17 +169,25 @@ def register(dom: str) -> pd.DataFrame:
 
 def replay_planner(dom: str, row: dict):
     """(result, status) of the current executor on the row's recorded plan reply."""
+    return _planner_replay(dom, row)[:2]
+
+
+def _planner_replay(dom: str, row: dict):
+    """(result, status, error, refuse envelope?) of the replay; the recorded ones for a
+    row with no reply."""
     art = row.get("artifact") or {}
     text = art.get("raw_text") if isinstance(art, dict) else None
-    if text is None:
-        return row.get("raw_result"), row.get("status", "completed")  # no reply recorded
+    if text is None:                                                      # no reply recorded
+        return (row.get("raw_result"), row.get("status", "completed"), row.get("error"),
+                isinstance(art, dict) and "refusal_reason" in art)
     key = (dom, text)
     if key not in _plan_cache:
         try:
             rec = execute_reply(text, register(dom), empty_run_result())
-            _plan_cache[key] = (rec["result"], rec["status"])
+            _plan_cache[key] = (rec["result"], rec["status"], rec.get("error"),
+                                "refusal_reason" in (rec.get("artifact") or {}))
         except Exception:                                  # noqa: BLE001
-            _plan_cache[key] = (REFUSAL, "crashed")        # escaped run(): harness.run_cell records a crash
+            _plan_cache[key] = (REFUSAL, "crashed", None, False)   # escaped run(): harness.run_cell records a crash
     return _plan_cache[key]
 
 
@@ -186,3 +199,109 @@ def scored_input(dom: str, row: dict):
     if row.get("system") == "planner":
         return replay_planner(dom, row)
     return row.get("raw_result"), row.get("status", "completed")
+
+
+# ── decline channel (D8) ────────────────────────────────────────────────────
+# One decline rule for every system. A decline is an explicit decline statement or a
+# typed refusal; SQL errors (the 60 s wall-clock interrupt among them), unparseable
+# plans with no decline text, empty plans and empty results are failures. The
+# comparator scores every one of them as a refusal (on a decline tier, `correct`);
+# this says which it is, from the same replay or record the comparator scored.
+#   explicit: GDC's emission-time decline (EmissionDecline); the planner's refuse
+#             envelope, or an unparseable reply with decline text (the adapter's own
+#             is_decline_text test); a react/code_agent run that ends in a statement
+#             and no answer; a text-to-SQL reply with no SQL.
+#   typed:    a refusal of the engine's or the executor's typed family: every refusal
+#             the GDC replay returns (ContractError, GoalLint, Unreachable, the
+#             FilterTypeError family incl. the type guards, OrderApplicationError,
+#             PlanExecutionDivergence) and a planner step's FilterTypeError family.
+#   failed:   a text-to-SQL SQL error; a GDC ParseError; a planner reply that does not
+#             parse and has no decline text, a malformed or empty plan; a run that
+#             completed with no result (REFUSAL from an empty or NaN frame).
+# Crash and timeout keep their own classes (also failures, never declines).
+DECLINE_CHANNELS = ("explicit", "typed", "failed")
+
+# Hand readings (D8, Seb 2 Oct 2026: "statement-only endings that say the data cannot answer the
+# question are explicit declines, for every system"). reports/decline_readings.json holds, for each
+# no-answer cell the rule below would class `explicit` or `failed` on text alone (the planner's
+# regex, react and code_agent's "ended in a statement", text-to-SQL's "no SQL"), the class the
+# final text earns when read: `explicit` if it concludes that the data cannot answer the question
+# and returns no answer, `failed` if it is an SQL error, a truncated reply, or a revised or
+# substitute plan. decline_channel applies a reading before the rule; a cell with no reading keeps
+# the rule's class. Keys are domain|system|qid|seed. The file is data, not code: the paper's list
+# of per-cell classes ships from it.
+DECLINE_READINGS_FILE = ROOT / "reports" / "decline_readings.json"
+READING_CLASSES = ("explicit", "failed")
+
+
+def load_decline_readings(path: Path = DECLINE_READINGS_FILE) -> dict:
+    if not path.exists():
+        return {}
+    cells = json.loads(path.read_text(encoding="utf-8"))["cells"]
+    bad = {k: v.get("class") for k, v in cells.items() if v.get("class") not in READING_CLASSES}
+    if bad:
+        raise ValueError(f"{path.name}: class must be one of {READING_CLASSES}: {sorted(bad.items())[:3]}")
+    return cells
+
+
+DECLINE_READINGS = load_decline_readings()
+
+
+def reading_key(dom: str, row: dict) -> str:
+    return f"{dom}|{row.get('system')}|{row.get('qid')}|{row.get('seed')}"
+
+
+def decline_channel(dom: str, row: dict) -> tuple[str, str] | None:
+    """(channel, detail) for a cell whose scored input is a no-answer refusal; None for an
+    answer, a crash or a timeout. A hand reading (DECLINE_READINGS) overrides the rule's
+    explicit/failed class; typed refusals are never read."""
+    ch = rule_channel(dom, row)
+    if ch is None:
+        return None
+    rd = DECLINE_READINGS.get(reading_key(dom, row))
+    if rd is None:
+        return ch
+    if ch[0] == "typed":
+        raise ValueError(f"decline reading for a typed refusal: {reading_key(dom, row)}")
+    return rd["class"], "read: " + rd.get("reading", "")
+
+
+def rule_channel(dom: str, row: dict) -> tuple[str, str] | None:
+    """The m2 rule, with no reading applied: (channel, detail) or None."""
+    sysname = row.get("system")
+    if sysname == "network":
+        res, status, err = _network_replay(dom, row)
+    elif sysname == "planner":
+        res, status, err, envelope = _planner_replay(dom, row)
+    else:
+        res, status, err = row.get("raw_result"), row.get("status", "completed"), row.get("error")
+    if res != REFUSAL or status in ("crashed", "timeout"):
+        return None
+    err = str(err or "")
+    if status == "completed":
+        return "failed", "completed with no result"
+    art = row.get("artifact") if isinstance(row.get("artifact"), dict) else {}
+    if sysname == "network":
+        if art.get("goal"):
+            return "typed", err.split(":")[0]
+        if err.startswith("declined:") or art.get("declined"):
+            return "explicit", "EmissionDecline"
+        return "failed", err.split(":")[0] or "no Goal"
+    if sysname == "planner":
+        if envelope:
+            return "explicit", "refuse envelope"
+        if err.startswith("plan parse-fail with decline text"):
+            return "explicit", "unparseable, decline text"
+        if err.startswith("step "):
+            return "typed", err.split(": ")[1] if ": " in err else err
+        return "failed", err.split(":")[0] or "no reply"
+    if sysname in ("react", "code_agent"):
+        text = art.get("last_text")
+        return ("explicit", "statement, no answer") if (text or "").strip() else ("failed", "no answer, no text")
+    if sysname == "text_to_sql":
+        if err.startswith("no SQL emitted") and (art.get("raw_text") or "").strip():
+            return "explicit", "statement, no SQL"
+        if err.startswith("sql error"):
+            return "failed", "SQL error (60 s wall clock)" if err.rstrip().endswith("interrupted") else "SQL error"
+        return "failed", err.split(":")[0] or "no SQL, no text"
+    return "failed", err.split(":")[0]

@@ -1,0 +1,3025 @@
+{
+ "_meta": {
+  "what": "Hand reading of every no-answer cell that the m2 rule classed 'explicit' (regex or text presence) or 'failed'. scripts/paper_inputs.decline_channel consults this file before its own rule (decision D8, Seb 2 Oct 2026).",
+  "classes": {
+   "explicit": "an explicit decline: the final text states that the data cannot answer the question and returns no answer",
+   "failed": "a failure: SQL error, unparseable output with no data-absent conclusion, truncated, or a revised or substitute plan"
+  },
+  "readings": {
+   "decline_statement": {
+    "class": "explicit",
+    "rationale": "Final text states that the register lacks the data the question needs, or that the question cannot be answered from it, and returns no answer."
+   },
+   "decline_statement_hedged_plan": {
+    "class": "explicit",
+    "rationale": "Final text concludes that the question cannot be answered from the register. A plan follows only as a hypothetical or reluctant hedge that the text does not adopt as its answer, and the reply does not parse as a plan."
+   },
+   "absence_statement_no_decline_word": {
+    "class": "explicit",
+    "rationale": "Final text states that the register holds no such data and stops, with no decline word; no answer returned."
+   },
+   "decline_operator_limit": {
+    "class": "explicit",
+    "rationale": "Final text states that the available tools cannot compute the answer and offers alternatives without adopting one; no answer returned. A tool limit, not an absent column."
+   },
+   "sql_error": {
+    "class": "failed",
+    "rationale": "SQL error: the query was written and failed to run; no decline statement."
+   },
+   "substitute_plan": {
+    "class": "failed",
+    "rationale": "Final text notes missing data or an operator limit, then adopts a reinterpretation, proxy or closest approximation as its plan. It does not parse because it holds several JSON blocks. No decline conclusion, so not a decline."
+   },
+   "revised_plan": {
+    "class": "failed",
+    "rationale": "Final text revises its approach and emits plans without stating that the data is absent. Not a decline."
+   },
+   "truncated": {
+    "class": "failed",
+    "rationale": "Cut off at the 1,500-token limit while still working towards an answer; no decline statement."
+   },
+   "truncated_kept_current": {
+    "class": "explicit",
+    "rationale": "Cut off at the 1,500-token limit while reasoning towards a prose answer; no decline statement. Kept as an explicit decline only because the instruction was to keep the current treatment of the truncated react replies; the reading is an answer attempt."
+   }
+  },
+  "standard": "A cell is an explicit decline when its final text concludes that the register cannot answer the question (a column, table or datum is absent, or the question cannot be answered from the register) and no answer is returned. A hypothetical or reluctant plan after that conclusion does not change it. A reply that, after noting absence or an operator limit, adopts a reinterpretation, proxy or closest approximation as its plan is not a decline. SQL errors, timeouts, truncation without a decline statement and revised plans are failures.",
+  "scope": "cells whose scored input is a no-answer refusal and whose channel is not typed: planner (regex), react and code_agent (text presence), text_to_sql (text presence or SQL error). GDC cells are typed or EmissionDecline and are not read. A cell absent from this file keeps the class of the m2 rule.",
+  "keys": "domain|system|qid|seed",
+  "risk_note": "this copy holds no keys of the withheld risk domain; the builder, check_decline_readings.py and the tests tolerate their absence"
+ },
+ "cells": {
+  "bike_1|code_agent|bike_11|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about dates when the maximum temperature was higher than 85 degrees, you would need a dataset that includes temperature measurements, which is not available in this bike-share "
+  },
+  "bike_1|code_agent|bike_11|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about dates when the maximum temperature was higher than 85 degrees, you would need a dataset that includes temperature measurements, which is not available in this bike-share "
+  },
+  "bike_1|code_agent|bike_11|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about dates when the maximum temperature was higher than 85 degrees, you would need a dataset that includes temperature measurements, which is not available in this bike-share "
+  },
+  "bike_1|code_agent|bike_11|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about dates when the maximum temperature was higher than 85 degrees, you would need a dataset that includes temperature measurements, which is not available in this bike-share "
+  },
+  "bike_1|code_agent|bike_11|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about dates when the maximum temperature was higher than 85 degrees, you would need a dataset that includes temperature measurements, which is not available in this bike-share "
+  },
+  "bike_1|code_agent|bike_12|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query** because the required data (humidity and visibility measurements) is not available in this register. The dataset only contains bike-share trip information, not weather da"
+  },
+  "bike_1|code_agent|bike_12|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query** because the dataset does not contain the required weather information (mean humidity and mean visibility). This appears to be a bike-share trip log, not a weather datase"
+  },
+  "bike_1|code_agent|bike_12|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query** because the required data (humidity and visibility measurements) is not available in this register. The dataset only contains bike-share trip information, not weather da"
+  },
+  "bike_1|code_agent|bike_12|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Therefore, I cannot answer the question about days with mean humidity above 50 and mean visibility above 8 from this data. The query appears to be asking about weather data, but the available dataset "
+  },
+  "bike_1|code_agent|bike_12|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query** because the dataset does not contain humidity or visibility data. This is a bike-share trip log that only tracks rental trip information (stations, times, bikes, and rid"
+  },
+  "bike_1|code_agent|bike_13|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer your query about cloud cover rates** because this information is not present in the dataset. To answer questions about cloud cover, you would need a weather dataset that includes met"
+  },
+  "bike_1|code_agent|bike_13|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The current bike-share trip log only contains information about: - Trip details (duration, start/end times, start/end stations) - Bike information (bike_id) - User information (subscription_type, zip_"
+  },
+  "bike_1|code_agent|bike_13|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset only contains information about bike rental trips (stations, times, durations, bikes, and user information), but no weather or cloud cover data. To answer your question, you would need a w"
+  },
+  "bike_1|code_agent|bike_13|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset is a bike-share trip log containing information about: - Trip details (id, duration, start/end dates) - Station information (start/end station names and IDs) - Bike ID - Subscription type "
+  },
+  "bike_1|code_agent|bike_13|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "This is a bike-share trip log that tracks rental trips (start/end stations, times, duration, bike ID, subscription type, and zip code), but it does not include meteorological data like cloud cover rat"
+  },
+  "bike_1|code_agent|bike_14|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available columns are: - id, duration, start_date, start_station_name, start_station_id, end_date, end_station_name, end_station_id, bike_id, subscription_type, zip_code **I cannot answer this que"
+  },
+  "bike_1|code_agent|bike_14|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available columns are: - id, duration, start_date, start_station_name, start_station_id, end_date, end_station_name, end_station_id, bike_id, subscription_type, zip_code **I cannot answer this que"
+  },
+  "bike_1|code_agent|bike_14|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available columns are: - id, duration, start_date, start_station_name, start_station_id, end_date, end_station_name, end_station_id, bike_id, subscription_type, zip_code **I cannot answer this que"
+  },
+  "bike_1|code_agent|bike_14|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available columns are: - id, duration, start_date, start_station_name, start_station_id, end_date, end_station_name, end_station_id, bike_id, subscription_type, zip_code **I cannot answer this que"
+  },
+  "bike_1|code_agent|bike_14|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available columns are: - id, duration, start_date, start_station_name, start_station_id, end_date, end_station_name, end_station_id, bike_id, subscription_type, zip_code **I cannot answer this que"
+  },
+  "bike_1|code_agent|bike_15|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Therefore, I cannot answer your query about temperature, humidity, and max gust speeds because this information is not present in the data. To answer your question, you would need a weather dataset th"
+  },
+  "bike_1|code_agent|bike_15|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Therefore, I cannot answer your query about temperature, humidity, and max gust speeds because this information is not present in the data. If you need weather-related analysis, you would need a diffe"
+  },
+  "bike_1|code_agent|bike_15|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Therefore, I cannot answer your query about temperature, humidity, and max gust speeds because this information is not present in the data. To answer your question, you would need a weather dataset th"
+  },
+  "bike_1|code_agent|bike_15|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Therefore, I cannot answer your query about temperature, humidity, and max gust speeds because this information is not present in the data. To answer your question, you would need a weather dataset th"
+  },
+  "bike_1|code_agent|bike_15|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Therefore, I cannot answer your query about temperature, humidity, and max gust speeds because this information is not present in the data. To answer your question, you would need a weather dataset th"
+  },
+  "bike_1|code_agent|bike_16|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the dataset does not contain latitude information for the stations. To answer this question, we would need a separate station dataset that includes geographic coordi"
+  },
+  "bike_1|code_agent|bike_16|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the required latitude information is not present in the dataset."
+  },
+  "bike_1|code_agent|bike_16|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the required latitude data is not present in the DataFrame."
+  },
+  "bike_1|code_agent|bike_16|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register only contains trip information (start/end stations, times, duration, bike ID, subscription type, and zip code), but does not include geographic coordinates (latitude/longitude) for the st"
+  },
+  "bike_1|code_agent|bike_16|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset only contains: - Station names (start_station_name, end_station_name) - Station IDs (start_station_id, end_station_id) - Trip details (duration, dates, bike_id, etc.) - User information (s"
+  },
+  "bike_1|code_agent|bike_17|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset only contains the following columns: - id, duration, start_date, start_station_name, start_station_id, end_date, end_station_name, end_station_id, bike_id, subscription_type, zip_code **Th"
+  },
+  "bike_1|code_agent|bike_17|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset only contains the following columns: - 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_station_name', 'end_station_id', 'bike_id', 'subscription_"
+  },
+  "bike_1|code_agent|bike_17|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register only includes station names and IDs as part of the trip records, but does not have geographic coordinates (latitude/longitude) that would be needed to calculate the average location of Sa"
+  },
+  "bike_1|code_agent|bike_17|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset only contains the following columns: - 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_station_name', 'end_station_id', 'bike_id', 'subscription_"
+  },
+  "bike_1|code_agent|bike_17|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset only contains the following columns: - id, duration, start_date, start_station_name, start_station_id, end_date, end_station_name, end_station_id, bike_id, subscription_type, zip_code **Th"
+  },
+  "bike_1|code_agent|bike_18|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset only contains trip information with the following columns: - id, duration, start_date, start_station_name, start_station_id, end_date, end_station_name, end_station_id, bike_id, subscripti"
+  },
+  "bike_1|code_agent|bike_18|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Unfortunately, I cannot answer this question from the available data. The dataset only contains: - Station names (start_station_name, end_station_name) - Station IDs (start_station_id, end_station_id)"
+  },
+  "bike_1|code_agent|bike_18|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query with the available data**, as the register does not contain latitude, longitude, or city information for the stations."
+  },
+  "bike_1|code_agent|bike_18|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about the station with the lowest latitude, I would need a separate station metadata table or additional columns in this dataset that contain: - Station latitude - Station long"
+  },
+  "bike_1|code_agent|bike_18|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about the station with the lowest latitude, I would need a separate station metadata table or additional columns in this dataset that contain: - Station latitude - Station long"
+  },
+  "bike_1|code_agent|bike_20|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Making assumptions about the system that may not be valid The dataset simply doesn't contain the information needed to directly answer your question about average bike availability."
+  },
+  "bike_1|code_agent|bike_20|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There are no columns indicating: - Total bike capacity at each station - Number of bikes currently available at stations - Real-time or snapshot bike availability data To answer a question about \"aver"
+  },
+  "bike_1|code_agent|bike_20|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "A complete time series of all bike movements ...we cannot reconstruct the actual availability of bikes at any given station. If you're looking for a different metric that CAN be calculated from trip d"
+  },
+  "bike_1|code_agent|bike_20|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There are no columns indicating: - Total bike capacity at each station - Number of bikes currently available at stations - Real-time or snapshot bike availability data To answer a question about \"aver"
+  },
+  "bike_1|code_agent|bike_20|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "A complete time series of all bike movements ...we cannot reconstruct actual bike availability at any given moment. If you're looking for a different metric that CAN be calculated from trip data (such"
+  },
+  "bike_1|code_agent|bike_21|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "Based on my exploration of the dataset, I can see that the register only contains the following columns: - 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_st"
+  },
+  "bike_1|code_agent|bike_21|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "Based on my examination of the dataset, I can see that the register only contains the following columns: - 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_st"
+  },
+  "bike_1|code_agent|bike_21|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "Based on my exploration of the dataset, I can see that the register only contains the following columns: - 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_st"
+  },
+  "bike_1|code_agent|bike_21|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "Based on my exploration of the dataset, I can see that the register only contains the following columns: - 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_st"
+  },
+  "bike_1|code_agent|bike_21|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "Based on my exploration of the dataset, I can see that the register only contains the following columns: - 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_st"
+  },
+  "bike_1|code_agent|bike_22|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "It only contains: - Trip records (when bikes were rented and returned) - Station names and IDs - Trip durations - Bike IDs used - Subscription types - Zip codes To answer your question about \"average "
+  },
+  "bike_1|code_agent|bike_22|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "While some station names include city references (like \"San Francisco Caltrain\"), the dataset doesn't systematically indicate which city each station is in, and more importantly, it lacks any availabi"
+  },
+  "bike_1|code_agent|bike_22|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There's no column tracking how many bikes are available at stations. 2. While some station names mention \"San Francisco\" explicitly, there's no systematic city/location field, and more importantly, th"
+  },
+  "bike_1|code_agent|bike_22|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query** because: - The dataset does not contain bike availability information (it only logs trips) - The dataset does not explicitly identify which stations are in San Francisco"
+  },
+  "bike_1|code_agent|bike_22|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There's no column tracking how many bikes are available at stations. 2. While some station names mention \"San Francisco\" explicitly, there's no systematic city/location field, and more importantly, th"
+  },
+  "bike_1|code_agent|bike_23|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query from the available data.** The bike-share trip register does not include temperature information for zip code areas. To answer this question, you would need an additional "
+  },
+  "bike_1|code_agent|bike_23|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query from the available data.** The bike-share trip register does not include temperature information for zip code areas. To answer this question, you would need an additional "
+  },
+  "bike_1|code_agent|bike_23|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query from the available data.** The bike-share trip register does not include temperature information for zip code areas. To answer this question, you would need an additional "
+  },
+  "bike_1|code_agent|bike_23|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query from the available data.** The bike-share trip register does not include temperature information for zip code areas. To answer this question, you would need an additional "
+  },
+  "bike_1|code_agent|bike_23|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query from the available data.** The bike-share trip register does not include temperature information for zip code areas. To answer this question, you would need an additional "
+  },
+  "bike_1|planner|bike_11|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The query cannot be answered with the available data."
+  },
+  "bike_1|planner|bike_11|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The query cannot be answered with the available data."
+  },
+  "bike_1|planner|bike_11|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The query cannot be answered with the available data."
+  },
+  "bike_1|planner|bike_11|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The query cannot be answered with the available data."
+  },
+  "bike_1|planner|bike_11|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The query cannot be answered with the available data."
+  },
+  "bike_1|planner|bike_12|2": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Given the schema mismatch, I cannot construct a valid plan. However, if I assume the query is meant for a different register with weather data including columns like 'date', 'mean_humidity', and 'mean"
+  },
+  "bike_1|planner|bike_14|0": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Given the schema limitations, this query **cannot be answered** with the available register data, as there are no weather-related columns. However, if I must provide a plan with the available data:"
+  },
+  "bike_1|planner|bike_14|1": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Given the schema limitations, this query **cannot be answered** with the available register data, as there are no weather-related columns. However, if I must provide a plan with the available data:"
+  },
+  "bike_1|planner|bike_14|2": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Given the schema limitations, this query **cannot be answered** with the available register data, as there are no weather-related columns. However, if I must provide a plan with the available data:"
+  },
+  "bike_1|planner|bike_14|3": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Given the schema limitations, this query **cannot be answered** with the available register data, as there are no weather-related columns. However, if I must provide a plan with the available data:"
+  },
+  "bike_1|planner|bike_14|4": {
+   "class": "explicit",
+   "reading": "absence_statement_no_decline_word",
+   "judgement": true,
+   "excerpt": "The register does not contain information about Fog or Rain observations."
+  },
+  "bike_1|planner|bike_16|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Since latitude is not available in this register, the query cannot be answered with the given data."
+  },
+  "bike_1|planner|bike_16|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Since latitude is not available in this register, the query cannot be answered with the given data."
+  },
+  "bike_1|planner|bike_16|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Since there is no latitude column in the register, this query cannot be answered with the given data."
+  },
+  "bike_1|planner|bike_16|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Since latitude is not available in this register, the query cannot be answered with the given data."
+  },
+  "bike_1|planner|bike_16|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Since latitude is not available in this register, the query cannot be answered with the given data."
+  },
+  "bike_1|planner|bike_17|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "This query cannot be answered with the available data."
+  },
+  "bike_1|planner|bike_17|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "This query cannot be answered with the available data."
+  },
+  "bike_1|planner|bike_18|0": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...data with station names but no latitude or city columns. The query asks for latitude and city which aren't in the provided schema. Let me provide the best possible answer with the available columns:"
+  },
+  "bike_1|planner|bike_18|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "Let me provide the best possible plan given the constraints: Actually, this query cannot be answered with the given register schema since it lacks latitude and city columns. The register only contains"
+  },
+  "bike_1|planner|bike_18|2": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...data with station names but no latitude or city columns. The query asks for latitude and city which aren't in the provided schema. Let me provide the best possible answer with the available columns:"
+  },
+  "bike_1|planner|bike_18|3": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...data with station names but no latitude or city columns. The query asks for latitude and city which aren't in the provided schema. Let me provide the best possible answer with the available columns:"
+  },
+  "bike_1|planner|bike_18|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "Let me provide the best possible plan given the constraints: Actually, this query cannot be answered with the given register schema since it lacks latitude and city columns. The register only contains"
+  },
+  "bike_1|react|bike_11|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There is no temperature column in this dataset that would allow me to filter for dates when the max temperature was higher than 85. To answer your question, I would need access to a weather dataset th"
+  },
+  "bike_1|react|bike_11|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about dates when the maximum temperature was higher than 85, I would need access to a weather dataset that includes temperature measurements, which is not available in the curr"
+  },
+  "bike_1|react|bike_11|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There is no temperature column available in this dataset. To answer your query about dates when the maximum temperature was higher than 85, I would need access to a weather dataset that includes tempe"
+  },
+  "bike_1|react|bike_11|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about dates when the maximum temperature was higher than 85, I would need access to a weather dataset that includes temperature measurements, which is not available in the curr"
+  },
+  "bike_1|react|bike_11|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There is no temperature column available in this dataset. To answer your question about dates when the maximum temperature was higher than 85, I would need access to a weather dataset that includes te"
+  },
+  "bike_1|react|bike_12|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset only tracks bike rental trips with information about stations, duration, bikes, and riders, but no weather data. Could you please verify: 1. Is there a different dataset/register that cont"
+  },
+  "bike_1|react|bike_12|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There are no visibility columns in the register The register only contains bike-share trip information (stations, times, duration, bike IDs, subscription types, and zip codes), not weather data. Could"
+  },
+  "bike_1|react|bike_12|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset only tracks bike rental trips with information about stations, duration, bikes, and riders, but no weather data. Could you please verify: 1. Is there a different dataset/register that cont"
+  },
+  "bike_1|react|bike_12|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset only tracks bike rental trips with information about stations, duration, bikes, and riders, but no weather data. Could you please verify: 1. Is there a different dataset/register that cont"
+  },
+  "bike_1|react|bike_12|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset only tracks bike rental trips with information about stations, duration, bikes, and riders, but no weather data. Could you please verify: 1. Is there a different dataset/register that cont"
+  },
+  "bike_1|react|bike_13|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset contains information about bike-share trips (duration, stations, dates, bike IDs, subscription types, and zip codes), but does not include any weather-related information such as cloud cov"
+  },
+  "bike_1|react|bike_13|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Since there is no cloud cover information in this bike-share trip dataset, I cannot answer the question about cloud cover rates. The data domain is bike-share trips, not weather conditions. Could you "
+  },
+  "bike_1|react|bike_13|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset contains information about bike-share trips (duration, stations, dates, bike IDs, subscription types, and zip codes), but does not include any weather-related information such as cloud cov"
+  },
+  "bike_1|react|bike_13|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Since there is no cloud cover data available in this bike-share trip register, I cannot answer the question about cloud cover rates. The data domain is bike-share trips, not weather data. Could you cl"
+  },
+  "bike_1|react|bike_13|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Since there is no cloud cover data available in this bike-share trip register, I cannot answer the question about cloud cover rates. The data domain is bike-share trips, not weather data. Could you cl"
+  },
+  "bike_1|react|bike_14|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset does not contain any information about weather conditions (Fog or Rain) that would allow me to determine which days had or did not have these weather phenomena. Could you please clarify: 1"
+  },
+  "bike_1|react|bike_14|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The bike-share trip log does not contain any weather information that would allow me to determine on which days fog or rain was or was not observed. Could you please clarify if: 1. You meant to ask a "
+  },
+  "bike_1|react|bike_14|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The zip_code column refers to the zip code where the rider registered, not weather observation locations, and there are no columns tracking weather phenomena. Could you please clarify: 1. Is there add"
+  },
+  "bike_1|react|bike_14|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The bike-share trip log does not contain any weather information that would allow me to determine on which days fog or rain was or was not observed. Could you please clarify if: 1. You meant to ask a "
+  },
+  "bike_1|react|bike_14|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The zip_code column refers to the zip code where the rider registered, not weather observation locations, and there are no columns tracking weather phenomena. Could you please clarify: 1. Is there add"
+  },
+  "bike_1|react|bike_15|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available data in the register. The query appears to be asking about weather data, but the register only contains bike-share trip information. Could you please conf"
+  },
+  "bike_1|react|bike_15|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query with the available dataset.** You would need a weather dataset that includes date, temperature, humidity, and gust speed measurements to answer this question."
+  },
+  "bike_1|react|bike_15|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "However, looking at the register schema provided, I only see bike-share trip data with columns: - 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_station_nam"
+  },
+  "bike_1|react|bike_15|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query with the available dataset.** You would need a weather dataset that includes date, temperature, humidity, and gust speed measurements to answer this question."
+  },
+  "bike_1|react|bike_15|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available data in the register. The query appears to be asking about weather data, but the register only contains bike-share trip information. Could you please conf"
+  },
+  "bike_1|react|bike_16|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register only contains: - 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_station_name', 'end_station_id', 'bike_id', 'subscription_type', 'zip_code' The"
+  },
+  "bike_1|react|bike_16|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register contains: - 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_station_name', 'end_station_id', 'bike_id', 'subscription_type', 'zip_code' There ar"
+  },
+  "bike_1|react|bike_16|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register only contains: - 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_station_name', 'end_station_id', 'bike_id', 'subscription_type', 'zip_code' The"
+  },
+  "bike_1|react|bike_16|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about stations with latitude lower than 37.5, I would need access to a station metadata table that includes latitude coordinates, which is not available in the current register"
+  },
+  "bike_1|react|bike_16|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about stations with latitude lower than 37.5, I would need access to a station metadata table that includes latitude coordinates, which is not available in the current register"
+  },
+  "bike_1|react|bike_17|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "However, looking at the register schema provided, I can see the available columns are: 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_station_name', 'end_st"
+  },
+  "bike_1|react|bike_17|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "However, looking at the register schema provided, I can see the available columns are: 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_station_name', 'end_st"
+  },
+  "bike_1|react|bike_17|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "However, looking at the register schema provided, I can see the available columns are: 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_station_name', 'end_st"
+  },
+  "bike_1|react|bike_17|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "However, looking at the register schema provided, I can see the available columns are: 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_station_name', 'end_st"
+  },
+  "bike_1|react|bike_17|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "However, looking at the register schema provided, I can see the available columns are: 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_station_name', 'end_st"
+  },
+  "bike_1|react|bike_18|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available station-related fields are only: - start_station_name - start_station_id - end_station_name - end_station_id Without latitude and city data in the register, I cannot answer this query. T"
+  },
+  "bike_1|react|bike_18|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available station-related fields are only: - start_station_name - start_station_id - end_station_name - end_station_id Without latitude and city data in the register, I cannot answer this query. T"
+  },
+  "bike_1|react|bike_18|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available station-related fields are only: - start_station_name - start_station_id - end_station_name - end_station_id Without latitude and city data in the register, I cannot answer this query. T"
+  },
+  "bike_1|react|bike_18|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available station-related fields are only: - start_station_name - start_station_id - end_station_name - end_station_id Without latitude and city data in the register, I cannot answer this query. T"
+  },
+  "bike_1|react|bike_18|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available station-related fields are only: - start_station_name - start_station_id - end_station_name - end_station_id Without latitude and city data in the register, I cannot answer this query. T"
+  },
+  "bike_1|react|bike_19|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "The register does not contain an explicit \"city\" column, and the city information appears to be embedded within the station names (e.g., \"San Francisco Caltrain\", \"San Jose Diridon\"). To answer this q"
+  },
+  "bike_1|react|bike_19|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Without city information associated with stations, I cannot group stations by city and count them. Could you clarify if: 1. There should be a city column in the data that I'm missing? 2. Or should I i"
+  },
+  "bike_1|react|bike_19|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Station names that include city prefixes With the current data structure, I can only tell you there are 69 unique stations total in the dataset, but cannot group them by city."
+  },
+  "bike_1|react|bike_19|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The question may have an error or assumes additional data Given the constraints and available data, I cannot accurately answer this question about cities and their station counts without a city column"
+  },
+  "bike_1|react|bike_19|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The schema contains: - Station names and IDs (start and end) - Trip details (duration, dates) - Bike IDs - Rider information (subscription_type, zip_code - which is the rider's zip, not station's) **I"
+  },
+  "bike_1|react|bike_20|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "There's no column that directly tells us how many bikes are available at each station at any given time. However, I can interpret this query in a way that might be meaningful with the available data: "
+  },
+  "bike_1|react|bike_20|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "There's no column that directly indicates how many bikes are available at each station at any given time. However, I can interpret this question in a way that makes sense with the available data: - Pe"
+  },
+  "bike_1|react|bike_20|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "There's no column that directly tells us how many bikes are available at each station at any given time. However, I can interpret this question in a way that might be answerable with the available dat"
+  },
+  "bike_1|react|bike_20|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "There's no column that directly indicates how many bikes are available at each station at any given time. However, I can interpret this question in a way that makes sense with the available data: - Pe"
+  },
+  "bike_1|react|bike_20|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "There's no column that directly tells us how many bikes are available at each station at any given time. However, I can interpret this question in a way that might be answerable with the available dat"
+  },
+  "bike_1|react|bike_21|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available station-related fields are only: - start_station_name - start_station_id - end_station_name - end_station_id Without latitude, longitude, and city columns in the register, I cannot answe"
+  },
+  "bike_1|react|bike_21|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available station-related fields are only: - start_station_name - start_station_id - end_station_name - end_station_id Since the geographic information (latitude, longitude, city) for stations is "
+  },
+  "bike_1|react|bike_21|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**The register does not contain latitude, longitude, or city columns for stations.** I can only identify which station the shortest trip started from (by name and/or ID), but cannot provide the geogra"
+  },
+  "bike_1|react|bike_21|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**The register does not contain latitude, longitude, or city columns for stations.** I can only identify which station the shortest trip started from (by name and/or ID), but cannot provide its geogra"
+  },
+  "bike_1|react|bike_21|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**The register does not contain latitude, longitude, or city columns for stations.** I can only identify which station the shortest trip started from (by name and/or ID), but cannot provide its geogra"
+  },
+  "bike_1|react|bike_22|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Any measure of \"bike availability\" (like number of bikes available at a station at any given time) The available data shows: - Trip start and end stations (by name and ID) - Trip duration and dates - "
+  },
+  "bike_1|react|bike_22|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The schema doesn't include: - Station location/city information - Bike availability metrics - Station capacity or current bike counts The register only tracks: - Trip details (duration, dates) - Start"
+  },
+  "bike_1|react|bike_22|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The schema doesn't include: - Any column indicating which city a station is in - Any column tracking bike availability at stations The data shows trip start/end stations, but doesn't contain: 1. Geogr"
+  },
+  "bike_1|react|bike_22|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The schema doesn't include: - Station location/city information - Bike availability metrics - Station capacity or current bike counts The register only tracks individual trips with start/end stations,"
+  },
+  "bike_1|react|bike_22|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register does not have: - Information about which city each station is in - Any measure of \"bike availability\" (like number of bikes available at a station at a given time) The available data show"
+  },
+  "bike_1|react|bike_23|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Without temperature information, I cannot filter trips based on the temperature criteria you've specified."
+  },
+  "bike_1|react|bike_23|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Without temperature information, I cannot filter trips based on zip code temperature criteria."
+  },
+  "bike_1|react|bike_23|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Without temperature information, I cannot filter trips based on the temperature criteria you've specified."
+  },
+  "bike_1|react|bike_23|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Without temperature information, I cannot filter trips based on temperature criteria."
+  },
+  "bike_1|react|bike_23|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Without temperature information, I cannot filter trips based on temperature criteria."
+  },
+  "bike_1|react|bike_24|0": {
+   "class": "explicit",
+   "reading": "truncated_kept_current",
+   "judgement": true,
+   "excerpt": "...a frame, and the closest frame I have is f3 (which shows 1,666 trips that DID end in SF), I realize I'm in a bind. Let me reconsider one more time if there's a creative solution... Actually, I don",
+   "keep_current": true
+  },
+  "bike_1|react|bike_24|3": {
+   "class": "explicit",
+   "reading": "truncated_kept_current",
+   "judgement": true,
+   "excerpt": "...different approach. What if \"San Francisco city\" is indicated by specific station IDs or another pattern? Without more visibility into the full dataset, I'll stick with my interpretation. Given",
+   "keep_current": true
+  },
+  "bike_1|text_to_sql|bike_11|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There is no temperature data in this table. To answer questions about maximum temperatures, you would need access to a weather or climate data table that includes temperature measurements."
+  },
+  "bike_1|text_to_sql|bike_11|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There is no temperature data in this table. To answer questions about maximum temperatures, you would need access to a weather or climate data table that includes temperature measurements."
+  },
+  "bike_1|text_to_sql|bike_11|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There is no temperature data in this table. To answer questions about maximum temperatures, you would need access to a weather or climate data table that includes temperature measurements."
+  },
+  "bike_1|text_to_sql|bike_11|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There is no temperature data in this table. To answer questions about maximum temperatures, you would need access to a weather or climate data table that includes temperature measurements."
+  },
+  "bike_1|text_to_sql|bike_11|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There is no temperature data in this table. To answer questions about maximum temperatures, you would need access to a weather or climate data table that includes temperature measurements."
+  },
+  "bike_1|text_to_sql|bike_12|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available data in the `register` table."
+  },
+  "bike_1|text_to_sql|bike_12|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available data in the `register` table."
+  },
+  "bike_1|text_to_sql|bike_12|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available data, as the `register` table does not contain humidity or visibility information."
+  },
+  "bike_1|text_to_sql|bike_12|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available data in the `register` table."
+  },
+  "bike_1|text_to_sql|bike_12|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available data in the `register` table."
+  },
+  "bike_1|text_to_sql|bike_13|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains bike-share trip data with columns for trip details (duration, start/end stations, dates, bike_id, subscription_type, and zip_code), but it does not contain any weather or"
+  },
+  "bike_1|text_to_sql|bike_13|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains bike-share trip data with columns for trip details (duration, start/end stations, dates, bike_id, subscription_type, and zip_code), but it does not contain any weather or"
+  },
+  "bike_1|text_to_sql|bike_13|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains bike-share trip data with columns for trip details (duration, start/end stations, dates, bike_id, subscription_type, and zip_code), but it does not contain any weather or"
+  },
+  "bike_1|text_to_sql|bike_13|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains bike-share trip data with columns for trip details (duration, start/end stations, dates, bike_id, subscription_type, and zip_code), but it does not contain any weather or"
+  },
+  "bike_1|text_to_sql|bike_13|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains bike-share trip data with columns for trip details (duration, start/end stations, dates, bike_id, subscription_type, and zip_code), but it does not contain any weather or"
+  },
+  "bike_1|text_to_sql|bike_14|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available columns are: - id - duration - start_date - start_station_name - start_station_id - end_date - end_station_name - end_station_id - bike_id - subscription_type - zip_code Since there is n"
+  },
+  "bike_1|text_to_sql|bike_14|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Therefore, I cannot answer this question about weather observations using the available data. To answer questions about weather conditions, you would need a different table or dataset that includes we"
+  },
+  "bike_1|text_to_sql|bike_14|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available columns are: - id - duration - start_date - start_station_name - start_station_id - end_date - end_station_name - end_station_id - bike_id - subscription_type - zip_code Since there is n"
+  },
+  "bike_1|text_to_sql|bike_14|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Therefore, I cannot answer this question about weather observations using the available data."
+  },
+  "bike_1|text_to_sql|bike_14|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Therefore, I cannot answer this question about weather observations using the available data."
+  },
+  "bike_1|text_to_sql|bike_15|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the `register` table does not contain the required weather data columns (temperature, humidity, or gust speed measurements)."
+  },
+  "bike_1|text_to_sql|bike_15|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the `register` table does not contain the required weather metrics (temperature, humidity, or gust speed data)."
+  },
+  "bike_1|text_to_sql|bike_15|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the `register` table only contains bike-share trip information and does not include weather data like temperature, humidity, or wind gust speeds."
+  },
+  "bike_1|text_to_sql|bike_15|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the `register` table does not contain the required weather metrics (temperature, humidity, or gust speed data)."
+  },
+  "bike_1|text_to_sql|bike_15|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the `register` table does not contain the required weather data columns (temperature, humidity, or gust speed measurements)."
+  },
+  "bike_1|text_to_sql|bike_16|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available register table."
+  },
+  "bike_1|text_to_sql|bike_16|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available data."
+  },
+  "bike_1|text_to_sql|bike_16|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available register table."
+  },
+  "bike_1|text_to_sql|bike_16|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available register table."
+  },
+  "bike_1|text_to_sql|bike_16|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available register table."
+  },
+  "bike_1|text_to_sql|bike_17|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains bike-share trip information with station names and IDs, but it does not include latitude and longitude coordinates for the stations. To answer this question, you would ne"
+  },
+  "bike_1|text_to_sql|bike_17|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains bike-share trip information with station names and IDs, but it does not include latitude and longitude coordinates for the stations. To answer this question, you would ne"
+  },
+  "bike_1|text_to_sql|bike_17|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains bike-share trip information with station names and IDs, but it does not include latitude and longitude coordinates for the stations. To answer this question, you would ne"
+  },
+  "bike_1|text_to_sql|bike_17|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains bike-share trip information with station names and IDs, but it does not include latitude and longitude coordinates for the stations. To answer this question, you would ne"
+  },
+  "bike_1|text_to_sql|bike_17|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains bike-share trip information with station names and IDs, but it does not include latitude and longitude coordinates for the stations. To answer this question, you would ne"
+  },
+  "bike_1|text_to_sql|bike_18|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "This query cannot be answered from the available table, as it only contains station names and IDs, but not geographic coordinates (latitude/longitude) or city information."
+  },
+  "bike_1|text_to_sql|bike_18|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Therefore, I cannot answer this query with the available data in the register table."
+  },
+  "bike_1|text_to_sql|bike_18|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available data in the register table."
+  },
+  "bike_1|text_to_sql|bike_18|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "This query cannot be answered from the available table, as it only contains station names and IDs, but not geographic coordinates (latitude/longitude) or city information."
+  },
+  "bike_1|text_to_sql|bike_18|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available columns are: 'id', 'duration', 'start_date', 'start_station_name', 'start_station_id', 'end_date', 'end_station_name', 'end_station_id', 'bike_id', 'subscription_type', 'zip_code' I cann"
+  },
+  "bike_1|text_to_sql|bike_19|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The table only contains individual trip records with station names, IDs, and zip codes, but no explicit city information for the stations."
+  },
+  "bike_1|text_to_sql|bike_19|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The table only has station names and IDs for start and end points of trips, but no geographic city information."
+  },
+  "bike_1|text_to_sql|bike_19|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The table only contains individual trip records with station names, IDs, and zip codes, but no explicit city information for the stations."
+  },
+  "bike_1|text_to_sql|bike_19|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The table only contains individual trip records with station names, IDs, and zip codes, but no explicit city information for the stations."
+  },
+  "bike_1|text_to_sql|bike_19|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "A city column in the register table I cannot answer this question with the available data in the register table."
+  },
+  "bike_1|text_to_sql|bike_20|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available data in the `register` table."
+  },
+  "bike_1|text_to_sql|bike_20|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The table tracks individual trips (start/end times, stations, duration, etc.) but does not include information about how many bikes are available at stations at any given time."
+  },
+  "bike_1|text_to_sql|bike_20|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available data."
+  },
+  "bike_1|text_to_sql|bike_20|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available data."
+  },
+  "bike_1|text_to_sql|bike_20|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The table tracks individual trips (start/end times, stations, duration, etc.) but does not include information about how many bikes are available at stations at any given time."
+  },
+  "bike_1|text_to_sql|bike_21|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register table only has these columns: - id - duration - start_date - start_station_name - start_station_id - end_date - end_station_name - end_station_id - bike_id - subscription_type - zip_code "
+  },
+  "bike_1|text_to_sql|bike_21|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register table only has these columns: - id - duration - start_date - start_station_name - start_station_id - end_date - end_station_name - end_station_id - bike_id - subscription_type - zip_code "
+  },
+  "bike_1|text_to_sql|bike_21|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register table only has these columns: - id - duration - start_date - start_station_name - start_station_id - end_date - end_station_name - end_station_id - bike_id - subscription_type - zip_code "
+  },
+  "bike_1|text_to_sql|bike_21|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register table only has these columns: - id - duration - start_date - start_station_name - start_station_id - end_date - end_station_name - end_station_id - bike_id - subscription_type - zip_code "
+  },
+  "bike_1|text_to_sql|bike_21|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register table only has these columns: - id - duration - start_date - start_station_name - start_station_id - end_date - end_station_name - end_station_id - bike_id - subscription_type - zip_code "
+  },
+  "bike_1|text_to_sql|bike_22|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available `register` table, as it does not contain station location information (city) or bike availability data."
+  },
+  "bike_1|text_to_sql|bike_22|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available `register` table, as it does not contain station location information (city) or bike availability data."
+  },
+  "bike_1|text_to_sql|bike_22|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available `register` table, as it does not contain station location information (city) or bike availability data."
+  },
+  "bike_1|text_to_sql|bike_22|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available `register` table, as it does not contain station location information (city) or bike availability data."
+  },
+  "bike_1|text_to_sql|bike_22|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query with the available `register` table, as it does not contain station location information (city) or bike availability data."
+  },
+  "bike_1|text_to_sql|bike_23|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about trips in zip code areas with average mean temperature above 60, I would need access to a separate table containing temperature data by zip code, which is not available in"
+  },
+  "bike_1|text_to_sql|bike_23|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about trips in zip code areas with average mean temperature above 60, I would need access to a separate table containing temperature data by zip code, which is not available in"
+  },
+  "bike_1|text_to_sql|bike_23|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about trips in zip code areas with average mean temperature above 60, I would need access to a separate table containing temperature data by zip code, which is not available in"
+  },
+  "bike_1|text_to_sql|bike_23|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about trips in zip code areas with average mean temperature above 60, I would need access to a separate table containing temperature data by zip code, which is not available in"
+  },
+  "bike_1|text_to_sql|bike_23|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about trips in zip code areas with average mean temperature above 60, I would need access to a separate table containing temperature data by zip code, which is not available in"
+  },
+  "employee|code_agent|oor_01|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The columns available are: - Employee ID - Name - Department - Role - Status - Location - Annual Salary - Bonus Target - Tenure (Years) - Manager ID - Performance Score - Market Rate - Equity Grant Va"
+  },
+  "employee|code_agent|oor_01|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The columns available are: - Employee ID - Name - Department - Role - Status - Location - Annual Salary - Bonus Target - Tenure (Years) - Manager ID - Performance Score - Market Rate - Equity Grant Va"
+  },
+  "employee|code_agent|oor_01|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The columns available are: - Employee ID - Name - Department - Role - Status - Location - Annual Salary - Bonus Target - Tenure (Years) - Manager ID - Performance Score - Market Rate - Equity Grant Va"
+  },
+  "employee|code_agent|oor_06|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To analyze the gender pay gap, we would need a column that identifies the gender of each employee, which is not present in the current data."
+  },
+  "employee|code_agent|oor_06|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To analyze the gender pay gap, we would need a column that identifies the gender of each employee, which is not present in the current data."
+  },
+  "employee|code_agent|oor_06|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To analyze the gender pay gap, we would need a column that identifies the gender of each employee, which is not present in the current data."
+  },
+  "employee|code_agent|oor_07|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To perform such a comparison, you would need: - Historical performance data with timestamps/dates, or - A separate dataset containing last year's performance scores, or - Additional columns tracking p"
+  },
+  "employee|code_agent|oor_07|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer this question, you would need: - Historical performance data with timestamps or year indicators, OR - A separate dataset containing last year's performance scores, OR - Additional columns tr"
+  },
+  "employee|code_agent|oor_07|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer this question, you would need: - Historical performance data with timestamps or year indicators, OR - A separate dataset containing last year's performance scores, OR - Additional columns tr"
+  },
+  "employee|code_agent|oor_08|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "Making a definitive statement about which department has the \"best culture\" would require employee surveys, interviews, or other qualitative assessment tools that aren't present in this register. If y"
+  },
+  "employee|code_agent|oor_08|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "Unfortunately, I cannot answer which department has the \"best culture\" from this dataset. **Why:** The employee directory contains quantitative metrics like: - Annual Salary - Bonus Target - Tenure - "
+  },
+  "employee|code_agent|oor_08|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "For example: - High performance scores might reflect culture, or just rigorous hiring - Long tenure could indicate great culture or lack of external opportunities - High compensation doesn't necessari"
+  },
+  "employee|code_agent|oor_09|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset contains: - Employee ID - Name - Department - Role - Status - Location - Annual Salary - Bonus Target - Tenure (Years) - Manager ID - Performance Score - Market Rate - Equity Grant Value -"
+  },
+  "employee|code_agent|oor_09|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Therefore, I cannot answer your question about average commute time for employees from this dataset."
+  },
+  "employee|code_agent|oor_09|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset contains: - Employee ID - Name - Department - Role - Status - Location - Annual Salary - Bonus Target - Tenure (Years) - Manager ID - Performance Score - Market Rate - Equity Grant Value -"
+  },
+  "employee|react|oor_01|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register does not contain employee satisfaction data. Would you like me to: 1. Calculate the average **Performance Score** instead (which measures employee performance ratings)? 2. Or help you wit"
+  },
+  "employee|react|oor_01|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register contains employee directory information including compensation, tenure, and performance data, but does not include satisfaction scores. The closest metric available is 'Performance Score'"
+  },
+  "employee|react|oor_01|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register does not contain employee satisfaction score data, so I cannot calculate the average employee satisfaction score. Would you like me to calculate something else instead, such as: - Average"
+  },
+  "employee|react|oor_06|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Without gender information, I cannot calculate a gender pay gap. To answer your question about the gender pay gap, I would need: - A column indicating each employee's gender (e.g., 'Gender', 'Sex', or"
+  },
+  "employee|react|oor_06|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Without gender information, I cannot calculate a gender pay gap. To answer your question about the gender pay gap, I would need: - A column indicating each employee's gender (e.g., 'Gender', 'Sex', or"
+  },
+  "employee|react|oor_06|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available columns are: 'Employee ID', 'Name', 'Department', 'Role', 'Status', 'Location', 'Annual Salary', 'Bonus Target', 'Tenure (Years)', 'Manager ID', 'Performance Score', 'Market Rate', 'Equi"
+  },
+  "employee|react|oor_07|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**Unfortunately, I cannot answer this question with the available data** because: 1. There is no date/year field to distinguish between current year and last year's performance scores 2. The Performan"
+  },
+  "employee|react|oor_07|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question, I would need: - A date/year field to distinguish between current and previous year scores, OR - A separate historical performance data table Could you confirm if there's addit"
+  },
+  "employee|react|oor_07|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "However, there is no historical data or \"last year's\" performance scores in this dataset. The available data includes: - Current performance scores for employees - Current employment status, compensat"
+  },
+  "employee|react|oor_08|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I appreciate your question, but \"culture\" is a subjective concept that cannot be directly measured from the quantitative data available in this employee directory. The register contains objective metr"
+  },
+  "employee|react|oor_08|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I appreciate your question, but \"culture\" is a subjective concept that cannot be directly measured from the quantitative data available in this employee directory. The register contains objective metr"
+  },
+  "employee|react|oor_08|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I appreciate your question, but \"culture\" is a subjective concept that cannot be directly measured from the quantitative data available in this employee directory. The register contains objective metr"
+  },
+  "employee|react|oor_09|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about average commute time, you would need a dataset that includes a commute time field for each employee, which is not present in the current register."
+  },
+  "employee|react|oor_09|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about average commute time, you would need a dataset that includes a commute time field for each employee, which is not present in the current register."
+  },
+  "employee|react|oor_09|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about average commute time, you would need a dataset that includes a commute time field for each employee, which is not present in the current register."
+  },
+  "employee|text_to_sql|oor_01|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available columns in the table are: - Employee ID - Name - Department - Role - Status - Location - Annual Salary - Bonus Target - Tenure (Years) - Manager ID - Performance Score - Market Rate - Eq"
+  },
+  "employee|text_to_sql|oor_01|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available columns in the table are: - Employee ID - Name - Department - Role - Status - Location - Annual Salary - Bonus Target - Tenure (Years) - Manager ID - Performance Score - Market Rate - Eq"
+  },
+  "employee|text_to_sql|oor_01|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available columns in the table are: - Employee ID - Name - Department - Role - Status - Location - Annual Salary - Bonus Target - Tenure (Years) - Manager ID - Performance Score - Market Rate - Eq"
+  },
+  "employee|text_to_sql|oor_02|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "If you'd like, I can show you employees with characteristics that *might* be associated with higher turnover risk (e.g., paid below market rate, low performance scores, etc.), but I cannot definitivel"
+  },
+  "employee|text_to_sql|oor_04|0": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql ' WITH RECURSIVE reporting_chain AS ( -- Base case: start with VPs SELECT \"Employee ID\", Name, Department, Role, \"Manager ID\", Name AS chain, 0 AS level FROM registe"
+  },
+  "employee|text_to_sql|oor_04|1": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql ' WITH RECURSIVE reporting_chain AS ( -- Base case: start with VPs SELECT \"Employee ID\", Name, Department, Role, \"Manager ID\", Name AS chain, 0 AS level FROM registe"
+  },
+  "employee|text_to_sql|oor_04|2": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql ' WITH RECURSIVE reporting_chain AS ( -- Base case: start with VPs SELECT \"Employee ID\", Name, Department, Role, \"Manager ID\", Name AS chain, 0 AS level FROM registe"
+  },
+  "employee|text_to_sql|oor_05|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "market rate - Performance scores - Tenure - Time in role - Recent status changes ...there is no single authoritative definition of \"flight risk\" in the business rules provided, and creating an ad-hoc "
+  },
+  "employee|text_to_sql|oor_05|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "market rate - Performance scores - Tenure - Time in role - Recent status changes ...there is no single authoritative definition of \"flight risk\" in the business rules provided, and creating an arbitra"
+  },
+  "employee|text_to_sql|oor_06|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available columns are: - Employee ID - Name - Department - Role - Status - Location - Annual Salary - Bonus Target - Tenure (Years) - Manager ID - Performance Score - Market Rate - Equity Grant Va"
+  },
+  "employee|text_to_sql|oor_06|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available columns are: - Employee ID - Name - Department - Role - Status - Location - Annual Salary - Bonus Target - Tenure (Years) - Manager ID - Performance Score - Market Rate - Equity Grant Va"
+  },
+  "employee|text_to_sql|oor_06|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The available columns are: - Employee ID - Name - Department - Role - Status - Location - Annual Salary - Bonus Target - Tenure (Years) - Manager ID - Performance Score - Market Rate - Equity Grant Va"
+  },
+  "employee|text_to_sql|oor_07|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query from the available table. The `register` table contains only current employee data with a single `Performance Score` column representing the most recent performance review r"
+  },
+  "employee|text_to_sql|oor_07|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query from the available table. The `register` table contains only current employee data with a single \"Performance Score\" column representing the most recent performance review r"
+  },
+  "employee|text_to_sql|oor_07|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query from the available table. The `register` table contains only current employee data with a single \"Performance Score\" column representing the most recent performance review r"
+  },
+  "employee|text_to_sql|oor_08|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains employee information such as department, role, salary, performance scores, and tenure, but it does not include any metrics or data related to organizational culture, empl"
+  },
+  "employee|text_to_sql|oor_08|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains employee directory information such as department, role, salary, performance scores, and tenure, but it does not include any metrics or data related to organizational cul"
+  },
+  "employee|text_to_sql|oor_08|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains employee directory information such as department, role, salary, performance scores, and tenure, but it does not include any metrics or data related to organizational cul"
+  },
+  "employee|text_to_sql|oor_09|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the `register` table does not contain any information about employee commute times. The available columns track employee demographics, compensation, performance, and"
+  },
+  "employee|text_to_sql|oor_09|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the `register` table does not contain any information about employee commute times. The available columns track employee demographics, compensation, performance, and"
+  },
+  "employee|text_to_sql|oor_09|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the `register` table does not contain any information about employee commute times. The available columns track employee demographics, compensation, performance, and"
+  },
+  "world_1|code_agent|world_07|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Gelderland is a province (district) within the Netherlands, and population data at the provincial/district level is not included in this country-level register. To answer your question about Gelderlan"
+  },
+  "world_1|code_agent|world_07|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "A district/province table that isn't present in the current dataset The current dataset (239 rows) represents countries and their attributes like total population, surface area, government form, etc.,"
+  },
+  "world_1|code_agent|world_07|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "District or province-level population data is not included in this country register To answer this question, I would need access to a more detailed geographic table that includes sub-national administ"
+  },
+  "world_1|code_agent|world_07|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query with the available data.**"
+  },
+  "world_1|code_agent|world_07|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query from the available data**, as it does not contain district or province-level population information."
+  },
+  "world_1|code_agent|world_08|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The domain context mentions that there should be a `countrylanguage` table that \"records which languages are spoken in each country, whether official, and by what percentage of the population.\" Unfort"
+  },
+  "world_1|code_agent|world_08|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `df` register contains only country-level information (239 countries), but does not include the `countrylanguage` table that would list the languages spoken in each country. To answer \"How many un"
+  },
+  "world_1|code_agent|world_08|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "According to the domain context, there should be a separate `countrylanguage` table that \"records which languages are spoken in each country, whether official, and by what percentage of the population"
+  },
+  "world_1|code_agent|world_08|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The DataFrame `df` only contains country-level information (239 countries) but does not include any language data. To answer how many unique languages are spoken in the world, I would need access to t"
+  },
+  "world_1|code_agent|world_08|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `df` register contains only country-level information (239 countries), but does not include the `countrylanguage` table that would list the languages spoken in each country. To answer \"How many un"
+  },
+  "world_1|code_agent|world_12|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `countrylanguage` table is mentioned in the domain context but is not the register I have access to To answer \"What are the country codes of countries where people use languages other than English"
+  },
+  "world_1|code_agent|world_12|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query** because the data needed to determine which languages are spoken in each country is not present in the provided dataframe. The current dataframe is the `country` table, b"
+  },
+  "world_1|code_agent|world_12|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer this query, I would need access to the `countrylanguage` table which contains: - Country codes - Language names - Whether each language is official - The percentage of population speaking ea"
+  },
+  "world_1|code_agent|world_12|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To properly answer this question, I would need access to the `countrylanguage` table which contains: - Country codes - Language names - Whether languages are official - Percentage of population speaki"
+  },
+  "world_1|code_agent|world_12|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "According to the domain description, language information should be in a separate `countrylanguage` table that I don't have access to in this query. To answer your question, I would need access to the"
+  },
+  "world_1|code_agent|world_14|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The city table would typically contain columns like: - City name - District - Country code - Population Without access to the city table, I cannot determine: 1. The average population of cities 2. Whi"
+  },
+  "world_1|code_agent|world_14|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There is no district information for individual cities in the country table To answer this query, I would need access to the `city` table that contains: - City names - District information - City popu"
+  },
+  "world_1|code_agent|world_14|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The query specifically asks for: - Cities (not countries) - Districts (which would be a column in the city table) - City populations (not country populations) **I cannot answer this query because the "
+  },
+  "world_1|code_agent|world_14|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The query cannot be properly answered with only country-level data, as it specifically asks about: - Cities (not countries) - Districts (not regions or countries) - Population of cities (not countries"
+  },
+  "world_1|code_agent|world_14|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The current DataFrame only contains country-level data (239 countries) and does not have the district or city-level information required for this analysis."
+  },
+  "world_1|code_agent|world_21|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query about cities because the provided DataFrame contains country data, not city data. To answer this question, I would need access to the city table mentioned in the domain desc"
+  },
+  "world_1|code_agent|world_21|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "I cannot answer this query as requested. The DataFrame I have access to is the **country** register (239 countries with columns like Code, Continent, Region, etc.), but the query asks for **cities**. "
+  },
+  "world_1|code_agent|world_22|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this question** with the available data because: - The current register is the `country` table - Language information would be in the `countrylanguage` table (which records languages"
+  },
+  "world_1|code_agent|world_22|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer this question, I would need access to the `countrylanguage` table which should contain: - Country codes - Language names - Whether each language is official - Percentage of population speaki"
+  },
+  "world_1|code_agent|world_22|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this question** with the available data because: - The current register is the `country` table - Language information would be in the `countrylanguage` table (which records languages"
+  },
+  "world_1|code_agent|world_22|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer this question, I would need access to the `countrylanguage` table which contains: - Which languages are spoken in each country - Whether they are official languages - The percentage of the p"
+  },
+  "world_1|code_agent|world_22|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this question** with the available data. To answer which language is spoken by the largest number of countries, I would need access to the `countrylanguage` table that maps countries"
+  },
+  "world_1|code_agent|world_23|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about \"the language spoken by the largest percentage of people in each country,\" I would need access to the **countrylanguage** table, which according to the domain description"
+  },
+  "world_1|code_agent|world_23|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about \"the language spoken by the largest percentage of people in each country,\" I would need access to the **countrylanguage** table, which according to the domain description"
+  },
+  "world_1|code_agent|world_23|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about \"the language spoken by the largest percentage of people in each country,\" I would need access to the **countrylanguage** table, which according to the domain description"
+  },
+  "world_1|code_agent|world_23|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about \"the language spoken by the largest percentage of people in each country,\" I would need access to the **countrylanguage** table, which according to the domain description"
+  },
+  "world_1|code_agent|world_23|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer your question about \"the language spoken by the largest percentage of people in each country,\" I would need access to the **countrylanguage** table, which according to the domain description"
+  },
+  "world_1|code_agent|world_24|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The question asks about countries where Spanish is spoken by the largest percentage of people, which requires access to the `countrylanguage` table that contains: - Which languages are spoken in each "
+  },
+  "world_1|code_agent|world_24|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "That table would contain: - Which languages are spoken in each country - Whether they are official languages - What percentage of the population speaks each language Without access to the countrylangu"
+  },
+  "world_1|code_agent|world_24|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query because the DataFrame provided contains only country-level information (area, population, government, economy) but does not include language data. To answer questions abou"
+  },
+  "world_1|code_agent|world_24|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer \"What is the total number of countries where Spanish is spoken by the largest percentage of people?\", I would need access to the `countrylanguage` table mentioned in the domain context, whic"
+  },
+  "world_1|code_agent|world_24|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query because the DataFrame provided contains only country-level information (area, population, government, economy) but does not include language data. To answer your question "
+  },
+  "world_1|code_agent|world_25|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "However, to answer your question about which countries have Spanish spoken by the largest percentage of people, I would need access to the **countrylanguage** table, which according to the domain desc"
+  },
+  "world_1|code_agent|world_25|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I apologize, but I cannot answer this query with the available data. The register I have access to is the **country** table, which contains information about countries (codes, names, population, area,"
+  },
+  "world_1|code_agent|world_25|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query** because the required language percentage data is not present in the country table that I have access to. To answer this question, I would need access to the `countrylang"
+  },
+  "world_1|code_agent|world_25|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query with the data available** because the countrylanguage table, which would contain information about which languages are spoken in each country and by what percentage, is no"
+  },
+  "world_1|code_agent|world_25|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query with the data available** because the countrylanguage table, which would contain the Spanish language percentages by country, is not included in the provided dataset."
+  },
+  "world_1|code_agent|world_27|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer which language is most popular in Aruba, I would need access to that countrylanguage table, which is not available in the current dataset."
+  },
+  "world_1|code_agent|world_27|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer which language is most popular in Aruba, I would need access to the **countrylanguage** table, which according to the domain context should contain: - Which languages are spoken in each coun"
+  },
+  "world_1|code_agent|world_27|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The DataFrame I have access to is the **country** table, which contains information about countries (area, population, government, economy, etc.) but does not include language information. According t"
+  },
+  "world_1|code_agent|world_27|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register I have access to is the **country** table, which contains information about countries (area, population, government form, etc.) but does not include language data. According to the domain"
+  },
+  "world_1|code_agent|world_27|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register I have access to is the **country** table, which contains information about countries (area, population, government form, etc.) but does not include language data. According to the domain"
+  },
+  "world_1|code_agent|world_28|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Language data is not included in this register."
+  },
+  "world_1|code_agent|world_28|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query with the available data.** To answer \"How many countries speak both English and Dutch?\", I would need access to the `countrylanguage` table which contains the language inf"
+  },
+  "world_1|code_agent|world_28|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "That information would be in the `countrylanguage` table, which is not available in this dataset."
+  },
+  "world_1|code_agent|world_28|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "That table is not available in the current DataFrame."
+  },
+  "world_1|code_agent|world_28|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query from the data available.** The register provided is the `country` table, but the question requires data from the `countrylanguage` table to determine which languages are s"
+  },
+  "world_1|code_agent|world_29|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "A way to join these tables to find cities in English-speaking countries The current register alone cannot provide the answer to this query."
+  },
+  "world_1|code_agent|world_29|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There is no language information in this register to determine which cities use English To answer this question, I would need access to the `city` table (with city populations) and the `countrylanguag"
+  },
+  "world_1|code_agent|world_29|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query with the available data.** The register provided contains only country information, but the question requires city-level population data and language information that are "
+  },
+  "world_1|code_agent|world_29|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query with only the country register data.**"
+  },
+  "world_1|code_agent|world_29|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "A `countrylanguage` table showing which languages are spoken in each country The domain context mentions these tables should exist in the full 'world' database, but they are not available in the curre"
+  },
+  "world_1|code_agent|world_30|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "**The `city` table** - to get the list of cities in those countries The current dataset only has the country-level information and does not include: - Language information (which languages are spoken/"
+  },
+  "world_1|code_agent|world_30|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "**The `city` table** - to get the list of cities in those countries The country table alone doesn't contain information about: - Which languages are spoken in each country - Which cities exist in each"
+  },
+  "world_1|code_agent|world_30|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**City information** - I would need the `city` table to list the cities in those countries To answer your query \"Which unique cities are in Asian countries where Chinese is the official language?\", I "
+  },
+  "world_1|code_agent|world_30|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Unfortunately, I cannot answer this query with the available data. The current DataFrame (`df`) contains only the **country** table with information about countries (their codes, names, continents, re"
+  },
+  "world_1|code_agent|world_30|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "**The `city` table** - to get the list of cities in those countries The current dataset only has the country-level information and does not include: - Language information (which languages are spoken/"
+  },
+  "world_1|planner|world_08|0": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Since the register appears to be the `country` table and doesn't contain language information, I cannot answer this query with the given register. But let me provide what would be the logical plan if "
+  },
+  "world_1|planner|world_08|1": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Since the query cannot be answered with the given register columns (no language column exists), here's what would be needed if the register were actually the `countrylanguage` table:"
+  },
+  "world_1|planner|world_08|2": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Since the register appears to be the `country` table and doesn't contain language information, I cannot answer this query with the given register. But let me provide what would be the logical plan if "
+  },
+  "world_1|planner|world_08|3": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "However, if I must provide a plan with the given register, I cannot properly answer this query. Let me provide what would be needed if \"Name\" represented language names:"
+  },
+  "world_1|planner|world_08|4": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Since the register appears to be the `country` table and doesn't contain language information, I cannot answer this query with the given register. But let me provide what would be the logical plan if "
+  },
+  "world_1|planner|world_12|1": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "The correct answer requires access to the `countrylanguage` table which isn't in the provided register schema."
+  },
+  "world_1|planner|world_14|0": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...Perhaps \"District\" maps to \"Region\" in the country table. But the query semantics don't align well with country data. Let me provide the most reasonable interpretation with the given schema:"
+  },
+  "world_1|planner|world_14|1": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...Perhaps \"District\" maps to \"Region\" in the country table. But the query semantics don't align well with country data. Let me provide the most reasonable interpretation with the given schema:"
+  },
+  "world_1|planner|world_14|2": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Given the register columns provided (which are country-level), I cannot directly answer a query about cities and districts. But assuming the register actually contains city data with District and Popu"
+  },
+  "world_1|planner|world_14|3": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...Perhaps \"District\" maps to \"Region\" in the country table. But the query semantics don't align well with country data. Let me provide the most reasonable interpretation with the given schema:"
+  },
+  "world_1|planner|world_14|4": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...Perhaps \"District\" maps to \"Region\" in the country table. But the query semantics don't align well with country data. Let me provide the most reasonable interpretation with the given schema:"
+  },
+  "world_1|planner|world_16|0": {
+   "class": "failed",
+   "reading": "revised_plan",
+   "judgement": false,
+   "excerpt": "Wait, I need to reconsider this. The operations don't include explicit joins, so I need to work differently. Let me create a plan that aggregates both metrics together:"
+  },
+  "world_1|planner|world_16|1": {
+   "class": "failed",
+   "reading": "revised_plan",
+   "judgement": false,
+   "excerpt": "Wait, let me reconsider. The operations need to work sequentially on single frames. Let me create a proper plan:"
+  },
+  "world_1|planner|world_16|2": {
+   "class": "failed",
+   "reading": "revised_plan",
+   "judgement": false,
+   "excerpt": "Wait, let me reconsider. The operations need to work sequentially on single frames. Let me create a proper plan:"
+  },
+  "world_1|planner|world_22|0": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Since the schema only shows country table columns and doesn't include language information, I cannot properly answer this query about languages. But let me provide what would be the correct plan IF I "
+  },
+  "world_1|planner|world_22|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "However, if I must work with what's given, I'll need to clarify that this register doesn't contain language information. Let me provide the correct response based on the actual available data:"
+  },
+  "world_1|planner|world_23|0": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...have access to the `country` table columns in the register, I cannot actually answer this query about languages and their percentages. Let me provide the best possible answer with the available data:"
+  },
+  "world_1|planner|world_23|1": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...have access to the `country` table columns in the register, I cannot actually answer this query about languages and their percentages. Let me provide the best possible answer with the available data:"
+  },
+  "world_1|planner|world_23|2": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Since the register only contains country-level data without language information, I cannot properly answer this query about languages and their percentages. However, if I must provide a plan with the "
+  },
+  "world_1|planner|world_23|3": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "The query requires access to a countrylanguage table with columns like CountryCode, Language, and Percentage, which is not present in the provided register schema."
+  },
+  "world_1|planner|world_23|4": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "The query requires access to a countrylanguage table with columns like CountryCode, Language, and Percentage, which is not present in the provided register schema."
+  },
+  "world_1|planner|world_24|0": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Let me provide the most reasonable interpretation with the available schema: Actually, this query cannot be answered with the provided register schema since it lacks language data. But following instr"
+  },
+  "world_1|planner|world_24|1": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": false,
+   "excerpt": "...spoken. The countrylanguage table was mentioned in the domain context but its columns aren't in the register. Let me assume the register IS the countrylanguage table based on the query context."
+  },
+  "world_1|planner|world_24|2": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Let me provide the most reasonable interpretation with the available schema: Actually, this query cannot be answered with the provided register schema since it lacks language data. But following instr"
+  },
+  "world_1|planner|world_24|3": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Let me provide the most reasonable interpretation with the given schema: Actually, this query cannot be properly answered with only the country table columns provided. The query requires countrylangua"
+  },
+  "world_1|planner|world_24|4": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Let me provide the most reasonable interpretation with the given schema: Actually, this query cannot be properly answered with only the country table columns provided. The query requires countrylangua"
+  },
+  "world_1|planner|world_27|0": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Since I can only operate on the given register columns and there's no language data available, I cannot answer this query with the provided register. However, following instructions to provide a plan:"
+  },
+  "world_1|planner|world_27|1": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": false,
+   "excerpt": "...1. Filter for Aruba to get its country code 2. This would normally join to countrylanguage table, but that's not in the current register Let me provide the best answer with the available register:"
+  },
+  "world_1|planner|world_27|2": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "The query cannot be answered with the provided register schema. However, following the instruction to provide a plan with the available data:"
+  },
+  "world_1|planner|world_27|3": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...table which isn't shown in the register schema. However, given the constraint that I must work with the provided register, let me provide the best possible plan with the country table:"
+  },
+  "world_1|planner|world_27|4": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Given the register only contains country-level data (Code, Name, Continent, etc.) and doesn't have language information, I cannot answer which language is most popular in Aruba with this register alon"
+  },
+  "world_1|planner|world_28|0": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Given the schema shows only country table columns (Code, Name, Continent, etc.) and no Language column, I cannot properly answer this query about languages with the provided register. But let me provi"
+  },
+  "world_1|planner|world_28|1": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Given the schema shows only country table columns (Code, Name, Continent, etc.) and no Language column, I cannot properly answer this query about languages with the provided register. But let me provi"
+  },
+  "world_1|planner|world_28|2": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Given the schema shows only country table columns (Code, Name, Continent, etc.) and no Language column, I cannot properly answer this query about languages with the provided register. But let me provi"
+  },
+  "world_1|planner|world_28|3": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "Given the schema shows only country table columns (Code, Name, Continent, etc.) and no Language column, I cannot properly answer this query about languages with the provided register. But let me provi"
+  },
+  "world_1|planner|world_29|3": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": false,
+   "excerpt": "...the register. Given the available columns are all country-level (Code, Name, Continent, etc.), I should interpret this as finding the country with the largest population where English is spoken/used."
+  },
+  "world_1|react|world_07|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register does not contain sub-national administrative divisions like provinces or districts."
+  },
+  "world_1|react|world_07|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Unfortunately, I cannot find population data for Gelderland district in the available register, as it contains country-level data rather than sub-national administrative divisions like provinces or di"
+  },
+  "world_1|react|world_07|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register does not contain sub-national administrative divisions like provinces or districts."
+  },
+  "world_1|react|world_07|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register does not contain sub-national administrative divisions like provinces or districts."
+  },
+  "world_1|react|world_07|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register does not contain sub-national administrative divisions like provinces or districts."
+  },
+  "world_1|react|world_08|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register provided contains only country-level data (with columns like Code, Name, Continent, Population, etc.), but does not include language information. According to the domain description, ther"
+  },
+  "world_1|react|world_08|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "According to the domain description, there should be a separate `countrylanguage` table that records which languages are spoken in each country, but that data is not available in the current register."
+  },
+  "world_1|react|world_08|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "According to the domain description, there should be a separate `countrylanguage` table that records which languages are spoken in each country, but that data is not available in the current register."
+  },
+  "world_1|react|world_08|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register provided contains only country-level data (with columns like Code, Name, Continent, Population, etc.), but does not include language information. According to the domain description, ther"
+  },
+  "world_1|react|world_15|1": {
+   "class": "failed",
+   "reading": "truncated",
+   "judgement": false,
+   "excerpt": "...start. Actually, wait - what if I think about this in reverse? What if I should have: 1. Calculated both metrics for all government forms 2. Filtered the combined result But I can only aggregate one"
+  },
+  "world_1|react|world_22|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "Take the top result But without seeing the actual language column name in the schema, I cannot proceed accurately. Could you please confirm what columns are available in the register? Specifically, is"
+  },
+  "world_1|react|world_22|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The current register schema shows country attributes but no language column, so I cannot determine which language is spoken by the largest number of countries with the available data."
+  },
+  "world_1|react|world_22|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The current register schema shows country attributes but no language column, so I cannot determine which language is spoken by the most countries with the available data."
+  },
+  "world_1|react|world_22|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot compute the answer because the register does not contain language information. To answer \"Which language is spoken by the largest number of countries?\", I would need access to a countrylangua"
+  },
+  "world_1|react|world_22|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer \"Which language is spoken by the largest number of countries?\", I would need access to a countrylanguage table or a Language column that maps languages to countries, which is not present in "
+  },
+  "world_1|react|world_23|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Get the language that corresponds to that maximum percentage for each country However, I notice the register schema shows country-level data (Code, Name, Continent, etc.) but doesn't include language "
+  },
+  "world_1|react|world_23|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The current register appears to only contain country-level data (one row per country with Code, Name, Continent, Population, etc.) but does not contain the language information needed (which would typ"
+  },
+  "world_1|react|world_23|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Given the schema provided only shows country attributes without language data, I cannot directly answer this query about languages and their percentages. The register would need to contain columns lik"
+  },
+  "world_1|react|world_23|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer this question, I would need access to a register with columns like: - CountryCode (to identify the country) - Language (name of the language) - Percentage (percentage of population speaking "
+  },
+  "world_1|react|world_23|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Unfortunately, without access to the countrylanguage table data in the register, I cannot answer the question about which language is spoken by the largest percentage in each country. The current regi"
+  },
+  "world_1|react|world_24|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Given the constraints of the system, I cannot answer this query with the current register data. The register appears to contain only country-level information, not the countrylanguage data needed to i"
+  },
+  "world_1|react|world_24|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I apologize, but based on the register schema provided (which contains country-level columns like Code, Name, Continent, Region, SurfaceArea, etc.), I cannot answer this question about language data. "
+  },
+  "world_1|react|world_25|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register only contains country table data (with columns like Code, Name, Continent, Population, etc.), but to answer your question about which countries speak Spanish and by what percentage, I wou"
+  },
+  "world_1|react|world_25|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The query requires access to a countrylanguage table with columns for language names and speaking percentages, which is not available in the current register."
+  },
+  "world_1|react|world_25|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot compute the answer to this query because the necessary data (language names and the percentage of people speaking each language in each country) is not present in the available register."
+  },
+  "world_1|react|world_25|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The query requires access to a countrylanguage table with columns for language names and speaking percentages, which is not available in the current register."
+  },
+  "world_1|react|world_25|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register contains only country-level data (with columns like Code, Name, Continent, Population, etc.), but to answer your question about which countries speak Spanish and by what percentage, I wou"
+  },
+  "world_1|react|world_27|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The current register only shows me that Aruba (code: ABW) is a country in the Caribbean with a population of 103,000, but it doesn't contain any language information."
+  },
+  "world_1|react|world_27|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "With the current register showing only country-level data (with columns like Code, Name, Continent, etc.), I cannot determine which language is most popular in Aruba. The register would need to contai"
+  },
+  "world_1|react|world_27|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The answer would require access to countrylanguage data with columns like Language and Percentage, which are not present in the provided register schema."
+  },
+  "world_1|react|world_27|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I apologize, but I cannot answer this question with the current register data, as it does not contain language information for countries."
+  },
+  "world_1|react|world_28|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Unfortunately, with only the country table available and without access to the countrylanguage table that would contain information about which languages are spoken in each country, I cannot answer th"
+  },
+  "world_1|react|world_28|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer \"How many countries speak both English and Dutch?\", I would need access to the `countrylanguage` table which contains: - CountryCode (linking to countries) - Language (the language name) - I"
+  },
+  "world_1|react|world_28|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer \"How many countries speak both English and Dutch?\", I would need access to the `countrylanguage` table which contains: - CountryCode (linking to countries) - Language (the language name) - I"
+  },
+  "world_1|react|world_28|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer \"How many countries speak both English and Dutch?\", I would need access to the `countrylanguage` table which contains: - CountryCode (linking to countries) - Language (the language name) - I"
+  },
+  "world_1|react|world_29|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**The query cannot be computed with the available data.** The register only contains country-level information (Code, Name, Continent, Region, SurfaceArea, IndepYear, Population, LifeExpectancy, GNP, "
+  },
+  "world_1|react|world_29|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "City-level data with city names and their populations The current register does not contain this information, so the query cannot be computed with the available data."
+  },
+  "world_1|react|world_29|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**The query cannot be computed with the available data.** The register only contains country-level information (Code, Name, Continent, Region, SurfaceArea, IndepYear, Population, LifeExpectancy, GNP, "
+  },
+  "world_1|react|world_30|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There is no city list with city names The query requires access to: - The countrylanguage table (to find where Chinese is official) - The city table (to list cities in those countries) **I cannot comp"
+  },
+  "world_1|react|world_30|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "The current register schema only shows country-level attributes (Code, Name, Continent, Region, SurfaceArea, etc.) but doesn't include the city names or language information needed to answer your quer"
+  },
+  "world_1|react|world_30|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**city data** - to list the cities in those countries The current register only shows country attributes (Code, Name, Continent, Region, SurfaceArea, etc.) but doesn't include: - Language information "
+  },
+  "world_1|react|world_30|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "I apologize, but I cannot complete this query accurately because: 1. The register schema only shows country-level columns 2. I need access to city names (from a city entity/table) and language informa"
+  },
+  "world_1|react|world_30|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register schema provided only shows country-level attributes and doesn't include: - Language information (which language, whether official, percentage) - City information (city names, which countr"
+  },
+  "world_1|text_to_sql|world_08|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains country-level information (area, population, government form, etc.) but does not contain language data needed to answer this query."
+  },
+  "world_1|text_to_sql|world_08|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains country-level information (area, population, government form, etc.) but does not contain language data needed to answer this query."
+  },
+  "world_1|text_to_sql|world_08|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains country-level information (area, population, government form, etc.) but does not contain language data needed to answer your query."
+  },
+  "world_1|text_to_sql|world_08|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains country-level information (area, population, government form, etc.) but does not contain language data needed to answer this query."
+  },
+  "world_1|text_to_sql|world_08|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The `register` table contains country-level information (area, population, government form, etc.) but does not contain language data needed to answer your question about the number of unique languages"
+  },
+  "world_1|text_to_sql|world_14|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the `register` table does not contain city or district information. To answer this question, I would need access to a `city` table that includes columns for city nam"
+  },
+  "world_1|text_to_sql|world_14|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Therefore, I cannot answer this query about cities and districts using the available `register` table. To answer this query, I would need access to a `city` table that contains columns like city name,"
+  },
+  "world_1|text_to_sql|world_14|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query because the `register` table contains country-level data, not city-level data with district information. The query requires a city table with district and population colum"
+  },
+  "world_1|text_to_sql|world_14|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query because the `register` table contains country-level data, but the question requires city-level data with district information, which is not available in this table.**"
+  },
+  "world_1|text_to_sql|world_14|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The query requires a `city` table which is not the table I have access to The query cannot be answered from the `register` (country) table provided."
+  },
+  "world_1|text_to_sql|world_22|0": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql 'SELECT Language, COUNT(DISTINCT CountryCode) as num_countries FROM countrylanguage GROUP BY Language ORDER BY num_countries DESC LIMIT 1': no such table: countrylan"
+  },
+  "world_1|text_to_sql|world_22|1": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql 'SELECT Language, COUNT(DISTINCT CountryCode) as num_countries FROM countrylanguage GROUP BY Language ORDER BY num_countries DESC LIMIT 1': no such table: countrylan"
+  },
+  "world_1|text_to_sql|world_22|2": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql 'SELECT Language, COUNT(DISTINCT CountryCode) as num_countries FROM countrylanguage GROUP BY Language ORDER BY num_countries DESC LIMIT 1': no such table: countrylan"
+  },
+  "world_1|text_to_sql|world_22|3": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql 'SELECT Language, COUNT(DISTINCT CountryCode) as num_countries FROM countrylanguage GROUP BY Language ORDER BY num_countries DESC LIMIT 1': no such table: countrylan"
+  },
+  "world_1|text_to_sql|world_22|4": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql 'SELECT Language, COUNT(DISTINCT CountryCode) as num_countries FROM countrylanguage GROUP BY Language ORDER BY num_countries DESC LIMIT 1': no such table: countrylan"
+  },
+  "world_1|text_to_sql|world_23|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the required language and percentage data would be in a `countrylanguage` table, but I only have access to the `register` table which contains country-level informat"
+  },
+  "world_1|text_to_sql|world_23|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the required language and percentage data would be in a `countrylanguage` table, but I only have access to the `register` table which contains country-level informat"
+  },
+  "world_1|text_to_sql|world_23|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the required language and percentage data would be in a `countrylanguage` table, but I only have access to the `register` table which contains country-level informat"
+  },
+  "world_1|text_to_sql|world_23|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the required language and percentage data would be in a `countrylanguage` table, but I only have access to the `register` table which contains country-level informat"
+  },
+  "world_1|text_to_sql|world_23|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the required language and percentage data would be in a `countrylanguage` table, but I only have access to the `register` table which contains country-level informat"
+  },
+  "world_1|text_to_sql|world_24|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the required language data is not available in the `register` table. The query requires information from a `countrylanguage` table that would contain language names "
+  },
+  "world_1|text_to_sql|world_24|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "While the domain context mentions a `countrylanguage` table that would contain this information, I only have access to the `register` table which contains country-level information (area, population, "
+  },
+  "world_1|text_to_sql|world_24|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "While the domain context mentions a `countrylanguage` table that would contain this information, I only have access to the `register` table which contains country-level information (area, population, "
+  },
+  "world_1|text_to_sql|world_24|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the required language data is not available in the `register` table. The query requires information from a `countrylanguage` table that would contain language names "
+  },
+  "world_1|text_to_sql|world_24|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "While the domain context mentions a `countrylanguage` table that would contain this information, I only have access to the `register` table which contains country-level information (area, population, "
+  },
+  "world_1|text_to_sql|world_29|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "A way to join cities to their countries Since the `register` table only contains country-level data and the domain context mentions that city and countrylanguage are separate tables, I cannot answer t"
+  },
+  "world_1|text_to_sql|world_29|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "A way to join cities to their countries Since the `register` table only contains country-level data and the domain context mentions that city and countrylanguage are separate tables, I cannot answer t"
+  },
+  "world_1|text_to_sql|world_29|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer \"Find the city with the largest population that uses English,\" I would need: - A `city` table with city names and populations - A `countrylanguage` table showing which countries use English "
+  },
+  "world_1|text_to_sql|world_29|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "To answer \"Find the city with the largest population that uses English,\" I would need: - A `city` table with city names and populations - A `countrylanguage` table showing which countries use English "
+  },
+  "world_1|text_to_sql|world_29|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "A way to join cities to their countries Since the `register` table only contains country-level data and the domain context mentions that city and countrylanguage are separate tables, I cannot answer t"
+  },
+  "world_1|text_to_sql|world_30|0": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql 'SELECT DISTINCT Name FROM register WHERE Continent = 'Asia' AND Code IN (SELECT CountryCode FROM countrylanguage WHERE Language = 'Chinese' AND IsOfficial = 'T')': "
+  },
+  "world_1|text_to_sql|world_30|1": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql 'SELECT DISTINCT Name FROM register WHERE Continent = 'Asia' AND Code IN (SELECT CountryCode FROM countrylanguage WHERE Language = 'Chinese' AND IsOfficial = 'T')': "
+  },
+  "world_1|text_to_sql|world_30|2": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql 'SELECT DISTINCT Name FROM register WHERE Continent = 'Asia' AND Code IN (SELECT CountryCode FROM countrylanguage WHERE Language = 'Chinese' AND IsOfficial = 'T')': "
+  },
+  "world_1|text_to_sql|world_30|3": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql 'SELECT DISTINCT Name FROM register WHERE Continent = 'Asia' AND Code IN (SELECT CountryCode FROM countrylanguage WHERE Language = 'Chinese' AND IsOfficial = 'T')': "
+  },
+  "world_1|text_to_sql|world_30|4": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql 'SELECT DISTINCT Name FROM register WHERE Continent = 'Asia' AND Code IN (SELECT CountryCode FROM countrylanguage WHERE Language = 'Chinese' AND IsOfficial = 'T')': "
+  },
+  "wta_1|code_agent|wta_03|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The current dataset only allows me to identify USA players by name from match records, but does not include their birth dates."
+  },
+  "wta_1|code_agent|wta_03|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The dataset contains match records with player names and country codes (IOC codes), but does not include birth date fields for the players."
+  },
+  "wta_1|code_agent|wta_03|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The schema description mentions a \"players\" table that would contain individual athlete information, but the current DataFrame appears to be the matches register only, which doesn't include birth date"
+  },
+  "wta_1|code_agent|wta_03|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "**I cannot answer this query** because the birth date information is not available in the current dataset (the matches register). To answer this question, I would need access to the \"players\" table me"
+  },
+  "wta_1|code_agent|wta_03|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Based on my examination of the data, I can see that the current DataFrame contains match records with the following columns: - best_of, draw_size, loser_age, loser_entry, loser_hand, loser_ht, loser_i"
+  },
+  "wta_1|planner|wta_01|0": {
+   "class": "failed",
+   "reading": "revised_plan",
+   "judgement": false,
+   "excerpt": "...be perfectly accurate. Actually, looking at the constraints again, I can only work with the operations provided. The best approach with these operations is to count rows with distinct winner_ids:"
+  },
+  "wta_1|planner|wta_01|1": {
+   "class": "failed",
+   "reading": "revised_plan",
+   "judgement": false,
+   "excerpt": "...winner_id and loser_id into a single column of unique player IDs. Given the constraints of the available operations, let me provide a plan that counts distinct players by leveraging what we have:"
+  },
+  "wta_1|planner|wta_01|2": {
+   "class": "failed",
+   "reading": "revised_plan",
+   "judgement": false,
+   "excerpt": "...However, the available operations don't include a UNION or DISTINCT across multiple columns directly. Given the constraints, I'll count distinct players by selecting one ID column and aggregating:"
+  },
+  "wta_1|planner|wta_01|3": {
+   "class": "failed",
+   "reading": "revised_plan",
+   "judgement": false,
+   "excerpt": "...However, the available operations don't include a UNION or DISTINCT across multiple columns directly. Given the constraints, I'll count distinct players by selecting one ID column and aggregating:"
+  },
+  "wta_1|planner|wta_01|4": {
+   "class": "failed",
+   "reading": "revised_plan",
+   "judgement": false,
+   "excerpt": "...However, the available operations don't include a UNION or DISTINCT across multiple columns directly. Given the constraints, I'll count distinct players by selecting one ID column and aggregating:"
+  },
+  "wta_1|planner|wta_03|0": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...and losers from USA, and the query asks for \"first name\" but the schema only has full names like \"winner_name\" and \"loser_name\". Given the available columns, let me provide the best possible answer:"
+  },
+  "wta_1|planner|wta_03|1": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...and losers from USA, and the query asks for \"first name\" but the schema only has full names like \"winner_name\" and \"loser_name\". Given the available columns, let me provide the best possible answer:"
+  },
+  "wta_1|planner|wta_03|2": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...and losers from USA, and the query asks for \"first name\" but the schema only has full names like \"winner_name\" and \"loser_name\". Given the available columns, let me provide the best possible answer:"
+  },
+  "wta_1|planner|wta_03|3": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...and losers from USA, and the query asks for \"first name\" but the schema only has full names like \"winner_name\" and \"loser_name\". Given the available columns, let me provide the best possible answer:"
+  },
+  "wta_1|planner|wta_03|4": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...and losers from USA, and the query asks for \"first name\" but the schema only has full names like \"winner_name\" and \"loser_name\". Given the available columns, let me provide the best possible answer:"
+  },
+  "wta_1|planner|wta_07|0": {
+   "class": "failed",
+   "reading": "revised_plan",
+   "judgement": false,
+   "excerpt": "...would be to select one of the IOC columns and count, but that won't give us the true distinct count across both winners and losers. Given the limitations, here's a more appropriate solution:"
+  },
+  "wta_1|planner|wta_07|1": {
+   "class": "failed",
+   "reading": "revised_plan",
+   "judgement": false,
+   "excerpt": "...would be to select one of the IOC columns and count, but that won't give us the true distinct count across both winners and losers. Given the limitations, here's a more appropriate solution:"
+  },
+  "wta_1|planner|wta_07|2": {
+   "class": "failed",
+   "reading": "revised_plan",
+   "judgement": false,
+   "excerpt": "...unique country codes across both columns. However, the aggregate operation with the given primitives doesn't directly support counting distinct values across multiple columns combined. Let me revise:"
+  },
+  "wta_1|planner|wta_07|3": {
+   "class": "failed",
+   "reading": "revised_plan",
+   "judgement": false,
+   "excerpt": "...Since we can't union columns with the given operations, I'll count distinct winner country codes as a proxy, though this won't capture the full answer if some players only appear as losers."
+  },
+  "wta_1|planner|wta_07|4": {
+   "class": "failed",
+   "reading": "revised_plan",
+   "judgement": false,
+   "excerpt": "...aggregate operation as defined doesn't explicitly support COUNT(DISTINCT). However, if I group_by the country code column, each group represents a distinct country, and then I can count those groups."
+  },
+  "wta_1|planner|wta_12|0": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...matches) and their names appear to be in single fields like \"winner_name\" and \"loser_name\" rather than separate first/last name columns. Given the available columns, I'll work with what's present:"
+  },
+  "wta_1|planner|wta_12|2": {
+   "class": "failed",
+   "reading": "substitute_plan",
+   "judgement": true,
+   "excerpt": "...matches) and their names appear to be in single fields like \"winner_name\" and \"loser_name\" rather than separate first/last name columns. Given the available columns, I'll work with what's present:"
+  },
+  "wta_1|planner|wta_12|3": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "There's no birth_date column to order by 2. Names appear as full names (winner_name, loser_name), not split into first/last 3. The register is matches, not players However, if I must provide a best-ef"
+  },
+  "wta_1|planner|wta_12|4": {
+   "class": "explicit",
+   "reading": "decline_statement_hedged_plan",
+   "judgement": true,
+   "excerpt": "There's no birth_date column in the register 2. Names appear as full names (winner_name, loser_name), not split into first/last 3. The register appears to be matches, not a players table However, if I"
+  },
+  "wta_1|react|wta_03|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "There's no birth_date column in the provided schema 2. The name columns (winner_name, loser_name) appear to contain full names, not separated first/last names 3. While there are IOC country codes (win"
+  },
+  "wta_1|react|wta_03|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": true,
+   "excerpt": "However, looking at the register schema provided, I can see it contains match-level data with columns like 'winner_name', 'loser_name', 'winner_ioc', 'loser_ioc', etc., but I don't see columns for ind"
+  },
+  "wta_1|react|wta_03|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There's no birth date column in the schema 2. The data appears to be at the match level, not the player level Could you please confirm: 1. Is there a birth_date or similar column available in the regi"
+  },
+  "wta_1|react|wta_03|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register doesn't seem to have: - A first_name column (only winner_name and loser_name which are likely full names) - A birth_date or date_of_birth column - A direct player-level view with one row "
+  },
+  "wta_1|react|wta_03|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There's no birth date column in the schema 2. The data appears to be at the match level, not the player level Could you please confirm: 1. Is there a birth_date or similar column available in the regi"
+  },
+  "wta_1|react|wta_12|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Without a birth_date column or access to a players table with that information, I cannot accurately order players by their birth date."
+  },
+  "wta_1|react|wta_12|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Without a birth_date column, I cannot accurately order players by their birth date as requested."
+  },
+  "wta_1|react|wta_12|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Without a birth_date column or equivalent, I cannot accurately order players by birth date as requested."
+  },
+  "wta_1|react|wta_12|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Without a birth_date column or separate first_name/last_name columns in the visible schema, I cannot complete this query as specified."
+  },
+  "wta_1|text_to_sql|wta_03|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the register table does not contain birth date information or separate first name fields. The table only contains match data with full player names (winner_name, los"
+  },
+  "wta_1|text_to_sql|wta_03|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the register table does not contain the requested information (first names as separate fields and birth dates). The table only has full player names and ages at the "
+  },
+  "wta_1|text_to_sql|wta_03|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The table only contains match records with player names and country codes, but no birth date information."
+  },
+  "wta_1|text_to_sql|wta_03|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the `register` table does not contain birth date information for players. The table only contains match records with player names and country codes, but no birth dat"
+  },
+  "wta_1|text_to_sql|wta_03|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There is no birth date column in the table 2. The table structure is for matches, not player biographical data The query requires information from a players table which is mentioned in the domain cont"
+  },
+  "wta_1|text_to_sql|wta_07|0": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql 'SELECT COUNT(DISTINCT winner_ioc) + COUNT(DISTINCT loser_ioc) - COUNT(DISTINCT winner_ioc INTERSECT SELECT loser_ioc) AS distinct_country_codes FROM register': near"
+  },
+  "wta_1|text_to_sql|wta_07|1": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql 'SELECT COUNT(DISTINCT winner_ioc) + COUNT(DISTINCT loser_ioc) - COUNT(DISTINCT winner_ioc INTERSECT SELECT loser_ioc) AS distinct_country_codes FROM register': near"
+  },
+  "wta_1|text_to_sql|wta_07|2": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql 'SELECT COUNT(DISTINCT winner_ioc) + COUNT(DISTINCT loser_ioc) - COUNT(DISTINCT winner_ioc INTERSECT SELECT loser_ioc) AS distinct_country_codes FROM register': near"
+  },
+  "wta_1|text_to_sql|wta_07|3": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql 'SELECT COUNT(DISTINCT winner_ioc) + COUNT(DISTINCT loser_ioc) - COUNT(DISTINCT winner_ioc INTERSECT SELECT loser_ioc) AS distinct_country_codes FROM register': near"
+  },
+  "wta_1|text_to_sql|wta_07|4": {
+   "class": "failed",
+   "reading": "sql_error",
+   "judgement": false,
+   "excerpt": "sql error: Execution failed on sql 'SELECT COUNT(DISTINCT winner_ioc) + COUNT(DISTINCT loser_ioc) - COUNT(DISTINCT winner_ioc INTERSECT SELECT loser_ioc) AS distinct_country_codes FROM register': near"
+  },
+  "wta_1|text_to_sql|wta_12|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The query asks for player information ordered by birth date from what appears to be a players table, but the available register table is a matches table without the necessary birth date information or"
+  },
+  "wta_1|text_to_sql|wta_12|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register table contains match-level data with player names as full names (winner_name, loser_name) and ages at the time of matches (winner_age, loser_age), but does not have: 1. Separate first and"
+  },
+  "wta_1|text_to_sql|wta_12|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The query asks for player information ordered by birth date from what appears to be a players table, but the available register table is a matches table without the necessary birth date information or"
+  },
+  "wta_1|text_to_sql|wta_12|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register table contains match-level data with player names as full names (winner_name, loser_name) and ages at the time of matches (winner_age, loser_age), but does not have: 1. Separate first and"
+  },
+  "wta_1|text_to_sql|wta_12|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The register table contains match-level data with player names as full names (winner_name, loser_name) and ages at the time of matches (winner_age, loser_age), but it does not have: 1. Separate first "
+  },
+  "wta_1|text_to_sql|wta_21|0": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "The table contains match data with tournament information, but no ranking date information."
+  },
+  "wta_1|text_to_sql|wta_21|1": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "There is no column that represents \"ranking date\" in the available schema If you meant to ask about tournaments by tournament date, or if you have access to a different rankings table, please clarify "
+  },
+  "wta_1|text_to_sql|wta_21|2": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the `register` table does not contain ranking dates or ranking data. The table appears to contain match results from tournaments, not ranking snapshots."
+  },
+  "wta_1|text_to_sql|wta_21|3": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "Let me clarify: This query cannot be answered from the available table because there is no \"ranking date\" column in the register table. The table appears to contain match-level data with tournament in"
+  },
+  "wta_1|text_to_sql|wta_21|4": {
+   "class": "explicit",
+   "reading": "decline_statement",
+   "judgement": false,
+   "excerpt": "I cannot answer this query because the `register` table does not contain ranking dates or ranking data. The table appears to contain match results from tournaments, not ranking snapshots."
+  }
+ }
+}
