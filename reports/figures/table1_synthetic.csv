@@ -33,4 +33,4 @@ employee,out_of_range,network,55.6,44.4,15,27
 employee,out_of_range,planner,7.4,92.6,2,27
 employee,out_of_range,react,55.6,44.4,15,27
 employee,out_of_range,code_agent,55.6,44.4,15,27
-employee,out_of_range,text_to_sql,77.8,22.2,21,27
+employee,out_of_range,text_to_sql,66.7,22.2,18,27

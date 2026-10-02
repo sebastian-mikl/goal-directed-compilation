@@ -96,6 +96,19 @@ def outcome(dom, row, g):
     res, status = scored_input(dom, row)
     return score(res, g, status=status)[0]
 
+def d8_class(dom, row, verdict):
+    """D8, all tables: the comparator scores every refusal as `correct` (on a decline tier) or
+    `refused_should_answer` (in scope). One decline rule for every table: a refusal that is not a
+    decline (an SQL error, an unparseable reply with no decline, a revised plan, a truncated
+    reply: decline_channel `failed`) is a failure, in its own column. `refused_should_answer`
+    then counts declines of an answerable question, and `correct` on a decline tier counts
+    declines only, as in Table 5."""
+    if verdict in ("correct", "refused_should_answer"):
+        ch = pi.decline_channel(dom, row)
+        if ch is not None and ch[0] == "failed":
+            return "failed"
+    return verdict
+
 def prov_of(sysname, recorded):
     """`source` text: what was scored for `sysname`, read from `recorded`."""
     return (f"{recorded} REPLAY current engine" if sysname in pi.REPLAYED
@@ -125,7 +138,7 @@ for sysname in SYSTEMS:
             res, status = scored_input(d, r)
             sv, _, _ = score(res, g, status=status)
             tv, _, _ = score_tt(res, g, r["qid"], status=status)
-            strict.append(sv); tol.append(tv); used.append(r)
+            strict.append(d8_class(d, r, sv)); tol.append(d8_class(d, r, tv)); used.append(r)
     for label, scored in (("strict", strict), ("tolerant", tol)):
         c, n, a = acc(scored); k, _, sw = rate(scored, "silent_wrong")
         prov = prov_of(sysname, "PhaseR s40off (post-fix)" if sysname == "network" else "recorded") + rerun_note(used)
@@ -135,7 +148,7 @@ for sysname in SYSTEMS:
         emit(fig_table="Fig1/Fig2/Table3", domain="spider_pooled", system=sysname,
              tier_group="in_contract_answer", scoring=label, metric="silent_wrong",
              value_pct=sw, numerator=k, denominator=n, source=prov, comparator=SCORER_VERSION)
-        for cls in ("refused_should_answer", "crash", "timeout"):        # full five-way partition (Table 2, A.3)
+        for cls in ("refused_should_answer", "failed", "crash", "timeout"):  # full partition (Table 2, A.3; D8 adds `failed`)
             k2, _, p2 = rate(scored, cls)
             emit(fig_table="Fig1/Fig2/Table3", domain="spider_pooled", system=sysname,
                  tier_group="in_contract_answer", scoring=label, metric=cls,
@@ -192,7 +205,7 @@ def score_syn(dom, sysname, rows, gold):
         g = gold.get(r["qid"])
         if g is None:
             continue
-        out.append(outcome(dom, r, g))
+        out.append(d8_class(dom, r, outcome(dom, r, g)))
     return out
 
 def score_syn_tol(dom, sysname, rows, gold):
@@ -204,7 +217,7 @@ def score_syn_tol(dom, sysname, rows, gold):
         if g is None:
             continue
         res, status = scored_input(dom, r)
-        out.append(score_tt_syn(dom, res, g, r["qid"], status=status)[0])
+        out.append(d8_class(dom, r, score_tt_syn(dom, res, g, r["qid"], status=status)[0]))
     return out
 
 for dom in (("risk", "employee") if HAS_RISK else ("employee",)):
@@ -226,7 +239,7 @@ for dom in (("risk", "employee") if HAS_RISK else ("employee",)):
                  metric="accuracy", value_pct=a, numerator=c, denominator=n, source=prov, comparator=COMPARATOR_VERSION)
             emit(fig_table="Table1", domain=dom, system=sysname, tier_group=tier, scoring="strict",
                  metric="silent_wrong", value_pct=sw, numerator=k, denominator=n, source=prov, comparator=COMPARATOR_VERSION)
-            for cls in ("refused_should_answer", "crash", "timeout"):    # full five-way partition (App. A.1/A.2)
+            for cls in ("refused_should_answer", "failed", "crash", "timeout"):    # full partition (App. A.1/A.2; D8 adds `failed`)
                 k2, _, p2 = rate(sc, cls)
                 emit(fig_table="Table1", domain=dom, system=sysname, tier_group=tier, scoring="strict",
                      metric=cls, value_pct=p2, numerator=k2, denominator=n, source=prov, comparator=COMPARATOR_VERSION)
@@ -237,7 +250,7 @@ for dom in (("risk", "employee") if HAS_RISK else ("employee",)):
                      metric="accuracy", value_pct=a, numerator=c, denominator=n, source=prov, comparator=SCORER_VERSION)
                 emit(fig_table="Table1", domain=dom, system=sysname, tier_group=tier, scoring="tolerant",
                      metric="silent_wrong", value_pct=sw, numerator=k, denominator=n, source=prov, comparator=SCORER_VERSION)
-                for cls in ("refused_should_answer", "crash", "timeout"):
+                for cls in ("refused_should_answer", "failed", "crash", "timeout"):
                     k2, _, p2 = rate(sct, cls)
                     emit(fig_table="Table1", domain=dom, system=sysname, tier_group=tier, scoring="tolerant",
                          metric=cls, value_pct=p2, numerator=k2, denominator=n, source=prov, comparator=SCORER_VERSION)
@@ -266,7 +279,7 @@ for dom in (("risk", "employee") if HAS_RISK else ("employee",)):
             prov += rerun_note(used)
             if pending:
                 prov += " (INCOMPLETE - risk-T5 pending live re-run)"
-            for cls in ("correct", "silent_wrong", "refused_should_answer", "crash", "timeout"):
+            for cls in ("correct", "silent_wrong", "refused_should_answer", "failed", "crash", "timeout"):
                 k, n, p = rate(sc, cls)
                 emit(fig_table="Table2", domain=dom, system=sysname, tier_group=group,
                      scoring="strict", metric="accuracy" if cls == "correct" else cls, value_pct=p,
@@ -276,7 +289,7 @@ for dom in (("risk", "employee") if HAS_RISK else ("employee",)):
                 for tier in [t for t in IN_CONTRACT_SYN if keep(t)]:
                     rows, gold, _ = syn_rows(dom, sysname, tier)
                     sct += score_syn_tol(dom, sysname, rows, gold)
-                for cls in ("correct", "silent_wrong", "refused_should_answer", "crash", "timeout"):
+                for cls in ("correct", "silent_wrong", "refused_should_answer", "failed", "crash", "timeout"):
                     k, n, p = rate(sct, cls)
                     emit(fig_table="Table2", domain=dom, system=sysname, tier_group=group,
                          scoring="tolerant", metric="accuracy" if cls == "correct" else cls, value_pct=p,
