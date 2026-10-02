@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
 # GDC — offline reproduction pipeline.
 #
-# Default (no flags): reproduces every published number and figure for the
-# employee and Spider domains from the RELEASED recorded emissions. No API
-# calls, no cost, no ANTHROPIC_API_KEY needed.
+# Default (no flags): rebuilds the numbers, figures and tables of the employee and
+# Spider domains from the RELEASED recorded emissions. No API calls, no cost, no
+# ANTHROPIC_API_KEY. It needs the environment of requirements-lock.txt (README.md,
+# "Quick start") and stops at once, before writing anything, if Python or a package
+# is missing or too old.
 #
 #   ./run_all.sh
 #
-# --live: additionally re-runs the five systems live over the employee and
-# Spider corpora, producing NEW emissions before the offline steps (the only
-# step that needs an LLM and costs money). Requires ANTHROPIC_API_KEY and
-# prompts for confirmation before spending.
+# --live: PRINTS the commands that produce NEW emissions (the only step that needs an
+# LLM and costs money) and runs none of them. Requires ANTHROPIC_API_KEY and asks
+# for confirmation first.
 #
 #   ./run_all.sh --live
 #
-# Either way this script never touches the risk domain — see the note it
-# prints below and README.md's "What's not included" section.
+# Either way this script never touches the risk domain: see the note it prints below
+# and README.md's "What's not included". README.md also says what the script
+# regenerates and what it does not.
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
@@ -25,11 +27,45 @@ for arg in "$@"; do
   case "$arg" in
     --live) LIVE=1 ;;
     -h|--help)
-      sed -n '2,18p' "$0" | sed 's/^# \{0,1\}//'
+      sed -n '2,20p' "$0" | sed 's/^# \{0,1\}//'
       exit 0 ;;
     *) echo "unknown flag: $arg (see --help)"; exit 2 ;;
   esac
 done
+
+# Preflight: the registers are pandas 3 / numpy 2 pickles and the three Spider registers
+# hold Arrow-backed strings, so an environment that lacks pyarrow, or holds pandas 2 or
+# numpy 1, otherwise fails inside step 3 with an error that does not name the cause.
+if ! "$PY" - <<'PYCHECK'
+import sys
+problems = []
+if sys.version_info < (3, 12):
+    problems.append("Python 3.12 or later (this is %d.%d)" % sys.version_info[:2])
+def need(mod, minimum=None, why=""):
+    try:
+        m = __import__(mod)
+    except ImportError:
+        problems.append("%s is not installed%s" % (mod, why))
+        return
+    if minimum:
+        have = tuple(int(x) for x in m.__version__.split(".")[:2] if x.isdigit())
+        if have < minimum:
+            problems.append("%s >= %s (this is %s)%s" % (mod, ".".join(map(str, minimum)), m.__version__, why))
+need("pandas", (3, 0), ": the registers are pandas 3 pickles")
+need("numpy", (2, 0), ": the registers are numpy 2 pickles")
+need("pyarrow", None, ": the Spider registers hold Arrow-backed strings")
+need("matplotlib")
+if problems:
+    sys.stderr.write("run_all.sh: the Python environment is not the released one:\n")
+    for p in problems:
+        sys.stderr.write("  - " + p + "\n")
+    sys.stderr.write("Create it as README.md's Quick start says: python3.12 -m venv .venv, "
+                     "then pip install -r requirements-lock.txt.\n")
+    sys.exit(1)
+PYCHECK
+then
+  exit 3
+fi
 
 echo "================================================================"
 echo "Note: the risk-register domain is not included in this public"

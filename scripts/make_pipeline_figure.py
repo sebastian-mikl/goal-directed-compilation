@@ -213,7 +213,7 @@ def draw():
 
     fig.tight_layout(pad=0.4)
     out = "reports/figures/pipeline.png"
-    fig.savefig(out, dpi=200, bbox_inches="tight", facecolor="white")
+    fig.savefig(out, dpi=200, bbox_inches="tight", facecolor="white", metadata={"Software": None})
     print(f"wrote {out}")
 
 

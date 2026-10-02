@@ -256,7 +256,9 @@ def footnote(fig, text):
 
 
 def save(fig, out, name, **kw):
-    fig.savefig(out / f"{name}.png", **({"bbox_inches": "tight", "dpi": 200} | kw))
+    # metadata Software=None: no matplotlib version string in the PNG, so the bytes do not
+    # depend on the matplotlib patch release.
+    fig.savefig(out / f"{name}.png", **({"bbox_inches": "tight", "dpi": 200, "metadata": {"Software": None}} | kw))
     plt.close(fig)
 
 
@@ -520,7 +522,7 @@ def draw_cost_frontier(pts, path, legacy=False):
             marker_r = {s: math.sqrt(size[s]) / 2 + 1 for s in F8_ORDER}
             _place_labels(fig, ax_acc, "acc", pts, marker_r)
             _place_labels(fig, ax_sil, "silent", pts, marker_r)
-        fig.savefig(path, dpi=200)
+        fig.savefig(path, dpi=200, metadata={"Software": None})
         plt.close(fig)
 
 

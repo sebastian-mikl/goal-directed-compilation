@@ -1,10 +1,16 @@
-# Offline pipeline (rescore / replay / build_paper_numbers / make_paper_figures / tests)
-pandas>=2.0
-numpy>=1.24
-matplotlib>=3.7
+# Python 3.12 or later. Checked on CPython 3.12.13 and 3.14.6 (pandas 3 needs 3.11 and the
+# lock file's numpy 2.5.3 needs 3.12). requirements-lock.txt pins the set that regenerates
+# every file ./run_all.sh writes byte for byte.
+
+# Offline pipeline (./run_all.sh: rescore, replay, build_paper_numbers, make_paper_figures,
+# question_clustered_stats)
+pandas>=3.0       # the registers are pandas 3 pickles; pandas 2.3.3 and 2.0.0 cannot load them
+numpy>=2.0        # the pickles reference numpy._core; numpy 1.26.4 cannot load them
+pyarrow>=25.0     # the three Spider registers hold Arrow-backed strings; tested with 25.0.1, lower not tried
+matplotlib>=3.11  # tested with 3.11.1 and 3.11.2; older releases not tried
 pytest>=7.0
 
-# Live step only (producing new emissions via evidence.eval_run.run) —
-# not required to reproduce any published number or figure.
+# Imported by the test suite (gdc/config.py imports both at module level) and needed for
+# the live step. ./run_all.sh does not need them.
 anthropic>=0.40
 python-dotenv>=1.0

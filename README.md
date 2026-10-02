@@ -23,26 +23,31 @@ disclosure.
 
 ```bash
 git clone https://github.com/sebastian-mikl/goal-directed-compilation.git   # see License & citation below
-cd <cloned directory>
-pip install -r requirements.txt
+cd goal-directed-compilation
+python3 -m venv .venv                 # Python 3.12 or later
+source .venv/bin/activate
+python -m pip install -r requirements-lock.txt
 ./run_all.sh
 ```
 
-This reproduces every published number and figure for the employee and
-Spider domains from the released recorded emissions — no API calls, no cost,
-no `ANTHROPIC_API_KEY` needed. Regenerated output lands in
-`reports/paper_numbers.csv` and `reports/figures/`.
+`requirements-lock.txt` holds the exact versions the release was checked with;
+`requirements.txt` holds version ranges. Under the lock file every file that `run_all.sh`
+rewrites comes back byte for byte. Under another matplotlib release the figure PNGs keep
+identical pixels (the PNGs carry no matplotlib version string).
 
-To instead produce *new* emissions by running the five systems live (costs
-money, needs `ANTHROPIC_API_KEY`):
+`run_all.sh` takes under a minute and makes no API calls. It checks the environment
+first and stops, before writing anything, with a message naming what is missing or too
+old (Python below 3.12, pandas below 3, numpy below 2, no pyarrow, no matplotlib).
+
+To instead produce *new* emissions by running the five systems live (costs money, needs
+`ANTHROPIC_API_KEY`):
 
 ```bash
 ./run_all.sh --live
 ```
 
-`--live` prints the exact commands and a cost estimate rather than running
-silently — there is no single combined live-run entry point for every
-domain; see the script's own output for what to run per domain.
+`--live` prints the commands for each domain and runs none of them: there is no single
+combined live-run entry point.
 
 ## Repository structure
 
@@ -130,13 +135,20 @@ and similar).
 
 ## Requirements
 
-`requirements.txt` lists what's actually imported by the code in this
-repository (verified against the source, not assumed):
+Python 3.12 or later (checked on 3.12.13 and 3.14.6).
 
-- **Offline pipeline** (rescore / replay / build numbers / build figures /
-  tests): `pandas`, `numpy`, `matplotlib`, `pytest`.
-- **Live step only** (producing new emissions): `anthropic`, `python-dotenv`.
-  Not required to reproduce any published number or figure.
+- **Offline pipeline** (`./run_all.sh`): `pandas>=3.0`, `numpy>=2.0`, `pyarrow` and
+  `matplotlib`. The registers are pandas 3 pickles: pandas 2 and numpy 1 cannot load them,
+  and the three Spider registers hold Arrow-backed string columns, so `pyarrow` is required
+  to load them. (The engine's filter semantics also differ between pandas 2 and 3.)
+- **Tests**: the above plus `pytest`, `anthropic` and `python-dotenv`. The suite imports
+  `gdc/config.py`, which imports both; no test calls the API.
+- **Live step only**: an `ANTHROPIC_API_KEY`.
+
+`requirements.txt` lists these. The development scripts under `scripts/` import more
+(`datasets`, `huggingface_hub` for `survey_spider_candidates.py`; `yaml` for
+`portability_live.py`, which also imports a module, `oracles`, that is not in this
+repository); those are not installed by either requirements file.
 
 ## Running the tests
 
