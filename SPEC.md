@@ -1,3 +1,9 @@
+> Design notes from an earlier architecture, kept for the record. This is not the specification
+> of the shipped engine: it describes a state-node graph with an unordered set of operations from
+> Call 1 and does not mention the Goal and OrderSpec the released engine runs on (see the module
+> docstrings in `gdc/` and the paper's Section 3). Its worked example is a query over the
+> withheld risk-register domain.
+
 # The Network — Architecture Spec: State-Node Graph (authoritative)
 
 Status: active direction. This is the **single authoritative spec**. It builds on the
