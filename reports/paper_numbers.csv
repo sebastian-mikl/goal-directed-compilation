@@ -90,31 +90,61 @@ Table1,employee,network,T1_single_op,strict,silent_wrong,0.0,0,45,results_employ
 Table1,employee,network,T1_single_op,strict,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T1_single_op,strict,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T1_single_op,strict,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,network,T1_single_op,tolerant,accuracy,100.0,45,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T1_single_op,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T1_single_op,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T1_single_op,tolerant,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T1_single_op,tolerant,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
 Table1,employee,network,T2_two_ops,strict,accuracy,100.0,45,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T2_two_ops,strict,silent_wrong,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T2_two_ops,strict,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T2_two_ops,strict,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T2_two_ops,strict,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,network,T2_two_ops,tolerant,accuracy,100.0,45,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T2_two_ops,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T2_two_ops,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T2_two_ops,tolerant,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T2_two_ops,tolerant,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
 Table1,employee,network,T3_three_ops,strict,accuracy,100.0,45,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T3_three_ops,strict,silent_wrong,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T3_three_ops,strict,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T3_three_ops,strict,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T3_three_ops,strict,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,network,T3_three_ops,tolerant,accuracy,100.0,45,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T3_three_ops,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T3_three_ops,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T3_three_ops,tolerant,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T3_three_ops,tolerant,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
 Table1,employee,network,T4_business_rule_multi_op,strict,accuracy,100.0,45,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T4_business_rule_multi_op,strict,silent_wrong,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T4_business_rule_multi_op,strict,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T4_business_rule_multi_op,strict,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T4_business_rule_multi_op,strict,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,network,T4_business_rule_multi_op,tolerant,accuracy,100.0,45,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T4_business_rule_multi_op,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T4_business_rule_multi_op,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T4_business_rule_multi_op,tolerant,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T4_business_rule_multi_op,tolerant,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
 Table1,employee,network,T5_high_complexity,strict,accuracy,93.3,42,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T5_high_complexity,strict,silent_wrong,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T5_high_complexity,strict,refused_should_answer,6.7,3,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T5_high_complexity,strict,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,T5_high_complexity,strict,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,network,T5_high_complexity,tolerant,accuracy,93.3,42,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T5_high_complexity,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T5_high_complexity,tolerant,refused_should_answer,6.7,3,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T5_high_complexity,tolerant,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,T5_high_complexity,tolerant,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
 Table1,employee,network,house_vocab,strict,accuracy,100.0,18,18,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,house_vocab,strict,silent_wrong,0.0,0,18,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,house_vocab,strict,refused_should_answer,0.0,0,18,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,house_vocab,strict,crash,0.0,0,18,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,house_vocab,strict,timeout,0.0,0,18,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,network,house_vocab,tolerant,accuracy,100.0,18,18,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,house_vocab,tolerant,silent_wrong,0.0,0,18,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,house_vocab,tolerant,refused_should_answer,0.0,0,18,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,house_vocab,tolerant,crash,0.0,0,18,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,network,house_vocab,tolerant,timeout,0.0,0,18,results_employee.jsonl REPLAY current engine,s48t
 Table1,employee,network,out_of_range,strict,accuracy,55.6,15,27,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,out_of_range,strict,silent_wrong,44.4,12,27,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,network,out_of_range,strict,refused_should_answer,0.0,0,27,results_employee.jsonl REPLAY current engine,s48
@@ -125,31 +155,61 @@ Table1,employee,planner,T1_single_op,strict,silent_wrong,6.7,3,45,results_employ
 Table1,employee,planner,T1_single_op,strict,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T1_single_op,strict,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T1_single_op,strict,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,planner,T1_single_op,tolerant,accuracy,93.3,42,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T1_single_op,tolerant,silent_wrong,6.7,3,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T1_single_op,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T1_single_op,tolerant,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T1_single_op,tolerant,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
 Table1,employee,planner,T2_two_ops,strict,accuracy,100.0,45,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T2_two_ops,strict,silent_wrong,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T2_two_ops,strict,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T2_two_ops,strict,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T2_two_ops,strict,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,planner,T2_two_ops,tolerant,accuracy,100.0,45,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T2_two_ops,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T2_two_ops,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T2_two_ops,tolerant,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T2_two_ops,tolerant,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
 Table1,employee,planner,T3_three_ops,strict,accuracy,100.0,45,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T3_three_ops,strict,silent_wrong,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T3_three_ops,strict,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T3_three_ops,strict,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T3_three_ops,strict,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,planner,T3_three_ops,tolerant,accuracy,100.0,45,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T3_three_ops,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T3_three_ops,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T3_three_ops,tolerant,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T3_three_ops,tolerant,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
 Table1,employee,planner,T4_business_rule_multi_op,strict,accuracy,57.8,26,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T4_business_rule_multi_op,strict,silent_wrong,42.2,19,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T4_business_rule_multi_op,strict,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T4_business_rule_multi_op,strict,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T4_business_rule_multi_op,strict,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,planner,T4_business_rule_multi_op,tolerant,accuracy,57.8,26,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T4_business_rule_multi_op,tolerant,silent_wrong,42.2,19,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T4_business_rule_multi_op,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T4_business_rule_multi_op,tolerant,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T4_business_rule_multi_op,tolerant,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
 Table1,employee,planner,T5_high_complexity,strict,accuracy,100.0,45,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T5_high_complexity,strict,silent_wrong,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T5_high_complexity,strict,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T5_high_complexity,strict,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,T5_high_complexity,strict,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,planner,T5_high_complexity,tolerant,accuracy,100.0,45,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T5_high_complexity,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T5_high_complexity,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T5_high_complexity,tolerant,crash,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,T5_high_complexity,tolerant,timeout,0.0,0,45,results_employee.jsonl REPLAY current engine,s48t
 Table1,employee,planner,house_vocab,strict,accuracy,83.3,15,18,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,house_vocab,strict,silent_wrong,16.7,3,18,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,house_vocab,strict,refused_should_answer,0.0,0,18,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,house_vocab,strict,crash,0.0,0,18,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,house_vocab,strict,timeout,0.0,0,18,results_employee.jsonl REPLAY current engine,s48
+Table1,employee,planner,house_vocab,tolerant,accuracy,83.3,15,18,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,house_vocab,tolerant,silent_wrong,16.7,3,18,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,house_vocab,tolerant,refused_should_answer,0.0,0,18,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,house_vocab,tolerant,crash,0.0,0,18,results_employee.jsonl REPLAY current engine,s48t
+Table1,employee,planner,house_vocab,tolerant,timeout,0.0,0,18,results_employee.jsonl REPLAY current engine,s48t
 Table1,employee,planner,out_of_range,strict,accuracy,7.4,2,27,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,out_of_range,strict,silent_wrong,92.6,25,27,results_employee.jsonl REPLAY current engine,s48
 Table1,employee,planner,out_of_range,strict,refused_should_answer,0.0,0,27,results_employee.jsonl REPLAY current engine,s48
@@ -160,31 +220,61 @@ Table1,employee,react,T1_single_op,strict,silent_wrong,6.7,3,45,results_employee
 Table1,employee,react,T1_single_op,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,react,T1_single_op,strict,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,react,T1_single_op,strict,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table1,employee,react,T1_single_op,tolerant,accuracy,93.3,42,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,react,T1_single_op,tolerant,silent_wrong,6.7,3,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,react,T1_single_op,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,react,T1_single_op,tolerant,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,react,T1_single_op,tolerant,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table1,employee,react,T2_two_ops,strict,accuracy,100.0,45,45,results_employee.jsonl rescored s48,s48
 Table1,employee,react,T2_two_ops,strict,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48,s48
 Table1,employee,react,T2_two_ops,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48,s48
 Table1,employee,react,T2_two_ops,strict,crash,0.0,0,45,results_employee.jsonl rescored s48,s48
 Table1,employee,react,T2_two_ops,strict,timeout,0.0,0,45,results_employee.jsonl rescored s48,s48
+Table1,employee,react,T2_two_ops,tolerant,accuracy,100.0,45,45,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,T2_two_ops,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,T2_two_ops,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,T2_two_ops,tolerant,crash,0.0,0,45,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,T2_two_ops,tolerant,timeout,0.0,0,45,results_employee.jsonl rescored s48,s48t
 Table1,employee,react,T3_three_ops,strict,accuracy,100.0,45,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,react,T3_three_ops,strict,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,react,T3_three_ops,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,react,T3_three_ops,strict,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,react,T3_three_ops,strict,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table1,employee,react,T3_three_ops,tolerant,accuracy,100.0,45,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,react,T3_three_ops,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,react,T3_three_ops,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,react,T3_three_ops,tolerant,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,react,T3_three_ops,tolerant,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table1,employee,react,T4_business_rule_multi_op,strict,accuracy,46.7,21,45,results_employee.jsonl rescored s48,s48
 Table1,employee,react,T4_business_rule_multi_op,strict,silent_wrong,53.3,24,45,results_employee.jsonl rescored s48,s48
 Table1,employee,react,T4_business_rule_multi_op,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48,s48
 Table1,employee,react,T4_business_rule_multi_op,strict,crash,0.0,0,45,results_employee.jsonl rescored s48,s48
 Table1,employee,react,T4_business_rule_multi_op,strict,timeout,0.0,0,45,results_employee.jsonl rescored s48,s48
+Table1,employee,react,T4_business_rule_multi_op,tolerant,accuracy,46.7,21,45,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,T4_business_rule_multi_op,tolerant,silent_wrong,53.3,24,45,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,T4_business_rule_multi_op,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,T4_business_rule_multi_op,tolerant,crash,0.0,0,45,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,T4_business_rule_multi_op,tolerant,timeout,0.0,0,45,results_employee.jsonl rescored s48,s48t
 Table1,employee,react,T5_high_complexity,strict,accuracy,100.0,45,45,results_employee.jsonl rescored s48,s48
 Table1,employee,react,T5_high_complexity,strict,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48,s48
 Table1,employee,react,T5_high_complexity,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48,s48
 Table1,employee,react,T5_high_complexity,strict,crash,0.0,0,45,results_employee.jsonl rescored s48,s48
 Table1,employee,react,T5_high_complexity,strict,timeout,0.0,0,45,results_employee.jsonl rescored s48,s48
+Table1,employee,react,T5_high_complexity,tolerant,accuracy,100.0,45,45,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,T5_high_complexity,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,T5_high_complexity,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,T5_high_complexity,tolerant,crash,0.0,0,45,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,T5_high_complexity,tolerant,timeout,0.0,0,45,results_employee.jsonl rescored s48,s48t
 Table1,employee,react,house_vocab,strict,accuracy,100.0,18,18,results_employee.jsonl rescored s48,s48
 Table1,employee,react,house_vocab,strict,silent_wrong,0.0,0,18,results_employee.jsonl rescored s48,s48
 Table1,employee,react,house_vocab,strict,refused_should_answer,0.0,0,18,results_employee.jsonl rescored s48,s48
 Table1,employee,react,house_vocab,strict,crash,0.0,0,18,results_employee.jsonl rescored s48,s48
 Table1,employee,react,house_vocab,strict,timeout,0.0,0,18,results_employee.jsonl rescored s48,s48
+Table1,employee,react,house_vocab,tolerant,accuracy,100.0,18,18,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,house_vocab,tolerant,silent_wrong,0.0,0,18,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,house_vocab,tolerant,refused_should_answer,0.0,0,18,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,house_vocab,tolerant,crash,0.0,0,18,results_employee.jsonl rescored s48,s48t
+Table1,employee,react,house_vocab,tolerant,timeout,0.0,0,18,results_employee.jsonl rescored s48,s48t
 Table1,employee,react,out_of_range,strict,accuracy,55.6,15,27,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,react,out_of_range,strict,silent_wrong,44.4,12,27,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,react,out_of_range,strict,refused_should_answer,0.0,0,27,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
@@ -195,31 +285,61 @@ Table1,employee,code_agent,T1_single_op,strict,silent_wrong,0.0,0,45,results_emp
 Table1,employee,code_agent,T1_single_op,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T1_single_op,strict,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T1_single_op,strict,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table1,employee,code_agent,T1_single_op,tolerant,accuracy,100.0,45,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T1_single_op,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T1_single_op,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T1_single_op,tolerant,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T1_single_op,tolerant,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table1,employee,code_agent,T2_two_ops,strict,accuracy,100.0,45,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T2_two_ops,strict,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T2_two_ops,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T2_two_ops,strict,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T2_two_ops,strict,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table1,employee,code_agent,T2_two_ops,tolerant,accuracy,100.0,45,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T2_two_ops,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T2_two_ops,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T2_two_ops,tolerant,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T2_two_ops,tolerant,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table1,employee,code_agent,T3_three_ops,strict,accuracy,91.1,41,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T3_three_ops,strict,silent_wrong,8.9,4,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T3_three_ops,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T3_three_ops,strict,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T3_three_ops,strict,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table1,employee,code_agent,T3_three_ops,tolerant,accuracy,97.8,44,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T3_three_ops,tolerant,silent_wrong,2.2,1,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T3_three_ops,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T3_three_ops,tolerant,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T3_three_ops,tolerant,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table1,employee,code_agent,T4_business_rule_multi_op,strict,accuracy,42.2,19,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T4_business_rule_multi_op,strict,silent_wrong,57.8,26,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T4_business_rule_multi_op,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T4_business_rule_multi_op,strict,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T4_business_rule_multi_op,strict,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table1,employee,code_agent,T4_business_rule_multi_op,tolerant,accuracy,42.2,19,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T4_business_rule_multi_op,tolerant,silent_wrong,57.8,26,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T4_business_rule_multi_op,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T4_business_rule_multi_op,tolerant,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T4_business_rule_multi_op,tolerant,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table1,employee,code_agent,T5_high_complexity,strict,accuracy,100.0,45,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T5_high_complexity,strict,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T5_high_complexity,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T5_high_complexity,strict,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,T5_high_complexity,strict,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table1,employee,code_agent,T5_high_complexity,tolerant,accuracy,100.0,45,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T5_high_complexity,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T5_high_complexity,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T5_high_complexity,tolerant,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,T5_high_complexity,tolerant,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table1,employee,code_agent,house_vocab,strict,accuracy,94.4,17,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,house_vocab,strict,silent_wrong,5.6,1,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,house_vocab,strict,refused_should_answer,0.0,0,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,house_vocab,strict,crash,0.0,0,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,house_vocab,strict,timeout,0.0,0,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table1,employee,code_agent,house_vocab,tolerant,accuracy,94.4,17,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,house_vocab,tolerant,silent_wrong,5.6,1,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,house_vocab,tolerant,refused_should_answer,0.0,0,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,house_vocab,tolerant,crash,0.0,0,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,code_agent,house_vocab,tolerant,timeout,0.0,0,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table1,employee,code_agent,out_of_range,strict,accuracy,55.6,15,27,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,out_of_range,strict,silent_wrong,44.4,12,27,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,code_agent,out_of_range,strict,refused_should_answer,0.0,0,27,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
@@ -230,31 +350,61 @@ Table1,employee,text_to_sql,T1_single_op,strict,silent_wrong,6.7,3,45,results_em
 Table1,employee,text_to_sql,T1_single_op,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T1_single_op,strict,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T1_single_op,strict,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table1,employee,text_to_sql,T1_single_op,tolerant,accuracy,93.3,42,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T1_single_op,tolerant,silent_wrong,6.7,3,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T1_single_op,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T1_single_op,tolerant,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T1_single_op,tolerant,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table1,employee,text_to_sql,T2_two_ops,strict,accuracy,100.0,45,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T2_two_ops,strict,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T2_two_ops,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T2_two_ops,strict,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T2_two_ops,strict,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table1,employee,text_to_sql,T2_two_ops,tolerant,accuracy,100.0,45,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T2_two_ops,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T2_two_ops,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T2_two_ops,tolerant,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T2_two_ops,tolerant,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table1,employee,text_to_sql,T3_three_ops,strict,accuracy,93.3,42,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T3_three_ops,strict,silent_wrong,6.7,3,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T3_three_ops,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T3_three_ops,strict,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T3_three_ops,strict,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table1,employee,text_to_sql,T3_three_ops,tolerant,accuracy,100.0,45,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T3_three_ops,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T3_three_ops,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T3_three_ops,tolerant,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T3_three_ops,tolerant,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table1,employee,text_to_sql,T4_business_rule_multi_op,strict,accuracy,46.7,21,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T4_business_rule_multi_op,strict,silent_wrong,53.3,24,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T4_business_rule_multi_op,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T4_business_rule_multi_op,strict,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T4_business_rule_multi_op,strict,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table1,employee,text_to_sql,T4_business_rule_multi_op,tolerant,accuracy,46.7,21,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T4_business_rule_multi_op,tolerant,silent_wrong,53.3,24,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T4_business_rule_multi_op,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T4_business_rule_multi_op,tolerant,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T4_business_rule_multi_op,tolerant,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table1,employee,text_to_sql,T5_high_complexity,strict,accuracy,100.0,45,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T5_high_complexity,strict,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T5_high_complexity,strict,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T5_high_complexity,strict,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,T5_high_complexity,strict,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table1,employee,text_to_sql,T5_high_complexity,tolerant,accuracy,100.0,45,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T5_high_complexity,tolerant,silent_wrong,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T5_high_complexity,tolerant,refused_should_answer,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T5_high_complexity,tolerant,crash,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,T5_high_complexity,tolerant,timeout,0.0,0,45,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table1,employee,text_to_sql,house_vocab,strict,accuracy,88.9,16,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,house_vocab,strict,silent_wrong,11.1,2,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,house_vocab,strict,refused_should_answer,0.0,0,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,house_vocab,strict,crash,0.0,0,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,house_vocab,strict,timeout,0.0,0,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table1,employee,text_to_sql,house_vocab,tolerant,accuracy,88.9,16,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,house_vocab,tolerant,silent_wrong,11.1,2,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,house_vocab,tolerant,refused_should_answer,0.0,0,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,house_vocab,tolerant,crash,0.0,0,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table1,employee,text_to_sql,house_vocab,tolerant,timeout,0.0,0,18,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table1,employee,text_to_sql,out_of_range,strict,accuracy,77.8,21,27,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,out_of_range,strict,silent_wrong,22.2,6,27,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table1,employee,text_to_sql,out_of_range,strict,refused_should_answer,0.0,0,27,results_employee.jsonl rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
@@ -265,26 +415,82 @@ Table2,employee,network,in_contract_answer,strict,silent_wrong,0.0,0,243,network
 Table2,employee,network,in_contract_answer,strict,refused_should_answer,1.2,3,243,network REPLAY,s48
 Table2,employee,network,in_contract_answer,strict,crash,0.0,0,243,network REPLAY,s48
 Table2,employee,network,in_contract_answer,strict,timeout,0.0,0,243,network REPLAY,s48
+Table2,employee,network,in_contract_answer,tolerant,accuracy,98.8,240,243,network REPLAY,s48t
+Table2,employee,network,in_contract_answer,tolerant,silent_wrong,0.0,0,243,network REPLAY,s48t
+Table2,employee,network,in_contract_answer,tolerant,refused_should_answer,1.2,3,243,network REPLAY,s48t
+Table2,employee,network,in_contract_answer,tolerant,crash,0.0,0,243,network REPLAY,s48t
+Table2,employee,network,in_contract_answer,tolerant,timeout,0.0,0,243,network REPLAY,s48t
 Table2,employee,planner,in_contract_answer,strict,accuracy,89.7,218,243,planner REPLAY,s48
 Table2,employee,planner,in_contract_answer,strict,silent_wrong,10.3,25,243,planner REPLAY,s48
 Table2,employee,planner,in_contract_answer,strict,refused_should_answer,0.0,0,243,planner REPLAY,s48
 Table2,employee,planner,in_contract_answer,strict,crash,0.0,0,243,planner REPLAY,s48
 Table2,employee,planner,in_contract_answer,strict,timeout,0.0,0,243,planner REPLAY,s48
+Table2,employee,planner,in_contract_answer,tolerant,accuracy,89.7,218,243,planner REPLAY,s48t
+Table2,employee,planner,in_contract_answer,tolerant,silent_wrong,10.3,25,243,planner REPLAY,s48t
+Table2,employee,planner,in_contract_answer,tolerant,refused_should_answer,0.0,0,243,planner REPLAY,s48t
+Table2,employee,planner,in_contract_answer,tolerant,crash,0.0,0,243,planner REPLAY,s48t
+Table2,employee,planner,in_contract_answer,tolerant,timeout,0.0,0,243,planner REPLAY,s48t
 Table2,employee,react,in_contract_answer,strict,accuracy,88.9,216,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table2,employee,react,in_contract_answer,strict,silent_wrong,11.1,27,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table2,employee,react,in_contract_answer,strict,refused_should_answer,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table2,employee,react,in_contract_answer,strict,crash,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table2,employee,react,in_contract_answer,strict,timeout,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table2,employee,react,in_contract_answer,tolerant,accuracy,88.9,216,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table2,employee,react,in_contract_answer,tolerant,silent_wrong,11.1,27,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table2,employee,react,in_contract_answer,tolerant,refused_should_answer,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table2,employee,react,in_contract_answer,tolerant,crash,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table2,employee,react,in_contract_answer,tolerant,timeout,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table2,employee,code_agent,in_contract_answer,strict,accuracy,87.2,212,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table2,employee,code_agent,in_contract_answer,strict,silent_wrong,12.8,31,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table2,employee,code_agent,in_contract_answer,strict,refused_should_answer,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table2,employee,code_agent,in_contract_answer,strict,crash,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table2,employee,code_agent,in_contract_answer,strict,timeout,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table2,employee,code_agent,in_contract_answer,tolerant,accuracy,88.5,215,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table2,employee,code_agent,in_contract_answer,tolerant,silent_wrong,11.5,28,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table2,employee,code_agent,in_contract_answer,tolerant,refused_should_answer,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table2,employee,code_agent,in_contract_answer,tolerant,crash,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table2,employee,code_agent,in_contract_answer,tolerant,timeout,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
 Table2,employee,text_to_sql,in_contract_answer,strict,accuracy,86.8,211,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table2,employee,text_to_sql,in_contract_answer,strict,silent_wrong,13.2,32,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table2,employee,text_to_sql,in_contract_answer,strict,refused_should_answer,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table2,employee,text_to_sql,in_contract_answer,strict,crash,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
 Table2,employee,text_to_sql,in_contract_answer,strict,timeout,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48
+Table2,employee,text_to_sql,in_contract_answer,tolerant,accuracy,88.1,214,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table2,employee,text_to_sql,in_contract_answer,tolerant,silent_wrong,11.9,29,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table2,employee,text_to_sql,in_contract_answer,tolerant,refused_should_answer,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table2,employee,text_to_sql,in_contract_answer,tolerant,crash,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Table2,employee,text_to_sql,in_contract_answer,tolerant,timeout,0.0,0,243,recorded rescored s48 [temp-0 re-run: results_temp0_batch2_employee.jsonl],s48t
+Ties,employee,gold,ranked_questions,strict,limit_ties,9.5,2,21,"reports/tie_alternatives_synthetic.json: t3_04, t3_13",s48
+Ties,employee,network,t3_04,strict,correct,100.0,3,3,"results_employee.jsonl REPLAY current engine; top-5 on 'count', 11 rows tied for 4 slots",s48
+Ties,employee,network,t3_04,strict,tie_alternative,0.0,0,3,"results_employee.jsonl REPLAY current engine; top-5 on 'count', 11 rows tied for 4 slots",s48
+Ties,employee,network,t3_13,strict,correct,100.0,3,3,"results_employee.jsonl REPLAY current engine; top-5 on 'Performance Score', 3 rows tied for 2 slots",s48
+Ties,employee,network,t3_13,strict,tie_alternative,0.0,0,3,"results_employee.jsonl REPLAY current engine; top-5 on 'Performance Score', 3 rows tied for 2 slots",s48
+Ties,employee,network,all_limit_ties,strict,correct,100.0,6,6,"t3_04, t3_13; employee REPLAY current engine",s48
+Ties,employee,network,all_limit_ties,strict,tie_alternative,0.0,0,6,"t3_04, t3_13; employee REPLAY current engine",s48
+Ties,employee,planner,t3_04,strict,correct,100.0,3,3,"results_employee.jsonl REPLAY current engine; top-5 on 'count', 11 rows tied for 4 slots",s48
+Ties,employee,planner,t3_04,strict,tie_alternative,0.0,0,3,"results_employee.jsonl REPLAY current engine; top-5 on 'count', 11 rows tied for 4 slots",s48
+Ties,employee,planner,t3_13,strict,correct,100.0,3,3,"results_employee.jsonl REPLAY current engine; top-5 on 'Performance Score', 3 rows tied for 2 slots",s48
+Ties,employee,planner,t3_13,strict,tie_alternative,0.0,0,3,"results_employee.jsonl REPLAY current engine; top-5 on 'Performance Score', 3 rows tied for 2 slots",s48
+Ties,employee,planner,all_limit_ties,strict,correct,100.0,6,6,"t3_04, t3_13; employee REPLAY current engine",s48
+Ties,employee,planner,all_limit_ties,strict,tie_alternative,0.0,0,6,"t3_04, t3_13; employee REPLAY current engine",s48
+Ties,employee,react,t3_04,strict,correct,100.0,3,3,"results_employee.jsonl rescored s48; top-5 on 'count', 11 rows tied for 4 slots [temp-0 re-run: results_temp0_batch2_employee.jsonl]",s48
+Ties,employee,react,t3_04,strict,tie_alternative,0.0,0,3,"results_employee.jsonl rescored s48; top-5 on 'count', 11 rows tied for 4 slots [temp-0 re-run: results_temp0_batch2_employee.jsonl]",s48
+Ties,employee,react,t3_13,strict,correct,100.0,3,3,"results_employee.jsonl rescored s48; top-5 on 'Performance Score', 3 rows tied for 2 slots [temp-0 re-run: results_temp0_batch2_employee.jsonl]",s48
+Ties,employee,react,t3_13,strict,tie_alternative,0.0,0,3,"results_employee.jsonl rescored s48; top-5 on 'Performance Score', 3 rows tied for 2 slots [temp-0 re-run: results_temp0_batch2_employee.jsonl]",s48
+Ties,employee,react,all_limit_ties,strict,correct,100.0,6,6,"t3_04, t3_13; employee rescored s48",s48
+Ties,employee,react,all_limit_ties,strict,tie_alternative,0.0,0,6,"t3_04, t3_13; employee rescored s48",s48
+Ties,employee,code_agent,t3_04,strict,correct,0.0,0,3,"results_employee.jsonl rescored s48; top-5 on 'count', 11 rows tied for 4 slots [temp-0 re-run: results_temp0_batch2_employee.jsonl]",s48
+Ties,employee,code_agent,t3_04,strict,tie_alternative,100.0,3,3,"results_employee.jsonl rescored s48; top-5 on 'count', 11 rows tied for 4 slots [temp-0 re-run: results_temp0_batch2_employee.jsonl]",s48
+Ties,employee,code_agent,t3_13,strict,correct,100.0,3,3,"results_employee.jsonl rescored s48; top-5 on 'Performance Score', 3 rows tied for 2 slots [temp-0 re-run: results_temp0_batch2_employee.jsonl]",s48
+Ties,employee,code_agent,t3_13,strict,tie_alternative,0.0,0,3,"results_employee.jsonl rescored s48; top-5 on 'Performance Score', 3 rows tied for 2 slots [temp-0 re-run: results_temp0_batch2_employee.jsonl]",s48
+Ties,employee,code_agent,all_limit_ties,strict,correct,50.0,3,6,"t3_04, t3_13; employee rescored s48",s48
+Ties,employee,code_agent,all_limit_ties,strict,tie_alternative,50.0,3,6,"t3_04, t3_13; employee rescored s48",s48
+Ties,employee,text_to_sql,t3_04,strict,correct,0.0,0,3,"results_employee.jsonl rescored s48; top-5 on 'count', 11 rows tied for 4 slots [temp-0 re-run: results_temp0_batch2_employee.jsonl]",s48
+Ties,employee,text_to_sql,t3_04,strict,tie_alternative,100.0,3,3,"results_employee.jsonl rescored s48; top-5 on 'count', 11 rows tied for 4 slots [temp-0 re-run: results_temp0_batch2_employee.jsonl]",s48
+Ties,employee,text_to_sql,t3_13,strict,correct,100.0,3,3,"results_employee.jsonl rescored s48; top-5 on 'Performance Score', 3 rows tied for 2 slots [temp-0 re-run: results_temp0_batch2_employee.jsonl]",s48
+Ties,employee,text_to_sql,t3_13,strict,tie_alternative,0.0,0,3,"results_employee.jsonl rescored s48; top-5 on 'Performance Score', 3 rows tied for 2 slots [temp-0 re-run: results_temp0_batch2_employee.jsonl]",s48
+Ties,employee,text_to_sql,all_limit_ties,strict,correct,50.0,3,6,"t3_04, t3_13; employee rescored s48",s48
+Ties,employee,text_to_sql,all_limit_ties,strict,tie_alternative,50.0,3,6,"t3_04, t3_13; employee rescored s48",s48
 Table5,wta_1,network,out_of_scope_register,strict,declined,13.3,10,75,PhaseR s40off REPLAY current engine,s48
 Table5,wta_1,network,out_of_scope_register,strict,silent_wrong,86.7,65,75,PhaseR s40off REPLAY current engine,s48
 Table5,wta_1,network,out_of_scope_register,strict,crash,0.0,0,75,PhaseR s40off REPLAY current engine,s48

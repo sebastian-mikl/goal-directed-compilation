@@ -26,18 +26,40 @@ def tie_alt_values(qid: str):
     info = _TIES.get(qid)
     return list(info["alt_values"]) if info else []
 
-def score_tt(produced, gold_record: dict, qid: str, status: str = "completed"):
-    """Return (outcome, reason, tie_used: bool). Strict s47 first; on a non-correct
-    ranked answer, retry against each data-verified tied alternative gold value."""
+def _tolerant(produced, gold_record: dict, alts, status: str):
     v, reason, _ = score(produced, gold_record, status=status)
     if v == "correct":
         return v, reason, False
-    for alt in tie_alt_values(qid):
+    for alt in alts:
         alt_record = {**gold_record, "value": alt}
         av, _, _ = score(produced, alt_record, status=status)
         if av == "correct":
             return "correct", f"tie-tolerant (s47t): matched data-verified tied row; strict={v}", True
     return v, reason, False
+
+def score_tt(produced, gold_record: dict, qid: str, status: str = "completed"):
+    """Return (outcome, reason, tie_used: bool). Strict s47 first; on a non-correct
+    ranked answer, retry against each data-verified tied alternative gold value."""
+    return _tolerant(produced, gold_record, tie_alt_values(qid), status)
+
+
+# ── synthetic domains (D9, Seb 2 Oct 2026: tolerant beside strict on employee too) ───────
+# reports/tie_alternatives_synthetic.json (scripts/synthetic_ties.py) holds, per domain, every
+# ranked question whose limit cuts through a tie and every other valid filling of the tied
+# slots, each produced by the gold builder's own projection (alt_values excludes gold itself).
+# Same rule as the Spider scorer, keyed by (domain, qid): the synthetic qid spaces overlap
+# (risk and employee both have t3_04), so a bare qid would not identify the question.
+_SYN_FILE = ROOT / "reports" / "tie_alternatives_synthetic.json"
+_TIES_SYN = json.loads(_SYN_FILE.read_text())["ties"] if _SYN_FILE.exists() else {}
+
+def tie_alt_values_syn(dom: str, qid: str):
+    info = _TIES_SYN.get(dom, {}).get(qid)
+    return list(info["alt_values"]) if info else []
+
+def score_tt_syn(dom: str, produced, gold_record: dict, qid: str, status: str = "completed"):
+    """score_tt for risk and employee. A question with no tie has an empty alternative set,
+    so the result equals strict s48 exactly (risk has no tie at all)."""
+    return _tolerant(produced, gold_record, tie_alt_values_syn(dom, qid), status)
 
 
 # ── self-test: adversarial check + demonstration ────────────────────────────

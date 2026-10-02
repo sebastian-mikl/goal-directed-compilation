@@ -1,0 +1,7343 @@
+{
+ "scanned": {
+  "employee": [
+   "hv_03",
+   "t1_14",
+   "t1_15",
+   "t2_11",
+   "t2_12",
+   "t3_03",
+   "t3_04",
+   "t3_09",
+   "t3_10",
+   "t3_11",
+   "t3_12",
+   "t3_13",
+   "t4_10",
+   "t4_11",
+   "t5_01",
+   "t5_06",
+   "t5_08",
+   "t5_09",
+   "t5_11",
+   "t5_12",
+   "t5_13"
+  ]
+ },
+ "ties": {
+  "employee": {
+   "t3_04": {
+    "k": 5,
+    "by": "count",
+    "boundary": 3,
+    "path": "topk",
+    "tied_rows": 11,
+    "slots": 4,
+    "alt_values": [
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1005",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1023",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1041",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1050",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1057",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1063",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1064",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ],
+     [
+      {
+       "Manager ID": "E1101",
+       "count": 4.0
+      },
+      {
+       "Manager ID": "E1073",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1089",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1108",
+       "count": 3.0
+      },
+      {
+       "Manager ID": "E1128",
+       "count": 3.0
+      }
+     ]
+    ]
+   },
+   "t3_13": {
+    "k": 5,
+    "by": "Performance Score",
+    "boundary": 3.7,
+    "path": "topk",
+    "tied_rows": 3,
+    "slots": 2,
+    "alt_values": [
+     [
+      {
+       "Name": "Person 23",
+       "Performance Score": 4.1,
+       "employee_id": "E1022"
+      },
+      {
+       "Name": "Person 58",
+       "Performance Score": 4.0,
+       "employee_id": "E1057"
+      },
+      {
+       "Name": "Person 60",
+       "Performance Score": 3.9,
+       "employee_id": "E1059"
+      },
+      {
+       "Name": "Person 3",
+       "Performance Score": 3.7,
+       "employee_id": "E1002"
+      },
+      {
+       "Name": "Person 14",
+       "Performance Score": 3.7,
+       "employee_id": "E1013"
+      }
+     ],
+     [
+      {
+       "Name": "Person 23",
+       "Performance Score": 4.1,
+       "employee_id": "E1022"
+      },
+      {
+       "Name": "Person 58",
+       "Performance Score": 4.0,
+       "employee_id": "E1057"
+      },
+      {
+       "Name": "Person 60",
+       "Performance Score": 3.9,
+       "employee_id": "E1059"
+      },
+      {
+       "Name": "Person 11",
+       "Performance Score": 3.7,
+       "employee_id": "E1010"
+      },
+      {
+       "Name": "Person 14",
+       "Performance Score": 3.7,
+       "employee_id": "E1013"
+      }
+     ]
+    ]
+   }
+  }
+ }
+}

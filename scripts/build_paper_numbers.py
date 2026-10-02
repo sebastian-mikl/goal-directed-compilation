@@ -5,7 +5,9 @@ Scoring:
   STRICT   = comparator s48 (exact-match; s48 = s47 + rules gated to the 10 algebra_boundary golds).
   TOLERANT = s48t = s48 + data-verified ranking ties (scripts/score_tie_tolerant;
              affects only Spider world_13/bike_06 — the pandas-vs-SQLite tie-break
-             artifact; adversarially checked). Reported alongside strict, footnote.
+             artifact; adversarially checked — and, since D9, employee t3_04/t3_13,
+             whose limits cut through a tie: reports/tie_alternatives_synthetic.json).
+             Reported alongside strict, footnote. Risk has no tie, so no risk row.
 
 Decisions:
   1  Spider network = post-fix. The multi-key GROUP BY fix changes NO in-contract
@@ -66,7 +68,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from evidence.eval_run.comparator import score, COMPARATOR_VERSION           # noqa: E402
-from scripts.score_tie_tolerant import score_tt, SCORER_VERSION              # noqa: E402
+from scripts.score_tie_tolerant import score_tt, score_tt_syn, SCORER_VERSION  # noqa: E402
 from scripts.parity_overlay import (coverage_report, PARITY, rerun_note,     # noqa: E402
                                     provenance_rows, check_overlays, engine_hashes, engine_sha)
 from scripts import paper_inputs as pi                                       # noqa: E402
@@ -165,6 +167,8 @@ for d in SPIDER:
 
 # ══ D. risk + employee per-tier, 5 systems (Table1) ═════════════════════════
 _retier = pi.retier   # tier of record = the gold record's (risk out_of_range -> algebra_boundary)
+IN_CONTRACT_SYN = ["T1_single_op", "T2_two_ops", "T3_three_ops", "T4_business_rule_multi_op",
+                   "T5_high_complexity", "house_vocab", "algebra_boundary"]
 
 RISK_OFF = pi.risk_off()
 # risk-T5: network/planner/react from results_t5; code_agent/text_to_sql from the
@@ -191,6 +195,18 @@ def score_syn(dom, sysname, rows, gold):
         out.append(outcome(dom, r, g))
     return out
 
+def score_syn_tol(dom, sysname, rows, gold):
+    """score_syn under s48t (D9): the same cells, a ranked answer that matches a data-verified
+    tied filling of the limit scores correct. Only employee t3_04 and t3_13 can differ."""
+    out = []
+    for r in rows:
+        g = gold.get(r["qid"])
+        if g is None:
+            continue
+        res, status = scored_input(dom, r)
+        out.append(score_tt_syn(dom, res, g, r["qid"], status=status)[0])
+    return out
+
 for dom in (("risk", "employee") if HAS_RISK else ("employee",)):
     for sysname in SYSTEMS:
         for tier in SYN_TIERS:
@@ -214,10 +230,20 @@ for dom in (("risk", "employee") if HAS_RISK else ("employee",)):
                 k2, _, p2 = rate(sc, cls)
                 emit(fig_table="Table1", domain=dom, system=sysname, tier_group=tier, scoring="strict",
                      metric=cls, value_pct=p2, numerator=k2, denominator=n, source=prov, comparator=COMPARATOR_VERSION)
+            if dom == "employee" and tier in IN_CONTRACT_SYN:            # D9: tolerant beside strict
+                sct = score_syn_tol(dom, sysname, rows, gold)
+                c, n, a = acc(sct); k, _, sw = rate(sct, "silent_wrong")
+                emit(fig_table="Table1", domain=dom, system=sysname, tier_group=tier, scoring="tolerant",
+                     metric="accuracy", value_pct=a, numerator=c, denominator=n, source=prov, comparator=SCORER_VERSION)
+                emit(fig_table="Table1", domain=dom, system=sysname, tier_group=tier, scoring="tolerant",
+                     metric="silent_wrong", value_pct=sw, numerator=k, denominator=n, source=prov, comparator=SCORER_VERSION)
+                for cls in ("refused_should_answer", "crash", "timeout"):
+                    k2, _, p2 = rate(sct, cls)
+                    emit(fig_table="Table1", domain=dom, system=sysname, tier_group=tier, scoring="tolerant",
+                         metric=cls, value_pct=p2, numerator=k2, denominator=n, source=prov, comparator=SCORER_VERSION)
 
 # ══ E. cross-domain in-contract (Table2): risk/employee = T1-T5+hv ═══════════
-IN_CONTRACT_SYN = ["T1_single_op", "T2_two_ops", "T3_three_ops", "T4_business_rule_multi_op",
-                   "T5_high_complexity", "house_vocab", "algebra_boundary"]
+# (IN_CONTRACT_SYN is defined above, with section D)
 # risk is also reported split: within GDC's vocabulary (the original 415 cells) and
 # beyond it (the 50 algebra_boundary cells); in_contract_answer stays the combined set.
 BEYOND_VOCAB = {"algebra_boundary"}
@@ -245,6 +271,16 @@ for dom in (("risk", "employee") if HAS_RISK else ("employee",)):
                 emit(fig_table="Table2", domain=dom, system=sysname, tier_group=group,
                      scoring="strict", metric="accuracy" if cls == "correct" else cls, value_pct=p,
                      numerator=k, denominator=n, source=prov, comparator=COMPARATOR_VERSION)
+            if dom == "employee":                                          # D9: tolerant beside strict
+                sct = []
+                for tier in [t for t in IN_CONTRACT_SYN if keep(t)]:
+                    rows, gold, _ = syn_rows(dom, sysname, tier)
+                    sct += score_syn_tol(dom, sysname, rows, gold)
+                for cls in ("correct", "silent_wrong", "refused_should_answer", "crash", "timeout"):
+                    k, n, p = rate(sct, cls)
+                    emit(fig_table="Table2", domain=dom, system=sysname, tier_group=group,
+                         scoring="tolerant", metric="accuracy" if cls == "correct" else cls, value_pct=p,
+                         numerator=k, denominator=n, source=prov, comparator=SCORER_VERSION)
 
 # ══ F. Cost-accuracy frontier (risk in-contract, Sonnet, s47) — ADDITIVE ═════
 # mean $/query, tokens/query (in+out), LLM calls/query, per system, over the SAME
@@ -307,6 +343,51 @@ for model, pool_of in ([("sonnet", _sonnet_pool), ("haiku", lambda t: HAIKU)] if
             emit(fig_table=f"Haiku_{model}", domain="risk", system=sysname, tier_group=tier,
                  scoring="strict", metric="silent_wrong", value_pct=round(100 * sw / n, 1),
                  numerator=sw, denominator=n, source=src, comparator=COMPARATOR_VERSION)
+
+# ══ D6. limit ties on the synthetic domains (counts per tie question; D9 adds the employee
+#    tolerant rows beside strict in Table1/Table2 above) ══
+# reports/tie_alternatives_synthetic.json (scripts/synthetic_ties.py) holds every
+# ranked employee question whose limit cuts through a tie (risk too, where its data
+# is present; this repository's file has no risk key), found from the gold builders,
+# with every other valid filling of the tied slots. Per system and tie
+# question: strict `correct`, and `tie_alternative` = cells strict scores wrong that
+# equal a tied alternative (what the tie-tolerant rule accepts; employee tolerant rows,
+# D9, score_tt_syn, read the same alternatives). Domain row (system "gold"): tie questions of the ranked questions scanned.
+import json as _json  # noqa: E402
+_TIES_SYN = _json.loads((ROOT / "reports" / "tie_alternatives_synthetic.json").read_text())
+for dom, gold, pool in ((([("risk", GOLD_RISK, RISK_OFF + RISK_T5)] if HAS_RISK else [])
+                          + [("employee", GOLD_EMP, EMP)])):    # no risk row without the risk data
+    ties = {q: t for q, t in _TIES_SYN["ties"].get(dom, {}).items() if q in gold}
+    ranked = [q for q in _TIES_SYN["scanned"].get(dom, []) if q in gold]
+    emit(fig_table="Ties", domain=dom, system="gold", tier_group="ranked_questions", scoring="strict",
+         metric="limit_ties", value_pct=round(100 * len(ties) / len(ranked), 1) if ranked else None,
+         numerator=len(ties), denominator=len(ranked),
+         source=f"reports/tie_alternatives_synthetic.json: {', '.join(sorted(ties)) or 'none'}",
+         comparator=COMPARATOR_VERSION)
+    for sysname in SYSTEMS if ties else ():
+        tot = {"correct": 0, "tie_alternative": 0, "n": 0}
+        for qid, t in sorted(ties.items()):
+            R = [r for r in pool if r["system"] == sysname and r["qid"] == qid]
+            c = alt = 0
+            for r in R:
+                res, status = scored_input(dom, r)
+                if score(res, gold[qid], status=status)[0] == "correct":
+                    c += 1
+                elif any(score(res, {**gold[qid], "value": v}, status=status)[0] == "correct"
+                         for v in t["alt_values"]):
+                    alt += 1
+            for tg, metric, k, n in ((qid, "correct", c, len(R)), (qid, "tie_alternative", alt, len(R))):
+                emit(fig_table="Ties", domain=dom, system=sysname, tier_group=tg, scoring="strict",
+                     metric=metric, value_pct=round(100 * k / n, 1) if n else None, numerator=k, denominator=n,
+                     source=prov_of(sysname, "results_employee.jsonl" if dom == "employee" else "risk")
+                     + f"; top-{t['k']} on {t['by']!r}, {t['tied_rows']} rows tied for {t['slots']} slots"
+                     + rerun_note(R), comparator=COMPARATOR_VERSION)
+            tot["correct"] += c; tot["tie_alternative"] += alt; tot["n"] += len(R)
+        for metric in ("correct", "tie_alternative"):
+            emit(fig_table="Ties", domain=dom, system=sysname, tier_group="all_limit_ties", scoring="strict",
+                 metric=metric, value_pct=round(100 * tot[metric] / tot["n"], 1) if tot["n"] else None,
+                 numerator=tot[metric], denominator=tot["n"],
+                 source=f"{', '.join(sorted(ties))}; " + prov_of(sysname, dom), comparator=COMPARATOR_VERSION)
 
 # ══ H. out-of-scope refusal, 5 systems (Table 5) ═════════════════════════════
 # Declining is correct on these tiers. Spider out_of_scope_register for all five
@@ -393,6 +474,15 @@ if PARITY:
     print(f"wrote {prov_out} ({len(provenance_rows())} replaced cells)")
     print("\n" + coverage_report())
 
+print("\nEmployee in-contract (Table2) — STRICT vs TOLERANT (D9):")
+for label in ("strict", "tolerant"):
+    print(f"  [{label}]")
+    for r in ROWS:
+        if r["fig_table"] == "Table2" and r["domain"] == "employee" and r["scoring"] == label and r["metric"] == "silent_wrong":
+            acc_r = next(x for x in ROWS if x["fig_table"] == "Table2" and x["domain"] == "employee" and x["scoring"] == label
+                         and x["system"] == r["system"] and x["metric"] == "accuracy")
+            print(f"    {r['system']:<12} acc {acc_r['value_pct']:>5}% ({acc_r['numerator']}/{acc_r['denominator']})"
+                  f"   silent {r['value_pct']:>5}% ({r['numerator']}/{r['denominator']})")
 print("\nDecline readings (D8):", len(pi.DECLINE_READINGS), "cells read by hand; Table 5 classes use them")
 print("\nSpider in-contract (Fig1/2/Table3) — STRICT vs TOLERANT:")
 for label in ("strict", "tolerant"):

@@ -277,8 +277,8 @@ for dom in (("risk", "employee") if HAS_RISK else ("employee",)):
     for tg, tlab in TIER_ROWS[dom]:
         cells = [tlab]
         for s in SYS_ALL:
-            a = maybe(fig_table="Table1", domain=dom, system=s, tier_group=tg, metric="accuracy")
-            sw = maybe(fig_table="Table1", domain=dom, system=s, tier_group=tg, metric="silent_wrong")
+            a = maybe(fig_table="Table1", domain=dom, system=s, tier_group=tg, scoring="strict", metric="accuracy")
+            sw = maybe(fig_table="Table1", domain=dom, system=s, tier_group=tg, scoring="strict", metric="silent_wrong")
             if a and a["denominator"] not in ("0", "", None):
                 cells.append(f"{a['value_pct']} / {sw['value_pct'] if sw else '-'}")
             else:
