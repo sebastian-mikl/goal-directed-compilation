@@ -28,9 +28,10 @@ Decisions:
      effect small and non-directional (all deltas <=1.3 points, no relative
      standing changed) — so temperature-0 is adopted as canonical throughout.
      reports/paper_numbers.csv IS the temperature-0 (parity) run; the original
-     default-temperature baselines are kept for provenance in
-     reports/paper_numbers_default_temp.csv (scripts/report_parity_delta.py
-     diffs the two). To regenerate paper_numbers.csv from source: run
+     default-temperature baselines' numbers are what a build without PARITY_TEMP0
+     writes, to reports/paper_numbers_default_temp.csv (scripts/report_parity_delta.py
+     diffs the two; that file is not shipped, so run the builder without the flag
+     first). To regenerate paper_numbers.csv from source: run
      scripts/rerun_temp0_parity.py (needs ANTHROPIC_API_KEY, ~2379 cells,
      ~$38.5), then `PARITY_TEMP0=1 python scripts/build_paper_numbers.py`.
      Safety: a vanilla invocation (PARITY_TEMP0 unset) writes ONLY
@@ -39,7 +40,7 @@ Decisions:
   6  Re-runs at temperature 0 under the recorded prompts. The risk domain's own
      re-run is withheld with its data. The second temperature-0 batch
      (results/results_temp0_batch2_<domain>.jsonl: employee, wta_1, world_1,
-     bike_1) drops in once it exists: with PARITY_TEMP0=1 parity_overlay puts
+     bike_1) drops in: with PARITY_TEMP0=1 parity_overlay puts
      each re-run row in for its recorded row by (system, qid, seed), any system.
      parity_overlay declares that a batch2 file supersedes the parity rows of the
      cells it re-runs, and refuses one that is partial, holds rows the run did not

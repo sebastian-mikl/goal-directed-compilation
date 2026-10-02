@@ -5,7 +5,7 @@ Each recorded network emission carries its (Goal, OrderSpec) in `artifact`, so
 the entire deterministic half of the pipeline is re-runnable offline. This
 harness replays EVERY recorded network emission across all 5 domains through
 the current engine (a) with all checks ON (baseline), and (b) with exactly ONE
-check disabled at a time, re-scoring under the s47 comparator. Comparing each
+check disabled at a time, re-scoring under the current comparator (s48). Comparing each
 ablation to the baseline isolates that one check's contribution.
 
 The five checks (from §3.2 + satisfies()):
@@ -35,6 +35,11 @@ exact_col and type_guard don't map onto a proximate-reason label the same way,
 so for those the FULL baseline->ablated outcome flip matrix is reported.
 
 Pure local: no API key, no network. Reuses scripts/replay_goals.py machinery.
+
+In this release the replayed emissions are the employee and Spider ones (the risk files are
+withheld, so the risk domain contributes none). reports/ablation_data.json is written by the
+--json command below, not by run_all.sh; it holds the employee and Spider part of the
+paper's ablation, so its totals are smaller than those of a run that also has the risk data.
 
 Usage:  python scripts/ablate_checks.py            # prints tables, writes JSON
         python scripts/ablate_checks.py --json reports/ablation_data.json

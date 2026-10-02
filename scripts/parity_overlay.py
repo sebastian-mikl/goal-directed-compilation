@@ -364,7 +364,8 @@ class Overlay:
             lines.append(f"  {ov:<34} [{present}] replaced={rep:>4} left_default={ld:>4}"
                          + (f"  (superseded by a re-run: {sup})" if sup else ""))
         lines.append(f"  TOTAL replaced (unique baseline cells) = {total_replaced}"
-                     "   (expect 2379 for a full in-contract run: spider 405, risk 1245, employee 729)")
+                     "   (expect 1134 for the domains in this release: spider 405, employee 729; the full"
+                     " 2379 also counts the withheld risk domain's 1245 cells)")
         lines.append("  (left_default = baseline cells with no temp-0 re-emission: expected for out_of_range /")
         lines.append("   any out-of-contract tier; should be 0 across the in-contract answer tiers.)")
         absent = []

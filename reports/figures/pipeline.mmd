@@ -1,6 +1,8 @@
 %% Figure 1 — System control-flow for the goal-directed compiler (GDC).
-%% Source of record for reports/figures/pipeline.png.
-%% Render: mmdc -i reports/figures/pipeline.mmd -o reports/figures/pipeline.png -s 3 -b white
+%% NOT the source of the shipped reports/figures/pipeline.png, which is hand-drawn and has no
+%% source in this repository. This draws an earlier version of the control flow (it has a
+%% "Model declined?" branch and a "Crash" outcome that the shipped image lacks).
+%% Render: mmdc -o <file>.png -i reports/figures/pipeline.mmd -s 3 -b white
 %% (mmdc = @mermaid-js/mermaid-cli; -s 3 gives a high-resolution raster.)
 flowchart TD
     NL([Natural-language query])

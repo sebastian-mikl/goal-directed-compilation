@@ -32,46 +32,42 @@
   ]
  ],
  "baseline_domain_breakdown": {
-  "risk": {
-   "correct": 415,
-   "silent_wrong": 45,
-   "refused_should_answer": 5
-  },
   "employee": {
-   "correct": 237,
-   "silent_wrong": 27,
-   "refused_should_answer": 9
+   "correct": 255,
+   "refused_should_answer": 3,
+   "silent_wrong": 12
   },
   "wta_1": {
-   "silent_wrong": 80,
+   "silent_wrong": 75,
    "correct": 65,
-   "refused_should_answer": 5
+   "refused_should_answer": 10
   },
   "world_1": {
-   "correct": 79,
-   "silent_wrong": 46,
+   "correct": 85,
+   "silent_wrong": 40,
    "refused_should_answer": 25
   },
   "bike_1": {
    "correct": 50,
    "refused_should_answer": 20,
    "silent_wrong": 55
-  }
+  },
+  "risk": {}
  },
  "baseline_refusal_reasons": {
-  "filter_type": 26,
-  "lint": 18,
-  "contract": 43,
-  "unreachable": 80,
-  "order_app": 6
+  "filter_type": 24,
+  "unreachable": 74,
+  "contract": 45,
+  "typed:ComputeExprError": 5,
+  "lint": 5
  },
  "attribution": {
   "contract": {
-   "attributed": 43,
+   "attributed": 45,
    "unique": 0,
    "silent": 0,
    "correct": 0,
-   "shared": 43
+   "shared": 45
   },
   "order": {
    "attributed": 0,
@@ -81,63 +77,61 @@
    "shared": 0
   },
   "lint": {
-   "attributed": 18,
-   "unique": 13,
-   "silent": 13,
+   "attributed": 5,
+   "unique": 5,
+   "silent": 5,
    "correct": 0,
-   "shared": 5
+   "shared": 0
   }
  },
  "flip_matrices": {
   "no_exact_col": {
-   "correct->silent_wrong": 23,
-   "silent_wrong->correct": 11
+   "correct->silent_wrong": 23
   },
   "no_type_guard": {
-   "correct->crash": 8,
+   "correct->crash": 6,
    "refused_should_answer->crash": 18
   },
   "all_lints_off": {
-   "correct->silent_wrong": 8,
    "refused_should_answer->silent_wrong": 5
   }
  },
  "variant_totals": {
   "baseline": {
-   "correct": 846,
-   "silent_wrong": 253,
-   "refused_should_answer": 64
+   "correct": 455,
+   "refused_should_answer": 58,
+   "silent_wrong": 182
   },
   "no_contract": {
-   "correct": 846,
-   "silent_wrong": 253,
-   "refused_should_answer": 64
+   "correct": 455,
+   "refused_should_answer": 58,
+   "silent_wrong": 182
   },
   "no_order": {
-   "correct": 846,
-   "silent_wrong": 253,
-   "refused_should_answer": 64
+   "correct": 455,
+   "refused_should_answer": 58,
+   "silent_wrong": 182
   },
   "no_lint": {
-   "correct": 838,
-   "silent_wrong": 266,
-   "refused_should_answer": 59
+   "correct": 455,
+   "refused_should_answer": 53,
+   "silent_wrong": 187
   },
   "no_exact_col": {
-   "correct": 834,
-   "silent_wrong": 265,
-   "refused_should_answer": 64
+   "correct": 432,
+   "refused_should_answer": 58,
+   "silent_wrong": 205
   },
   "no_type_guard": {
-   "correct": 838,
-   "silent_wrong": 253,
-   "crash": 26,
-   "refused_should_answer": 46
+   "correct": 449,
+   "crash": 24,
+   "silent_wrong": 182,
+   "refused_should_answer": 40
   },
   "all_lints_off": {
-   "correct": 838,
-   "silent_wrong": 266,
-   "refused_should_answer": 59
+   "correct": 455,
+   "refused_should_answer": 53,
+   "silent_wrong": 187
   }
  }
 }

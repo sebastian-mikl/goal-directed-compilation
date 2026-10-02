@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Render Figure 1 (system control-flow) to reports/figures/pipeline.png.
+"""Draw an earlier version of the system control-flow diagram to reports/figures/pipeline.png.
 
-Source of record for the pipeline diagram. The previously committed
-pipeline.png was a rasterised export from an external diagram tool with no
-in-repo source, and had baked-in label defects (a truncated "Cras" for
-"Crash" and several "Refuse:" boxes with dropped cause labels). This script
-regenerates the figure deterministically from matplotlib so the labels are
-exact and the source lives with the paper.
+This is NOT the source of the shipped reports/figures/pipeline.png (the paper's Figure 1), which is
+hand-drawn and has no source in this repository: this script's output is a different, larger image and
+has a "Model declined?" branch and a "Crash" outcome that the shipped image lacks. Running it
+overwrites the shipped file. It was written to replace an earlier raster export that had label
+defects (a truncated "Cras" for "Crash" and several "Refuse:" boxes with dropped cause labels).
 
 Run:  python scripts/make_pipeline_figure.py
 Deps: matplotlib only.

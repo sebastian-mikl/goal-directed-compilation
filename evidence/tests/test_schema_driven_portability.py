@@ -28,6 +28,7 @@ EMP_DB = ROOT / "evaluation/domains/employee" / "employees.pkl"
 EMP_SCHEMA = ROOT / "evaluation/domains/employee" / "schema.json"
 RISK_DB = ROOT / "environment" / "register.pkl"
 _need = pytest.mark.skipif(not (EMP_DB.exists() and RISK_DB.exists()), reason="datasets absent")
+_need_emp = pytest.mark.skipif(not EMP_DB.exists(), reason="employee register absent")   # V2 reads the employee data only
 
 
 # ── V3: fail loud on a malformed rule ───────────────────────────────────────
@@ -66,7 +67,7 @@ def test_V3_build_bridge_raises_on_bad_schema_rule(tmp_path):
 
 # ── V2-crux: employee "current" excludes Terminated, end-to-end ─────────────
 
-@_need
+@_need_emp
 def test_V2_crux_current_excludes_terminated():
     reg = pd.read_pickle(EMP_DB)
     amap, _, rules = build_bridge(list(reg.columns), schema_path=EMP_SCHEMA)

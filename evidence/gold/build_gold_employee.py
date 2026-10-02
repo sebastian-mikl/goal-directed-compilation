@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 """INDEPENDENT gold key for eval_corpus_employee.json — the employee-domain
-second-domain benchmark, mirroring evidence/gold/build_gold.py's discipline.
+second-domain benchmark, mirroring the discipline of the risk domain's gold builder (withheld
+from this release).
 
 HARD RULE: this script imports ONLY pandas + stdlib. ZERO imports from gdc/,
 network/, contract, primitives, or any engine module — otherwise the eval is circular.
 It reads eval_corpus_employee.json (the frozen corpus, 90 queries since D11 dropped
-oor_03 on 2026-10-01: it has a defensible answering reading), probe_domain/
-employees.pkl, and probe_domain/schema.json (used ONLY to ground the logical->actual
+oor_03 on 2026-10-01: it has a defensible answering reading),
+evaluation/domains/employee/employees.pkl, and evaluation/domains/employee/schema.json
+(used ONLY to ground the logical->actual
 column map).
 
 Each answerable query has its OWN explicit pandas block implementing its `intent`
@@ -35,7 +37,7 @@ SCHEMA = ROOT / "evaluation/domains/employee" / "schema.json"
 OUT_DIR = Path(__file__).resolve().parent
 
 # logical name (used in the corpus intents) -> actual dataframe column. Verified
-# directly against probe_domain/employees.pkl + schema.json before finalizing.
+# directly against evaluation/domains/employee/employees.pkl + schema.json before finalizing.
 COL = {
     "employee_id": "Employee ID", "name": "Name", "department": "Department",
     "role": "Role", "status": "Status", "location": "Location",
@@ -52,8 +54,8 @@ SEPARATED_SET = ["Terminated"]         # business_rules.current.exclude, schema.
 FLAGS: list[str] = []
 
 
-# ── shared helpers (copied verbatim from build_gold.py — generic pandas+stdlib,
-# no risk-specific logic; verified by reading build_gold.py in full before reuse) ──
+# ── shared helpers (copied verbatim from the risk domain's gold builder — generic
+# pandas+stdlib, no risk-specific logic; verified by reading it in full before reuse) ──
 
 def C(logical):
     return COL[logical]
@@ -240,7 +242,7 @@ def build(df):
     G["hv_06"] = SCALAR(current(df)[tenure].max())
 
     # T5 — high-complexity in-range (complexity_ops 5-8). Populations and thresholds
-    # were verified against the real augmented probe_domain/employees.pkl before
+    # were verified against the real augmented employee register before
     # being finalized, not guessed.
     def _grp_topk(d, by, valcol, agg, k, *, asc=False):
         s = d.groupby(C(by))[valcol].agg(agg).sort_values(ascending=asc).head(k).reset_index()
