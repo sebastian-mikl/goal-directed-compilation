@@ -91,7 +91,7 @@ if [ "$LIVE" = "1" ]; then
     exit 1
   fi
   echo
-  echo "[1/6] LIVE, commands only:"
+  echo "[1/7] LIVE, commands only:"
   echo "  Spider (wta_1, world_1, bike_1). It prints its wiring check and a cost estimate and"
   echo "  then runs, as soon as ANTHROPIC_API_KEY is set, over results/results_spider_<db>.jsonl"
   echo "  (resumable: cells already recorded there are skipped):"
@@ -108,33 +108,38 @@ if [ "$LIVE" = "1" ]; then
   echo "  Re-emission is a deliberate, separate, costed action."
   echo
 else
-  echo "[1/6] LIVE step skipped (offline reproduction from released"
+  echo "[1/7] LIVE step skipped (offline reproduction from released"
   echo "      emissions). Pass --live for live-run guidance."
   echo
 fi
 
-echo "[2/6] Rescoring recorded results under the current comparator (diagnostic; writes nothing) ..."
+echo "[2/7] Rescoring recorded results under the current comparator (diagnostic; writes nothing) ..."
 "$PY" scripts/rescore_all.py
 echo
 
-echo "[3/6] Replaying recorded GDC goals through the current engine (diagnostic; writes nothing) ..."
+echo "[3/7] Replaying recorded GDC goals through the current engine (diagnostic; writes nothing) ..."
 "$PY" scripts/replay_goals.py
 echo
 
-echo "[4/6] Building locked numbers -> reports/paper_numbers.csv ..."
+echo "[4/7] Building locked numbers -> reports/paper_numbers.csv ..."
 PARITY_TEMP0=1 "$PY" scripts/build_paper_numbers.py
 echo
 
-echo "[5/6] Building figures + tables -> reports/figures/ ..."
+echo "[5/7] Building figures + tables -> reports/figures/ ..."
 "$PY" scripts/make_paper_figures.py
 echo
-echo "[6/6] Question-clustered statistics (employee and Spider) -> reports/stats/ ..."
+echo "[6/7] Question-clustered statistics (employee and Spider) -> reports/stats/ ..."
 "$PY" scripts/question_clustered_stats.py
 echo
 
+echo "[7/7] Calls and refusals per design, claude-sonnet-4-5 and the open-weights model -> reports/calls_and_refusals.csv ..."
+"$PY" scripts/calls_and_refusals.py
+echo
+
 echo "================================================================"
-echo "Done. reports/paper_numbers.csv, reports/figures/ and reports/stats/"
-echo "regenerated for employee + Spider. paper_numbers.csv has no risk-domain"
+echo "Done. reports/paper_numbers.csv, reports/figures/, reports/stats/ and"
+echo "reports/calls_and_refusals.csv regenerated for employee + Spider (the last"
+echo "also for the open-weights run of local_model/). paper_numbers.csv has no risk-domain"
 echo "rows: risk is reported in the paper but its data is not in this release"
 echo "(see README.md)."
 echo "================================================================"

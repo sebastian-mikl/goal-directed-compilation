@@ -57,7 +57,7 @@ combined live-run entry point.
 
 ## What `./run_all.sh` regenerates, and what it does not
 
-Six steps, in order. Steps 2 and 3 print diagnostics and write nothing. A correct run prints
+Seven steps, in order. Steps 2 and 3 print diagnostics and write nothing. A correct run prints
 the lines below, and nothing in them is an error.
 
 1. **Live step**: skipped unless `--live`, which only prints commands (see above).
@@ -77,6 +77,12 @@ the lines below, and nothing in them is an error.
    `table2_crossdomain.{md,tex}`.
 6. **Statistics** (`scripts/question_clustered_stats.py`): `reports/stats/`, after checking
    that every outcome-class count equals the CSV.
+7. **Calls and refusals** (`scripts/calls_and_refusals.py`): `reports/calls_and_refusals.csv`,
+   the mean LLM calls per query, the in-scope refusal rate and the out-of-scope decline rate of
+   the five systems on claude-sonnet-4-5 and on the open-weights model of `local_model/`, over
+   the same 162 questions. It checks its claude-sonnet-4-5 counts against the CSV and every
+   open-weights cell against `local_model/analysis/per_question.csv`; its docstring defines each
+   column.
 
 The counts steps 2 and 3 print are in the commit that last changed the recorded data; they are
 not constants of the repository.
@@ -156,8 +162,10 @@ reports/                      paper_numbers.csv (locked numbers every
                                the planner baseline were replayed on for it),
                                figures/ (PNG figures, .md/.tex tables, a
                                README), stats/ (question-clustered
-                               statistics), decline_readings.json,
-                               tie_alternatives*.json, ablation_data.json.
+                               statistics), calls_and_refusals.csv (calls
+                               and refusals per system, both models),
+                               decline_readings.json, tie_alternatives*.json,
+                               ablation_data.json.
 
 heldout/                      The pre-registered held-out Spider run: see
                                heldout/README_RELEASE.md.
@@ -195,6 +203,7 @@ record paths of the development layout (`eval_corpus_employee.json`,
 | Figures 4 to 7 | `Fig1/Fig2/Table3`, `Fig3/Fig4` | `reports/figures/`, listed in its README |
 | employee limit ties | `Ties` | CSV only |
 | Section 5.6 intervals | not CSV rows | `reports/stats/` |
+| Section 5.3 calls and refusals, both models | not CSV rows | `reports/calls_and_refusals.csv` |
 | held-out run (Table 6) | not CSV rows | `heldout/results/analysis/` |
 
 Table 1a, Table 4's risk column and Figure 8 are risk-domain items. The CSV's `Table5` is the

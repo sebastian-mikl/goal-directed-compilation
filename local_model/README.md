@@ -2,8 +2,10 @@
 
 `local_model/` holds the replication of the five systems on an open-weights model, run locally
 through Ollama: the scripts and the patch that ran it, the 880 recorded cells and their provenance,
-the scoring script and the scored outputs. It makes no claim about the paper's numbers and none of
-it is read by `./run_all.sh`.
+the scoring script and the scored outputs. It makes no claim about the paper's numbers.
+`./run_all.sh` reads it in one step only: `scripts/calls_and_refusals.py` (step 7) reads the recorded
+cells in `results/` and checks them against `analysis/per_question.csv`, for the table of calls and
+refusals on both models.
 
 ## What ran
 
