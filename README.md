@@ -17,8 +17,8 @@ release for data-sensitivity reasons — the register's schema was designed for
 structural realism against a real-world risk-register format, and while every
 value in it is fabricated, the schema and category vocabulary are close
 enough to a real reference that we do not release the raw data. Risk's
-results are reported in full in the paper (Tables 1a and 4, Figure 8 and
-Appendix A) exactly as measured. They are not in this repository's
+results are reported in full in the paper (Tables 2 and 6, Appendix A.1,
+A.7 and A.14) exactly as measured. They are not in this repository's
 `reports/paper_numbers.csv`, which is built from the released data and holds
 the employee and Spider rows only, and they are not independently
 reproducible from this repository the way the employee and Spider domains
@@ -102,10 +102,11 @@ stated):
 | `heldout/results/analysis/` | `python heldout/analyse_heldout.py` | see `heldout/README_RELEASE.md` |
 | `reports/figures/pipeline.png`, `spider_data_scope.png` | none | hand-drawn diagrams (`reports/figures/README.md`) |
 
-**Cannot be regenerated from this repository**: every risk-domain number and figure (Tables 1a
-and 4, Figure 8, the risk appendices), the paper's pooled in-scope statistics, which include the
-risk domain, the self-declaration probe counts of Section 5.4 (their probe trees are withheld),
-and any number from a live re-run (live emissions are not exact: the API exposes no seed).
+**Cannot be regenerated from this repository**: every risk-domain number (Tables 2 and 6,
+Appendix A.1, A.7 and A.14), the paper's pooled in-scope statistics, which include the risk
+domain, the self-declaration probe counts of Section 5.4 and Appendix A.13 (their probe trees
+are withheld), and any number from a live re-run (live emissions are not exact: the API exposes
+no seed).
 `scripts/rerun_temp0_batch2.py`, the runner behind the batch-2 files, is shipped but cannot run:
 its plan is built from an audit manifest that covers the withheld domain.
 
@@ -195,21 +196,28 @@ record paths of the development layout (`eval_corpus_employee.json`,
 
 | Paper item | Rows of `reports/paper_numbers.csv` (`fig_table`, domain) | Output |
 |---|---|---|
-| Table 1b (employee, per tier) | `Table1`, `employee` (strict; tolerant beside it for the in-contract tiers) | `reports/figures/table1_employee.*` |
-| Table 2 (Spider, all outcome classes, strict) | `Fig1/Fig2/Table3`, `spider_pooled`, `in_contract_answer` | CSV only |
-| Table 4 (in-scope silent-error, strict and tolerant) | `Table2` for `employee` (and risk), `Fig1/Fig2/Table3` for Spider | `table3_spider_incontract.*` (Spider); `table2_crossdomain.*` (GDC against the strongest baseline per domain, git-ignored) |
-| Table 5 (out-of-scope refusal) | `Table5` | CSV only |
+| Table 7 (employee, per tier) | `Table1`, `employee` (strict; tolerant beside it for the in-contract tiers) | `reports/figures/table1_employee.*` |
+| Appendix A.3 table (Spider, all outcome classes, strict) | `Fig1/Fig2/Table3`, `spider_pooled`, `in_contract_answer` | CSV only |
+| Table 2 (in-scope silent-error, strict and tolerant) | `Table2` for `employee` (and risk), `Fig1/Fig2/Table3` for Spider | `table3_spider_incontract.*` (Spider); `table2_crossdomain.*` (GDC against the strongest baseline per domain, git-ignored) |
+| Table 4 (out-of-scope declines and answers) | `Table5` | CSV only |
 | Appendix A partitions (correct, silent, refused, failed, crash, timeout) | `Table1`, `Table2`, `Fig1/Fig2/Table3`, `Table5` | CSV only |
-| Figures 4 to 7 | `Fig1/Fig2/Table3`, `Fig3/Fig4` | `reports/figures/`, listed in its README |
+| Figure 2 | `Fig1/Fig2/Table3` | `reports/figures/`, listed in its README |
+| Appendix A.4 and A.5 tables (GDC on the two Spider boundary tiers) | `Fig3/Fig4`, each Spider database (`Table5` for A.4's pooled row) | CSV only |
 | employee limit ties | `Ties` | CSV only |
-| Section 5.6 intervals | not CSV rows | `reports/stats/` |
-| Section 5.3 calls and refusals, both models | not CSV rows | `reports/calls_and_refusals.csv` |
-| held-out run (Table 6) | not CSV rows | `heldout/results/analysis/` |
+| Section 5.5 intervals | not CSV rows | `reports/stats/` |
+| Table 3 (calls and refusals, both models) | not CSV rows | `reports/calls_and_refusals.csv` |
+| held-out run (Table 5's held-out row, Appendix A.10) | not CSV rows | `heldout/results/analysis/` |
 
-Table 1a, Table 4's risk column and Figure 8 are risk-domain items. The CSV's `Table5` is the
-paper's out-of-scope table; `make_paper_figures.py` calls the Haiku table "table5" in its risk
-branch. The numbering is the submission's. Where this table and the paper disagree, the paper
-is the authority.
+Table 6, Table 2's risk columns and Appendix A.1 and A.14 are risk-domain items. The `fig_table`
+keys are identifiers, not the paper's numbers: `Table5` is the paper's Table 4, the out-of-scope
+table, and `make_paper_figures.py` calls the Haiku table "table5" in its risk branch. The paper
+items above follow the submitted paper's numbering. `reports/figures/README.md`, and the `figure`
+column that `make_paper_figures.py` writes into `figures_manifest.csv`, keep an earlier draft's
+figure numbers: their Figure 4 is the paper's Figure 2, and their Figures 3 and 5 to 8 are not in
+the paper (the values of Figures 5 and 6 are in the Appendix A.3 table, of Figure 7 in A.4 and of
+Figure 8 in A.14). The paper draws its Figure 1 in its LaTeX source; `pipeline.png` is an
+earlier drawing of the control flow. Where this table and the paper disagree, the paper is the
+authority.
 
 ## What's not included
 
@@ -225,8 +233,8 @@ emissions (`results_off*.jsonl`, `results_t5*.jsonl`, `results_haiku*.jsonl`
 and similar).
 
 **What this means in practice:**
-- Risk's results are reported in full in the paper (Tables 1a and 4,
-  Figure 8 and Appendix A) exactly as measured.
+- Risk's results are reported in full in the paper (Tables 2 and 6,
+  Appendix A.1, A.7 and A.14) exactly as measured.
 - `reports/paper_numbers.csv` in this repository is built from the released
   data, so it has no risk-domain rows.
 - Risk's results are not independently reproducible from this repository.
