@@ -4,8 +4,15 @@ defaults replaced by placeholders (DEV, D_TREE, D_CWD below are directories of t
 workspace, and --claude-csv, --tree, --run, --stats take the real locations) and with the author's
 first name replaced by "the author" in the text it writes. It scores the cells in results/ with the
 development tree's own functions (a scoring tree: the development tree at 5bf429e plus the decisions
-patch), so it cannot run in this repository; the outputs it wrote are in analysis/. Nothing else
-differs.
+patch), so it cannot run in this repository; the outputs it wrote are in analysis/. Two changes
+since the scoring run. The rates and comparisons now keep their unrounded values and only the CSVs
+round them (to two decimals, as before), so every figure that summary.txt and O2_RESULTS.md print
+is rounded once; the scoring run printed the two-decimal values to one decimal, so that 7/13 =
+53.846% printed as 53.9. And `--from-shipped`, which runs in this repository, rewrites the
+statistics and status-count lines of analysis/summary.txt from the shipped analysis/per_question.csv
+and results/ with the same functions, after checking that the rates and comparisons it recomputes
+give the shipped rates.csv and comparisons.csv byte for byte (`--check` compares and writes
+nothing). Nothing else differs.
 
 O2 analysis: the local open-weights replication (Qwen3-Coder 30B, 4-bit, through Ollama),
 scored exactly as the paper scores the Claude cells.
@@ -341,8 +348,8 @@ def analyse(Q, name: str, rule: str, kind: str, cs: list, compare: bool):
             v = Q.cluster_var(k - p * m, strata, M)
             rates.append({"set": name, "rule": rule.replace("d8_class", "strict+D8"), "metric": metric, "system": s,
                           "k": int(k.sum()), "n_cells": int(M), "n_questions": len(keys),
-                          "rate_pct": round(100 * p, 2), "ci_lo_pct": round(100 * np.percentile(bt, 2.5), 2),
-                          "ci_hi_pct": round(100 * np.percentile(bt, 97.5), 2),
+                          "rate_pct": 100 * p, "ci_lo_pct": 100 * np.percentile(bt, 2.5),
+                          "ci_hi_pct": 100 * np.percentile(bt, 97.5),
                           "questions_with_any": int((k > 0).sum()),
                           "n_eff": round(p * (1 - p) / v, 1) if v > 0 else ""})
         if not compare or metric not in COMPARE[kind]:
@@ -358,9 +365,9 @@ def analyse(Q, name: str, rule: str, kind: str, cs: list, compare: bool):
             by_h = " ".join(f"{h}:{int((drate[strata == h] > 0).sum())}/{int((drate[strata == h] < 0).sum())}"
                             for h in sorted(set(strata)))
             block.append({"set": name, "rule": rule.replace("d8_class", "strict+D8"), "metric": metric, "alt": a,
-                          "gdc_pct": round(100 * K[GDC].sum() / M, 2), "alt_pct": round(100 * K[a].sum() / M, 2),
-                          "diff_pp": round(100 * dk.sum() / M, 2), "ci_lo_pp": round(100 * lo, 2),
-                          "ci_hi_pp": round(100 * hi, 2), "excludes_0": bool(lo > 1e-12 or hi < -1e-12),
+                          "gdc_pct": 100 * K[GDC].sum() / M, "alt_pct": 100 * K[a].sum() / M,
+                          "diff_pp": 100 * dk.sum() / M, "ci_lo_pp": 100 * lo,
+                          "ci_hi_pp": 100 * hi, "excludes_0": bool(lo > 1e-12 or hi < -1e-12),
                           "n_questions": len(keys), "n_discordant_q": npos + nneg, "q_gdc_higher": npos,
                           "q_alt_higher": nneg, "p_sign": psign, "p_perm": pperm,
                           "discordant_by_database_gdc_higher/alt_higher": by_h})
@@ -669,6 +676,20 @@ def claude_side(path: Path) -> list:
 
 
 # ── output helpers ────────────────────────────────────────────────────────────
+# Decimals each CSV column is rounded to. The rows keep the unrounded values, so the printed
+# figures (summary.txt, O2_RESULTS.md) are rounded once, from them, and the CSVs round once, here.
+CSV_DP = {"rate_pct": 2, "ci_lo_pct": 2, "ci_hi_pct": 2, "gdc_pct": 2, "alt_pct": 2, "diff_pp": 2,
+          "ci_lo_pp": 2, "ci_hi_pp": 2, "wall_time_s_sum": 1}
+RATES_FIELDS = ["set", "rule", "metric", "system", "k", "n_cells", "n_questions", "rate_pct", "ci_lo_pct", "ci_hi_pct",
+                "questions_with_any", "n_eff"]
+
+
+def _csv_value(k, v):
+    if isinstance(v, float) and k in CSV_DP:
+        v = round(v, CSV_DP[k])
+    return f"{v:.6g}" if isinstance(v, float) else v
+
+
 def write_csv(path: Path, rows: list, fields: list | None = None) -> None:
     if not rows:
         path.write_text("")
@@ -678,11 +699,121 @@ def write_csv(path: Path, rows: list, fields: list | None = None) -> None:
         w = csv.DictWriter(fh, fieldnames=fields, extrasaction="ignore")
         w.writeheader()
         for r in rows:
-            w.writerow({k: (f"{v:.6g}" if isinstance(v, float) else v) for k, v in r.items()})
+            w.writerow({k: _csv_value(k, v) for k, v in r.items()})
 
 
 def pct(k, n, dp=1):
     return f"{100 * k / n:.{dp}f}%" if n else "-"
+
+
+def status_rows(rows: list) -> list:
+    """Status counts and bound hits (run-time statuses, all 880 cells), per system and domain."""
+    st_rows = []
+    for s in SYSTEMS:
+        for dom in DOMAINS + ("all",):
+            rs = [r for r in rows if r["system"] == s and (dom == "all" or r["_dom"] == dom)]
+            st = Counter(r["status"] for r in rs)
+            err = [str(r.get("error") or "") for r in rs]
+            st_rows.append({"system": s, "domain": dom, "cells": len(rs), "ok_completed": st.get("completed", 0),
+                            "refused": st.get("refused", 0), "timeout": st.get("timeout", 0),
+                            "crashed": st.get("crashed", 0),
+                            "react_max_iters_15_hit": sum(e.startswith("max_iters 15 hit") for e in err),
+                            "code_agent_max_retries_12_hit": sum(e.startswith("max_retries 12 hit") for e in err),
+                            "code_agent_exec_watchdog_60s": sum("agent code did not return within" in e for e in err),
+                            "wall_time_s_sum": sum(r["wall_time_s"] for r in rs),
+                            "llm_calls_sum": sum(r.get("llm_calls") or 0 for r in rs)})
+    return st_rows
+
+
+def stat_lines(rates: list, comps: list) -> list:
+    """summary.txt: the rate lines, the comparison lines and the resolved comparisons."""
+    L = []
+    for x in rates:
+        if x["metric"] in ("declined_explicit", "declined_typed", "crash") and x["k"] == 0:
+            continue
+        L.append(f"  {x['set']:<45} {x['metric']:<22} {x['system']:<12} {x['rate_pct']:6.1f}%  "
+                 f"[{x['ci_lo_pct']:5.1f}, {x['ci_hi_pct']:5.1f}]  {x['k']}/{x['n_cells']} cells, "
+                 f"{x['n_questions']} questions")
+    L.append("")
+    for x in comps:
+        L.append(f"  {x['set']:<45} {x['metric']:<22} GDC-{x['alt']:<12} {x['diff_pp']:+6.1f} pp "
+                 f"[{x['ci_lo_pp']:+6.1f}, {x['ci_hi_pp']:+6.1f}]  discordant {x['n_discordant_q']} "
+                 f"({x['q_gdc_higher']}/{x['q_alt_higher']})  p_perm {x['p_perm']:.3g} (Holm {x['p_perm_holm']:.3g})"
+                 f"  {x['verdict']}{' (survives Holm)' if x['resolved_after_holm'] else ''}")
+    L.append("")
+    L.append("Resolved comparisons (bootstrap CI excludes 0 and exact permutation p < 0.05):")
+    res_c = [x for x in comps if x["verdict"] == "resolved"]
+    for x in res_c:
+        L.append(f"  {x['set']} {x['metric']} GDC-{x['alt']}: {x['diff_pp']:+.1f} pp [{x['ci_lo_pp']:+.1f}, "
+                 f"{x['ci_hi_pp']:+.1f}], p_perm {x['p_perm']:.3g}, Holm {x['p_perm_holm']:.3g}"
+                 f"{' (survives Holm)' if x['resolved_after_holm'] else ' (does not survive Holm)'}")
+    if not res_c:
+        L.append("  (none)")
+    return L
+
+
+STATUS_HEAD = "Status counts, run-time (all 880 cells; ok = completed):"
+
+
+def status_lines(st_rows: list) -> list:
+    """summary.txt: the status-count lines, one per system."""
+    L = [STATUS_HEAD]
+    for x in st_rows:
+        if x["domain"] == "all":
+            L.append(f"  {x['system']:<12} ok {x['ok_completed']:>3}  refused {x['refused']:>3}  timeout {x['timeout']:>3}  "
+                     f"crashed {x['crashed']:>2}  of {x['cells']}; react 15-iteration bound {x['react_max_iters_15_hit']}, "
+                     f"code-agent 12-retry bound {x['code_agent_max_retries_12_hit']}, exec watchdog {x['code_agent_exec_watchdog_60s']}; "
+                     f"wall {x['wall_time_s_sum'] / 3600:.2f} h")
+    return L
+
+
+def from_shipped(out: Path, stats: Path, check: bool) -> int:
+    """Rewrite the statistics lines and the status-count lines of <out>/summary.txt from the shipped
+    files, with the functions the scoring run used: build_sets and analyse on the cells of
+    <out>/per_question.csv (domain, qid, system, group, strict, tolerant, d8_class; a cell is scored
+    unless its tier is "(dropped)"), status_rows on results/, then stat_lines and status_lines. Refuses
+    unless the recomputed rates and comparisons write the shipped rates.csv and comparisons.csv byte
+    for byte. Every other line of summary.txt is kept as it is. With check, writes nothing and returns
+    1 if summary.txt would change."""
+    import tempfile
+    import numpy as np                            # noqa: E402
+    Q = load_stats(stats)
+    Q.np = np
+    pq = list(csv.DictReader(open(out / "per_question.csv", newline="", encoding="utf-8")))
+    cells = [{"domain": r["domain"], "qid": r["qid"], "system": r["system"], "scored": r["tier"] != "(dropped)",
+              "group": r["group"], "strict": r["strict"], "tolerant": r["tolerant"], "d8_class": r["d8_class"]}
+             for r in pq]
+    rates, comps = [], []
+    for name, rule, kind, cs, primary in build_sets(cells):
+        r, cp = analyse(Q, name, rule, kind, cs, compare=primary)
+        rates += r
+        comps += cp
+    with tempfile.TemporaryDirectory() as td:
+        write_csv(Path(td) / "rates.csv", rates, RATES_FIELDS)
+        write_csv(Path(td) / "comparisons.csv", comps)
+        for f in ("rates.csv", "comparisons.csv"):
+            if (Path(td) / f).read_bytes() != (out / f).read_bytes():
+                raise SystemExit(f"--from-shipped: the recomputed {f} differs from {out / f}; summary.txt not touched")
+    st_rows = status_rows(load_o2(HERE))
+    old = (out / "summary.txt").read_text(encoding="utf-8").split("\n")
+    i0 = old.index("") + 1                                     # the blank line after the four header lines
+    i1 = next(i for i, ln in enumerate(old) if ln.startswith("Re-score against the run-time verdict")) - 1
+    j0 = old.index(STATUS_HEAD)
+    j1 = j0 + len(status_lines(st_rows))
+    if old[i1] != "" or old[j1] != "":
+        raise SystemExit("--from-shipped: summary.txt does not have the layout analyse_o2.py writes")
+    new = old[:i0] + stat_lines(rates, comps) + old[i1:j0] + status_lines(st_rows) + old[j1:]
+    changed = [(n + 1, a, b) for n, (a, b) in enumerate(zip(old, new)) if a != b]
+    if len(new) != len(old):
+        raise SystemExit(f"--from-shipped: line count would change ({len(old)} -> {len(new)})")
+    for n, a, b in changed:
+        print(f"summary.txt line {n}:\n  - {a.strip()}\n  + {b.strip()}")
+    print(f"{len(changed)} line(s) of summary.txt {'differ' if check else 'rewritten'}; rates.csv and "
+          f"comparisons.csv recomputed byte for byte")
+    if check:
+        return 1 if changed else 0
+    (out / "summary.txt").write_text("\n".join(new), encoding="utf-8")
+    return 0
 
 
 def main(argv=None) -> int:
@@ -690,11 +821,16 @@ def main(argv=None) -> int:
     ap.add_argument("--tree", type=Path, default=D_TREE)
     ap.add_argument("--run", type=Path, default=D_RUN)
     ap.add_argument("--stats", type=Path, default=D_STATS)
-    ap.add_argument("--out", type=Path, default=HERE)
+    ap.add_argument("--out", type=Path, default=None, help="output directory (default: this directory; with --from-shipped, analysis/)")
     ap.add_argument("--claude-csv", type=Path, default=None)
     ap.add_argument("--ollama-logs", type=Path, default=Path.home() / ".ollama" / "logs")
     ap.add_argument("--cwd", type=Path, default=D_CWD, help="scratch working directory for the tree imports")
+    ap.add_argument("--from-shipped", action="store_true",
+                    help="rewrite the statistics and status-count lines of <out>/summary.txt from the shipped files")
+    ap.add_argument("--check", action="store_true", help="with --from-shipped: compare only, exit 1 on a difference")
     a = ap.parse_args(argv)
+    if a.from_shipped:
+        return from_shipped(a.out or HERE / "analysis", a.stats, a.check)
     install_guards()
     a.cwd.mkdir(parents=True, exist_ok=True)
     os.chdir(a.cwd)                              # any relative-path write by a tree import lands here
@@ -702,7 +838,7 @@ def main(argv=None) -> int:
     Q = load_stats(a.stats)
     import numpy as np                            # noqa: E402
     Q.np = np
-    out = a.out
+    out = a.out or HERE
     out.mkdir(parents=True, exist_ok=True)
 
     # engine check
@@ -768,21 +904,7 @@ def main(argv=None) -> int:
                    "gdc_goal_emitted": c["has_goal"] if c["system"] == GDC else "",
                    "llm_calls": c["llm_calls"], "wall_time_s": c["wall_time_s"], "error": c["error"]})
 
-    # status counts and bound hits (run-time statuses, all 880 cells)
-    st_rows = []
-    for s in SYSTEMS:
-        for dom in DOMAINS + ("all",):
-            rs = [r for r in rows if r["system"] == s and (dom == "all" or r["_dom"] == dom)]
-            st = Counter(r["status"] for r in rs)
-            err = [str(r.get("error") or "") for r in rs]
-            st_rows.append({"system": s, "domain": dom, "cells": len(rs), "ok_completed": st.get("completed", 0),
-                            "refused": st.get("refused", 0), "timeout": st.get("timeout", 0),
-                            "crashed": st.get("crashed", 0),
-                            "react_max_iters_15_hit": sum(e.startswith("max_iters 15 hit") for e in err),
-                            "code_agent_max_retries_12_hit": sum(e.startswith("max_retries 12 hit") for e in err),
-                            "code_agent_exec_watchdog_60s": sum("agent code did not return within" in e for e in err),
-                            "wall_time_s_sum": round(sum(r["wall_time_s"] for r in rs), 1),
-                            "llm_calls_sum": sum(r.get("llm_calls") or 0 for r in rs)})
+    st_rows = status_rows(rows)
     watchdog_cells = [r for r in rows if "agent code did not return within" in str(r.get("error") or "")]
 
     F = run_facts(a.run, rows)
@@ -911,8 +1033,7 @@ def main(argv=None) -> int:
                     else "pre-batch-2 baselines (decisions build)")
 
     # ── write CSVs ──
-    write_csv(out / "rates.csv", rates, ["set", "rule", "metric", "system", "k", "n_cells", "n_questions", "rate_pct",
-                                          "ci_lo_pct", "ci_hi_pct", "questions_with_any", "n_eff"])
+    write_csv(out / "rates.csv", rates, RATES_FIELDS)
     write_csv(out / "comparisons.csv", comps)
     write_csv(out / "per_question.csv", pq)
     write_csv(out / "mismatches.csv", mismatches)
@@ -933,27 +1054,7 @@ def main(argv=None) -> int:
          f"strict verdict on the recorded result in {len(rep_flip)}.",
          "Intervals: question-cluster bootstrap, 10,000 resamples, stratified by database, percentile 95%; one seed, so "
          "a cell is a question. D8 classes on the decline tiers (declined = explicit + typed; failed separate).", ""]
-    for x in rates:
-        if x["metric"] in ("declined_explicit", "declined_typed", "crash") and x["k"] == 0:
-            continue
-        L.append(f"  {x['set']:<45} {x['metric']:<22} {x['system']:<12} {x['rate_pct']:6.1f}%  "
-                 f"[{x['ci_lo_pct']:5.1f}, {x['ci_hi_pct']:5.1f}]  {x['k']}/{x['n_cells']} cells, "
-                 f"{x['n_questions']} questions")
-    L.append("")
-    for x in comps:
-        L.append(f"  {x['set']:<45} {x['metric']:<22} GDC-{x['alt']:<12} {x['diff_pp']:+6.1f} pp "
-                 f"[{x['ci_lo_pp']:+6.1f}, {x['ci_hi_pp']:+6.1f}]  discordant {x['n_discordant_q']} "
-                 f"({x['q_gdc_higher']}/{x['q_alt_higher']})  p_perm {x['p_perm']:.3g} (Holm {x['p_perm_holm']:.3g})"
-                 f"  {x['verdict']}{' (survives Holm)' if x['resolved_after_holm'] else ''}")
-    L.append("")
-    L.append("Resolved comparisons (bootstrap CI excludes 0 and exact permutation p < 0.05):")
-    res_c = [x for x in comps if x["verdict"] == "resolved"]
-    for x in res_c:
-        L.append(f"  {x['set']} {x['metric']} GDC-{x['alt']}: {x['diff_pp']:+.1f} pp [{x['ci_lo_pp']:+.1f}, "
-                 f"{x['ci_hi_pp']:+.1f}], p_perm {x['p_perm']:.3g}, Holm {x['p_perm_holm']:.3g}"
-                 f"{' (survives Holm)' if x['resolved_after_holm'] else ' (does not survive Holm)'}")
-    if not res_c:
-        L.append("  (none)")
+    L += stat_lines(rates, comps)
     L.append("")
     L.append("Re-score against the run-time verdict (run-time: s48 on the run tree's gold, raw tiers):")
     for m in mismatches:
@@ -964,13 +1065,7 @@ def main(argv=None) -> int:
     if rep_neq:
         L.append("  replay != recorded: " + "; ".join(f"{c['domain']}/{c['qid']}/{c['system']}" for c in rep_neq))
     L.append("")
-    L.append("Status counts, run-time (all 880 cells; ok = completed):")
-    for x in st_rows:
-        if x["domain"] == "all":
-            L.append(f"  {x['system']:<12} ok {x['ok_completed']:>3}  refused {x['refused']:>3}  timeout {x['timeout']:>3}  "
-                     f"crashed {x['crashed']:>2}  of {x['cells']}; react 15-iteration bound {x['react_max_iters_15_hit']}, "
-                     f"code-agent 12-retry bound {x['code_agent_max_retries_12_hit']}, exec watchdog {x['code_agent_exec_watchdog_60s']}; "
-                     f"wall {x['wall_time_s_sum'] / 3600:.2f} h")
+    L += status_lines(st_rows)
     L.append("")
     L.append(f"Context-loss flags: {len(F['cc_flagged'])} of {F['cc_n']} cells flagged {F['cc_flagged']}; with a loss event "
              f"{F['cc_events']}; unaligned {F['cc_unaligned']}; n_ctx seen {F['cc_n_ctx']}; temps {F['cc_temps']}; "

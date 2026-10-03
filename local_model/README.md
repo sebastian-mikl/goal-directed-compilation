@@ -84,6 +84,15 @@ The copy here has its absolute path defaults replaced by placeholders and the au
 replaced in the text it writes. Its outputs are in `analysis/`; `summary.txt` has its three
 absolute paths replaced by descriptions.
 
+The scoring run printed the two-decimal values of `rates.csv` and `comparisons.csv` to one decimal
+in `summary.txt`, so 15 figures there were rounded twice (7/13 = 53.846% printed as 53.9, and 6/13 =
+46.154% as 46.1). The copy here keeps the unrounded values and rounds each printed figure once.
+`analyse_o2.py --from-shipped`, which runs in this repository, rewrote those lines: it recomputes the
+rates and comparisons from `analysis/per_question.csv` and the status counts from `results/` with the
+same functions, refuses unless the recomputed `rates.csv` and `comparisons.csv` equal the shipped
+ones byte for byte, and replaces only the statistics and status-count lines of `summary.txt`. The
+CSVs did not change. `--check` compares without writing; the test suite runs it.
+
 ## Re-running
 
 Not possible from this repository alone, and not tested here. It needs the development tree at
