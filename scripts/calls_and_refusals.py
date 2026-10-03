@@ -47,7 +47,8 @@ Refusal rate, one definition per set, as the paper's tables count them (D8):
       outcome with D8 applied (build_paper_numbers.d8_class): the builder's refused_should_answer
       rows in Table2 and Fig1/Fig2/Table3, the Refused column of the paper's tables. A refusal
       of an answerable question counts only when it is a decline, an explicit decline statement or
-      a typed refusal. A failure (a GDC ParseError, an SQL error, a reply that neither parses nor
+      a typed refusal (a GDC Goal that parses as JSON but fails the Goal schema check is one). A
+      failure (GDC output that is not valid JSON, an SQL error, a reply that neither parses nor
       declines, a run that completes with no result), a crash and a timeout are not refusals; they
       are counted in in_scope_failed_crash_timeout. Strict and tie-tolerant scoring give the same
       count, because the tie rule moves only answers.

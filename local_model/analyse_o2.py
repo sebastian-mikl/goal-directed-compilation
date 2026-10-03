@@ -4,7 +4,7 @@ defaults replaced by placeholders (DEV, D_TREE, D_CWD below are directories of t
 workspace, and --claude-csv, --tree, --run, --stats take the real locations) and with the author's
 first name replaced by "the author" in the text it writes. It scores the cells in results/ with the
 development tree's own functions (a scoring tree: the development tree at 5bf429e plus the decisions
-patch), so it cannot run in this repository; the outputs it wrote are in analysis/. Two changes
+patch), so it cannot run in this repository; the outputs it wrote are in analysis/. Three changes
 since the scoring run. The rates and comparisons now keep their unrounded values and only the CSVs
 round them (to two decimals, as before), so every figure that summary.txt and O2_RESULTS.md print
 is rounded once; the scoring run printed the two-decimal values to one decimal, so that 7/13 =
@@ -12,7 +12,14 @@ is rounded once; the scoring run printed the two-decimal values to one decimal, 
 statistics and status-count lines of analysis/summary.txt from the shipped analysis/per_question.csv
 and results/ with the same functions, after checking that the rates and comparisons it recomputes
 give the shipped rates.csv and comparisons.csv byte for byte (`--check` compares and writes
-nothing). Nothing else differs.
+nothing). And the decline rule draws its line at the Goal schema (decision of 3 Oct 2026): a GDC
+ParseError on output that parsed as JSON (the Goal or OrderSpec schema check: "missing required
+field", ...) is a typed refusal, one on output that is not valid JSON a failure
+(scripts/paper_inputs.gdc_parse_channel); the scoring run counted every GDC ParseError as a
+failure. analysis/per_question.csv, rates.csv, comparisons.csv and summary.txt were regenerated
+with this script and the scoring tree with that rule applied, from the same results/; 28 GDC cells
+move from failed to typed (decline_channel, and d8_class on the decline tiers), and nothing else.
+The text this script writes says so where it names the rule. Nothing else differs.
 
 O2 analysis: the local open-weights replication (Qwen3-Coder 30B, 4-bit, through Ollama),
 scored exactly as the paper scores the Claude cells.
@@ -1221,7 +1228,8 @@ def render_md(V: dict) -> str:
     L.append(table("(b) Employee out_of_range (9 questions after D11)", "o2_employee_out_of_range",
                    "employee_out_of_range", dm,
                    "answer_anyway = silent_wrong on a decline tier; declined = explicit or typed (D8); failed = a refusal "
-                   "that is neither (an SQL error, a GDC ParseError, an unparseable plan with no decline text, an empty result)."))
+                   "that is neither (an SQL error, a GDC ParseError on output that is not valid JSON, an unparseable plan with no "
+                   "decline text, an empty result)."))
     L.append(table("(c1) Spider answer tier, tie-tolerant s48t (27 questions)", "o2_spider_answer_tolerant",
                    "spider_answer_tolerant", am))
     L.append(table("(c2) Spider answer tier, strict s48 (27 questions)", "o2_spider_answer_strict",
@@ -1404,7 +1412,8 @@ def render_md(V: dict) -> str:
              f"{len(V['g_nogoal_ref'])} refusals had no Goal | {len(V['g_nogoal_ref'])} of the {len(V['g_ref'])} refusals are "
              "ParseErrors, the model's output not parsing into a Goal ("
              + ", ".join(f"'{m}' {n}" for m, n in V["parse_msgs"].most_common())
-             + "); D8 counts them as failures, not declines, and no check acted on them |")
+             + "); D8 counts those on output that parsed as JSON (the Goal schema check refused it) as typed refusals "
+             "and those on output that is not valid JSON as failures |")
     x_acc, x_ref = rate_of[(fset, "accuracy", GDC)], rate_of[(fset, "refused_should_answer", GDC)]
     t_acc, t_ref = rate_of[("o2_pooled_within_vocab_tolerant", "accuracy", GDC)], rate_of[("o2_pooled_within_vocab_tolerant", "refused_should_answer", GDC)]
     L.append(f"| GDC within-vocabulary accuracy / refusal | 56.5% / 38.9% | set (f) | strict {x_acc['rate_pct']:.1f}% "

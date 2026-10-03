@@ -15,10 +15,10 @@ o2_employee_out_of_range,strict+D8,answer_anyway,planner,66.67,66.67,0,-33.33,33
 o2_employee_out_of_range,strict+D8,answer_anyway,react,66.67,77.78,-11.11,-33.33,0,False,9,1,0,1,1,1,employee:0/1,1,unresolved,False
 o2_employee_out_of_range,strict+D8,answer_anyway,code_agent,66.67,88.89,-22.22,-55.56,0,False,9,2,0,2,0.5,0.5,employee:0/2,1,unresolved,False
 o2_employee_out_of_range,strict+D8,answer_anyway,text_to_sql,66.67,44.44,22.22,-33.33,66.67,False,9,6,4,2,0.6875,0.6875,employee:4/2,1,unresolved,False
-o2_employee_out_of_range,strict+D8,declined,planner,11.11,33.33,-22.22,-66.67,22.22,False,9,4,1,3,0.625,0.625,employee:1/3,1,unresolved,False
-o2_employee_out_of_range,strict+D8,declined,react,11.11,11.11,0,-33.33,33.33,False,9,2,1,1,1,1,employee:1/1,1,unresolved,False
-o2_employee_out_of_range,strict+D8,declined,code_agent,11.11,0,11.11,0,33.33,False,9,1,1,0,1,1,employee:1/0,1,unresolved,False
-o2_employee_out_of_range,strict+D8,declined,text_to_sql,11.11,55.56,-44.44,-77.78,-11.11,True,9,4,0,4,0.125,0.125,employee:0/4,0.5,bootstrap-only,False
+o2_employee_out_of_range,strict+D8,declined,planner,33.33,33.33,0,-33.33,33.33,False,9,2,1,1,1,1,employee:1/1,1,unresolved,False
+o2_employee_out_of_range,strict+D8,declined,react,33.33,11.11,22.22,0,55.56,False,9,2,2,0,0.5,0.5,employee:2/0,1,unresolved,False
+o2_employee_out_of_range,strict+D8,declined,code_agent,33.33,0,33.33,0,66.67,False,9,3,3,0,0.25,0.25,employee:3/0,1,unresolved,False
+o2_employee_out_of_range,strict+D8,declined,text_to_sql,33.33,55.56,-22.22,-66.67,33.33,False,9,6,2,4,0.6875,0.6875,employee:2/4,1,unresolved,False
 o2_spider_answer_tolerant,tolerant,accuracy,planner,22.22,62.96,-40.74,-59.26,-22.22,True,27,13,1,12,0.00341797,0.00341797,bike_1:1/1 world_1:0/6 wta_1:0/5,0.00683594,resolved,True
 o2_spider_answer_tolerant,tolerant,accuracy,react,22.22,37.04,-14.81,-40.74,11.11,False,27,12,4,8,0.387695,0.387695,bike_1:1/2 world_1:2/4 wta_1:1/2,0.387695,unresolved,False
 o2_spider_answer_tolerant,tolerant,accuracy,code_agent,22.22,77.78,-55.56,-77.78,-33.33,True,27,17,1,16,0.000274658,0.000274658,bike_1:0/4 world_1:1/7 wta_1:0/5,0.000823975,resolved,True
@@ -59,10 +59,10 @@ o2_spider_out_of_scope_register,strict+D8,answer_anyway,planner,26.67,42.22,-15.
 o2_spider_out_of_scope_register,strict+D8,answer_anyway,react,26.67,77.78,-51.11,-66.67,-35.56,True,45,35,6,29,0.000116842,0.000116842,bike_1:0/12 world_1:0/13 wta_1:6/4,0.000350526,resolved,True
 o2_spider_out_of_scope_register,strict+D8,answer_anyway,code_agent,26.67,95.56,-68.89,-80,-57.78,True,45,33,1,32,7.91624e-09,7.91624e-09,bike_1:0/13 world_1:0/14 wta_1:1/5,3.1665e-08,resolved,True
 o2_spider_out_of_scope_register,strict+D8,answer_anyway,text_to_sql,26.67,48.89,-22.22,-40,-4.44,True,45,18,4,14,0.0308838,0.0308838,bike_1:2/4 world_1:1/5 wta_1:1/5,0.0617676,resolved,False
-o2_spider_out_of_scope_register,strict+D8,declined,planner,53.33,53.33,0,-20,20,False,45,22,11,11,1,1,bike_1:6/2 world_1:2/2 wta_1:3/7,1,unresolved,False
-o2_spider_out_of_scope_register,strict+D8,declined,react,53.33,2.22,51.11,37.78,64.44,True,45,23,23,0,2.38419e-07,2.38419e-07,bike_1:12/0 world_1:8/0 wta_1:3/0,7.15256e-07,resolved,True
-o2_spider_out_of_scope_register,strict+D8,declined,code_agent,53.33,0,53.33,42.22,64.44,True,45,24,24,0,1.19209e-07,1.19209e-07,bike_1:12/0 world_1:9/0 wta_1:3/0,4.76837e-07,resolved,True
-o2_spider_out_of_scope_register,strict+D8,declined,text_to_sql,53.33,37.78,15.56,-4.44,35.56,False,45,23,15,8,0.21004,0.21004,bike_1:4/3 world_1:8/3 wta_1:3/2,0.420079,unresolved,False
+o2_spider_out_of_scope_register,strict+D8,declined,planner,71.11,53.33,17.78,0,37.78,False,45,22,15,7,0.133801,0.133801,bike_1:6/1 world_1:5/1 wta_1:4/5,0.133801,unresolved,False
+o2_spider_out_of_scope_register,strict+D8,declined,react,71.11,2.22,68.89,55.56,80,True,45,31,31,0,9.31323e-10,9.31323e-10,bike_1:13/0 world_1:12/0 wta_1:6/0,2.79397e-09,resolved,True
+o2_spider_out_of_scope_register,strict+D8,declined,code_agent,71.11,0,71.11,60,82.22,True,45,32,32,0,4.65661e-10,4.65661e-10,bike_1:13/0 world_1:13/0 wta_1:6/0,1.86265e-09,resolved,True
+o2_spider_out_of_scope_register,strict+D8,declined,text_to_sql,71.11,37.78,33.33,15.56,51.11,True,45,23,19,4,0.00259948,0.00259948,bike_1:4/2 world_1:10/1 wta_1:5/1,0.00519896,resolved,True
 o2_pooled_within_vocab_tolerant,tolerant,accuracy,planner,56.48,67.59,-11.11,-22.22,0,False,108,42,15,27,0.0884295,0.0884295,bike_1:1/1 employee:14/15 world_1:0/6 wta_1:0/5,0.0884295,unresolved,False
 o2_pooled_within_vocab_tolerant,tolerant,accuracy,react,56.48,39.81,16.67,3.7,28.7,True,108,52,35,17,0.0175332,0.0175332,bike_1:1/2 employee:31/9 world_1:2/4 wta_1:1/2,0.0350665,resolved,True
 o2_pooled_within_vocab_tolerant,tolerant,accuracy,code_agent,56.48,80.56,-24.07,-35.19,-13.89,True,108,44,9,35,0.000106045,0.000106045,bike_1:0/4 employee:8/19 world_1:1/7 wta_1:0/5,0.000424179,resolved,True

@@ -214,12 +214,61 @@ def scored_input(dom: str, row: dict):
 #   typed:    a refusal of the engine's or the executor's typed family: every refusal
 #             the GDC replay returns (ContractError, GoalLint, Unreachable, the
 #             FilterTypeError family incl. the type guards, OrderApplicationError,
-#             PlanExecutionDivergence) and a planner step's FilterTypeError family.
-#   failed:   a text-to-SQL SQL error; a GDC ParseError; a planner reply that does not
-#             parse and has no decline text, a malformed or empty plan; a run that
-#             completed with no result (REFUSAL from an empty or NaN frame).
+#             PlanExecutionDivergence), a GDC ParseError raised by the schema check on a
+#             reply that parsed as JSON ("missing required field", ...), and a planner
+#             step's FilterTypeError family.
+#   failed:   a text-to-SQL SQL error; a GDC ParseError on a reply that is not valid JSON;
+#             a planner reply that does not parse and has no decline text, a malformed or
+#             empty plan; a run that completed with no result (REFUSAL from an empty or
+#             NaN frame).
 # Crash and timeout keep their own classes (also failures, never declines).
 DECLINE_CHANNELS = ("explicit", "typed", "failed")
+
+# The schema line (decision of 3 Oct 2026, "draw the line at schema"), for every system: a model
+# output that parses as JSON but fails GDC's Goal schema check is a typed refusal; output
+# that is not valid JSON is a failure. A GDC ParseError's recorded artifact holds only the
+# message (NetworkAdapter.run records {"kind", "error"}, no reply text), so the message is
+# the signal. Every ParseError the engine raises (llm.py, contract.py), by where it is raised:
+#   not valid JSON (failed): before the reply has parsed
+#     llm.py _extract_json       "LLM1 output contained no JSON object"
+#                                "LLM1 output had an unbalanced JSON object"
+#     llm.py llm1                "LLM1 output was not valid JSON: <json.loads error>"
+#   schema (typed): after json.loads accepted the reply
+#     llm.py llm1                "LLM1 output missing 'goal'"
+#     contract.py parse_goal     "not valid JSON: ..." (the goal value is a string that does
+#                                not parse), "goal must be an object, got ...", "missing
+#                                required field: ...", "'columns' / 'where' / 'derive' must
+#                                be a list", "each where conjunct needs col/op/val: ...",
+#                                "each derive entry needs name/expr: ...", "could not build
+#                                Goal: ..."
+#     llm.py _parse_order        "'order' must be an object, got ...", "'order.order_by'
+#                                must be a list", "each order_by entry needs a 'col': ...",
+#                                "'order.limit' must be an int or null, got ...", "could not
+#                                build OrderSpec: ..."
+# A message in neither list raises, so a new ParseError cannot fall into a class unread.
+# The planner's "JSON parse error: ..." (json.loads rejected the reply) stays a failure.
+GDC_PARSE_NOT_JSON = ("LLM1 output contained no JSON object",
+                      "LLM1 output had an unbalanced JSON object",
+                      "LLM1 output was not valid JSON")
+GDC_PARSE_SCHEMA = ("LLM1 output missing 'goal'",
+                    "not valid JSON:", "goal must be an object", "missing required field:",
+                    "'columns' must be a list", "'where' must be a list", "'derive' must be a list",
+                    "each where conjunct needs col/op/val", "each derive entry needs name/expr",
+                    "could not build Goal:",
+                    "'order' must be an object", "'order.order_by' must be a list",
+                    "each order_by entry needs a 'col'", "'order.limit' must be an int or null",
+                    "could not build OrderSpec:")
+
+
+def gdc_parse_channel(err: str) -> str:
+    """Channel of a GDC ParseError, from its recorded message: `failed` if the reply was not
+    valid JSON, `typed` if it parsed and the Goal (or OrderSpec) schema check refused it."""
+    msg = err[len("ParseError:"):].strip() if err.startswith("ParseError:") else err.strip()
+    if msg.startswith(GDC_PARSE_NOT_JSON):
+        return "failed"
+    if msg.startswith(GDC_PARSE_SCHEMA):
+        return "typed"
+    raise ValueError(f"unclassified GDC ParseError message: {msg[:80]!r}")
 
 # Hand readings (D8, Seb 2 Oct 2026: "statement-only endings that say the data cannot answer the
 # question are explicit declines, for every system"). reports/decline_readings.json holds, for each
@@ -286,6 +335,8 @@ def rule_channel(dom: str, row: dict) -> tuple[str, str] | None:
             return "typed", err.split(":")[0]
         if err.startswith("declined:") or art.get("declined"):
             return "explicit", "EmissionDecline"
+        if err.startswith("ParseError:"):                 # the schema line: typed or failed
+            return gdc_parse_channel(err), "ParseError"
         return "failed", err.split(":")[0] or "no Goal"
     if sysname == "planner":
         if envelope:

@@ -95,6 +95,17 @@ same functions, refuses unless the recomputed `rates.csv` and `comparisons.csv` 
 ones byte for byte, and replaces only the statistics and status-count lines of `summary.txt`. The
 CSVs did not change. `--check` compares without writing; the test suite runs it.
 
+The decline rule then moved its line to the Goal schema (3 Oct 2026; `scripts/paper_inputs.py`,
+`gdc_parse_channel`): a GDC ParseError on output that parses as JSON but fails the Goal schema check
+("missing required field", ...) is a typed refusal, and one on output that is not valid JSON is a
+failure; the scoring run had counted all 33 as failures. 28 are schema errors and 5 are not valid
+JSON. `analysis/per_question.csv`, `rates.csv`, `comparisons.csv` and `summary.txt` were regenerated
+from the same `results/` by `analyse_o2.py` on the scoring tree with that rule, and the three
+description lines of `summary.txt` were kept. Only the 28 cells' `decline_channel` (and, on the two
+decline tiers, `d8_class`) and the GDC rates and comparisons built from them changed. `--from-shipped
+--check` recomputes the regenerated rates and comparisons byte for byte, and
+`scripts/calls_and_refusals.py` checks every cell's decline channel against this repository's rule.
+
 ## Re-running
 
 Not possible from this repository alone, and not tested here. It needs the development tree at
