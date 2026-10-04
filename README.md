@@ -200,7 +200,7 @@ record paths of the development layout (`eval_corpus_employee.json`,
 | Appendix A.3 table (Spider, all outcome classes, strict) | `Fig1/Fig2/Table3`, `spider_pooled`, `in_contract_answer` | CSV only |
 | Table 2 (in-scope silent-error, strict and tolerant) | `Table2` for `employee` (and risk), `Fig1/Fig2/Table3` for Spider | `table3_spider_incontract.*` (Spider); `table2_crossdomain.*` (GDC against the strongest baseline per domain, git-ignored) |
 | Table 3 (out-of-scope declines and answers) | `Table5` | CSV only |
-| Table 3's row "GDC, told it may decline" | `Fig3/Fig4`, each Spider database, tier group `out_of_scope_register_s40on` | `reports/stats/rates.csv`, set `decline_spider_oosr_pooled_s40on` (the pooled rates and their intervals) |
+| Table 3's row "GDC, told it may decline" | `Fig3/Fig4`, each Spider database, tier group `out_of_scope_register_s40on` | `reports/stats/rates.csv`, set `decline_spider_oosr_pooled_s40on` (the pooled rates and their intervals); `reports/stats/comparisons.csv`, the same set (its differences from the four alternatives) |
 | Appendix A partitions (correct, silent, refused, failed, crash, timeout) | `Table1`, `Table2`, `Fig1/Fig2/Table3`, `Table5` | CSV only |
 | Figure 2 | `Fig1/Fig2/Table3` | `reports/figures/`, listed in its README |
 | Appendix A.4 and A.5 tables (GDC on the two Spider boundary tiers) | `Fig3/Fig4`, each Spider database (`Table5` for A.4's pooled row) | CSV only |

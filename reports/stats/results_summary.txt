@@ -210,6 +210,14 @@ Seed agreement per system (share of questions whose seeds all give one outcome c
   decline_employee_oor         code_agent   all          q=9   seeds=3   class-unanimous 100.0%  result-identical  55.6%  pairwise 100.0%  temp0 cells 100.0%
   decline_employee_oor         text_to_sql  all          q=9   seeds=3   class-unanimous  77.8%  result-identical  77.8%  pairwise  85.2%  temp0 cells 100.0%
 
-== decline_spider_oosr_pooled_s40on: GDC told it may decline (table-coverage instruction on), 45 questions, 225 cells; intervals on the resamples of decline_spider_oosr_pooled; rates only, no comparison
+== decline_spider_oosr_pooled_s40on: GDC told it may decline (table-coverage instruction on), 45 questions, 225 cells; intervals on the resamples of decline_spider_oosr_pooled; diff = GDC told it may decline minus the alternative (the alternatives' cells are decline_spider_oosr_pooled's)
   silent_wrong: GDC 45.3% [31.1, 60.0] (102/225; 21 questions with any)
+    vs planner     alt  52.9%  diff   -7.6 [ -25.3,  +10.7] includes 0  discordant q  23 (GDC higher 10, alt higher 13)  p_sign 0.6776  p_perm 0.4550 (Holm 1.0000)  -> UNRESOLVED  naive-cell [-16.6, +1.7]
+    vs react       alt  46.7%  diff   -1.3 [ -16.9,  +13.8] includes 0  discordant q  19 (GDC higher 9, alt higher 10)  p_sign 1.0000  p_perm 0.9103 (Holm 1.0000)  -> UNRESOLVED  naive-cell [-10.4, +7.8]
+    vs code_agent  alt  39.6%  diff   +5.8 [  -9.3,  +20.9] includes 0  discordant q  17 (GDC higher 11, alt higher 6)  p_sign 0.3323  p_perm 0.4939 (Holm 1.0000)  -> UNRESOLVED  naive-cell [-3.3, +14.8]
+    vs text_to_sql alt  46.7%  diff   -1.3 [ -18.2,  +15.1] includes 0  discordant q  16 (GDC higher 8, alt higher 8)  p_sign 1.0000  p_perm 0.8953 (Holm 1.0000)  -> UNRESOLVED  naive-cell [-10.4, +7.8]
   declined: GDC 54.7% [40.0, 68.9] (123/225; 26 questions with any)
+    vs planner     alt  33.8%  diff  +20.9 [  +4.0,  +37.8] EXCLUDES 0  discordant q  26 (GDC higher 19, alt higher 7)  p_sign 0.0290  p_perm 0.0239 (Holm 0.0956)  -> RESOLVED  naive-cell [+11.7, +29.5] excl
+    vs react       alt  52.4%  diff   +2.2 [ -12.5,  +17.8] includes 0  discordant q  18 (GDC higher 10, alt higher 8)  p_sign 0.8145  p_perm 0.8207 (Holm 1.0000)  -> UNRESOLVED  naive-cell [-6.9, +11.3]
+    vs code_agent  alt  56.4%  diff   -1.8 [ -16.0,  +12.4] includes 0  discordant q  13 (GDC higher 6, alt higher 7)  p_sign 1.0000  p_perm 0.8872 (Holm 1.0000)  -> UNRESOLVED  naive-cell [-10.9, +7.3]
+    vs text_to_sql alt  46.7%  diff   +8.0 [  -9.3,  +25.3] includes 0  discordant q  17 (GDC higher 10, alt higher 7)  p_sign 0.6291  p_perm 0.3781 (Holm 1.0000)  -> UNRESOLVED  naive-cell [-1.2, +17.0]

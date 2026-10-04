@@ -68,14 +68,15 @@ def test_the_script_verifies_and_rewrites_the_committed_stats_byte_for_byte():
     lines = (STATS / "verification.txt").read_text().splitlines()
     assert sum(l.startswith("OK ") for l in lines) == 60              # 12 sets x 5 systems
     comps = list(csv.DictReader(open(STATS / "comparisons.csv", encoding="utf-8")))
-    assert len(comps) == 104 and {c["alt"] for c in comps} == set(qs.ALTS)
-    assert {c["set"] for c in comps} == set(qs.ORDER)
+    assert len(comps) == 112 and {c["alt"] for c in comps} == set(qs.ALTS)
+    assert {c["set"] for c in comps} == set(qs.ORDER) | {qs.S40ON}       # 104 over ORDER, 8 for GDC told it may decline
+    assert len([c for c in comps if c["set"] in qs.ORDER]) == 104
     assert not [c for c in comps if "risk" in c["set"]]               # the risk sets are not regenerated here
 
 
 def test_gdc_told_it_may_decline_has_two_rate_rows_on_the_pooled_sets_resamples():
     # Spider out_of_scope_register pooled, GDC with the table-coverage instruction on: the two rows the
-    # paper prints, analysed under decline_spider_oosr_pooled's name (seed 20261001 + its crc32); no comparison.
+    # paper prints, analysed under decline_spider_oosr_pooled's name (seed 20261001 + its crc32).
     rates = list(csv.DictReader(open(STATS / "rates.csv", encoding="utf-8")))
     rows = {r["metric"]: r for r in rates if r["set"] == qs.S40ON}
     assert len([r for r in rates if r["set"] == qs.S40ON]) == 2 and {r["system"] for r in rows.values()} == {qs.GDC}
@@ -84,9 +85,41 @@ def test_gdc_told_it_may_decline_has_two_rate_rows_on_the_pooled_sets_resamples(
     assert got == {"declined": (123, 225, 45, 54.7, 40.0, 68.9), "silent_wrong": (102, 225, 45, 45.3, 31.1, 60.0)}
     assert qs.BASE_SEED + zlib.crc32(qs.S40ON_BASE.encode()) == 3763372903
     comps = list(csv.DictReader(open(STATS / "comparisons.csv", encoding="utf-8")))
-    assert not [c for c in comps if c["set"] == qs.S40ON]
+    assert len([c for c in comps if c["set"] == qs.S40ON]) == 8                 # the next test checks them
     lines = (STATS / "verification.txt").read_text().splitlines()
     chans = [l.split() for l in lines if l.startswith("  ") and "network" in l]
     assert [(c[0], c[-2], c[-1]) for c in chans] == [
         ("wta_1", "declined_explicit=10", "declined_typed=13"), ("world_1", "declined_explicit=20", "declined_typed=30"),
         ("bike_1", "declined_explicit=50", "declined_typed=0"), ("pooled", "declined_explicit=80", "declined_typed=43")]
+
+
+def test_gdc_told_it_may_decline_is_compared_with_each_alternative_on_both_metrics_holm_over_four():
+    # GDC told it may decline minus each alternative, answered anyway (silent_wrong) and declined, on the resamples of
+    # decline_spider_oosr_pooled, whose alternatives' cells it shares; Holm over the four alternatives per metric.
+    comps = list(csv.DictReader(open(STATS / "comparisons.csv", encoding="utf-8")))
+    rates = list(csv.DictReader(open(STATS / "rates.csv", encoding="utf-8")))
+    new = [c for c in comps if c["set"] == qs.S40ON]
+    assert [(c["metric"], c["alt"]) for c in new] == [(m, a) for m in ("silent_wrong", "declined") for a in qs.ALTS]
+    gdc = {r["metric"]: r["rate_pct"] for r in rates if r["set"] == qs.S40ON}
+    alt = {(r["metric"], r["system"]): r["rate_pct"] for r in rates if r["set"] == qs.S40ON_BASE}
+    for c in new:
+        assert c["gdc_pct"] == gdc[c["metric"]] and c["alt_pct"] == alt[(c["metric"], c["alt"])]
+        assert (int(c["n_questions"]), int(c["n_cells"])) == (45, 225)
+    for m in ("silent_wrong", "declined"):
+        cs = [c for c in new if c["metric"] == m]
+        assert [f"{h:.4f}" for h in qs.holm([float(c["p_perm"]) for c in cs])] == [c["p_perm_holm"] for c in cs]
+    got = {(c["metric"], c["alt"]): (round(float(c["diff_pp"]), 1), round(float(c["ci_lo_pp"]), 1),
+                                     round(float(c["ci_hi_pp"]), 1), c["verdict"], c["resolved_after_holm"]) for c in new}
+    assert got == {
+        ("silent_wrong", "planner"): (-7.6, -25.3, 10.7, "unresolved", "False"),
+        ("silent_wrong", "react"): (-1.3, -16.9, 13.8, "unresolved", "False"),
+        ("silent_wrong", "code_agent"): (5.8, -9.3, 20.9, "unresolved", "False"),
+        ("silent_wrong", "text_to_sql"): (-1.3, -18.2, 15.1, "unresolved", "False"),
+        ("declined", "planner"): (20.9, 4.0, 37.8, "resolved", "False"),
+        ("declined", "react"): (2.2, -12.5, 17.8, "unresolved", "False"),
+        ("declined", "code_agent"): (-1.8, -16.0, 12.4, "unresolved", "False"),
+        ("declined", "text_to_sql"): (8.0, -9.3, 25.3, "unresolved", "False")}
+    # the instruction-off comparison beside it is unchanged
+    base = next(c for c in comps if c["set"] == qs.S40ON_BASE and c["metric"] == "silent_wrong" and c["alt"] == "code_agent")
+    assert (base["diff_pp"], base["ci_lo_pp"], base["ci_hi_pp"], base["p_perm"], base["p_perm_holm"]) == \
+        ("24.8889", "9.7778", "40.0000", "0.0034", "0.0135")

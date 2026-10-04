@@ -38,8 +38,11 @@ out_of_scope_register cells with the table-coverage instruction on
 (results/results_spider_<db>_postfix_s40on.jsonl, the cells of the builder's Fig3/Fig4
 out_of_scope_register_s40on rows), classed by the same oos_class(). They take the place of
 GDC's cells in decline_spider_oosr_pooled and are analysed under that set's name, so their
-intervals use the resamples of every interval of that set. Only GDC's two rate rows are
-written (declined, silent_wrong); no comparison is computed.
+intervals use the resamples of every interval of that set. GDC's two rate rows are written
+(declined, silent_wrong), and its eight comparisons: GDC told it may decline minus each of the
+four alternatives, on both metrics, by the method of every other set (paired difference,
+question-clustered interval, exact sign-flip permutation p, Holm over the four alternatives
+per metric). The alternatives' cells are those of decline_spider_oosr_pooled, unchanged.
 
     python scripts/question_clustered_stats.py
 
@@ -577,10 +580,18 @@ def summary(comps, rates, agree, info) -> str:
         L.append("")
         L.append(f"== {S40ON}: GDC told it may decline (table-coverage instruction on), {s40[0]['n_questions']} "
                  f"questions, {s40[0]['n_cells']} cells; intervals on the resamples of {S40ON_BASE}; "
-                 "rates only, no comparison")
+                 f"diff = GDC told it may decline minus the alternative (the alternatives' cells are {S40ON_BASE}'s)")
         for r in s40:
             L.append(f"  {r['metric']}: GDC {r['rate_pct']:.1f}% [{r['ci_lo_pct']:.1f}, {r['ci_hi_pct']:.1f}] "
                      f"({r['k']}/{r['n_cells']}; {r['questions_with_any']} questions with any)")
+            for c in (c for c in comps if c["set"] == S40ON and c["metric"] == r["metric"]):
+                L.append(f"    vs {c['alt']:<11} alt {c['alt_pct']:5.1f}%  diff {c['diff_pp']:+6.1f} "
+                         f"[{c['ci_lo_pp']:+6.1f}, {c['ci_hi_pp']:+6.1f}] {'EXCLUDES 0' if c['excludes_0'] else 'includes 0':<10}"
+                         f"  discordant q {c['n_discordant_q']:>3} (GDC higher {c['q_gdc_higher']}, alt higher {c['q_alt_higher']})"
+                         f"  p_sign {fmt_p(c['p_sign'])}  p_perm {fmt_p(c['p_perm'])} (Holm {fmt_p(c['p_perm_holm'])})"
+                         f"  -> {c['verdict'].upper()}{' (survives Holm)' if c['resolved_after_holm'] else ''}"
+                         f"  naive-cell [{c['naive_cell_ci_lo_pp']:+.1f}, {c['naive_cell_ci_hi_pp']:+.1f}]"
+                         f"{' excl' if c['naive_excludes_0'] else ''}")
     return "\n".join(L) + "\n"
 
 
@@ -609,10 +620,12 @@ def main() -> int:
                                "class_unanimous": len(set(q["cls"])) == 1, "result_identical": len(set(q["res"])) == 1,
                                "temp0_cells": sum(q["temp0"])})
     # GDC told it may decline: its cells in place of GDC's, under the base set's name (so the base
-    # set's seed and resamples); GDC's rows only, renamed to the s40on set
+    # set's seed and resamples); GDC's rate rows and its comparisons with the four alternatives,
+    # renamed to the s40on set
     mix = [c for c in cells[S40ON_BASE] if c["system"] != GDC] + cells[S40ON]
-    r, _, _ = analyse(S40ON_BASE, mix, "decline")
+    r, c, _ = analyse(S40ON_BASE, mix, "decline")
     rates += [dict(x, set=S40ON) for x in r if x["system"] == GDC]
+    comps += [dict(x, set=S40ON) for x in c]
     eng = json.loads((ROOT / "reports" / "paper_numbers.engine.json").read_text())
     info = {"engine_sha256": eng["engine_sha256"], "csv_sha256": eng["csv_sha256"],
             "batch2_present": sorted(p.name for p in (ROOT / "results").glob("results_temp0_batch2_*.jsonl")
@@ -629,7 +642,7 @@ def main() -> int:
     text = summary(comps, rates, agree, info)
     (OUT / "results_summary.txt").write_text(text)
     print(f"verification: {len(vlog)} (set, system) groups equal the builder's rows and the CSV")
-    print(f"outputs: {OUT.relative_to(ROOT)}/ ({len(comps)} comparisons over {len(ORDER)} sets)")
+    print(f"outputs: {OUT.relative_to(ROOT)}/ ({len(comps)} comparisons over {len({c['set'] for c in comps})} sets)")
     return 0
 
 
