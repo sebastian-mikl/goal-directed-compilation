@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """Mean LLM calls per query and refusal rates of the five designs on both models, on one
-question set (the §5.3 calls-and-refusals table).
+question set (the calls per question of §5.3 and the refusal rates of §5.2).
 
 Designs: network (GDC), planner, react, code_agent, text_to_sql. Models:
   claude-sonnet-4-5               the recorded employee and Spider results the paper scores, read
