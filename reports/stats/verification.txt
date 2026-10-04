@@ -59,3 +59,8 @@ OK  decline_employee_oor           planner      n=27   correct=2 silent_wrong=25
 OK  decline_employee_oor           react        n=27   correct=15 silent_wrong=12 declined_explicit=15 declined_typed=0
 OK  decline_employee_oor           code_agent   n=27   correct=15 silent_wrong=12 declined_explicit=15 declined_typed=0
 OK  decline_employee_oor           text_to_sql  n=27   correct=18 failed=3 silent_wrong=6 declined_explicit=18 declined_typed=0
+decline_spider_oosr_pooled_s40on: GDC told it may decline (table-coverage instruction on, results_spider_<db>_postfix_s40on.jsonl), 225 cells over 45 questions, the keys of GDC's decline_spider_oosr_pooled cells, no overlay; per database the declines (correct=) and silent_wrong equal the builder's Fig3/Fig4 out_of_scope_register_s40on correct (any refusal) and silent_wrong, so no refusal is a failure:
+  wta_1    network      n=75   correct=23 silent_wrong=52 declined_explicit=10 declined_typed=13
+  world_1  network      n=75   correct=50 silent_wrong=25 declined_explicit=20 declined_typed=30
+  bike_1   network      n=75   correct=50 silent_wrong=25 declined_explicit=50 declined_typed=0
+  pooled   network      n=225  correct=123 silent_wrong=102 declined_explicit=80 declined_typed=43

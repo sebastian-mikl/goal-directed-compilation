@@ -33,6 +33,14 @@ T3 strict and tolerant and T4 (Table1), Spider answer tier strict and tolerant
 pooled; employee out_of_range) and the pooled decline set. The paper's risk sets and its
 pooled in-scope sets include the withheld risk domain and are not regenerated here.
 
+Beside them, set decline_spider_oosr_pooled_s40on: GDC told it may decline, i.e. its Spider
+out_of_scope_register cells with the table-coverage instruction on
+(results/results_spider_<db>_postfix_s40on.jsonl, the cells of the builder's Fig3/Fig4
+out_of_scope_register_s40on rows), classed by the same oos_class(). They take the place of
+GDC's cells in decline_spider_oosr_pooled and are analysed under that set's name, so their
+intervals use the resamples of every interval of that set. Only GDC's two rate rows are
+written (declined, silent_wrong); no comparison is computed.
+
     python scripts/question_clustered_stats.py
 
 Outputs, under reports/stats/: verification.txt, rates.csv, comparisons.csv,
@@ -69,6 +77,8 @@ GDC = "network"
 ALTS = ("planner", "react", "code_agent", "text_to_sql")
 SYSTEMS = (GDC,) + ALTS
 CLASSES = ("correct", "silent_wrong", "refused_should_answer", "crash", "timeout")
+S40ON_BASE = "decline_spider_oosr_pooled"      # the set whose cells and resamples the s40on rows share
+S40ON = S40ON_BASE + "_s40on"                  # GDC told it may decline (table-coverage instruction on)
 
 
 # ── 1. builder ───────────────────────────────────────────────────────────────
@@ -213,6 +223,15 @@ def derive(G) -> tuple[dict, dict]:
         spec[f"decline_spider_oosr_{d}"] = ("Table5", d, "out_of_scope_register", "strict", "decline")
     spec["decline_spider_oosr_pooled"] = ("Table5", "spider_pooled", "out_of_scope_register", "strict", "decline")
     spec["decline_employee_oor"] = ("Table5", "employee", "out_of_range", "strict", "decline")
+
+    # GDC told it may decline: the same tier from GDC's instruction-on files, classed by the same
+    # oos_class(). GDC only, and not in spec: verify_s40on() checks it and main() analyses it.
+    for d in SPIDER:
+        for r in _load(pi.spider_file(d, GDC, "on")):
+            if r.get("system") != GDC or GOLD_SPIDER[d].get(r["qid"], {}).get("tier") != "out_of_scope_register":
+                continue
+            res, st = scored_input(d, r)
+            cells[S40ON].append(dcell(d, r, GOLD_SPIDER[d][r["qid"]], res, "spider", st))
     return dict(cells), spec
 
 
@@ -272,6 +291,45 @@ def verify(G, cells, spec) -> list[str]:
                 bad.append(f"{name}/{s}: classes do not partition the cells")
             log.append(f"OK  {name:<30} {s:<12} n={n:<4} " + " ".join(f"{k}={v}" for k, v in sorted(cnt.items()))
                        + log_extra)                                           # m2b A2
+    if bad:
+        raise SystemExit("VERIFICATION FAILED:\n  " + "\n  ".join(bad))
+    return log
+
+
+def verify_s40on(G, cells) -> list[str]:
+    """GDC's instruction-on cells must have the keys of its decline_spider_oosr_pooled cells, carry no
+    overlay, and give per database the builder's Fig3/Fig4 out_of_scope_register_s40on counts: its
+    `correct` (any refusal) equals the declines here, so no refusal is a failure."""
+    on = cells[S40ON]
+    off = [c for c in cells[S40ON_BASE] if c["system"] == GDC]
+    key = lambda c: (c["dom"], c["qid"], c["seed"])                      # noqa: E731
+    bad = []
+    if sorted(map(key, on)) != sorted(map(key, off)) or len(set(map(key, on))) != len(on):
+        bad.append(f"{S40ON}: cell keys differ from GDC's {S40ON_BASE} cells")
+    if any(c["src"] for c in on):
+        bad.append(f"{S40ON}: an overlay replaced an instruction-on cell")
+    rows = {(r["fig_table"], r["domain"], r["system"], r["tier_group"], r["scoring"], r["metric"]):
+            (int(r["numerator"]), int(r["denominator"])) for r in G["ROWS"]}
+    log = [f"{S40ON}: GDC told it may decline (table-coverage instruction on, "
+           f"results_spider_<db>_postfix_s40on.jsonl), {len(on)} cells over "
+           f"{len({(c['dom'], c['qid']) for c in on})} questions, the keys of GDC's {S40ON_BASE} cells, "
+           "no overlay; per database the declines (correct=) and silent_wrong equal the builder's Fig3/Fig4 "
+           "out_of_scope_register_s40on correct (any refusal) and silent_wrong, so no refusal is a failure:"]
+    for d in list(G["SPIDER"]) + ["pooled"]:
+        cs = on if d == "pooled" else [c for c in on if c["dom"] == d]
+        cnt = Counter(c["cls"] for c in cs); n = len(cs)
+        if set(cnt) - {"correct", "silent_wrong", "crash", "timeout", "failed"}:
+            bad.append(f"{S40ON}/{d}: class outside the Table5 partition: {dict(cnt)}")
+        if d != "pooled":
+            for metric in ("correct", "silent_wrong"):
+                k = ("Fig3/Fig4", d, GDC, "out_of_scope_register_s40on", "strict", metric)
+                if k not in rows:
+                    bad.append(f"{S40ON}/{d}: no builder row {k}")
+                elif rows[k] != (cnt.get(metric, 0), n):
+                    bad.append(f"{S40ON}/{d}/{metric}: derived {cnt.get(metric, 0)}/{n} != builder {rows[k]}")
+        ch = Counter(c["chan"] for c in cs if c["cls"] == "correct")
+        log.append(f"  {d:<8} {GDC:<12} n={n:<4} " + " ".join(f"{k}={v}" for k, v in sorted(cnt.items()))
+                   + f" declined_explicit={ch.get('explicit', 0)} declined_typed={ch.get('typed', 0)}")
     if bad:
         raise SystemExit("VERIFICATION FAILED:\n  " + "\n  ".join(bad))
     return log
@@ -514,6 +572,15 @@ def summary(comps, rates, agree, info) -> str:
             L.append(f"  {a['set']:<28} {a['system']:<12} {a['cells']:<12} q={a['n_questions']:<3} seeds={a['seeds_per_q']:<3} "
                      f"class-unanimous {a['class_unanimous_pct']:5.1f}%  result-identical {a['result_identical_pct']:5.1f}%  "
                      f"pairwise {a['pairwise_class_agree_pct']:5.1f}%  temp0 cells {a['temp0_cells_pct']:5.1f}%")
+    s40 = [r for r in rates if r["set"] == S40ON]
+    if s40:
+        L.append("")
+        L.append(f"== {S40ON}: GDC told it may decline (table-coverage instruction on), {s40[0]['n_questions']} "
+                 f"questions, {s40[0]['n_cells']} cells; intervals on the resamples of {S40ON_BASE}; "
+                 "rates only, no comparison")
+        for r in s40:
+            L.append(f"  {r['metric']}: GDC {r['rate_pct']:.1f}% [{r['ci_lo_pct']:.1f}, {r['ci_hi_pct']:.1f}] "
+                     f"({r['k']}/{r['n_cells']}; {r['questions_with_any']} questions with any)")
     return "\n".join(L) + "\n"
 
 
@@ -522,6 +589,7 @@ def main() -> int:
     G = run_builder()
     cells, spec = derive(G)
     vlog = verify(G, cells, spec)
+    slog = verify_s40on(G, cells)
     for name, parts in POOLED.items():
         cells[name] = [c for part in parts for c in cells[part]]   # stratum = the cell's domain (employee/spider)
         keys = [(c["system"], c["dom"], c["qid"], c["seed"]) for c in cells[name]]
@@ -540,6 +608,11 @@ def main() -> int:
                                **{k: q["cls"].count(k) for k in CLASSES + ("failed",)},
                                "class_unanimous": len(set(q["cls"])) == 1, "result_identical": len(set(q["res"])) == 1,
                                "temp0_cells": sum(q["temp0"])})
+    # GDC told it may decline: its cells in place of GDC's, under the base set's name (so the base
+    # set's seed and resamples); GDC's rows only, renamed to the s40on set
+    mix = [c for c in cells[S40ON_BASE] if c["system"] != GDC] + cells[S40ON]
+    r, _, _ = analyse(S40ON_BASE, mix, "decline")
+    rates += [dict(x, set=S40ON) for x in r if x["system"] == GDC]
     eng = json.loads((ROOT / "reports" / "paper_numbers.engine.json").read_text())
     info = {"engine_sha256": eng["engine_sha256"], "csv_sha256": eng["csv_sha256"],
             "batch2_present": sorted(p.name for p in (ROOT / "results").glob("results_temp0_batch2_*.jsonl")
@@ -550,7 +623,7 @@ def main() -> int:
     (OUT / "verification.txt").write_text(
         "Every outcome-class count and denominator below equals the builder's emitted row and "
         "reports/paper_numbers.csv (the script exits before this file otherwise).\n"
-        + "\n".join(vlog) + "\n")
+        + "\n".join(vlog) + "\n" + "\n".join(slog) + "\n")
     write_csv(OUT / "rates.csv", rates); write_csv(OUT / "comparisons.csv", comps)
     write_csv(OUT / "seed_agreement.csv", agree); write_csv(OUT / "per_question.csv", pqrows)
     text = summary(comps, rates, agree, info)

@@ -10,6 +10,7 @@ import csv
 import os
 import subprocess
 import sys
+import zlib
 from pathlib import Path
 
 import numpy as np
@@ -70,3 +71,22 @@ def test_the_script_verifies_and_rewrites_the_committed_stats_byte_for_byte():
     assert len(comps) == 104 and {c["alt"] for c in comps} == set(qs.ALTS)
     assert {c["set"] for c in comps} == set(qs.ORDER)
     assert not [c for c in comps if "risk" in c["set"]]               # the risk sets are not regenerated here
+
+
+def test_gdc_told_it_may_decline_has_two_rate_rows_on_the_pooled_sets_resamples():
+    # Spider out_of_scope_register pooled, GDC with the table-coverage instruction on: the two rows the
+    # paper prints, analysed under decline_spider_oosr_pooled's name (seed 20261001 + its crc32); no comparison.
+    rates = list(csv.DictReader(open(STATS / "rates.csv", encoding="utf-8")))
+    rows = {r["metric"]: r for r in rates if r["set"] == qs.S40ON}
+    assert len([r for r in rates if r["set"] == qs.S40ON]) == 2 and {r["system"] for r in rows.values()} == {qs.GDC}
+    got = {m: (int(r["k"]), int(r["n_cells"]), int(r["n_questions"]), round(float(r["rate_pct"]), 1),
+               round(float(r["ci_lo_pct"]), 1), round(float(r["ci_hi_pct"]), 1)) for m, r in rows.items()}
+    assert got == {"declined": (123, 225, 45, 54.7, 40.0, 68.9), "silent_wrong": (102, 225, 45, 45.3, 31.1, 60.0)}
+    assert qs.BASE_SEED + zlib.crc32(qs.S40ON_BASE.encode()) == 3763372903
+    comps = list(csv.DictReader(open(STATS / "comparisons.csv", encoding="utf-8")))
+    assert not [c for c in comps if c["set"] == qs.S40ON]
+    lines = (STATS / "verification.txt").read_text().splitlines()
+    chans = [l.split() for l in lines if l.startswith("  ") and "network" in l]
+    assert [(c[0], c[-2], c[-1]) for c in chans] == [
+        ("wta_1", "declined_explicit=10", "declined_typed=13"), ("world_1", "declined_explicit=20", "declined_typed=30"),
+        ("bike_1", "declined_explicit=50", "declined_typed=0"), ("pooled", "declined_explicit=80", "declined_typed=43")]

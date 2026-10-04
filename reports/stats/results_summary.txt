@@ -209,3 +209,7 @@ Seed agreement per system (share of questions whose seeds all give one outcome c
   decline_employee_oor         react        all          q=9   seeds=3   class-unanimous 100.0%  result-identical  66.7%  pairwise 100.0%  temp0 cells 100.0%
   decline_employee_oor         code_agent   all          q=9   seeds=3   class-unanimous 100.0%  result-identical  55.6%  pairwise 100.0%  temp0 cells 100.0%
   decline_employee_oor         text_to_sql  all          q=9   seeds=3   class-unanimous  77.8%  result-identical  77.8%  pairwise  85.2%  temp0 cells 100.0%
+
+== decline_spider_oosr_pooled_s40on: GDC told it may decline (table-coverage instruction on), 45 questions, 225 cells; intervals on the resamples of decline_spider_oosr_pooled; rates only, no comparison
+  silent_wrong: GDC 45.3% [31.1, 60.0] (102/225; 21 questions with any)
+  declined: GDC 54.7% [40.0, 68.9] (123/225; 26 questions with any)

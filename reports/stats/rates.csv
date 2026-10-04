@@ -129,3 +129,5 @@ pooled_decline,declined,planner,78,252,54,30.9524,20.2381,42.4603,65.9053,23
 pooled_decline,declined,react,133,252,54,52.7778,39.6825,65.4762,57.6194,31
 pooled_decline,declined,code_agent,142,252,54,56.3492,42.8571,69.4444,52.2011,31
 pooled_decline,declined,text_to_sql,123,252,54,48.8095,35.7143,62.3016,52.5200,28
+decline_spider_oosr_pooled_s40on,silent_wrong,network,102,225,45,45.3333,31.1111,60.0000,45.6369,21
+decline_spider_oosr_pooled_s40on,declined,network,123,225,45,54.6667,40.0000,68.8889,45.6369,26
