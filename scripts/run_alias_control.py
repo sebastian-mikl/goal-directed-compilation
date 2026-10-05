@@ -47,8 +47,8 @@ engine and plan; a resume under any other one is refused.
 Usage:
   PYTHON_DOTENV_DISABLED=1 python scripts/run_alias_control.py --dry   # no API: plan, hashes, diff,
                                                                        # cost estimate, offline preflight
-  python scripts/run_alias_control.py --run [--cap-usd 3.00]           # live; ANTHROPIC_API_KEY from
-                                                                       # /Users/Sebastian/Documents/LLM_Memory/.env
+  python scripts/run_alias_control.py --run [--cap-usd 3.00]           # live; ANTHROPIC_API_KEY from the file
+                                                                       # $GDC_ENV_FILE (default: <repo>/.env)
 Score afterwards with scripts/score_alias_control.py (replay through the fixed engine, strict and
 tie-tolerant, exactly as the reported GDC employee cells are scored).
 """
@@ -69,8 +69,8 @@ from pathlib import Path
 sys.dont_write_bytecode = True          # never leave .pyc files in the repository
 
 HERE = Path(__file__).resolve()
-DEFAULT_ROOT = Path("/Users/Sebastian/Documents/goal-directed-compilation-release")
-ENV_PATH = Path("/Users/Sebastian/Documents/LLM_Memory/.env")
+DEFAULT_ROOT = HERE.parents[1]          # the repository this script sits in (scripts/..)
+ENV_PATH = Path(os.environ.get("GDC_ENV_FILE") or (DEFAULT_ROOT / ".env"))   # the key file; never printed
 
 SYSTEM_ID = "network_noalias"
 MODEL = "claude-sonnet-4-5"

@@ -37,7 +37,7 @@ from pathlib import Path
 sys.dont_write_bytecode = True
 
 HERE = Path(__file__).resolve()
-DEFAULT_ROOT = Path("/Users/Sebastian/Documents/goal-directed-compilation-release")
+DEFAULT_ROOT = HERE.parents[1]          # the repository this script sits in (scripts/..)
 DOM = "employee"
 SYSTEM_ID = "network_noalias"
 NEW_FILE = "results_temp0_employee_gdc_noalias.jsonl"
