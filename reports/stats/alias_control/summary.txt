@@ -1,0 +1,41 @@
+Alias control (review/alias_control_prereg.md): GDC on the employee in-scope questions, recorded s31
+prompt minus the 'active employees' alias (network_noalias), replayed on the current engine.
+
+Primary: the eight T4 questions worded with 'active' (FAILED = silent_wrong on >= 2 of 3 seeds)
+  t4_01  s0: == Active -> silent_wrong (with alias correct)  s1: == Active -> silent_wrong (with alias correct)  s2: == Active -> silent_wrong (with alias correct)  FAILED
+  t4_02  s0: == Active -> silent_wrong (with alias correct)  s1: == Active -> silent_wrong (with alias correct)  s2: == Active -> silent_wrong (with alias correct)  FAILED
+  t4_05  s0: == Active -> silent_wrong (with alias correct)  s1: == Active -> silent_wrong (with alias correct)  s2: == Active -> silent_wrong (with alias correct)  FAILED
+  t4_07  s0: == Active -> silent_wrong (with alias correct)  s1: == Active -> silent_wrong (with alias correct)  s2: == Active -> silent_wrong (with alias correct)  FAILED
+  t4_08  s0: == Active -> silent_wrong (with alias correct)  s1: == Active -> silent_wrong (with alias correct)  s2: == Active -> silent_wrong (with alias correct)  FAILED
+  t4_10  s0: == Active -> silent_wrong (with alias correct)  s1: == Active -> silent_wrong (with alias correct)  s2: == Active -> silent_wrong (with alias correct)  FAILED
+  t4_12  s0: == Active -> silent_wrong (with alias correct)  s1: == Active -> silent_wrong (with alias correct)  s2: == Active -> silent_wrong (with alias correct)  FAILED
+  t4_14  s0: == Active -> silent_wrong (with alias correct)  s1: == Active -> silent_wrong (with alias correct)  s2: == Active -> silent_wrong (with alias correct)  FAILED
+  strict: FAILED 8 of 8 (t4_01 t4_02 t4_05 t4_07 t4_08 t4_10 t4_12 t4_14) -> OUTCOME A
+  tolerant: FAILED 8 of 8 (t4_01 t4_02 t4_05 t4_07 t4_08 t4_10 t4_12 t4_14) -> OUTCOME A
+
+GDC without the alias, alias_control_employee_in_contract, silent_wrong: 9.9% [3.7, 17.3] (24/243)
+GDC without the alias, alias_control_employee_in_contract, accuracy: 90.1% [82.7, 96.3] (219/243)
+GDC without the alias, alias_control_employee_in_contract_tolerant, silent_wrong: 9.9% [3.7, 17.3] (24/243)
+GDC without the alias, alias_control_employee_in_contract_tolerant, accuracy: 90.1% [82.7, 96.3] (219/243)
+
+alias_control_employee_in_contract                   silent_wrong vs planner       9.9 -  10.3 =   -0.4 [  -4.9,   +4.1]  discordant q 4 (2 up, 2 down)  p_perm 1.0000 (Holm 1.0000)  unresolved
+alias_control_employee_in_contract                   silent_wrong vs react         9.9 -  11.1 =   -1.2 [  -3.7,   +0.0]  discordant q 1 (0 up, 1 down)  p_perm 1.0000 (Holm 1.0000)  unresolved
+alias_control_employee_in_contract                   silent_wrong vs code_agent    9.9 -  12.8 =   -2.9 [  -6.2,   -0.4]  discordant q 4 (0 up, 4 down)  p_perm 0.1250 (Holm 0.5000)  bootstrap-only
+alias_control_employee_in_contract                   silent_wrong vs text_to_sql   9.9 -  13.2 =   -3.3 [  -7.4,   +0.0]  discordant q 3 (0 up, 3 down)  p_perm 0.2500 (Holm 0.7500)  unresolved
+alias_control_employee_in_contract                   accuracy     vs planner      90.1 -  89.7 =   +0.4 [  -4.1,   +4.9]  discordant q 4 (2 up, 2 down)  p_perm 1.0000 (Holm 1.0000)  unresolved
+alias_control_employee_in_contract                   accuracy     vs react        90.1 -  88.9 =   +1.2 [  +0.0,   +3.7]  discordant q 1 (1 up, 0 down)  p_perm 1.0000 (Holm 1.0000)  unresolved
+alias_control_employee_in_contract                   accuracy     vs code_agent   90.1 -  87.2 =   +2.9 [  +0.4,   +6.2]  discordant q 4 (4 up, 0 down)  p_perm 0.1250 (Holm 0.5000)  bootstrap-only
+alias_control_employee_in_contract                   accuracy     vs text_to_sql  90.1 -  86.8 =   +3.3 [  +0.0,   +7.4]  discordant q 3 (3 up, 0 down)  p_perm 0.2500 (Holm 0.7500)  unresolved
+alias_control_noalias_minus_gdc_in_contract          silent_wrong vs network       9.9 -   0.0 =   +9.9 [  +3.7,  +17.3]  discordant q 8 (8 up, 0 down)  p_perm 0.0078 (Holm 0.0078)  resolved
+alias_control_noalias_minus_gdc_in_contract          accuracy     vs network      90.1 -  98.8 =   -8.6 [ -16.0,   -2.5]  discordant q 9 (1 up, 8 down)  p_perm 0.0391 (Holm 0.0391)  resolved
+alias_control_noalias_minus_gdc_in_contract_tolerant silent_wrong vs network       9.9 -   0.0 =   +9.9 [  +3.7,  +17.3]  discordant q 8 (8 up, 0 down)  p_perm 0.0078 (Holm 0.0078)  resolved
+alias_control_noalias_minus_gdc_in_contract_tolerant accuracy     vs network      90.1 -  98.8 =   -8.6 [ -16.0,   -2.5]  discordant q 9 (1 up, 8 down)  p_perm 0.0391 (Holm 0.0391)  resolved
+alias_control_noalias_minus_gdc_active8              silent_wrong vs network     100.0 -   0.0 = +100.0 [+100.0, +100.0]  discordant q 8 (8 up, 0 down)  p_perm 0.0078 (Holm 0.0078)  resolved
+alias_control_noalias_minus_gdc_active8              accuracy     vs network       0.0 - 100.0 = -100.0 [-100.0, -100.0]  discordant q 8 (0 up, 8 down)  p_perm 0.0078 (Holm 0.0078)  resolved
+alias_control_noalias_minus_gdc_active8_tolerant     silent_wrong vs network     100.0 -   0.0 = +100.0 [+100.0, +100.0]  discordant q 8 (8 up, 0 down)  p_perm 0.0078 (Holm 0.0078)  resolved
+alias_control_noalias_minus_gdc_active8_tolerant     accuracy     vs network       0.0 - 100.0 = -100.0 [-100.0, -100.0]  discordant q 8 (0 up, 8 down)  p_perm 0.0078 (Holm 0.0078)  resolved
+
+Regression check, other 73 questions (219 cells): 3 change class strict, 3 tolerant; 21 emit another Goal or OrderSpec
+  t5_01 s0
+  t5_01 s1
+  t5_01 s2

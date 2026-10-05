@@ -130,6 +130,9 @@ echo "[5/7] Building figures + tables -> reports/figures/ ..."
 echo
 echo "[6/7] Question-clustered statistics (employee and Spider) -> reports/stats/ ..."
 "$PY" scripts/question_clustered_stats.py
+# The alias control (review/alias_control_prereg.md): reports/stats/alias_control/ and the
+# alias_control_* rows of comparisons.csv. Writes nothing when its results file is absent.
+"$PY" scripts/alias_control_stats.py
 echo
 
 echo "[7/7] Calls and refusals per design, claude-sonnet-4-5 and the open-weights model -> reports/calls_and_refusals.csv ..."

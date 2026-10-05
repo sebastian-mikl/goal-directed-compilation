@@ -76,7 +76,9 @@ the lines below, and nothing in them is an error.
 5. **Figures and tables** (`scripts/make_paper_figures.py`): `reports/figures/`, and, git-ignored,
    `table2_crossdomain.{md,tex}`.
 6. **Statistics** (`scripts/question_clustered_stats.py`): `reports/stats/`, after checking
-   that every outcome-class count equals the CSV.
+   that every outcome-class count equals the CSV. The step then runs
+   `scripts/alias_control_stats.py` ([The alias control](#the-alias-control)), which writes nothing
+   when the alias control's results file is absent.
 7. **Calls and refusals** (`scripts/calls_and_refusals.py`): `reports/calls_and_refusals.csv`,
    the mean LLM calls per query, the in-scope refusal rate and the out-of-scope decline rate of
    the five systems on claude-sonnet-4-5 and on the open-weights model of `local_model/`, over
@@ -219,6 +221,24 @@ is the paper's Table 3, the out-of-scope table, and `make_paper_figures.py` call
 Appendix A.3 table, of Figure 7 in A.4 and of Figure 8 in A.14). The paper draws its Figure 1 in its
 LaTeX source; `pipeline.png` is an earlier drawing of the control flow. Where this table and the
 paper disagree, the paper is the authority.
+
+## The alias control
+
+GDC's recorded employee prompt maps "active employees" to the "current" status rule; the four
+alternatives' briefing states the rule without that alias. The batch-2 alias arm
+(`results/results_temp0_batch2_employee_alias.jsonl`) re-ran the alternatives with the alias added.
+The alias control is the converse: GDC (system id `network_noalias`) on the 81 employee in-scope
+questions, seeds 0 to 2, temperature 0, under its recorded s31 prompt with only the alias removed.
+Its pre-registration, committed before the run, is `review/alias_control_prereg.md`. The runner is
+`scripts/run_alias_control.py` (`--dry` makes no API call). The cells are
+`results/results_temp0_employee_gdc_noalias.jsonl`; its `.provenance.json` records the prompt sent,
+its sha256 and its diff from the recorded prompt, the engine and the cost, and `.spend.json` the
+billed ledger. `scripts/score_alias_control.py` replays the cells through the engine and scores them
+as every GDC cell is scored; with `--control` it reproduces the reported GDC employee classes.
+`scripts/alias_control_stats.py`, run in step 6, writes `reports/stats/alias_control/` (the eight
+"active" questions per seed with the pre-registered outcome, the regression check on the other 73
+questions, the rates and `headline.csv`) and appends the `alias_control_*` sets to
+`reports/stats/comparisons.csv`. No builder reads these files, so no reported cell changes.
 
 ## What's not included
 

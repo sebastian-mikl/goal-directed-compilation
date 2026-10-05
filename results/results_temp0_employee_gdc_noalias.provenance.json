@@ -1,0 +1,1585 @@
+{
+  "script": "scripts/run_alias_control.py",
+  "system": "network_noalias",
+  "what": "GDC on the 81 employee in-scope questions x seeds 0-2 under its recorded s31 prompt with only the 'active employees' alias removed (post hoc alias control)",
+  "timestamp_utc_start": "2026-10-05T08:20:23.481530+00:00",
+  "model": "claude-sonnet-4-5",
+  "emission_model": "claude-sonnet-4-5",
+  "temperature": 0,
+  "max_tokens": 900,
+  "prompt_caching": true,
+  "repetitions": [
+    0,
+    1,
+    2
+  ],
+  "toggles_off": [
+    "REFUSE_UNSUPPORTED",
+    "REFUSE_OUT_OF_SCOPE_DATA",
+    "DECLINE_AFFORDANCE"
+  ],
+  "contract_version": "s49",
+  "comparator_version": "s48",
+  "network_prompt_version": "s31-noalias",
+  "code_goal_prompt_version_replaced": "s48",
+  "prompts": {
+    "network_noalias": "You translate an analytical request over a tabular dataset (see the\nschema below) into a declarative GOAL plus a separate ORDER spec.\n\nThe GOAL is the SHAPE of the result relation (a set of rows \u2014 UNORDERED). The ORDER spec is\nPRESENTATION ONLY (ranking / top-N) and lives OUTSIDE the goal.\n\nBase columns:\n  - employee_id: id [match: exact]\n  - name: text [match: contains]\n  - department: categorical [match: exact]  (values: Engineering, Sales, Marketing, Finance, Operations)\n  - role: categorical [match: exact]  (values: IC, Manager, Director, VP)\n  - status: categorical [match: exact]  (values: Active, On Leave, Terminated, Sabbatical)\n  - location: categorical [match: exact]  (values: NYC, SF, London, Berlin, Remote)\n  - annual_salary: numeric\n  - bonus_target: numeric\n  - tenure_years: numeric\n  - performance_score: numeric [match: numeric_compare]\n  - market_rate: numeric [match: numeric_compare]\n  - equity_grant_value: numeric [match: numeric_compare]\n  - time_in_current_role_years: numeric [match: numeric_compare]\n  - manager_id: text [match: exact]\nCONTEXT (advisory \u2014 background for interpreting the request; NOT enforced rules):\n  An employee directory. Each row is an employee, with their department, role, employment status, work location, compensation, and tenure.\n  Column meanings:\n    - annual_salary: Gross annual base salary.\n    - bonus_target: Target annual bonus amount for the employee.\n    - tenure_years: Number of years the employee has been with the organisation.\n    - manager_id: The Employee ID of this employee's line manager.\n    - status: Employment status (e.g. Active, On Leave, Terminated, Sabbatical).\n    - role: The employee's role band (e.g. IC, Manager, Director, VP).\n    - performance_score: Most recent performance review rating, 1.0 (lowest) to 5.0 (highest).\n    - market_rate: External market benchmark salary for the employee's role.\n    - equity_grant_value: Current value of the employee's equity grant.\n    - time_in_current_role_years: Number of years the employee has held their current role (always <= Tenure (Years)).\n\nReturn ONLY a JSON object: {\"goal\": {...}, \"order\": {...}}.\n\n\"goal\":\n  \"columns\": [\"<name>\", ...]                  result columns (derived names allowed)\n  \"grain\":   \"row\"  OR  {\"grouped_by\": [\"<col>\", ...]}\n  \"where\":   [{\"col\": \"<c>\", \"op\": \"==|!=|<|<=|>|>=|in|contains\", \"val\": <value>}, ...]\n  \"derive\":  [{\"name\": \"<new>\", \"expr\": \"<expr>\"}, ...]\n             expr is \"fn(col)\" for an aggregate (fn \u2208 sum/avg/count/min/max),\n             or \"colA <op> colB\" for a computed column (op \u2208 + - * /).\n\n\"order\" (presentation; NEVER put ordering inside the goal):\n  \"order_by\": [{\"col\": \"<result col>\", \"dir\": \"asc|desc\"}, ...]   (may be empty)\n  \"limit\":    <int>  or  null\n\nCONTRACT (violations make it invalid \u2014 do not emit them):\n  - NO ordering/sorting/ranking/top-k inside the goal. Ranking goes ONLY in \"order\".\n  - At MOST ONE aggregate derive entry.\n  - A GLOBAL aggregate over all rows uses grain {\"grouped_by\": []}, not \"row\".\n    (grain \"row\" cannot carry an aggregate; any aggregate requires grouped grain.)\n  - A SCALAR AGGREGATE query \u2014 \"the highest / lowest / largest / smallest / max / min /\n    total / average / count of <column>\" \u2014 has as its output EXACTLY ONE derived aggregate\n    field, at the query's grain (global grain {\"grouped_by\": []} when ungrouped). Put only\n    that derived field in \"columns\"; do NOT also list the underlying raw <column>, nor any\n    other per-row column (title, id, owner, \u2026) \u2014 a row-grain column cannot coexist with a\n    global or grouped aggregate in one output, so the goal becomes unreachable. max and min\n    are scalar aggregates exactly like sum / average / count (they are NOT a request to\n    return the row).\n  - DISTINCT \u2014 ROW SELECTION: \"the N entries with the highest / lowest <column>\" is NOT an\n    aggregate. List the requested columns at row grain and put the ranking in \"order\"\n    (order_by <column> desc/asc, limit N), never in the goal.\n  - order_by columns must be columns the goal outputs.\n  - Use only the base columns plus names introduced in \"derive\".\n\nFILTER VALUES: when a column lists `(values: ...)`, a filter on it must use one of\nthose EXACT values (op \"==\" or \"in\"), or op \"contains\" for a [match: contains] column.\nDo NOT invent a value that is not in the list.\n\nRULES (authoritative \u2014 these definitions are enforced):\n  - When the request refers to \"current\" rows, filter status to one of those values: emit {\"col\": \"status\", \"op\": \"in\", \"val\": [\"Active\", \"On Leave\", \"Sabbatical\"]} (use the supported `in` op \u2014 do NOT invent a new operator).\n  - Respect each column's [match: ...]: use op \"contains\" for contains-matched columns (e.g. name), and an exact listed value (\"==\" or \"in\") for categoricals.\n\nReturn JSON only \u2014 no prose, no code fences."
+  },
+  "prompt_sha256": {
+    "sent_control": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "recorded_s31": "b41d4eb53a27a4f86b2edbd15d9e2e5c6ec1121865e51b373d2e59b9fe6a7a49",
+    "current_code_render_swapped_out": "a5a30cb596012b86da6019b699cf4f099f740e44580b0d819073ed4f65b735f1"
+  },
+  "prompt_source": {
+    "recorded_in": "results/results_employee.provenance.json prompts.network",
+    "recorded_git_commit": "a204d1ee839d4636862124964d6e671fbee30841",
+    "edit": {
+      "from": "When the request refers to \"current\" or \"active employees\" rows,",
+      "to": "When the request refers to \"current\" rows,"
+    },
+    "diff": "--- s31 recorded (results_employee.provenance.json prompts.network, sha256 b41d4eb53a27)\n+++ s31 no-alias control (sha256 470cb29bc339)\n@@ -74 +74 @@\n-  - When the request refers to \"current\" or \"active employees\" rows, filter status to one of those values: emit {\"col\": \"status\", \"op\": \"in\", \"val\": [\"Active\", \"On Leave\", \"Sabbatical\"]} (use the supported `in` op \u2014 do NOT invent a new operator).\n+  - When the request refers to \"current\" rows, filter status to one of those values: emit {\"col\": \"status\", \"op\": \"in\", \"val\": [\"Active\", \"On Leave\", \"Sabbatical\"]} (use the supported `in` op \u2014 do NOT invent a new operator).\n"
+  },
+  "corpus_path": "evaluation/domains/employee/eval_corpus_employee.json",
+  "corpus_sha256": "ad90c13b728fb7d39f9799a98fa3ce66c90b10970a6239fed5839ed2676a37ad",
+  "gold_path": "evidence/gold/gold_employee.json",
+  "gold_sha256": "64419a04d8509f36cd6fe980b1b78ced0e691115209359aa37e4469cf9844c54",
+  "register_sha256": "7383f18473e271b7f9b5079d148552c79a7fecb93f4225e0a6729318ec8438ec",
+  "schema_sha256": "c6c437fe03e1d45d8a57e43df94167715716240b85d92ec8a189cc98ac817577",
+  "git": [
+    {
+      "commit": "47ebb4ba27c4f18b71348d0e2ea16d277329fc25",
+      "tracked_changes": false
+    }
+  ],
+  "engine": {
+    "engine_sha256": "2ef059df8ff443236150be214c18f10eb36c6bfd1862f8ebb5f34e3a2bab7bf6",
+    "files": {
+      "evidence/eval_run/adapters/__init__.py": "bee6bd0657183d148956da890071a9fc569b044ededb91aaed4b9d609a2090b6",
+      "evidence/eval_run/adapters/base.py": "5e3405fb84884abe11ded24763d184d207b53f5a6604e92824f988ecd42f7472",
+      "evidence/eval_run/adapters/code_agent.py": "121afebffe585a080fc696299e7a5f3b78114a7537e3444d723e08c3dd7e742c",
+      "evidence/eval_run/adapters/network.py": "33bf990b44eba25adefc2951ca49b0c5c12d75088b3caff43508dbf5e21ba489",
+      "evidence/eval_run/adapters/planner_upfront.py": "df95bb1c4887a1b3ba1d707d4148f02d9e460c7c3ffca8db0bbf39a53a8853bd",
+      "evidence/eval_run/adapters/react.py": "49f7e8b9595238844cb8d1f5efc392f5601311b72e3faa070e4071a87211f5a1",
+      "evidence/eval_run/adapters/text_to_sql.py": "7dfd0431754554e2f2225df59142af87a17ae8b6711385350aa56b932cf49aae",
+      "evidence/eval_run/harness.py": "5dfddc7771e59fec6f2ad6f60668f671166b35fb31cce0e8e65541596a32a682",
+      "evidence/eval_run/tools_code.py": "9814a30fc737267b72838475e78d9a090cd740ed65dafdbabb26aa62d51b0304",
+      "evidence/eval_run/tools_decl.py": "1a358fb546603a85d1638a54336e747054dbc24aa3d7c2260641c4ec397bc2da",
+      "evidence/eval_run/tools_sql.py": "842fc61fdb6c280c123502ca5e8e39c665a8068cf9d43eeddcdc3b6fa2009d08",
+      "gdc/__init__.py": "3a98e3615a0b376a7a5721b27ae375568498e00db77f6884ba78e00dc1344b2f",
+      "gdc/config.py": "8ec2311c38e2d2839bba5be4b560f208dc102f20a0d26de7b1fb6b2ed8de5c25",
+      "gdc/contract.py": "988406820a84bd4ec95cd4dd77e5702d70ef9215c5227b2af622997fe1fba82e",
+      "gdc/integrate.py": "79d1e34b5fc6e20ca1c24b2b8d09c93fae7ec8fff291838a3b072c5374f3b257",
+      "gdc/llm.py": "4098ec47604c136b2da528d31ff8233609d8dda2a8a80a2e434350dd847dd4dc",
+      "gdc/operators.py": "b69fe46663e4a08b49f82613c09f43bea55071f6fb5e7117b3ac58ff3dd4b374",
+      "gdc/order.py": "f57d869e24d62904ab27d1cd391e2b56e720456e6978de813d3a57727b1279a2",
+      "gdc/primitives.py": "236a71ee8c7a0a74c3310a5e500aed926c51a5fd33e06c1ff97163c1927b25ab",
+      "gdc/probe.py": "5f5e935d088a56cf416b39641c64bce6ef9c8087e07c9dd073ec81ae53f7efa6",
+      "gdc/schema_bridge.py": "2e90ab7077de1a4823e35ec5d775fbe7080ca4884180d600037abe0c392d6fbc",
+      "gdc/search.py": "6abdde4cef65d6f33828d5a309d9923eddc07b80561efaf36dd4e3e1566c56fd",
+      "gdc/state.py": "e5b03aa0d4091075f461d99f43557d30d8d30b50fc0a96e9e5635b8baa78dad2"
+    },
+    "gdc_py_sha256": {
+      "gdc/__init__.py": "3a98e3615a0b376a7a5721b27ae375568498e00db77f6884ba78e00dc1344b2f",
+      "gdc/config.py": "8ec2311c38e2d2839bba5be4b560f208dc102f20a0d26de7b1fb6b2ed8de5c25",
+      "gdc/contract.py": "988406820a84bd4ec95cd4dd77e5702d70ef9215c5227b2af622997fe1fba82e",
+      "gdc/integrate.py": "79d1e34b5fc6e20ca1c24b2b8d09c93fae7ec8fff291838a3b072c5374f3b257",
+      "gdc/llm.py": "4098ec47604c136b2da528d31ff8233609d8dda2a8a80a2e434350dd847dd4dc",
+      "gdc/operators.py": "b69fe46663e4a08b49f82613c09f43bea55071f6fb5e7117b3ac58ff3dd4b374",
+      "gdc/order.py": "f57d869e24d62904ab27d1cd391e2b56e720456e6978de813d3a57727b1279a2",
+      "gdc/primitives.py": "236a71ee8c7a0a74c3310a5e500aed926c51a5fd33e06c1ff97163c1927b25ab",
+      "gdc/probe.py": "5f5e935d088a56cf416b39641c64bce6ef9c8087e07c9dd073ec81ae53f7efa6",
+      "gdc/schema_bridge.py": "2e90ab7077de1a4823e35ec5d775fbe7080ca4884180d600037abe0c392d6fbc",
+      "gdc/search.py": "6abdde4cef65d6f33828d5a309d9923eddc07b80561efaf36dd4e3e1566c56fd",
+      "gdc/state.py": "e5b03aa0d4091075f461d99f43557d30d8d30b50fc0a96e9e5635b8baa78dad2"
+    }
+  },
+  "plan_keys": [
+    [
+      "network_noalias",
+      "hv_01",
+      0
+    ],
+    [
+      "network_noalias",
+      "hv_01",
+      1
+    ],
+    [
+      "network_noalias",
+      "hv_01",
+      2
+    ],
+    [
+      "network_noalias",
+      "hv_02",
+      0
+    ],
+    [
+      "network_noalias",
+      "hv_02",
+      1
+    ],
+    [
+      "network_noalias",
+      "hv_02",
+      2
+    ],
+    [
+      "network_noalias",
+      "hv_03",
+      0
+    ],
+    [
+      "network_noalias",
+      "hv_03",
+      1
+    ],
+    [
+      "network_noalias",
+      "hv_03",
+      2
+    ],
+    [
+      "network_noalias",
+      "hv_04",
+      0
+    ],
+    [
+      "network_noalias",
+      "hv_04",
+      1
+    ],
+    [
+      "network_noalias",
+      "hv_04",
+      2
+    ],
+    [
+      "network_noalias",
+      "hv_05",
+      0
+    ],
+    [
+      "network_noalias",
+      "hv_05",
+      1
+    ],
+    [
+      "network_noalias",
+      "hv_05",
+      2
+    ],
+    [
+      "network_noalias",
+      "hv_06",
+      0
+    ],
+    [
+      "network_noalias",
+      "hv_06",
+      1
+    ],
+    [
+      "network_noalias",
+      "hv_06",
+      2
+    ],
+    [
+      "network_noalias",
+      "t1_01",
+      0
+    ],
+    [
+      "network_noalias",
+      "t1_01",
+      1
+    ],
+    [
+      "network_noalias",
+      "t1_01",
+      2
+    ],
+    [
+      "network_noalias",
+      "t1_02",
+      0
+    ],
+    [
+      "network_noalias",
+      "t1_02",
+      1
+    ],
+    [
+      "network_noalias",
+      "t1_02",
+      2
+    ],
+    [
+      "network_noalias",
+      "t1_03",
+      0
+    ],
+    [
+      "network_noalias",
+      "t1_03",
+      1
+    ],
+    [
+      "network_noalias",
+      "t1_03",
+      2
+    ],
+    [
+      "network_noalias",
+      "t1_04",
+      0
+    ],
+    [
+      "network_noalias",
+      "t1_04",
+      1
+    ],
+    [
+      "network_noalias",
+      "t1_04",
+      2
+    ],
+    [
+      "network_noalias",
+      "t1_05",
+      0
+    ],
+    [
+      "network_noalias",
+      "t1_05",
+      1
+    ],
+    [
+      "network_noalias",
+      "t1_05",
+      2
+    ],
+    [
+      "network_noalias",
+      "t1_06",
+      0
+    ],
+    [
+      "network_noalias",
+      "t1_06",
+      1
+    ],
+    [
+      "network_noalias",
+      "t1_06",
+      2
+    ],
+    [
+      "network_noalias",
+      "t1_07",
+      0
+    ],
+    [
+      "network_noalias",
+      "t1_07",
+      1
+    ],
+    [
+      "network_noalias",
+      "t1_07",
+      2
+    ],
+    [
+      "network_noalias",
+      "t1_08",
+      0
+    ],
+    [
+      "network_noalias",
+      "t1_08",
+      1
+    ],
+    [
+      "network_noalias",
+      "t1_08",
+      2
+    ],
+    [
+      "network_noalias",
+      "t1_09",
+      0
+    ],
+    [
+      "network_noalias",
+      "t1_09",
+      1
+    ],
+    [
+      "network_noalias",
+      "t1_09",
+      2
+    ],
+    [
+      "network_noalias",
+      "t1_10",
+      0
+    ],
+    [
+      "network_noalias",
+      "t1_10",
+      1
+    ],
+    [
+      "network_noalias",
+      "t1_10",
+      2
+    ],
+    [
+      "network_noalias",
+      "t1_11",
+      0
+    ],
+    [
+      "network_noalias",
+      "t1_11",
+      1
+    ],
+    [
+      "network_noalias",
+      "t1_11",
+      2
+    ],
+    [
+      "network_noalias",
+      "t1_12",
+      0
+    ],
+    [
+      "network_noalias",
+      "t1_12",
+      1
+    ],
+    [
+      "network_noalias",
+      "t1_12",
+      2
+    ],
+    [
+      "network_noalias",
+      "t1_13",
+      0
+    ],
+    [
+      "network_noalias",
+      "t1_13",
+      1
+    ],
+    [
+      "network_noalias",
+      "t1_13",
+      2
+    ],
+    [
+      "network_noalias",
+      "t1_14",
+      0
+    ],
+    [
+      "network_noalias",
+      "t1_14",
+      1
+    ],
+    [
+      "network_noalias",
+      "t1_14",
+      2
+    ],
+    [
+      "network_noalias",
+      "t1_15",
+      0
+    ],
+    [
+      "network_noalias",
+      "t1_15",
+      1
+    ],
+    [
+      "network_noalias",
+      "t1_15",
+      2
+    ],
+    [
+      "network_noalias",
+      "t2_01",
+      0
+    ],
+    [
+      "network_noalias",
+      "t2_01",
+      1
+    ],
+    [
+      "network_noalias",
+      "t2_01",
+      2
+    ],
+    [
+      "network_noalias",
+      "t2_02",
+      0
+    ],
+    [
+      "network_noalias",
+      "t2_02",
+      1
+    ],
+    [
+      "network_noalias",
+      "t2_02",
+      2
+    ],
+    [
+      "network_noalias",
+      "t2_03",
+      0
+    ],
+    [
+      "network_noalias",
+      "t2_03",
+      1
+    ],
+    [
+      "network_noalias",
+      "t2_03",
+      2
+    ],
+    [
+      "network_noalias",
+      "t2_04",
+      0
+    ],
+    [
+      "network_noalias",
+      "t2_04",
+      1
+    ],
+    [
+      "network_noalias",
+      "t2_04",
+      2
+    ],
+    [
+      "network_noalias",
+      "t2_05",
+      0
+    ],
+    [
+      "network_noalias",
+      "t2_05",
+      1
+    ],
+    [
+      "network_noalias",
+      "t2_05",
+      2
+    ],
+    [
+      "network_noalias",
+      "t2_06",
+      0
+    ],
+    [
+      "network_noalias",
+      "t2_06",
+      1
+    ],
+    [
+      "network_noalias",
+      "t2_06",
+      2
+    ],
+    [
+      "network_noalias",
+      "t2_07",
+      0
+    ],
+    [
+      "network_noalias",
+      "t2_07",
+      1
+    ],
+    [
+      "network_noalias",
+      "t2_07",
+      2
+    ],
+    [
+      "network_noalias",
+      "t2_08",
+      0
+    ],
+    [
+      "network_noalias",
+      "t2_08",
+      1
+    ],
+    [
+      "network_noalias",
+      "t2_08",
+      2
+    ],
+    [
+      "network_noalias",
+      "t2_09",
+      0
+    ],
+    [
+      "network_noalias",
+      "t2_09",
+      1
+    ],
+    [
+      "network_noalias",
+      "t2_09",
+      2
+    ],
+    [
+      "network_noalias",
+      "t2_10",
+      0
+    ],
+    [
+      "network_noalias",
+      "t2_10",
+      1
+    ],
+    [
+      "network_noalias",
+      "t2_10",
+      2
+    ],
+    [
+      "network_noalias",
+      "t2_11",
+      0
+    ],
+    [
+      "network_noalias",
+      "t2_11",
+      1
+    ],
+    [
+      "network_noalias",
+      "t2_11",
+      2
+    ],
+    [
+      "network_noalias",
+      "t2_12",
+      0
+    ],
+    [
+      "network_noalias",
+      "t2_12",
+      1
+    ],
+    [
+      "network_noalias",
+      "t2_12",
+      2
+    ],
+    [
+      "network_noalias",
+      "t2_13",
+      0
+    ],
+    [
+      "network_noalias",
+      "t2_13",
+      1
+    ],
+    [
+      "network_noalias",
+      "t2_13",
+      2
+    ],
+    [
+      "network_noalias",
+      "t2_14",
+      0
+    ],
+    [
+      "network_noalias",
+      "t2_14",
+      1
+    ],
+    [
+      "network_noalias",
+      "t2_14",
+      2
+    ],
+    [
+      "network_noalias",
+      "t2_15",
+      0
+    ],
+    [
+      "network_noalias",
+      "t2_15",
+      1
+    ],
+    [
+      "network_noalias",
+      "t2_15",
+      2
+    ],
+    [
+      "network_noalias",
+      "t3_01",
+      0
+    ],
+    [
+      "network_noalias",
+      "t3_01",
+      1
+    ],
+    [
+      "network_noalias",
+      "t3_01",
+      2
+    ],
+    [
+      "network_noalias",
+      "t3_02",
+      0
+    ],
+    [
+      "network_noalias",
+      "t3_02",
+      1
+    ],
+    [
+      "network_noalias",
+      "t3_02",
+      2
+    ],
+    [
+      "network_noalias",
+      "t3_03",
+      0
+    ],
+    [
+      "network_noalias",
+      "t3_03",
+      1
+    ],
+    [
+      "network_noalias",
+      "t3_03",
+      2
+    ],
+    [
+      "network_noalias",
+      "t3_04",
+      0
+    ],
+    [
+      "network_noalias",
+      "t3_04",
+      1
+    ],
+    [
+      "network_noalias",
+      "t3_04",
+      2
+    ],
+    [
+      "network_noalias",
+      "t3_05",
+      0
+    ],
+    [
+      "network_noalias",
+      "t3_05",
+      1
+    ],
+    [
+      "network_noalias",
+      "t3_05",
+      2
+    ],
+    [
+      "network_noalias",
+      "t3_06",
+      0
+    ],
+    [
+      "network_noalias",
+      "t3_06",
+      1
+    ],
+    [
+      "network_noalias",
+      "t3_06",
+      2
+    ],
+    [
+      "network_noalias",
+      "t3_07",
+      0
+    ],
+    [
+      "network_noalias",
+      "t3_07",
+      1
+    ],
+    [
+      "network_noalias",
+      "t3_07",
+      2
+    ],
+    [
+      "network_noalias",
+      "t3_08",
+      0
+    ],
+    [
+      "network_noalias",
+      "t3_08",
+      1
+    ],
+    [
+      "network_noalias",
+      "t3_08",
+      2
+    ],
+    [
+      "network_noalias",
+      "t3_09",
+      0
+    ],
+    [
+      "network_noalias",
+      "t3_09",
+      1
+    ],
+    [
+      "network_noalias",
+      "t3_09",
+      2
+    ],
+    [
+      "network_noalias",
+      "t3_10",
+      0
+    ],
+    [
+      "network_noalias",
+      "t3_10",
+      1
+    ],
+    [
+      "network_noalias",
+      "t3_10",
+      2
+    ],
+    [
+      "network_noalias",
+      "t3_11",
+      0
+    ],
+    [
+      "network_noalias",
+      "t3_11",
+      1
+    ],
+    [
+      "network_noalias",
+      "t3_11",
+      2
+    ],
+    [
+      "network_noalias",
+      "t3_12",
+      0
+    ],
+    [
+      "network_noalias",
+      "t3_12",
+      1
+    ],
+    [
+      "network_noalias",
+      "t3_12",
+      2
+    ],
+    [
+      "network_noalias",
+      "t3_13",
+      0
+    ],
+    [
+      "network_noalias",
+      "t3_13",
+      1
+    ],
+    [
+      "network_noalias",
+      "t3_13",
+      2
+    ],
+    [
+      "network_noalias",
+      "t3_14",
+      0
+    ],
+    [
+      "network_noalias",
+      "t3_14",
+      1
+    ],
+    [
+      "network_noalias",
+      "t3_14",
+      2
+    ],
+    [
+      "network_noalias",
+      "t3_15",
+      0
+    ],
+    [
+      "network_noalias",
+      "t3_15",
+      1
+    ],
+    [
+      "network_noalias",
+      "t3_15",
+      2
+    ],
+    [
+      "network_noalias",
+      "t4_01",
+      0
+    ],
+    [
+      "network_noalias",
+      "t4_01",
+      1
+    ],
+    [
+      "network_noalias",
+      "t4_01",
+      2
+    ],
+    [
+      "network_noalias",
+      "t4_02",
+      0
+    ],
+    [
+      "network_noalias",
+      "t4_02",
+      1
+    ],
+    [
+      "network_noalias",
+      "t4_02",
+      2
+    ],
+    [
+      "network_noalias",
+      "t4_03",
+      0
+    ],
+    [
+      "network_noalias",
+      "t4_03",
+      1
+    ],
+    [
+      "network_noalias",
+      "t4_03",
+      2
+    ],
+    [
+      "network_noalias",
+      "t4_04",
+      0
+    ],
+    [
+      "network_noalias",
+      "t4_04",
+      1
+    ],
+    [
+      "network_noalias",
+      "t4_04",
+      2
+    ],
+    [
+      "network_noalias",
+      "t4_05",
+      0
+    ],
+    [
+      "network_noalias",
+      "t4_05",
+      1
+    ],
+    [
+      "network_noalias",
+      "t4_05",
+      2
+    ],
+    [
+      "network_noalias",
+      "t4_06",
+      0
+    ],
+    [
+      "network_noalias",
+      "t4_06",
+      1
+    ],
+    [
+      "network_noalias",
+      "t4_06",
+      2
+    ],
+    [
+      "network_noalias",
+      "t4_07",
+      0
+    ],
+    [
+      "network_noalias",
+      "t4_07",
+      1
+    ],
+    [
+      "network_noalias",
+      "t4_07",
+      2
+    ],
+    [
+      "network_noalias",
+      "t4_08",
+      0
+    ],
+    [
+      "network_noalias",
+      "t4_08",
+      1
+    ],
+    [
+      "network_noalias",
+      "t4_08",
+      2
+    ],
+    [
+      "network_noalias",
+      "t4_09",
+      0
+    ],
+    [
+      "network_noalias",
+      "t4_09",
+      1
+    ],
+    [
+      "network_noalias",
+      "t4_09",
+      2
+    ],
+    [
+      "network_noalias",
+      "t4_10",
+      0
+    ],
+    [
+      "network_noalias",
+      "t4_10",
+      1
+    ],
+    [
+      "network_noalias",
+      "t4_10",
+      2
+    ],
+    [
+      "network_noalias",
+      "t4_11",
+      0
+    ],
+    [
+      "network_noalias",
+      "t4_11",
+      1
+    ],
+    [
+      "network_noalias",
+      "t4_11",
+      2
+    ],
+    [
+      "network_noalias",
+      "t4_12",
+      0
+    ],
+    [
+      "network_noalias",
+      "t4_12",
+      1
+    ],
+    [
+      "network_noalias",
+      "t4_12",
+      2
+    ],
+    [
+      "network_noalias",
+      "t4_13",
+      0
+    ],
+    [
+      "network_noalias",
+      "t4_13",
+      1
+    ],
+    [
+      "network_noalias",
+      "t4_13",
+      2
+    ],
+    [
+      "network_noalias",
+      "t4_14",
+      0
+    ],
+    [
+      "network_noalias",
+      "t4_14",
+      1
+    ],
+    [
+      "network_noalias",
+      "t4_14",
+      2
+    ],
+    [
+      "network_noalias",
+      "t4_15",
+      0
+    ],
+    [
+      "network_noalias",
+      "t4_15",
+      1
+    ],
+    [
+      "network_noalias",
+      "t4_15",
+      2
+    ],
+    [
+      "network_noalias",
+      "t5_01",
+      0
+    ],
+    [
+      "network_noalias",
+      "t5_01",
+      1
+    ],
+    [
+      "network_noalias",
+      "t5_01",
+      2
+    ],
+    [
+      "network_noalias",
+      "t5_02",
+      0
+    ],
+    [
+      "network_noalias",
+      "t5_02",
+      1
+    ],
+    [
+      "network_noalias",
+      "t5_02",
+      2
+    ],
+    [
+      "network_noalias",
+      "t5_03",
+      0
+    ],
+    [
+      "network_noalias",
+      "t5_03",
+      1
+    ],
+    [
+      "network_noalias",
+      "t5_03",
+      2
+    ],
+    [
+      "network_noalias",
+      "t5_04",
+      0
+    ],
+    [
+      "network_noalias",
+      "t5_04",
+      1
+    ],
+    [
+      "network_noalias",
+      "t5_04",
+      2
+    ],
+    [
+      "network_noalias",
+      "t5_05",
+      0
+    ],
+    [
+      "network_noalias",
+      "t5_05",
+      1
+    ],
+    [
+      "network_noalias",
+      "t5_05",
+      2
+    ],
+    [
+      "network_noalias",
+      "t5_06",
+      0
+    ],
+    [
+      "network_noalias",
+      "t5_06",
+      1
+    ],
+    [
+      "network_noalias",
+      "t5_06",
+      2
+    ],
+    [
+      "network_noalias",
+      "t5_07",
+      0
+    ],
+    [
+      "network_noalias",
+      "t5_07",
+      1
+    ],
+    [
+      "network_noalias",
+      "t5_07",
+      2
+    ],
+    [
+      "network_noalias",
+      "t5_08",
+      0
+    ],
+    [
+      "network_noalias",
+      "t5_08",
+      1
+    ],
+    [
+      "network_noalias",
+      "t5_08",
+      2
+    ],
+    [
+      "network_noalias",
+      "t5_09",
+      0
+    ],
+    [
+      "network_noalias",
+      "t5_09",
+      1
+    ],
+    [
+      "network_noalias",
+      "t5_09",
+      2
+    ],
+    [
+      "network_noalias",
+      "t5_10",
+      0
+    ],
+    [
+      "network_noalias",
+      "t5_10",
+      1
+    ],
+    [
+      "network_noalias",
+      "t5_10",
+      2
+    ],
+    [
+      "network_noalias",
+      "t5_11",
+      0
+    ],
+    [
+      "network_noalias",
+      "t5_11",
+      1
+    ],
+    [
+      "network_noalias",
+      "t5_11",
+      2
+    ],
+    [
+      "network_noalias",
+      "t5_12",
+      0
+    ],
+    [
+      "network_noalias",
+      "t5_12",
+      1
+    ],
+    [
+      "network_noalias",
+      "t5_12",
+      2
+    ],
+    [
+      "network_noalias",
+      "t5_13",
+      0
+    ],
+    [
+      "network_noalias",
+      "t5_13",
+      1
+    ],
+    [
+      "network_noalias",
+      "t5_13",
+      2
+    ],
+    [
+      "network_noalias",
+      "t5_14",
+      0
+    ],
+    [
+      "network_noalias",
+      "t5_14",
+      1
+    ],
+    [
+      "network_noalias",
+      "t5_14",
+      2
+    ],
+    [
+      "network_noalias",
+      "t5_15",
+      0
+    ],
+    [
+      "network_noalias",
+      "t5_15",
+      1
+    ],
+    [
+      "network_noalias",
+      "t5_15",
+      2
+    ]
+  ],
+  "plan_keys_sha256": "0687f663a8eb51804d8de43261463a3bee8cca12580b8f96e0a758549ec50127",
+  "cap_usd": 3.0,
+  "worst_case_per_cell_usd": 0.026667,
+  "lib_versions": {
+    "anthropic": "0.120.2",
+    "pandas": "3.0.5",
+    "numpy": "2.5.1",
+    "python": "3.14.6",
+    "sqlite": "3.53.4",
+    "sqlite3_module": null
+  },
+  "env": {
+    "ANTHROPIC_API_KEY_present": true
+  },
+  "cell_prompt": {
+    "t1_01/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_01/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_01/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_02/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_02/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_02/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_03/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_03/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_03/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_04/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_04/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_04/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_05/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_05/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_05/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_06/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_06/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_06/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_07/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_07/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_07/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_08/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_08/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_08/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_09/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_09/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_09/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_10/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_10/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_10/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_11/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_11/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_11/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_12/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_12/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_12/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_13/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_13/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_13/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_14/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_14/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_14/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_15/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_15/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t1_15/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_01/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_01/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_01/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_02/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_02/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_02/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_03/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_03/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_03/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_04/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_04/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_04/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_05/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_05/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_05/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_06/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_06/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_06/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_07/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_07/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_07/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_08/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_08/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_08/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_09/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_09/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_09/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_10/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_10/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_10/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_11/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_11/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_11/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_12/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_12/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_12/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_13/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_13/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_13/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_14/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_14/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_14/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_15/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_15/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t2_15/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_01/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_01/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_01/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_02/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_02/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_02/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_03/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_03/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_03/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_04/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_04/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_04/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_05/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_05/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_05/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_06/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_06/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_06/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_07/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_07/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_07/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_08/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_08/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_08/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_09/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_09/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_09/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_10/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_10/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_10/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_11/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_11/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_11/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_12/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_12/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_12/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_13/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_13/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_13/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_14/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_14/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_14/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_15/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_15/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t3_15/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_01/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_01/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_01/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_02/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_02/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_02/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_03/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_03/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_03/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_04/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_04/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_04/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_05/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_05/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_05/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_06/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_06/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_06/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_07/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_07/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_07/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_08/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_08/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_08/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_09/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_09/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_09/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_10/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_10/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_10/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_11/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_11/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_11/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_12/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_12/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_12/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_13/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_13/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_13/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_14/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_14/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_14/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_15/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_15/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t4_15/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_01/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_01/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_01/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_02/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_02/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_02/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_03/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_03/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_03/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_04/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_04/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_04/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_05/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_05/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_05/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_06/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_06/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_06/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_07/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_07/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_07/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_08/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_08/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_08/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_09/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_09/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_09/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_10/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_10/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_10/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_11/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_11/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_11/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_12/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_12/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_12/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_13/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_13/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_13/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_14/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_14/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_14/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_15/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_15/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "t5_15/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_01/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_01/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_01/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_02/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_02/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_02/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_03/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_03/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_03/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_04/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_04/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_04/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_05/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_05/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_05/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_06/0": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_06/1": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f",
+    "hv_06/2": "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f"
+  },
+  "sent_calls_by_sha256": {
+    "470cb29bc3391e6c43dd7a89218aacb7d3ed5f5d6857a6046a6025639952333f": 243
+  },
+  "cost": {
+    "billed_usd": 0.685632,
+    "unaccounted_usd": 0.0,
+    "logged_cost_usd_cached": 0.685632,
+    "logged_cost_usd_raw": 1.586289,
+    "spent_usd": 0.685632
+  },
+  "cells_logged": 243,
+  "complete": true,
+  "timestamp_utc_last": "2026-10-05T08:30:40.799347+00:00"
+}

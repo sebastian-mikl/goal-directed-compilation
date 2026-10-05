@@ -1,0 +1,5 @@
+set,metric,system,k,n_cells,n_questions,rate_pct,ci_lo_pct,ci_hi_pct,n_eff,questions_with_any
+alias_control_employee_in_contract,silent_wrong,network_noalias,24,243,81,9.8765,3.7037,17.2840,80.0000,8
+alias_control_employee_in_contract,accuracy,network_noalias,219,243,81,90.1235,82.7160,96.2963,80.0000,73
+alias_control_employee_in_contract_tolerant,silent_wrong,network_noalias,24,243,81,9.8765,3.7037,17.2840,80.0000,8
+alias_control_employee_in_contract_tolerant,accuracy,network_noalias,219,243,81,90.1235,82.7160,96.2963,80.0000,73
