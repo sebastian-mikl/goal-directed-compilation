@@ -80,7 +80,10 @@ the lines below, and nothing in them is an error.
    `scripts/alias_control_stats.py` ([The alias control](#the-alias-control)) and
    `scripts/planner_info_stats.py` ([The equal-information run](#the-equal-information-run-of-the-planner))
    and `scripts/error_classification_stats.py` ([The error classification](#the-error-classification)),
-   each of which writes nothing when its input file is absent.
+   each of which writes nothing when its input file is absent, and `scripts/like_for_like_stats.py`, which
+   writes `reports/stats/like_for_like/`: the per-database like-for-like comparisons on Spider's
+   out-of-scope tier (GDC with its checks alone against the planner and react, GDC told it may decline
+   against the code agent and text-to-SQL), with Holm across all twelve per metric.
 7. **Calls and refusals** (`scripts/calls_and_refusals.py`): `reports/calls_and_refusals.csv`,
    the mean LLM calls per query, the in-scope refusal rate and the out-of-scope decline rate of
    the five systems on claude-sonnet-4-5 and on the open-weights model of `local_model/`, over

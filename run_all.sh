@@ -139,6 +139,8 @@ echo "[6/7] Question-clustered statistics (employee and Spider) -> reports/stats
 # The error classification (review/error_classification_prereg.md): reports/stats/error_classification/.
 # Writes nothing when review/error_classification.csv is absent.
 "$PY" scripts/error_classification_stats.py
+# Per-database like-for-like comparisons on Spider's out-of-scope tier, Holm across all twelve per metric (§5.3, A.4).
+"$PY" scripts/like_for_like_stats.py
 echo
 
 echo "[7/7] Calls and refusals per design, claude-sonnet-4-5 and the open-weights model -> reports/calls_and_refusals.csv ..."
