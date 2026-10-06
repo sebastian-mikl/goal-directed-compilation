@@ -1,0 +1,204 @@
+ITEM item_30
+
+You are labelling one wrong answer of an automated data-query system. The system answered the
+question below over one table; its answer was checked against the gold answer and found wrong, and
+the system gave no sign that anything had gone wrong. Decide where the error came from, using the
+rubric below and nothing but what is in this file.
+
+RUBRIC. For each error, first write down the specification the system evidently intended: its
+output columns, filters, grouping and derived values, as shown by its own choices, comments or
+reasoning. Then:
+- SPECIFICATION: correctly executing that intended specification would reproduce the wrong answer.
+  The system misread the question, the schema or a term (for example: wrong column, wrong status
+  set, literal reading of "active", substring instead of exact match, wrong sort direction).
+- PROCEDURE: correctly executing that intended specification would give the gold answer. The steps
+  failed to implement the intent (for example: wrong order of operations, a dropped or duplicated
+  step, a filter applied after aggregation, a variable mix-up, a pandas or type slip).
+- SCORING: the answer is right in substance but was scored wrong (shape, dict or list form, an
+  identifier the question did not ask for, a tie).
+- UNCLEAR: the intent cannot be determined from the trace.
+Quote the evidence for every label from the trace.
+
+Two further rules:
+- If the intended specification is itself wrong AND the steps also fail to implement it, correct
+  steps could still not give the gold answer: label it SPECIFICATION and set "also_procedure": true.
+- The wrong cells are repetitions of the same question. Cells with an identical trace and output
+  are shown once, as one cell group with their seeds. Label every cell group.
+
+SYSTEM DESIGN
+A code agent. The model writes Python (pandas) code against the table, loaded as the DataFrame `df`, sees the output of each run, may run more code, and ends by giving its final answer. TRACE lists each code run with the output the model saw, and its last message; OUTPUT is the answer it returned.
+
+QUESTION
+For active employees, what is the average Time in Current Role per Department?
+
+GOLD ANSWER
+5 row(s):
+  {"Department": "Engineering", "avg_time_in_role": 4.269565}
+  {"Department": "Finance", "avg_time_in_role": 4.476667}
+  {"Department": "Marketing", "avg_time_in_role": 4.7}
+  {"Department": "Operations", "avg_time_in_role": 4.869697}
+  {"Department": "Sales", "avg_time_in_role": 5.248}
+
+SCHEMA BRIEFING (what the system was told about the table)
+DOMAIN: An employee directory. Each row is an employee, with their department, role, employment status, work location, compensation, and tenure.
+
+COLUMN MEANINGS (advisory):
+  - 'Role': The employee's role band (e.g. IC, Manager, Director, VP).
+  - 'Status': Employment status (e.g. Active, On Leave, Terminated, Sabbatical).
+  - 'Annual Salary': Gross annual base salary.
+  - 'Bonus Target': Target annual bonus amount for the employee.
+  - 'Tenure (Years)': Number of years the employee has been with the organisation.
+  - 'Performance Score': Most recent performance review rating, 1.0 (lowest) to 5.0 (highest).
+  - 'Market Rate': External market benchmark salary for the employee's role.
+  - 'Equity Grant Value': Current value of the employee's equity grant.
+  - 'Time in Current Role (Years)': Number of years the employee has held their current role (always <= Tenure (Years)).
+  - 'Manager ID': The Employee ID of this employee's line manager.
+
+BUSINESS RULES (authoritative — these terms have a fixed meaning):
+  - 'current': 'Status' in ['Active', 'On Leave', 'Sabbatical']
+
+TABLE COLUMNS (verbatim):
+'Employee ID', 'Name', 'Department', 'Role', 'Status', 'Location', 'Annual Salary', 'Bonus Target', 'Tenure (Years)', 'Manager ID', 'Performance Score', 'Market Rate', 'Equity Grant Value', 'Time in Current Role (Years)'
+
+CELL GROUP 1 (seeds 0; 1 wrong cell(s) with this trace and output)
+TRACE:
+--- run 1 (run_python) ---
+# First, let's explore the data to understand it better
+print("DataFrame shape:", df.shape)
+print("\nColumn names:")
+print(df.columns.tolist())
+print("\nFirst few rows:")
+print(df.head())
+print("\nStatus values:")
+print(df['Status'].value_counts())
+--- output the model saw ---
+ran OK but `result` was not set.
+--- run 2 (run_python) ---
+# Filter for active employees (Status = 'Active')
+active_employees = df[df['Status'] == 'Active']
+
+# Calculate average Time in Current Role per Department
+result = active_employees.groupby('Department')['Time in Current Role (Years)'].mean()
+
+print("Average Time in Current Role per Department (Active Employees):")
+print(result)
+--- output the model saw ---
+frame 'result': 5 rows x 2 cols ['Department', 'Time in Current Role (Years)']
+head: [{'Department': 'Engineering', 'Time in Current Role (Years)': 4.090909090909091}, {'Department': 'Finance', 'Time in Current Role (Years)': 4.384615384615385}, {'Department': 'Marketing', 'Time in Current Role (Years)': 4.431818181818182}, {'Department': 'Operations', 'Time in Current Role (Years)': 5.3125}, {'Department': 'Sales', 'Time in Current Role (Years)': 6.005263157894737}]
+--- run 3 (final_answer) ---
+# Filter for active employees (Status = 'Active')
+active_employees = df[df['Status'] == 'Active']
+
+# Calculate average Time in Current Role per Department
+result = active_employees.groupby('Department')['Time in Current Role (Years)'].mean()
+--- output the model saw ---
+frame 'result': 5 rows x 2 cols ['Department', 'Time in Current Role (Years)']
+head: [{'Department': 'Engineering', 'Time in Current Role (Years)': 4.090909090909091}, {'Department': 'Finance', 'Time in Current Role (Years)': 4.384615384615385}, {'Department': 'Marketing', 'Time in Current Role (Years)': 4.431818181818182}, {'Department': 'Operations', 'Time in Current Role (Years)': 5.3125}, {'Department': 'Sales', 'Time in Current Role (Years)': 6.005263157894737}]
+--- last message ---
+Perfect! I have the average Time in Current Role per Department for active employees. Let me verify this is correct and provide the final answer.
+OUTPUT (scored wrong):
+status completed; 5 row(s):
+  {"Department": "Engineering", "Time in Current Role (Years)": 4.090909090909091}
+  {"Department": "Finance", "Time in Current Role (Years)": 4.384615384615385}
+  {"Department": "Marketing", "Time in Current Role (Years)": 4.431818181818182}
+  {"Department": "Operations", "Time in Current Role (Years)": 5.3125}
+  {"Department": "Sales", "Time in Current Role (Years)": 6.005263157894737}
+
+CELL GROUP 2 (seeds 1; 1 wrong cell(s) with this trace and output)
+TRACE:
+--- run 1 (run_python) ---
+# First, let's explore the data to understand it better
+print("DataFrame shape:", df.shape)
+print("\nColumns:", df.columns.tolist())
+print("\nFirst few rows:")
+print(df.head())
+print("\nStatus values:")
+print(df['Status'].value_counts())
+--- output the model saw ---
+ran OK but `result` was not set.
+--- run 2 (run_python) ---
+# Filter for active employees (Status = 'Active')
+active_employees = df[df['Status'] == 'Active']
+
+# Calculate average Time in Current Role per Department
+result = active_employees.groupby('Department')['Time in Current Role (Years)'].mean()
+
+print("Average Time in Current Role by Department (Active Employees):")
+print(result)
+--- output the model saw ---
+frame 'result': 5 rows x 2 cols ['Department', 'Time in Current Role (Years)']
+head: [{'Department': 'Engineering', 'Time in Current Role (Years)': 4.090909090909091}, {'Department': 'Finance', 'Time in Current Role (Years)': 4.384615384615385}, {'Department': 'Marketing', 'Time in Current Role (Years)': 4.431818181818182}, {'Department': 'Operations', 'Time in Current Role (Years)': 5.3125}, {'Department': 'Sales', 'Time in Current Role (Years)': 6.005263157894737}]
+--- run 3 (final_answer) ---
+# Filter for active employees and calculate average Time in Current Role per Department
+active_employees = df[df['Status'] == 'Active']
+result = active_employees.groupby('Department')['Time in Current Role (Years)'].mean()
+--- output the model saw ---
+frame 'result': 5 rows x 2 cols ['Department', 'Time in Current Role (Years)']
+head: [{'Department': 'Engineering', 'Time in Current Role (Years)': 4.090909090909091}, {'Department': 'Finance', 'Time in Current Role (Years)': 4.384615384615385}, {'Department': 'Marketing', 'Time in Current Role (Years)': 4.431818181818182}, {'Department': 'Operations', 'Time in Current Role (Years)': 5.3125}, {'Department': 'Sales', 'Time in Current Role (Years)': 6.005263157894737}]
+--- last message ---
+Perfect! I have the average Time in Current Role per Department for active employees. Let me verify this is correct and provide the final answer.
+OUTPUT (scored wrong):
+status completed; 5 row(s):
+  {"Department": "Engineering", "Time in Current Role (Years)": 4.090909090909091}
+  {"Department": "Finance", "Time in Current Role (Years)": 4.384615384615385}
+  {"Department": "Marketing", "Time in Current Role (Years)": 4.431818181818182}
+  {"Department": "Operations", "Time in Current Role (Years)": 5.3125}
+  {"Department": "Sales", "Time in Current Role (Years)": 6.005263157894737}
+
+CELL GROUP 3 (seeds 2; 1 wrong cell(s) with this trace and output)
+TRACE:
+--- run 1 (run_python) ---
+# First, let's explore the data to understand it better
+print("DataFrame shape:", df.shape)
+print("\nColumns:", df.columns.tolist())
+print("\nFirst few rows:")
+print(df.head())
+print("\nStatus values:")
+print(df['Status'].value_counts())
+--- output the model saw ---
+ran OK but `result` was not set.
+--- run 2 (run_python) ---
+# Filter for active employees (Status = 'Active')
+active_employees = df[df['Status'] == 'Active']
+
+# Calculate average Time in Current Role per Department
+result = active_employees.groupby('Department')['Time in Current Role (Years)'].mean()
+
+print("Average Time in Current Role per Department (Active Employees):")
+print(result)
+--- output the model saw ---
+frame 'result': 5 rows x 2 cols ['Department', 'Time in Current Role (Years)']
+head: [{'Department': 'Engineering', 'Time in Current Role (Years)': 4.090909090909091}, {'Department': 'Finance', 'Time in Current Role (Years)': 4.384615384615385}, {'Department': 'Marketing', 'Time in Current Role (Years)': 4.431818181818182}, {'Department': 'Operations', 'Time in Current Role (Years)': 5.3125}, {'Department': 'Sales', 'Time in Current Role (Years)': 6.005263157894737}]
+--- run 3 (final_answer) ---
+# Filter for active employees (Status = 'Active')
+active_employees = df[df['Status'] == 'Active']
+
+# Calculate average Time in Current Role per Department
+result = active_employees.groupby('Department')['Time in Current Role (Years)'].mean()
+--- output the model saw ---
+frame 'result': 5 rows x 2 cols ['Department', 'Time in Current Role (Years)']
+head: [{'Department': 'Engineering', 'Time in Current Role (Years)': 4.090909090909091}, {'Department': 'Finance', 'Time in Current Role (Years)': 4.384615384615385}, {'Department': 'Marketing', 'Time in Current Role (Years)': 4.431818181818182}, {'Department': 'Operations', 'Time in Current Role (Years)': 5.3125}, {'Department': 'Sales', 'Time in Current Role (Years)': 6.005263157894737}]
+--- last message ---
+Perfect! I have the average Time in Current Role per Department for active employees. Let me set this as the final answer:
+OUTPUT (scored wrong):
+status completed; 5 row(s):
+  {"Department": "Engineering", "Time in Current Role (Years)": 4.090909090909091}
+  {"Department": "Finance", "Time in Current Role (Years)": 4.384615384615385}
+  {"Department": "Marketing", "Time in Current Role (Years)": 4.431818181818182}
+  {"Department": "Operations", "Time in Current Role (Years)": 5.3125}
+  {"Department": "Sales", "Time in Current Role (Years)": 6.005263157894737}
+
+Write your reasoning first. Then end your answer with one JSON object, alone in a ```json fence,
+in exactly this form (one entry in "cells" per cell group, in the order shown):
+
+```json
+{
+  "item": "item_30",
+  "intended_specification": "<output columns, filters, grouping, derived values, order/limit>",
+  "cells": [
+    {"group": 1, "label": "SPECIFICATION | PROCEDURE | SCORING | UNCLEAR", "also_procedure": false,
+     "evidence": "<a quotation from the trace, in quotation marks, and why it shows the label>"}
+  ],
+  "notes": "<anything else; may be empty>"
+}
+```
