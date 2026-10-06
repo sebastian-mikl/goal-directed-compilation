@@ -56,25 +56,27 @@ def test_the_percentile_bootstrap_is_seeded_and_stratified():
 
 
 def test_the_script_verifies_and_rewrites_the_committed_stats_byte_for_byte():
-    # As run_all.sh step 6 runs it: this script, then scripts/alias_control_stats.py, which re-appends the
-    # alias_control_* rows of comparisons.csv and rewrites reports/stats/alias_control/ (nothing without its run).
-    alias_dir = STATS / "alias_control"
+    # As run_all.sh step 6 runs it: this script, then scripts/alias_control_stats.py and
+    # scripts/planner_info_stats.py, which re-append the alias_control_* and planner_info_* rows of
+    # comparisons.csv and rewrite reports/stats/alias_control/ and planner_info/ (nothing without their runs).
+    sub_dirs = [STATS / "alias_control", STATS / "planner_info"]
     before = {f: (STATS / f).read_bytes() for f in TRACKED}
-    alias_before = {p.name: p.read_bytes() for p in sorted(alias_dir.glob("*"))}
+    sub_before = {str(p): p.read_bytes() for d in sub_dirs for p in sorted(d.glob("*"))}
     csv_files = [ROOT / "reports" / "paper_numbers.csv", ROOT / "reports" / "paper_numbers.engine.json"]
     csv_before = [p.read_bytes() for p in csv_files]
     env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1"}
-    for script in ("question_clustered_stats.py", "alias_control_stats.py"):
+    for script in ("question_clustered_stats.py", "alias_control_stats.py", "planner_info_stats.py"):
         p = subprocess.run([sys.executable, str(ROOT / "scripts" / script)], cwd=ROOT,
                            env=env, capture_output=True, text=True)
         assert p.returncode == 0, p.stdout[-1500:] + p.stderr[-1500:]
     assert {f: (STATS / f).read_bytes() for f in TRACKED} == before
-    assert {p.name: p.read_bytes() for p in sorted(alias_dir.glob("*"))} == alias_before
+    assert {str(p): p.read_bytes() for d in sub_dirs for p in sorted(d.glob("*"))} == sub_before
     assert [q.read_bytes() for q in csv_files] == csv_before
     lines = (STATS / "verification.txt").read_text().splitlines()
     assert sum(l.startswith("OK ") for l in lines) == 60              # 12 sets x 5 systems
     comps = [c for c in csv.DictReader(open(STATS / "comparisons.csv", encoding="utf-8"))
-             if not c["set"].startswith("alias_control_")]           # those are test_alias_control_stats.py's
+             if not c["set"].startswith(("alias_control_", "planner_info_"))]   # test_alias_control_stats.py's
+                                                                               # and test_planner_info_stats.py's
     assert len(comps) == 112 and {c["alt"] for c in comps} == set(qs.ALTS)
     assert {c["set"] for c in comps} == set(qs.ORDER) | {qs.S40ON}       # 104 over ORDER, 8 for GDC told it may decline
     assert len([c for c in comps if c["set"] in qs.ORDER]) == 104

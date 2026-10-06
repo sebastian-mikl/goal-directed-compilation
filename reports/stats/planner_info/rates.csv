@@ -1,0 +1,17 @@
+set,metric,system,k,n_cells,n_questions,rate_pct,ci_lo_pct,ci_hi_pct,n_eff,questions_with_any
+planner_info_primary_tolerant,silent_wrong,network,2,263,91,0.7605,0.0000,2.2814,130.5000,1
+planner_info_primary_tolerant,silent_wrong,planner_gdcinfo,5,263,91,1.9011,0.0000,4.9430,99.2308,2
+planner_info_primary_tolerant,accuracy,network,258,263,91,98.0989,95.0570,100.0000,99.2308,89
+planner_info_primary_tolerant,accuracy,planner_gdcinfo,258,263,91,98.0989,95.0570,100.0000,99.2308,89
+planner_info_primary_strict,silent_wrong,network,2,263,91,0.7605,0.0000,2.2814,130.5000,1
+planner_info_primary_strict,silent_wrong,planner_gdcinfo,5,263,91,1.9011,0.0000,4.9430,99.2308,2
+planner_info_primary_strict,accuracy,network,258,263,91,98.0989,95.0570,100.0000,99.2308,89
+planner_info_primary_strict,accuracy,planner_gdcinfo,258,263,91,98.0989,95.0570,100.0000,99.2308,89
+planner_info_spider_tolerant,silent_wrong,network,5,135,27,3.7037,0.0000,11.1111,26.0000,1
+planner_info_spider_tolerant,silent_wrong,planner_gdcinfo,20,135,27,14.8148,3.7037,29.6296,24.2105,4
+planner_info_spider_tolerant,accuracy,network,125,135,27,92.5926,81.4815,100.0000,25.0000,25
+planner_info_spider_tolerant,accuracy,planner_gdcinfo,105,135,27,77.7778,62.9630,92.5926,25.2000,21
+planner_info_spider_strict,silent_wrong,network,10,135,27,7.4074,0.0000,18.5185,25.0000,2
+planner_info_spider_strict,silent_wrong,planner_gdcinfo,25,135,27,18.5185,7.4074,33.3333,25.0000,5
+planner_info_spider_strict,accuracy,network,120,135,27,88.8889,77.7778,100.0000,27.6923,24
+planner_info_spider_strict,accuracy,planner_gdcinfo,100,135,27,74.0741,59.2593,88.8889,26.9231,20

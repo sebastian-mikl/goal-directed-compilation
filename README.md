@@ -77,8 +77,9 @@ the lines below, and nothing in them is an error.
    `table2_crossdomain.{md,tex}`.
 6. **Statistics** (`scripts/question_clustered_stats.py`): `reports/stats/`, after checking
    that every outcome-class count equals the CSV. The step then runs
-   `scripts/alias_control_stats.py` ([The alias control](#the-alias-control)), which writes nothing
-   when the alias control's results file is absent.
+   `scripts/alias_control_stats.py` ([The alias control](#the-alias-control)) and
+   `scripts/planner_info_stats.py` ([The equal-information run](#the-equal-information-run-of-the-planner)),
+   each of which writes nothing when its results file is absent.
 7. **Calls and refusals** (`scripts/calls_and_refusals.py`): `reports/calls_and_refusals.csv`,
    the mean LLM calls per query, the in-scope refusal rate and the out-of-scope decline rate of
    the five systems on claude-sonnet-4-5 and on the open-weights model of `local_model/`, over
@@ -238,6 +239,27 @@ as every GDC cell is scored; with `--control` it reproduces the reported GDC emp
 `scripts/alias_control_stats.py`, run in step 6, writes `reports/stats/alias_control/` (the eight
 "active" questions per seed with the pre-registered outcome, the regression check on the other 73
 questions, the rates and `headline.csv`) and appends the `alias_control_*` sets to
+`reports/stats/comparisons.csv`. No builder reads these files, so no reported cell changes.
+
+## The equal-information run of the planner
+
+The planner writes the steps for GDC's executor in one call, but its prompt carried the shared
+briefing rather than GDC's richer domain information. The equal-information run gives it that
+information: the planner (system id `planner_gdcinfo`), claude-sonnet-4-5, temperature 0, under its
+reported prompt with the briefing replaced by the domain lines of GDC's recorded prompt (s31 for
+employee, s45 for Spider and the held-out databases). It covers the 81 employee in-scope questions
+(seeds 0 to 2), the 10 held-out answer-tier questions (seeds 0 and 1) and the 27 Spider answer-tier
+questions (seeds 0 to 4): 398 cells. Its pre-registration, committed before the run, is
+`review/planner_info_prereg.md`. `scripts/planner_info_prompt.py` builds the prompts, and
+`review/planner_info_split.md` lists every line of GDC's prompt as kept, mixed (only its domain part
+is sent) or out (GDC's output format), with a reason each. The runner is
+`scripts/run_planner_info.py` (`--dry` makes no API call). The cells are
+`results/results_temp0_planner_gdcinfo.jsonl`; its `.provenance.json` records every prompt sent,
+its sha256 and its diff from the reported planner prompt, the engine and the cost, and `.spend.json`
+the billed ledger. `scripts/planner_info_stats.py`, run in step 6, replays the cells through the
+executor as every planner cell is scored and writes `reports/stats/planner_info/` (the rates, the
+per-database table, every question on which the informed planner and GDC differ, `headline.csv`
+with the pre-registered outcome). It also appends the `planner_info_*` sets to
 `reports/stats/comparisons.csv`. No builder reads these files, so no reported cell changes.
 
 ## What's not included
