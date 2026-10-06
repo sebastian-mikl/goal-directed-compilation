@@ -56,11 +56,24 @@ def kappa(a: list[str], b: list[str]) -> float:
     return (po - pe) / (1 - pe) if pe < 1 else 1.0
 
 
-def check(rows: list[dict]) -> None:
-    """The labelled cells are the scope's, and the CSV agrees with the raw passes."""
+def tolerant_class(G, c: dict) -> str:
+    """The cell's class under tie-tolerant scoring (s48t), with the scorer the paper uses for its domain."""
+    if c["group"] == "employee":
+        return G["score_tt_syn"]("employee", c["res"], c["gold"], c["qid"], status=c["status"])[0]
+    if c["group"] == "spider":
+        return G["score_tt"](c["res"], c["gold"], c["qid"], status=c["status"])[0]
+    sys.path.insert(0, str(ROOT / "heldout"))
+    import analyse_heldout as AH
+    return AH.score_tt(c["res"], c["gold"], c["qid"], c["status"])
+
+
+def check(rows: list[dict]) -> dict:
+    """The labelled cells are the scope's, and the CSV agrees with the raw passes. Returns, per pair, whether
+    every one of its cells is also silent_wrong under tie-tolerant scoring."""
     import scripts.error_classification as EC
     G, cells = EC.builder()
-    scope = {(c["system"], c["dom"], c["qid"], c["seed"]) for c in EC.scope(G, cells)}
+    sc = EC.scope(G, cells)
+    scope = {(c["system"], c["dom"], c["qid"], c["seed"]) for c in sc}
     held = {(r["system"], r["domain"], r["qid"], int(r["seed"])) for r in rows if r["row"] == "cell"}
     if scope != held or sum(r["row"] == "cell" for r in rows) != len(held):
         raise SystemExit(f"{CSV_IN.name}: its cells are not the in-scope silent-error cells "
@@ -86,9 +99,14 @@ def check(rows: list[dict]) -> None:
         bad = sorted(r["item"] for r in recs.values() if not r.get("isolated"))
         if bad:
             raise SystemExit(f"{name}: labellers that read other files or used other tools: {bad}")
+    tol: dict = {}
+    for c in sc:
+        pid = EC.pair_id(c["system"], c["dom"], c["qid"])
+        tol[pid] = tol.get(pid, True) and tolerant_class(G, c) == "silent_wrong"
+    return tol
 
 
-def compute(rows: list[dict], out: Path, echo=print) -> dict:
+def compute(rows: list[dict], out: Path, echo=print, tolerant: dict | None = None) -> dict:
     pairs = [r for r in rows if r["row"] == "pair"]
     cells = [r for r in rows if r["row"] == "cell"]
     by = []
@@ -122,6 +140,8 @@ def compute(rows: list[dict], out: Path, echo=print) -> dict:
         {"key": "pooled_procedure", "value": proc, "note": "pairs"},
         {"key": "pooled_scoring", "value": n["SCORING"], "note": "pairs"},
         {"key": "pooled_unclear", "value": unc, "note": "pairs"},
+        *({"key": f"pairs_{s}", "value": sum(1 for p in pairs if p["system"] == s), "note": "silent-error pairs labelled"}
+          for s in POOLED + (CHECK,)),
         {"key": "S_pct", "value": f"{100 * S:.4f}", "note": "SPECIFICATION / (SPECIFICATION + PROCEDURE), pooled pairs"},
         {"key": "unclear_pct", "value": f"{100 * unc_share:.4f}", "note": f"INCONCLUSIVE above {100 * UNCLEAR_MAX:.0f}%"},
         {"key": "outcome", "value": outcome, "note": "pre-registered: A S >= 90%, B S <= 75%, M between"},
@@ -133,8 +153,19 @@ def compute(rows: list[dict], out: Path, echo=print) -> dict:
          "note": "pairs whose repetitions got different final labels"},
     ]
     for k, (a, m, kp) in agree.items():
-        head.append({"key": f"agreement_{k}_pct", "value": f"{100 * a / m:.4f}" if m else "", "note": f"{a} of {m}"})
+        head.append({"key": f"agreement_{k}_pct", "value": f"{100 * a / m:.4f}" if m else "", "numerator": a,
+                     "denominator": m, "note": f"{a} of {m}"})
         head.append({"key": f"kappa_{k}", "value": f"{kp:.4f}", "note": "Cohen's kappa, passes 1 and 2, four labels"})
+    if tolerant is not None:
+        for s in POOLED + (CHECK,):
+            sc_pairs = [p["pair_id"] for p in pairs if p["system"] == s and p["final_label"] == "SCORING"]
+            both = sum(1 for pid in sc_pairs if tolerant.get(pid))
+            head.append({"key": f"scoring_pairs_{s}", "value": len(sc_pairs),
+                         "note": "pairs labelled SCORING"})
+            head.append({"key": f"scoring_pairs_silent_under_both_rules_{s}", "value": both,
+                         "note": "SCORING pairs whose cells are silent_wrong under tie-tolerant scoring as well as strict"})
+    fields = ["key", "value", "numerator", "denominator", "note"]
+    head = [{f: h.get(f, "") for f in fields} for h in head]
     out.mkdir(parents=True, exist_ok=True)
     _write(out / "by_system.csv", by)
     _write(out / "headline.csv", head)
@@ -150,6 +181,9 @@ def compute(rows: list[dict], out: Path, echo=print) -> dict:
           f"UNCLEAR {unc} ({100 * unc_share:.1f}%); OUTCOME {outcome}.",
           f"Sensitivity, also_procedure pairs counted as PROCEDURE ({both}): S = {100 * S_sens:.1f}%.",
           f"GDC check: {'pass' if gdc_ok else 'FAIL'} ({', '.join(p['qid'] + ' ' + p['final_label'] for p in gdc)}).",
+          *([] if tolerant is None else ["SCORING pairs still silent errors under tie-tolerant scoring: " + "; ".join(
+              f"{s} {sum(1 for p in pairs if p['system'] == s and p['final_label'] == 'SCORING' and tolerant.get(p['pair_id']))}"
+              f" of {sum(1 for p in pairs if p['system'] == s and p['final_label'] == 'SCORING')}" for s in POOLED + (CHECK,)) + "."]),
           "Agreement of passes 1 and 2: " + "; ".join(f"{k} {a}/{m} = {100 * a / m:.1f}%, kappa {kp:.3f}"
                                                       for k, (a, m, kp) in agree.items() if m) + ".",
           f"Disagreements ({len(dis)}), resolved by pass 3:"]
@@ -181,9 +215,8 @@ def main(argv=None) -> int:
         return 0
     with open(path, newline="", encoding="utf-8") as fh:
         rows = list(csv.DictReader(fh))
-    if not a.no_check:
-        check(rows)
-    compute(rows, Path(a.out))
+    tolerant = None if a.no_check else check(rows)
+    compute(rows, Path(a.out), tolerant=tolerant)
     return 0
 
 

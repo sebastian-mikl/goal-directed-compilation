@@ -10,6 +10,7 @@ Final pair labels (cells in brackets):
 Pooled (planner, react, code agent): 49 pairs; S = 39/(39+0) = 100.0%; UNCLEAR 0 (0.0%); OUTCOME A.
 Sensitivity, also_procedure pairs counted as PROCEDURE (0): S = 100.0%.
 GDC check: pass (bike_06 SCORING, station_23 SPECIFICATION, world_02 SPECIFICATION).
+SCORING pairs still silent errors under tie-tolerant scoring: planner 0 of 1; react 0 of 1; code_agent 6 of 8; network 0 of 1.
 Agreement of passes 1 and 2: pairs_pooled 48/49 = 98.0%, kappa 0.940; pairs_all 51/52 = 98.1%, kappa 0.945; cells_all 169/174 = 97.1%, kappa 0.927.
 Disagreements (1), resolved by pass 3:
   planner__wta_1__wta_24: pass 1 PROCEDURE, pass 2 SPECIFICATION -> SPECIFICATION
