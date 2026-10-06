@@ -1,0 +1,19 @@
+key,value,note
+pooled_pairs,49,"planner, react, code agent"
+pooled_specification,39,pairs
+pooled_procedure,0,pairs
+pooled_scoring,10,pairs
+pooled_unclear,0,pairs
+S_pct,100.0000,"SPECIFICATION / (SPECIFICATION + PROCEDURE), pooled pairs"
+unclear_pct,0.0000,INCONCLUSIVE above 20%
+outcome,A,"pre-registered: A S >= 90%, B S <= 75%, M between"
+S_pct_also_procedure_as_procedure,100.0000,sensitivity: 0 SPECIFICATION pairs flagged also_procedure counted as PROCEDURE
+gdc_pairs,3,"bike_06 SCORING, station_23 SPECIFICATION, world_02 SPECIFICATION"
+gdc_check,pass,every GDC pair SPECIFICATION or SCORING
+pairs_cells_differ,0,pairs whose repetitions got different final labels
+agreement_pairs_pooled_pct,97.9592,48 of 49
+kappa_pairs_pooled,0.9402,"Cohen's kappa, passes 1 and 2, four labels"
+agreement_pairs_all_pct,98.0769,51 of 52
+kappa_pairs_all,0.9449,"Cohen's kappa, passes 1 and 2, four labels"
+agreement_cells_all_pct,97.1264,169 of 174
+kappa_cells_all,0.9270,"Cohen's kappa, passes 1 and 2, four labels"

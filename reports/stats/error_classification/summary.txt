@@ -1,0 +1,15 @@
+Error classification (review/error_classification_prereg.md): strict silent-error cells, claude-sonnet-4-5,
+in scope and within the vocabulary (employee as run, Spider and held-out answer tiers).
+
+Final pair labels (cells in brackets):
+  planner     SPECIFICATION 15 (52)  PROCEDURE 0 (0)  SCORING 1 (5)  UNCLEAR 0 (0)
+  react       SPECIFICATION 12 (39)  PROCEDURE 0 (0)  SCORING 1 (5)  UNCLEAR 0 (0)
+  code_agent  SPECIFICATION 12 (33)  PROCEDURE 0 (0)  SCORING 8 (28)  UNCLEAR 0 (0)
+  network     SPECIFICATION 2 (7)  PROCEDURE 0 (0)  SCORING 1 (5)  UNCLEAR 0 (0)
+
+Pooled (planner, react, code agent): 49 pairs; S = 39/(39+0) = 100.0%; UNCLEAR 0 (0.0%); OUTCOME A.
+Sensitivity, also_procedure pairs counted as PROCEDURE (0): S = 100.0%.
+GDC check: pass (bike_06 SCORING, station_23 SPECIFICATION, world_02 SPECIFICATION).
+Agreement of passes 1 and 2: pairs_pooled 48/49 = 98.0%, kappa 0.940; pairs_all 51/52 = 98.1%, kappa 0.945; cells_all 169/174 = 97.1%, kappa 0.927.
+Disagreements (1), resolved by pass 3:
+  planner__wta_1__wta_24: pass 1 PROCEDURE, pass 2 SPECIFICATION -> SPECIFICATION

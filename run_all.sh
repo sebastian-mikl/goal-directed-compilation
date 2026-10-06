@@ -136,6 +136,9 @@ echo "[6/7] Question-clustered statistics (employee and Spider) -> reports/stats
 # The equal-information run of the planner (review/planner_info_prereg.md): reports/stats/planner_info/
 # and the planner_info_* rows of comparisons.csv. Writes nothing when its results file is absent.
 "$PY" scripts/planner_info_stats.py
+# The error classification (review/error_classification_prereg.md): reports/stats/error_classification/.
+# Writes nothing when review/error_classification.csv is absent.
+"$PY" scripts/error_classification_stats.py
 echo
 
 echo "[7/7] Calls and refusals per design, claude-sonnet-4-5 and the open-weights model -> reports/calls_and_refusals.csv ..."

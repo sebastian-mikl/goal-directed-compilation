@@ -1,0 +1,17 @@
+system,label,pairs,cells
+planner,SPECIFICATION,15,52
+planner,PROCEDURE,0,0
+planner,SCORING,1,5
+planner,UNCLEAR,0,0
+react,SPECIFICATION,12,39
+react,PROCEDURE,0,0
+react,SCORING,1,5
+react,UNCLEAR,0,0
+code_agent,SPECIFICATION,12,33
+code_agent,PROCEDURE,0,0
+code_agent,SCORING,8,28
+code_agent,UNCLEAR,0,0
+network,SPECIFICATION,2,7
+network,PROCEDURE,0,0
+network,SCORING,1,5
+network,UNCLEAR,0,0

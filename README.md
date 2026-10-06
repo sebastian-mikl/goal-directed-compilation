@@ -78,8 +78,9 @@ the lines below, and nothing in them is an error.
 6. **Statistics** (`scripts/question_clustered_stats.py`): `reports/stats/`, after checking
    that every outcome-class count equals the CSV. The step then runs
    `scripts/alias_control_stats.py` ([The alias control](#the-alias-control)) and
-   `scripts/planner_info_stats.py` ([The equal-information run](#the-equal-information-run-of-the-planner)),
-   each of which writes nothing when its results file is absent.
+   `scripts/planner_info_stats.py` ([The equal-information run](#the-equal-information-run-of-the-planner))
+   and `scripts/error_classification_stats.py` ([The error classification](#the-error-classification)),
+   each of which writes nothing when its input file is absent.
 7. **Calls and refusals** (`scripts/calls_and_refusals.py`): `reports/calls_and_refusals.csv`,
    the mean LLM calls per query, the in-scope refusal rate and the out-of-scope decline rate of
    the five systems on claude-sonnet-4-5 and on the open-weights model of `local_model/`, over
@@ -261,6 +262,24 @@ executor as every planner cell is scored and writes `reports/stats/planner_info/
 per-database table, every question on which the informed planner and GDC differ, `headline.csv`
 with the pre-registered outcome). It also appends the `planner_info_*` sets to
 `reports/stats/comparisons.csv`. No builder reads these files, so no reported cell changes.
+
+## The error classification
+
+This asks where the step-writing designs' silent errors come from: their steps (a procedure error),
+or what they took the question to mean (a specification error). It covers every strict silent-error
+cell of the planner, react and the code agent in scope and within the vocabulary (employee as run,
+Spider's and the held-out answer tiers), and GDC's, as a check of the rubric. Text-to-SQL is left out
+because it writes a declarative query. The pre-registration, committed before any labelling, is
+`review/error_classification_prereg.md`. `scripts/error_classification.py` builds one packet per
+(system, question) pair from the recorded results (`review/error_classification/packets/`). Two
+independent passes of fresh sub-agents label each pair from its packet alone, and a third pass
+resolves their disagreements. The raw output of every pass is in
+`review/error_classification/pass1.jsonl` to `pass3.jsonl`. The labels, per cell and per pair, with
+their evidence, are in `review/error_classification.csv`, and the disagreements and a spot-check
+sample are in `review/error_classification/`. `scripts/error_classification_stats.py`, run in step
+6, checks that the labelled cells are exactly the in-scope silent-error cells and agree with the raw
+passes. It then writes `reports/stats/error_classification/`: counts by system and label, S,
+the pre-registered outcome, the agreement figures and the GDC check.
 
 ## What's not included
 

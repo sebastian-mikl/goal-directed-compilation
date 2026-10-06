@@ -514,8 +514,8 @@ def collect(pass_no: int, transcripts: Path, labeller_dir: Path) -> None:
         calls = _tool_calls(rows)
         reads = [c for c in calls if c[0] == "Read"]
         others = [c[0] for c in calls if c[0] not in ("Read", "SubagentHandback")]
-        isolated = (len(reads) == 1 and Path(reads[0][1].get("file_path", "")).resolve() == (sub / f"{item}.md").resolve()
-                    and not others)
+        own = (sub / f"{item}.md").resolve()
+        isolated = bool(reads) and all(Path(c[1].get("file_path", "")).resolve() == own for c in reads) and not others
         rec = {"pass": pass_no, "item": item, "pair_id": its[item]["pair_id"], "agent_id": f.stem.replace("agent-", ""),
                "parsed": parse_json(text), "isolated": isolated,
                "tool_calls": [c[0] for c in calls], "final_text": text.strip()}
